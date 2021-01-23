@@ -1,0 +1,34 @@
+﻿<Window x:Class="极简浏览器Cef.Help" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:极简浏览器Cef"
+        mc:Ignorable="d" Title="帮助" Height="393" Width="538" Icon="favicon.ico" ResizeMode="NoResize">
+    <Grid>
+        <TreeView x:Name="treeView" Margin="0,0,0,42" FontSize="20" FocusVisualStyle="{x:Null}" Focusable="False"
+                Background="White">
+            <TreeViewItem Header="一、无法浏览网页？" IsExpanded="True" Background="White" Focusable="False">
+                <TreeViewItem Header="1、检查网络是否连接" HorizontalAlignment="Left" Width="269" FontSize="18"
+                        Background="White" Focusable="False" />
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="2.启动RegistryIE程序，选择自己的IE版本并修改。" Width="449" FontSize="18" Background="White" />
+                <TreeViewItem Header="3.升级IE浏览器至可升级的最高版本，IE7以上。" HorizontalAlignment="Left" Width="469" FontSize="18"
+                        Focusable="False" Background="White"/>
+            </TreeViewItem>
+            <TreeViewItem Header="二、某些内容显示不全？" IsExpanded="True" Focusable="False">
+                <TreeViewItem Header="1、尝试将软件全屏显示" HorizontalAlignment="Left" Width="469" FontSize="18"
+                        Background="White" Focusable="False" />
+                <TreeViewItem Header="2、将系统默认字体调小" HorizontalAlignment="Left" Width="469" FontSize="18"
+                        Background="White" Focusable="False" />
+                <TreeViewItem Header="3、增大显示器大小" HorizontalAlignment="Left" Width="469" FontSize="18" Background="White"
+                        Focusable="False" />
+            </TreeViewItem>
+            <TreeViewItem Header="三、浏览器莫名其妙的未响应然后崩溃？" IsExpanded="True" Background="White" Focusable="False">
+                <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Width="449" FontSize="18" Background="White"><Run
+                            Text="1、向我们反馈您的使用环境，您输入的网址，您执行的操作，然后升级一个月后推出的新版本" /><Run Text="。如" /><LineBreak /><Run
+                            Text="果没有收到回信" /><Run Text="，请重发邮件，我们会尽快回复。" /></TextBlock>
+            </TreeViewItem>
+        </TreeView>
+        <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="405,315,0,0" VerticalAlignment="Top"
+                Width="75" IsDefault="True" Click="button_Click" />
+
+    </Grid>
+</Window>

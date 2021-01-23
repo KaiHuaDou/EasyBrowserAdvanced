@@ -1,0 +1,29 @@
+﻿<Window x:Class="极简浏览器Cef.About" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="关于极简浏览器Cef" Height="400" Width="400" FontSize="20" ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" KeyDown="tglbts">
+    <Grid>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="70" Margin="90,11,0,0" VerticalAlignment="Top"
+                Width="70" Source="favicon.ico" MouseLeftButtonDown="Circle" RenderTransformOrigin="0.5,0.5" MouseRightButtonDown="Doubleclc">
+
+        </Image>
+        <Label x:Name="label" Content="极简浏览器Cef&#xD;&#xA;    Beta 2" HorizontalAlignment="Left" Margin="185,20,0,0"
+                VerticalAlignment="Top" />
+        <Label x:Name="label1" Content="开发者：范铠齐" HorizontalAlignment="Left" Margin="25,96,0,0" VerticalAlignment="Top" />
+        <Label x:Name="label2" Content="操作系统：Win Xp/Vista/7/8/8.1/10" HorizontalAlignment="Left" Margin="25,130,0,0"
+                VerticalAlignment="Top" />
+        <Label x:Name="label3" Content="#####" HorizontalAlignment="Left" Margin="25,164,0,0"
+                VerticalAlignment="Top" />
+        <Label x:Name="label4" Content="版权所有：FkqSoft©2019~2020&#xD;&#xA;                 范铠齐" HorizontalAlignment="Left"
+                Margin="25,198,0,0" VerticalAlignment="Top" />
+        <Label x:Name="label5" Content="不得私自传播此软件的副本" HorizontalAlignment="Left" Margin="65,256,0,0"
+                VerticalAlignment="Top" Background="White" Foreground="Red" />
+        <Label x:Name="label6" Content="注册码：FKQ-SELF-DEVELOPER" HorizontalAlignment="Left" Margin="32,284,0,0"
+                VerticalAlignment="Top" />
+        <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="292,319,0,0" VerticalAlignment="Top"
+                Width="75" Click="button_Click" />
+        <ToggleButton
+                Content="FkqSoft Inc.是由范铠齐创建的私人&#xD;&#xA;软件公司，致力于极简用户界面和小&#xD;&#xA;巧轻快的软件，同时也开发工具性软&#xD;&#xA;件和系统环境适配器等。"
+                Margin="26,96,27,16" Visibility="Collapsed"></ToggleButton>
+    </Grid>
+</Window>
