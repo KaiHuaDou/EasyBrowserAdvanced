@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using CefSharp;
-using 极简浏览器Cef.Api;
+using 极简浏览器.Api;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     partial class MainWindow
     {

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using 极简浏览器Cef.Api;
+using 极简浏览器.Api;
 using CefSharp;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// WebSource.xaml 的交互逻辑

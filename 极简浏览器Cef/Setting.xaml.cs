@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// Setting.xaml 的交互逻辑

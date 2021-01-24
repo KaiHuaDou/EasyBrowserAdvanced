@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-namespace 极简浏览器Cef.Api
+namespace 极简浏览器.Api
 {
     public enum FileType
     {

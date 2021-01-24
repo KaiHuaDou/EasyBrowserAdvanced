@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using 极简浏览器Cef.Properties;
+using 极简浏览器.Properties;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// About.xaml 的交互逻辑

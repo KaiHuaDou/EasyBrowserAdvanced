@@ -1,6 +1,6 @@
-﻿<Window x:Class="极简浏览器Cef.About" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="极简浏览器.About" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="关于极简浏览器Cef" Height="400" Width="400" FontSize="20" ResizeMode="CanMinimize"
+        Title="关于极简浏览器" Height="400" Width="400" FontSize="20" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" KeyDown="tglbts">
     <Grid>
         <Image x:Name="image" HorizontalAlignment="Left" Height="70" Margin="90,11,0,0" VerticalAlignment="Top"

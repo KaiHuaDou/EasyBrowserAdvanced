@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     public partial class WebBrowserHelper
     {

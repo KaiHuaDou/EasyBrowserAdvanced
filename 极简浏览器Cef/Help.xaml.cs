@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// Help.xaml 的交互逻辑

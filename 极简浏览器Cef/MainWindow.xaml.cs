@@ -6,9 +6,9 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
-using 极简浏览器Cef.Api;
+using 极简浏览器.Api;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

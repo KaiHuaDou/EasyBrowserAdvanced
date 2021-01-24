@@ -1,7 +1,7 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器Cef"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
         xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        x:Class="极简浏览器Cef.MainWindow" Title="极简浏览器Cef" Width="600" WindowStartupLocation="Manual" WindowState="Normal"
+        x:Class="极简浏览器.MainWindow" Title="极简浏览器Cef" Width="600" WindowStartupLocation="Manual" WindowState="Normal"
         Loaded="Window_Loaded" Icon="favicon.ico" Unloaded="Window_Unloaded" Height="500">
     <Window.Resources>
         <ControlTemplate x:Key="FilletTextBox" TargetType="{x:Type TextBox}">

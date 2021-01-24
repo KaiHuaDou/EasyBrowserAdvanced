@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using 极简浏览器Cef.Api;
+using 极简浏览器.Api;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// History.xaml 的交互逻辑

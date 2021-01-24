@@ -2,7 +2,7 @@
 using System.Windows;
 using CefSharp;
 
-namespace 极简浏览器Cef.Api
+namespace 极简浏览器.Api
 {
     public static class BrowserCore
     {

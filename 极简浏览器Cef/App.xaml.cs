@@ -7,7 +7,7 @@ using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 
-namespace 极简浏览器Cef
+namespace 极简浏览器
 {
     /// <summary>
     /// App.xaml 的交互逻辑
