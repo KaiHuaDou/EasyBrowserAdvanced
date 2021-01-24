@@ -76,4 +76,27 @@ public class NewWindowEventArgs : EventArgs
         this.url = url;
     }
 }
+public class DownloadHandler : IDownloadHandler
+{
+    public event EventHandler<DownloadItem> OnBeforeDownloadFired;
+
+    public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
+
+    public void OnBeforeDownload(IWebBrowser browser, IBrowser browser2, DownloadItem downloadItem, IBeforeDownloadCallback callback)
+    {
+        OnBeforeDownloadFired?.Invoke(this, downloadItem);
+        if (!callback.IsDisposed)
+        {
+            using (callback)
+            {
+                callback.Continue(downloadItem.SuggestedFileName, showDialog: true);
+            }
+        }
+    }
+
+    public void OnDownloadUpdated(IWebBrowser browser, IBrowser browser2, DownloadItem downloadItem, IDownloadItemCallback callback)
+    {
+        OnDownloadUpdatedFired?.Invoke(this, downloadItem);
+    }
+}
 

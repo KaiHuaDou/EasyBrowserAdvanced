@@ -44,6 +44,7 @@ namespace 极简浏览器Cef
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
             cwb.StartNewWindow += Cwb_StartNewWindow;
+            cwb.DownloadHandler = new DownloadHandler( );
         }
 
         private void Cwb_StartNewWindow(object sender, NewWindowEventArgs e)
