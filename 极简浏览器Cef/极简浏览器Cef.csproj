@@ -132,6 +132,9 @@
       <DependentUpon>Setting.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebBrowserHelper.cs" />
+    <Compile Include="WebSource.xaml.cs">
+      <DependentUpon>WebSource.xaml</DependentUpon>
+    </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +163,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Setting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WebSource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

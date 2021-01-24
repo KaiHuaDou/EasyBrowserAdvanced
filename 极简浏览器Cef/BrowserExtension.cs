@@ -46,9 +46,12 @@ namespace 极简浏览器Cef
             History history = new History( );
             history.Show( );
         }
-        private void ViewSource_Click(object sender, RoutedEventArgs e)
+        private async void ViewSource_Click(object sender, RoutedEventArgs e)
         {
-            cwb.WebBrowser.ViewSource( );
+            WebSource webSource;
+            string x = await cwb.GetMainFrame( ).GetSourceAsync( );
+            webSource = new WebSource(x);
+            webSource.Show( );
         }
         private void ViewHistory_Click(object sender, RoutedEventArgs e)
         {

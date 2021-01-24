@@ -1,6 +1,7 @@
 ﻿using System;
 using CefSharp;
 using CefSharp.Wpf;
+using Microsoft.Win32;
 
 public class CefLifeSpanHandler : ILifeSpanHandler
 {
