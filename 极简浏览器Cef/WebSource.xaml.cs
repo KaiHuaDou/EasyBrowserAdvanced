@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using 极简浏览器Cef.Api;
+using CefSharp;
 
 namespace 极简浏览器Cef
 {
@@ -11,6 +13,11 @@ namespace 极简浏览器Cef
         {
             InitializeComponent( );
             textBox.Text = text;
+        }
+
+        private async void button_Click(object sender, RoutedEventArgs e)
+        {
+            textBox.Text = await BrowserCore.GetInstance( ).cwb.GetMainFrame( ).GetSourceAsync( );
         }
     }
 }
