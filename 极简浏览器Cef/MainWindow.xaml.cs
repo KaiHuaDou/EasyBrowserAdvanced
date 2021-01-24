@@ -4,10 +4,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 using CefSharp;
-using CefSharp.Wpf;
 using 极简浏览器Cef.Api;
 
 namespace 极简浏览器Cef

@@ -25,7 +25,7 @@ namespace 极简浏览器Cef.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.16.5.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3.0.0.0")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -37,7 +37,7 @@ namespace 极简浏览器Cef.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Pre-release")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Release")]
         public string Type {
             get {
                 return ((string)(this["Type"]));
