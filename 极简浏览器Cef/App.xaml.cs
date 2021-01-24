@@ -44,7 +44,7 @@ namespace 极简浏览器
                 }
                 catch (XamlParseException e)
                 {
-                    System.Windows.MessageBox.Show(e.Message, "极简浏览器Cef", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
+                    System.Windows.MessageBox.Show(e.Message, "极简浏览器", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace 极简浏览器
                 endmsg = "帮助链接:" + e.Exception.HelpLink;
                 DialogResult dr = new DialogResult( );
                 dr = MessageBox.Show(
-                    message + innermsg + endmsg, "极简浏览器Cef",
+                    message + innermsg + endmsg, "极简浏览器",
                     MessageBoxButtons.AbortRetryIgnore,
                     MessageBoxIcon.Error);
                 MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
@@ -119,8 +119,8 @@ namespace 极简浏览器
             JumpTask jumptask = new JumpTask( );
             jumptask.CustomCategory = "任务";
             jumptask.Title = "新建窗口";
-            jumptask.ApplicationPath = AppStartupPath + "\\极简浏览器Cef.exe";
-            jumptask.IconResourcePath = AppStartupPath + "\\极简浏览器Cef.exe";
+            jumptask.ApplicationPath = AppStartupPath + "\\极简浏览器.exe";
+            jumptask.IconResourcePath = AppStartupPath + "\\极简浏览器.exe";
             jumptask.Arguments = "about:blank false";
             jumplist.JumpItems.Add(jumptask);
             jumplist.Apply( );

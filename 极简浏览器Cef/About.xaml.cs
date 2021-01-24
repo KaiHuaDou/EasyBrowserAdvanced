@@ -43,10 +43,10 @@ namespace 极简浏览器
         {
             NotifyIcon _NotifyIcon = new NotifyIcon( );
             _NotifyIcon.BalloonTipText = @"您已成为会员！";
-            _NotifyIcon.Text = @"极简浏览器Cef会员";
+            _NotifyIcon.Text = @"极简浏览器会员";
             _NotifyIcon.Icon = new Icon("favicon.ico");
             _NotifyIcon.Visible = true;
-            _NotifyIcon.BalloonTipTitle = @"极简浏览器Cef会员";
+            _NotifyIcon.BalloonTipTitle = @"极简浏览器会员";
             _NotifyIcon.ShowBalloonTip(2000);
             File.WriteAllText(@"C:\key.ebkey", "Verfilyed!\nFKQSOFT-DEVELOPER");
         }

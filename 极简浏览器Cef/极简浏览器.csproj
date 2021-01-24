@@ -33,9 +33,9 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>zh-Hans</TargetCulture>
-    <ProductName>极简浏览器Cef</ProductName>
+    <ProductName>极简浏览器</ProductName>
     <PublisherName>范铠齐</PublisherName>
-    <SuiteName>极简浏览器Cef</SuiteName>
+    <SuiteName>极简浏览器</SuiteName>
     <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>2.8.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -65,7 +65,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>极简浏览器Cef.App.Program</StartupObject>
+    <StartupObject>极简浏览器.App.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>

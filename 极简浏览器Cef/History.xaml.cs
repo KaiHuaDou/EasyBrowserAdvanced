@@ -23,7 +23,7 @@ namespace 极简浏览器
             System.Windows.Forms.NotifyIcon _NI = new System.Windows.Forms.NotifyIcon( );
             _NI.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             _NI.BalloonTipText = "写入失败，请重试！";
-            _NI.BalloonTipTitle = "极简浏览器Cef";
+            _NI.BalloonTipTitle = "极简浏览器";
             _NI.Text = "写入失败，请重试！";
             _NI.Visible = true;
             _NI.Icon = new System.Drawing.Icon("favicon.ico");

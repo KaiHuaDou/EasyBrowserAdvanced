@@ -46,7 +46,7 @@ namespace 极简浏览器
                 NotifyIcon _NI = new NotifyIcon( );
                 _NI.BalloonTipIcon = ToolTipIcon.Info;
                 _NI.BalloonTipText = "请输入正确的地址！";
-                _NI.BalloonTipTitle = "极简浏览器Cef";
+                _NI.BalloonTipTitle = "极简浏览器";
                 _NI.Text = "请输入正确的地址！";
                 _NI.Visible = true;
                 _NI.Icon = new System.Drawing.Icon("favicon.ico");

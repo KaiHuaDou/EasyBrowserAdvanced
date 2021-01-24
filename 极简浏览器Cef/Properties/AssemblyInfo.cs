@@ -7,11 +7,11 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("极简浏览器Cef")]
+[assembly: AssemblyTitle("极简浏览器")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FkqSoft")]
-[assembly: AssemblyProduct("极简浏览器Cef")]
+[assembly: AssemblyProduct("极简浏览器")]
 [assembly: AssemblyCopyright("Copyright © FkqSoft  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

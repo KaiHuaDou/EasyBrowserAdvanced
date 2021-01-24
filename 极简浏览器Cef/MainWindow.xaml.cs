@@ -96,7 +96,7 @@ namespace 极简浏览器
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
-                this.Title = cwb.Title + " - 极简浏览器Cef";
+                this.Title = cwb.Title + " - 极简浏览器";
                 FileApi.Write(cwb.Address, FileType.History);
             });
         }
