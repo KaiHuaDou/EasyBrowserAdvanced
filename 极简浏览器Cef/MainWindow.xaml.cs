@@ -47,18 +47,19 @@ namespace 极简浏览器
 
         private void Cwb_StartNewWindow(object sender, NewWindowEventArgs e)
         {
-            NewInstance.StartNewInstance(e.url);
+            NewInstance.StartNewInstance(e.Url);
+            MessageBox.Show(e.Url);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(App.Program.InputArgu) != false)
+                if (App.Program.InputArgu != "")
                 {
                     BrowserCore.Navigate(App.Program.InputArgu);
                 }
-                else if (string.IsNullOrEmpty(Url) && Url != ".")
+                else if (Url != null && Url != "" && Url != ".")
                 {
                     BrowserCore.Navigate(Url);
                 }
@@ -160,7 +161,7 @@ namespace 极简浏览器
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        protected virtual void Dispose(bool dispose)
+        protected virtual void Dispose(bool IsDispose)
         {
             BrowserCore.GetInstance( ).cwb.Dispose( );
         }

@@ -18,9 +18,6 @@ namespace 极简浏览器
         public static string[] BadSectence = {"fuck", "bitch", "die", "去死", "脑残", "有病", "骚货", "狗屁", "TMD", "NMD", "我草", "卧槽", "我擦", "他妈的", "你妈的", "操你妈", "草泥马", "他妈的"};
         static string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         JumpList jumplist = new JumpList( );
-
-        public static object BadSentence { get; internal set; }
-
         public class Program
         {
             public static string InputArgu ="";

@@ -12,7 +12,7 @@ namespace 极简浏览器.Api
             {
                 if (window is MainWindow)
                 {
-                    return (MainWindow) window;
+                    return window as MainWindow;
                 }
             }
             throw new InvalidOperationException( );

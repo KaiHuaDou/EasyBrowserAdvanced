@@ -12,13 +12,12 @@ namespace 极简浏览器
     /// </summary>
     public partial class History : Window
     {
-        string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         public History( )
         {
             InitializeComponent( );
         }
         
-        void ShowFileError()
+        static void ShowFileError()
         {
             System.Windows.Forms.NotifyIcon _NI = new System.Windows.Forms.NotifyIcon( );
             _NI.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -28,6 +27,7 @@ namespace 极简浏览器
             _NI.Visible = true;
             _NI.Icon = new System.Drawing.Icon("favicon.ico");
             _NI.ShowBalloonTip(2000);
+            _NI.Dispose( );
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
