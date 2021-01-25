@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
+using 极简浏览器.Properties;
 
 namespace 极简浏览器
 {
@@ -44,7 +45,7 @@ namespace 极简浏览器
                 }
                 catch (XamlParseException e)
                 {
-                    System.Windows.MessageBox.Show(e.Message, "极简浏览器", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
+                    System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
             }
         }
@@ -72,7 +73,7 @@ namespace 极简浏览器
         }
         static void shownoaccsses()
         {
-            MessageBox.Show("您已被取消软件使用资格");
+            MessageBox.Show(极简浏览器.Properties.Resources.Accsses_cancel);
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
@@ -88,12 +89,12 @@ namespace 极简浏览器
                     + e.Exception.TargetSite + "\n" + e.Exception.HelpLink);
                 //MessageBox
                 string message, innermsg, endmsg;
-                message = "很抱歉，程序发生了未处理的异常\n";
-                innermsg = "原因:" + e.Exception.Message + "\n" + e.Exception.Source + "程序集中的" + e.Exception.TargetSite + "方法引发了此异常。\n";
-                endmsg = "帮助链接:" + e.Exception.HelpLink;
+                message = 极简浏览器.Properties.Resources.Excep_msg;
+                innermsg = 极简浏览器.Properties.Resources.Excep_inmsg1 + e.Exception.Message + "\n" + e.Exception.Source + 极简浏览器.Properties.Resources.Excep_inmsg2 + e.Exception.TargetSite + 极简浏览器.Properties.Resources.Excep_inmsg3;
+                endmsg = 极简浏览器.Properties.Resources.Excep_endmsg + e.Exception.HelpLink;
                 DialogResult dr = new DialogResult( );
                 dr = MessageBox.Show(
-                    message + innermsg + endmsg, "极简浏览器",
+                    message + innermsg + endmsg, 极简浏览器.Properties.Resources.BrowserName,
                     MessageBoxButtons.AbortRetryIgnore,
                     MessageBoxIcon.Error);
                 MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;

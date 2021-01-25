@@ -41,17 +41,7 @@ namespace 极简浏览器
                 File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", wb.Source.ToString( ));
                 this.Close( );
             }
-            catch (Exception)
-            {
-                NotifyIcon _NI = new NotifyIcon( );
-                _NI.BalloonTipIcon = ToolTipIcon.Info;
-                _NI.BalloonTipText = "请输入正确的地址！";
-                _NI.BalloonTipTitle = "极简浏览器";
-                _NI.Text = "请输入正确的地址！";
-                _NI.Visible = true;
-                _NI.Icon = new System.Drawing.Icon("favicon.ico");
-                _NI.ShowBalloonTip(2000);
-            }
+            catch (Exception){ }
         }
 
         private void Loading(object sender, RoutedEventArgs e)

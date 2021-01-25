@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using CefSharp;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    partial class MainWindow
+    partial class MainWindow : IDisposable
     {
         private void About_Click(object sender, RoutedEventArgs e)
         {

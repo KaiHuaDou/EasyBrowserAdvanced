@@ -54,18 +54,18 @@ namespace 极简浏览器
         {
             try
             {
-                if (App.Program.InputArgu != "")
+                if (string.IsNullOrEmpty(App.Program.InputArgu) != false)
                 {
                     BrowserCore.Navigate(App.Program.InputArgu);
                 }
-                else if (Url != "" && Url != null && Url != ".")
+                else if (string.IsNullOrEmpty(Url) && Url != ".")
                 {
                     BrowserCore.Navigate(Url);
                 }
                 else if (!(Isnew == "false"))
                 {
                     string PathStart = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
-                    if (PathStart == "")
+                    if (string.IsNullOrEmpty(PathStart))
                     {
                         File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
                         BrowserCore.Navigate("about:blank");
@@ -142,7 +142,7 @@ namespace 极简浏览器
             {
                 if (UrlTextBox.Text.Contains(App.BadSectence[i]) == true)
                 {
-                    MessageBox.Show("我认为您是不善意的，软件将强行关闭！", "网络文明监察局", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                    MessageBox.Show(Properties.Resources.Access_killdown, Properties.Resources.Access_kdtitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
                     try
                     { File.Create("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin"); }
                     catch (Exception) { }
@@ -155,8 +155,12 @@ namespace 极简浏览器
                 }
             }
         }
-
-        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool dispose)
         {
             BrowserCore.GetInstance( ).cwb.Dispose( );
         }

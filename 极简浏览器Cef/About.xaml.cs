@@ -39,29 +39,12 @@ namespace 极简浏览器
             story.Begin( );
         }
 
-        private void Doubleclc(object sender, MouseButtonEventArgs e)
-        {
-            NotifyIcon _NotifyIcon = new NotifyIcon( );
-            _NotifyIcon.BalloonTipText = @"您已成为会员！";
-            _NotifyIcon.Text = @"极简浏览器会员";
-            _NotifyIcon.Icon = new Icon("favicon.ico");
-            _NotifyIcon.Visible = true;
-            _NotifyIcon.BalloonTipTitle = @"极简浏览器会员";
-            _NotifyIcon.ShowBalloonTip(2000);
-            File.WriteAllText(@"C:\key.ebkey", "Verfilyed!\nFKQSOFT-DEVELOPER");
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             label3.Content = "版本："
                 + Settings.Default.Attach + " "
                 + Settings.Default.Version + " "
                 + Settings.Default.Type;
-        }
-
-        private void tglbts(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-
         }
     }
 }

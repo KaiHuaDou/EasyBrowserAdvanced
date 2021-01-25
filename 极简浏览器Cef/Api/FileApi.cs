@@ -65,7 +65,7 @@ namespace 极简浏览器.Api
             {
                 checkBox = new CheckBox( );
                 checkBox.Content = sr.ReadLine( );
-                if ((string)checkBox.Content == "")
+                if (string.IsNullOrEmpty((string)checkBox.Content) == true)
                     continue;
                 list.Add(checkBox);
             }

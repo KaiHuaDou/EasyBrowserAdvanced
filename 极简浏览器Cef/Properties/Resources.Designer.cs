@@ -22,7 +22,7 @@ namespace 极简浏览器.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace 极简浏览器.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("极简浏览器.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,102 @@ namespace 极简浏览器.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 网络文明监察局 的本地化字符串。
+        /// </summary>
+        public static string Access_kdtitle {
+            get {
+                return ResourceManager.GetString("Access_kdtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 我认为您是不善意的，软件将强行关闭！ 的本地化字符串。
+        /// </summary>
+        public static string Access_killdown {
+            get {
+                return ResourceManager.GetString("Access_killdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您已被取消软件使用资格 的本地化字符串。
+        /// </summary>
+        public static string Accsses_cancel {
+            get {
+                return ResourceManager.GetString("Accsses_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 极简浏览器 的本地化字符串。
+        /// </summary>
+        public static string BrowserName {
+            get {
+                return ResourceManager.GetString("BrowserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 帮助链接: 的本地化字符串。
+        /// </summary>
+        public static string Excep_endmsg {
+            get {
+                return ResourceManager.GetString("Excep_endmsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 原因: 的本地化字符串。
+        /// </summary>
+        public static string Excep_inmsg1 {
+            get {
+                return ResourceManager.GetString("Excep_inmsg1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序集中的 的本地化字符串。
+        /// </summary>
+        public static string Excep_inmsg2 {
+            get {
+                return ResourceManager.GetString("Excep_inmsg2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 方法引发了此异常。\n 的本地化字符串。
+        /// </summary>
+        public static string Excep_inmsg3 {
+            get {
+                return ResourceManager.GetString("Excep_inmsg3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 很抱歉，程序发生了未处理的异常\n 的本地化字符串。
+        /// </summary>
+        public static string Excep_msg {
+            get {
+                return ResourceManager.GetString("Excep_msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 写入失败，请重试！ 的本地化字符串。
+        /// </summary>
+        public static string File_Error {
+            get {
+                return ResourceManager.GetString("File_Error", resourceCulture);
             }
         }
     }

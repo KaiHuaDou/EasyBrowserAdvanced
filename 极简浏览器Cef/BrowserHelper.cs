@@ -79,8 +79,8 @@ public class NewWindowEventArgs : EventArgs
 }
 public class DownloadHandler : IDownloadHandler
 {
+    public delegate void AlarmEventHandler(object sender, EventArgs e);
     public event EventHandler<DownloadItem> OnBeforeDownloadFired;
-
     public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
 
     public void OnBeforeDownload(IWebBrowser browser, IBrowser browser2, DownloadItem downloadItem, IBeforeDownloadCallback callback)
