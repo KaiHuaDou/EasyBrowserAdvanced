@@ -18,7 +18,6 @@ namespace 极简浏览器
         string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         string Url = "";
         public static object document;
-        public ExtChromiumBrowser cwb = new ExtChromiumBrowser( );
         string Isnew;
         public MainWindow( )
         {
@@ -36,19 +35,23 @@ namespace 极简浏览器
             //Initialize
             InitializeComponent( );
 
-            //ChromiumWebBrowser
-            cwb = new ExtChromiumBrowser( );
-            CWBGrid.Children.Add(cwb);
+            //ChromiumWebBrowsers
+            cwb.Margin = new Thickness(0, 0, 0, 0);
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
             cwb.StartNewWindow += Cwb_StartNewWindow;
+            cwb.TitleChanged += Cwb_TitleChanged;
             cwb.DownloadHandler = new DownloadHandler( );
+        }
+
+        private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            this.Title = cwb.Title + " - 极简浏览器";
         }
 
         private void Cwb_StartNewWindow(object sender, NewWindowEventArgs e)
         {
             NewInstance.StartNewInstance(e.Url);
-            MessageBox.Show(e.Url);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -97,7 +100,6 @@ namespace 极简浏览器
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
-                this.Title = cwb.Title + " - 极简浏览器";
                 FileApi.Write(cwb.Address, FileType.History);
             });
         }
@@ -121,14 +123,14 @@ namespace 极简浏览器
             {
                 startusBar.Visibility = Visibility.Collapsed;
                 OptionMenu.Visibility = Visibility.Collapsed;
-                BrowserCore.GetInstance( ).cwb.Margin = new Thickness(0, 37, 0, 0);
+                BrowserCore.GetInstance( ).CWBGrid.Margin = new Thickness(0, 37, 0, 0);
                 HidestartusBar.Header = "显示状态栏";
             }
             else
             {
                 startusBar.Visibility = Visibility.Visible;
                 OptionMenu.Visibility = Visibility.Visible;
-                BrowserCore.GetInstance( ).cwb.Margin = new Thickness(0, 37, 0, 35);
+                BrowserCore.GetInstance( ).CWBGrid.Margin = new Thickness(0, 37, 0, 35);
                 HidestartusBar.Header = "隐藏状态栏";
             }
         }
