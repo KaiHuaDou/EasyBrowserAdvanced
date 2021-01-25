@@ -89,7 +89,7 @@ namespace 极简浏览器
             FileApi.Clear(FileType.History);
             foreach (CheckBox cb in listBox.Items)
             {
-                if (cb.IsChecked != true)
+                if (cb.IsChecked == false)
                 {
                     FileApi.Write((string) cb.Content, FileType.History);
                     lc.Add(cb);
