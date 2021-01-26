@@ -35,7 +35,18 @@ namespace 极简浏览器
         }
 
 
-        public bool OnBeforePopup(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
+        public bool OnBeforePopup(IWebBrowser chromiumWebBrowser, 
+            IBrowser browser, 
+            IFrame frame, 
+            string targetUrl, 
+            string targetFrameName, 
+            WindowOpenDisposition targetDisposition, 
+            bool userGesture, 
+            IPopupFeatures popupFeatures, 
+            IWindowInfo windowInfo, 
+            IBrowserSettings browserSettings, 
+            ref bool noJavascriptAccess, 
+            out IWebBrowser newBrowser)
         {
             ExtChromiumBrowser chromiumWebBrowser1 = (ExtChromiumBrowser) chromiumWebBrowser;
             chromiumWebBrowser1.Dispatcher.Invoke(new Action(( ) =>
@@ -86,7 +97,10 @@ namespace 极简浏览器
         public event EventHandler<DownloadItem> OnBeforeDownloadFired;
         public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
 
-        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
+        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, 
+            IBrowser browser, 
+            DownloadItem downloadItem, 
+            IBeforeDownloadCallback callback)
         {
             OnBeforeDownloadFired?.Invoke(this, downloadItem);
             if (!callback.IsDisposed)
@@ -98,7 +112,10 @@ namespace 极简浏览器
             }
         }
 
-        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
+        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, 
+            IBrowser browser, 
+            DownloadItem downloadItem, 
+            IDownloadItemCallback callback)
         {
             OnDownloadUpdatedFired?.Invoke(this, downloadItem);
         }
@@ -106,17 +123,30 @@ namespace 极简浏览器
     public class MenuHandler : IContextMenuHandler
     {
         public static Window mainWindow { get; set; }
-        void IContextMenuHandler.OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
+        void IContextMenuHandler.OnBeforeContextMenu(
+            IWebBrowser browserControl, 
+            IBrowser browser, IFrame frame, 
+            IContextMenuParams parameters, 
+            IMenuModel model)
         {
 
         }
 
-        bool IContextMenuHandler.OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
+        bool IContextMenuHandler.OnContextMenuCommand(
+            IWebBrowser browserControl, 
+            IBrowser browser, 
+            IFrame frame, 
+            IContextMenuParams parameters, 
+            CefMenuCommand commandId, 
+            CefEventFlags eventFlags)
         {
             return true;
         }
 
-        void IContextMenuHandler.OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
+        void IContextMenuHandler.OnContextMenuDismissed(
+            IWebBrowser browserControl, 
+            IBrowser browser, 
+            IFrame frame)
         {
             var chromiumWebBrowser = (ChromiumWebBrowser) browserControl;
 
@@ -126,7 +156,13 @@ namespace 极简浏览器
             });
         }
 
-        bool IContextMenuHandler.RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
+        bool IContextMenuHandler.RunContextMenu(
+            IWebBrowser browserControl, 
+            IBrowser browser, 
+            IFrame frame, 
+            IContextMenuParams parameters, 
+            IMenuModel model, 
+            IRunContextMenuCallback callback)
         {
            var chromiumWebBrowser = (ChromiumWebBrowser) browserControl;
             chromiumWebBrowser.Dispatcher.Invoke(( ) =>
@@ -147,27 +183,32 @@ namespace 极简浏览器
                 menu.Closed += handler;
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "前进",
+                    Header = "前进(_F)",
                     Command = new CustomCommand(BrowserCore.GoForward)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "后退",
+                    Header = "后退(_B)",
                     Command = new CustomCommand(BrowserCore.GoBack)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "刷新",
+                    Header = "刷新(_R)",
                     Command = new CustomCommand(BrowserCore.Refresh)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "最小化",
+                    Header = "查看网页源代码(_V)",
+                    Command = new CustomCommand(BrowserCore.GetInstance( ).ViewPageSource)
+                });
+                menu.Items.Add(new MenuItem
+                {
+                    Header = "最小化(_M)",
                     Command = new CustomCommand(MinWindow)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "关闭",
+                    Header = "关闭(_Q)",
                     Command = new CustomCommand(CloseWindow)
                 });
                 chromiumWebBrowser.ContextMenu = menu;

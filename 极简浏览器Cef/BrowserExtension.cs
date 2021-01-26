@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
 
@@ -49,12 +48,16 @@ namespace 极简浏览器
             History history = new History( );
             history.Show( );
         }
-        private async void ViewSource_Click(object sender, RoutedEventArgs e)
+        public async void ViewPageSource()
         {
             WebSource webSource;
             string x = await cwb.GetMainFrame( ).GetSourceAsync( );
             webSource = new WebSource(x);
             webSource.Show( );
+        }
+        private void ViewSource_Click(object sender, RoutedEventArgs e)
+        {
+            ViewPageSource( );
         }
         private void ViewHistory_Click(object sender, RoutedEventArgs e)
         {
