@@ -41,6 +41,8 @@ namespace 极简浏览器
             cwb.FrameLoadEnd += Check;
             cwb.StartNewWindow += Cwb_StartNewWindow;
             cwb.TitleChanged += Cwb_TitleChanged;
+            MenuHandler.mainWindow = this;
+            cwb.MenuHandler = new MenuHandler( );
             cwb.DownloadHandler = new DownloadHandler( );
         }
 
