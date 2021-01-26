@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
-using Microsoft.Win32;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -28,7 +28,6 @@ namespace 极简浏览器
 
         public void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser)
         {
-
         }
 
         public void OnBeforeClose(IWebBrowser chromiumWebBrowser, IBrowser browser)
@@ -61,11 +60,10 @@ namespace 极简浏览器
         {
             this.LifeSpanHandler = new CefLifeSpanHandler( );
         }
-
-        public event EventHandler<NewWindowEventArgs> StartNewWindow;
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            StartNewWindow?.Invoke(this, e);
+            //StartNewWindow?.Invoke(this, e);
+            NewInstance.StartNewInstance(e.Url);
         }
     }
     public class NewWindowEventArgs : EventArgs
@@ -149,8 +147,18 @@ namespace 极简浏览器
                 menu.Closed += handler;
                 menu.Items.Add(new MenuItem
                 {
+                    Header = "前进",
+                    Command = new CustomCommand(BrowserCore.GoForward)
+                });
+                menu.Items.Add(new MenuItem
+                {
+                    Header = "后退",
+                    Command = new CustomCommand(BrowserCore.GoBack)
+                });
+                menu.Items.Add(new MenuItem
+                {
                     Header = "刷新",
-                    Command = new CustomCommand(RefeshPage)
+                    Command = new CustomCommand(BrowserCore.Refresh)
                 });
                 menu.Items.Add(new MenuItem
                 {
@@ -189,17 +197,6 @@ namespace 极简浏览器
                         }
                     ));
         }
-        private void RefeshPage( )
-        {
-            mainWindow.Dispatcher.Invoke(
-                new Action(
-                        delegate
-                        {
-                            BrowserCore.Refresh( );
-                        }
-                    ));
-        }
-
         private static IEnumerable<Tuple<string, CefMenuCommand>> GetMenuItems(IMenuModel model)
         {
             var list = new List<Tuple<string, CefMenuCommand>>( );

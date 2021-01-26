@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
 
@@ -29,6 +30,7 @@ namespace 极简浏览器
             Help help = new Help( );
             help.Show( );
         }
+
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             BrowserCore.Refresh( );

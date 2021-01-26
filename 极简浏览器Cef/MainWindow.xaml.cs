@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -39,7 +40,6 @@ namespace 极简浏览器
             cwb.Margin = new Thickness(0, 0, 0, 0);
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
-            cwb.StartNewWindow += Cwb_StartNewWindow;
             cwb.TitleChanged += Cwb_TitleChanged;
             MenuHandler.mainWindow = this;
             cwb.MenuHandler = new MenuHandler( );
@@ -50,43 +50,41 @@ namespace 极简浏览器
         {
             this.Title = cwb.Title + " - 极简浏览器";
         }
-
-        private void Cwb_StartNewWindow(object sender, NewWindowEventArgs e)
-        {
-            NewInstance.StartNewInstance(e.Url);
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            try
+            Dispatcher.BeginInvoke((Action)delegate ( )
             {
-                if (App.Program.InputArgu != "")
+                try
                 {
-                    BrowserCore.Navigate(App.Program.InputArgu);
-                }
-                else if (Url != null && Url != "" && Url != ".")
-                {
-                    BrowserCore.Navigate(Url);
-                }
-                else if (!(Isnew == "false"))
-                {
-                    string PathStart = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
-                    if (string.IsNullOrEmpty(PathStart))
+                    if (App.Program.InputArgu != "")
                     {
-                        File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
-                        BrowserCore.Navigate("about:blank");
+                        BrowserCore.Navigate(App.Program.InputArgu);
                     }
-                    else
+                    else if (Url != null && Url != "" && Url != ".")
                     {
-                        BrowserCore.Navigate(PathStart);
+                        BrowserCore.Navigate(Url);
+                    }
+                    else if (!(Isnew == "false"))
+                    {
+                        string PathStart = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
+                        if (string.IsNullOrEmpty(PathStart))
+                        {
+                            File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
+                            BrowserCore.Navigate("about:blank");
+                        }
+                        else
+                        {
+                            BrowserCore.Navigate(PathStart);
 
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                this.Close( );
-            }
+                catch (Exception)
+                {
+                    this.Close( );
+
+                }
+            });
         }
 
         private void Load(object sender, RoutedEventArgs e)
