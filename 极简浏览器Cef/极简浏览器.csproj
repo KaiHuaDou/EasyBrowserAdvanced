@@ -241,6 +241,11 @@
   <ItemGroup>
     <Resource Include="resource\Error.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\pepflashplayer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
