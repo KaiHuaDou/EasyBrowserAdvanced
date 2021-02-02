@@ -36,8 +36,8 @@
     <ProductName>极简浏览器</ProductName>
     <PublisherName>范铠齐</PublisherName>
     <SuiteName>极简浏览器</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>2.8.4.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>3.1.0.2</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>

@@ -65,6 +65,8 @@
                 <MenuItem Header="设置(_S)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="Setting_Click" />
                 <MenuItem Header="帮助(_H)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="Help_Click" />
                 <MenuItem Header="关于(_A)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="About_Click" />
+                <MenuItem Header="置顶(_T)" HorizontalAlignment="Left" Width="263" FontSize="24" IsCheckable="True"
+                        Click="Topmost_Checked" />
             </MenuItem>
         </Menu>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"

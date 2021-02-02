@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
@@ -166,6 +167,11 @@ namespace 极简浏览器
         protected virtual void Dispose(bool IsDispose)
         {
             BrowserCore.GetInstance( ).cwb.Dispose( );
+        }
+
+        private void Topmost_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = !this.Topmost;
         }
     }
 }
