@@ -17,16 +17,31 @@ namespace 极简浏览器.Api
         static string HistoryPath =  AppPath + "\\DataBase\\History.db";
         static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
 
-        public static bool Write(string url, FileType fileType)
+        public static bool Write(string title, string url, FileType fileType)
         {
             try
             {
-                if(fileType == FileType.History)
-                    File.AppendAllText(HistoryPath, url + '\n');
+                if (fileType == FileType.History)
+                    File.AppendAllText(HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
                 else
-                    File.AppendAllText(BookMarkPath, url + '\n');
+                    File.AppendAllText(BookMarkPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
             }
             catch(Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool Write(string text, FileType fileType)
+        {
+            try
+            {
+                if (fileType == FileType.History)
+                    File.AppendAllText(HistoryPath, text + "\n");
+                else
+                    File.AppendAllText(BookMarkPath, text + "\n");
+            }
+            catch (Exception)
             {
                 return false;
             }

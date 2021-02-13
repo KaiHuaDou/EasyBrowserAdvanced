@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
+using CefSharp.Wpf;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -18,6 +19,7 @@ namespace 极简浏览器
         string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         string Url = "";
         public static object document;
+        public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
         string Isnew;
         public MainWindow( )
         {
@@ -36,6 +38,7 @@ namespace 极简浏览器
             InitializeComponent( );
 
             //ChromiumWebBrowsers
+            CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0, 0, 0, 0);
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
@@ -43,6 +46,9 @@ namespace 极简浏览器
             MenuHandler.mainWindow = this;
             cwb.MenuHandler = new MenuHandler( );
             cwb.DownloadHandler = new DownloadHandler( );
+            //CefSettings settings = new CefSettings( );
+            //settings.Locale = "zh-CN";
+            //cwb.BrowserSettings = (IBrowserSettings)settings;
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -99,7 +105,7 @@ namespace 极简浏览器
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
-                FileApi.Write(cwb.Address, FileType.History);
+                FileApi.Write(cwb.Title, cwb.Address, FileType.History);
             });
         }
 
@@ -113,7 +119,7 @@ namespace 极简浏览器
             Storyboard.SetTargetProperty(da, new PropertyPath("Value"));
             story.Children.Add(da);
             story.Begin( );
-            UrlTextBox.Text = BrowserCore.GetInstance( ).cwb.Address;
+            UrlTextBox.Text = BrowserCore.GetBrowser( ).Address;
         }
 
         private void StatusBar_ContextMenu_Click(object sender, RoutedEventArgs e)
@@ -164,7 +170,7 @@ namespace 极简浏览器
         }
         protected virtual void Dispose(bool IsDispose)
         {
-            BrowserCore.GetInstance( ).cwb.Dispose( );
+            BrowserCore.GetBrowser( ).Dispose( );
         }
 
         private void Topmost_Checked(object sender, RoutedEventArgs e)

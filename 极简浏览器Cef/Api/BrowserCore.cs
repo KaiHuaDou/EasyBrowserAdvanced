@@ -15,28 +15,39 @@ namespace 极简浏览器.Api
                     return window as MainWindow;
                 }
             }
-            throw new InvalidOperationException( );
+            throw new MemberAccessException( );
+        }
+        public static ExtChromiumBrowser GetBrowser()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    return (((MainWindow)window).cwb) as ExtChromiumBrowser;
+                }
+            }
+            throw new MemberAccessException( );
         }
         public static void Navigate(string url)
         {
-            GetInstance( ).cwb.Address = url;
+            GetBrowser( ).Address = url;
         }
 
         public static void GoBack( )
         {
-            if (GetInstance( ).cwb.CanGoBack == true)
-                GetInstance( ).cwb.Back( );
+            if (GetBrowser( ).CanGoBack == true)
+                GetBrowser( ).Back( );
         }
 
         public static void GoForward( )
         {
-            if (GetInstance( ).cwb.CanGoForward == true)
-                GetInstance( ).cwb.Forward( );
+            if (GetBrowser( ).CanGoForward == true)
+                GetBrowser( ).Forward( );
         }
 
         public static void Refresh( )
         {
-            try{ GetInstance( ).cwb.Reload( ); }
+            try{ GetBrowser( ).Reload( ); }
             catch (Exception) { }
         }
     }

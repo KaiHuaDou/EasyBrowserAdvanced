@@ -7,7 +7,7 @@
         <TabControl x:Name="tabControl" Margin="0,0,0,0">
             <TabItem Header="历史记录">
                 <Grid>
-                    <ListBox x:Name="listBox" Margin="0,0,0,40" BorderThickness="0">
+                    <ListBox x:Name="listBox" Margin="0,0,0,40" BorderThickness="0" FontFamily="Consolas">
                     </ListBox>
                     <Button x:Name="button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
                             Width="167" Content="在新标签页打开(_O)" Click="button_Click" Margin="10,0,0,5" />
@@ -22,7 +22,7 @@
             </TabItem>
             <TabItem Header="书签">
                 <Grid>
-                    <ListBox x:Name="listBox1" Margin="0,0,0,40" BorderThickness="0" />
+                    <ListBox x:Name="listBox1" Margin="0,0,0,40" BorderThickness="0" FontFamily="Consolas" />
                     <Button x:Name="button_b" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
                             Width="167" Content="在新标签页打开(_O)" Click="button_Click1" Margin="10,0,0,5" />
                     <Button x:Name="BookMark_SelectAll_Button" HorizontalAlignment="Left" VerticalAlignment="Bottom"

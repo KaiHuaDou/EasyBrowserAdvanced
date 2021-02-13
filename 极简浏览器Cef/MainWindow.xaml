@@ -20,8 +20,6 @@
             </ContextMenu>
         </Grid.ContextMenu>
         <Grid x:Name="CWBGrid" Margin="0,37,0,35">
-            <local:ExtChromiumBrowser x:Name="cwb">
-            </local:ExtChromiumBrowser>
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
