@@ -16,6 +16,7 @@ namespace 极简浏览器.Api
         static string AppPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         static string HistoryPath =  AppPath + "\\DataBase\\History.db";
         static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
+        static string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
 
         public static bool Write(string title, string url, FileType fileType)
         {
@@ -85,6 +86,32 @@ namespace 极简浏览器.Api
                 list.Add(checkBox);
             }
             return list;
+        }
+        public static string GetStartupPath(string path, string isnew)
+        {
+            string result = "";
+            if (App.Program.InputArgu != "")
+            {
+                result = App.Program.InputArgu;
+            }
+            else if (path != null && path != "" && path != ".")
+            {
+                result = path;
+            }
+            else if (!(isnew == "false"))
+            {
+                string pathFile = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
+                if (string.IsNullOrEmpty(pathFile))
+                {
+                    File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
+                    result = "about:blank";
+                }
+                else
+                {
+                    result = pathFile;
+                }
+            }
+            return result;
         }
     }
 }

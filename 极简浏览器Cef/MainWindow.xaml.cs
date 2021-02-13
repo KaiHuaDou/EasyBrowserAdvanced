@@ -16,7 +16,6 @@ namespace 极简浏览器
     /// </summary>
     public partial class MainWindow : Window
     {
-        string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         string Url = "";
         public static object document;
         public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
@@ -61,33 +60,11 @@ namespace 极简浏览器
             {
                 try
                 {
-                    if (App.Program.InputArgu != "")
-                    {
-                        BrowserCore.Navigate(App.Program.InputArgu);
-                    }
-                    else if (Url != null && Url != "" && Url != ".")
-                    {
-                        BrowserCore.Navigate(Url);
-                    }
-                    else if (!(Isnew == "false"))
-                    {
-                        string PathStart = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
-                        if (string.IsNullOrEmpty(PathStart))
-                        {
-                            File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
-                            BrowserCore.Navigate("about:blank");
-                        }
-                        else
-                        {
-                            BrowserCore.Navigate(PathStart);
-
-                        }
-                    }
+                    FileApi.GetStartupPath(Url, Isnew);
                 }
                 catch (Exception)
                 {
                     this.Close( );
-
                 }
             });
         }
