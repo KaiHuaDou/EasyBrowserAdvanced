@@ -124,7 +124,7 @@ namespace 极简浏览器.Properties {
         }
         
         /// <summary>
-        ///   查找类似 方法引发了此异常。\n 的本地化字符串。
+        ///   查找类似 方法引发了此异常。 的本地化字符串。
         /// </summary>
         public static string Excep_inmsg3 {
             get {
@@ -133,7 +133,7 @@ namespace 极简浏览器.Properties {
         }
         
         /// <summary>
-        ///   查找类似 很抱歉，程序发生了未处理的异常\n 的本地化字符串。
+        ///   查找类似 很抱歉，程序发生了未处理的异常， 的本地化字符串。
         /// </summary>
         public static string Excep_msg {
             get {

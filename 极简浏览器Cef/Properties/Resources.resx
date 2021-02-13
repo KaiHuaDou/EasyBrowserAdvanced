@@ -139,10 +139,10 @@
     <value>程序集中的</value>
   </data>
   <data name="Excep_inmsg3" xml:space="preserve">
-    <value>方法引发了此异常。\n</value>
+    <value>方法引发了此异常。</value>
   </data>
   <data name="Excep_msg" xml:space="preserve">
-    <value>很抱歉，程序发生了未处理的异常\n</value>
+    <value>很抱歉，程序发生了未处理的异常，</value>
   </data>
   <data name="File_Error" xml:space="preserve">
     <value>写入失败，请重试！</value>

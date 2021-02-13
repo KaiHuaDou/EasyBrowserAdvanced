@@ -17,7 +17,7 @@ namespace 极简浏览器
 
         private async void button_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = await BrowserCore.GetInstance( ).cwb.GetMainFrame( ).GetSourceAsync( );
+            textBox.Text = await BrowserCore.GetBrowser( ).GetMainFrame( ).GetSourceAsync( );
         }
     }
 }
