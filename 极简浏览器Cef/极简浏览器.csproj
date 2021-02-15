@@ -119,8 +119,9 @@
     </ApplicationDefinition>
     <Compile Include="Api\BrowserCore.cs" />
     <Compile Include="Api\FileApi.cs" />
+    <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\NewInstance.cs" />
-    <Compile Include="Api\StandardApi.cs" />
+    <Compile Include="Api\Logger.cs" />
     <Compile Include="BrowserExtension.cs" />
     <Compile Include="BrowserHelper.cs" />
     <Compile Include="Help.xaml.cs">

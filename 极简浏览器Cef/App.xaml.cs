@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
+using 极简浏览器.Api;
 using 极简浏览器.Properties;
 
 namespace 极简浏览器
@@ -16,7 +17,6 @@ namespace 极简浏览器
     public partial class App : System.Windows.Application
     {
         public static string[] BadSectence = {"fuck", "bitch", "die", "去死", "脑残", "有病", "骚货", "狗屁", "TMD", "NMD", "我草", "卧槽", "我擦", "他妈的", "你妈的", "操你妈", "草泥马", "他妈的"};
-        static string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         JumpList jumplist = new JumpList( );
         public class Program
         {
@@ -49,18 +49,18 @@ namespace 极简浏览器
 
         static void RuntimeCheckAndAutoFix( )
         {
-            if (Directory.Exists(AppStartupPath + "\\DataBase") == false)
-                Directory.CreateDirectory(AppStartupPath + "\\DataBase");
-            if (Directory.Exists(AppStartupPath + "\\logs") == false)
-                Directory.CreateDirectory(AppStartupPath + "\\logs");
-            if (File.Exists(AppStartupPath + "\\DataBase\\History.db") == false)
-                File.Create(AppStartupPath + "\\DataBase\\History.db");
-            if (File.Exists(AppStartupPath + "\\DataBase\\BookMark.db") == false)
-                File.Create(AppStartupPath + "\\DataBase\\BookMark.db");
-            if (File.Exists(AppStartupPath + "\\DataBase\\Config.db") == false)
-                File.Create(AppStartupPath + "\\DataBase\\Config.db");
-            if (File.Exists(AppStartupPath + "\\logs\\log.log") == false)
-                File.Create(AppStartupPath + "\\logs\\log.log");
+            if (Directory.Exists(FilePath.AppStartupPath + "\\DataBase") == false)
+                Directory.CreateDirectory(FilePath.AppStartupPath + "\\DataBase");
+            if (Directory.Exists(FilePath.AppStartupPath + "\\logs") == false)
+                Directory.CreateDirectory(FilePath.AppStartupPath + "\\logs");
+            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\History.db") == false)
+                File.Create(FilePath.AppStartupPath + "\\DataBase\\History.db");
+            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\BookMark.db") == false)
+                File.Create(FilePath.AppStartupPath + "\\DataBase\\BookMark.db");
+            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\Config.db") == false)
+                File.Create(FilePath.AppStartupPath + "\\DataBase\\Config.db");
+            if (File.Exists(FilePath.AppStartupPath + "\\logs\\log.log") == false)
+                File.Create(FilePath.AppStartupPath + "\\logs\\log.log");
             if(File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
             {
                 Thread t = new Thread(shownoaccsses);
@@ -79,8 +79,7 @@ namespace 极简浏览器
                 MainWindow.TaskbarItemInfo.ProgressValue = 100;
                 MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
                 MainWindow.TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
-                string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
-                string LogPath = AppStartupPath + @"\logs\log.log";
+                string LogPath = FilePath.AppStartupPath + @"\logs\log.log";
                 File.AppendAllText(LogPath ,
                     e.Exception.Message + "\n" + e.Exception.Source + "\n"
                     + e.Exception.TargetSite + "\n" + e.Exception.HelpLink);
@@ -117,8 +116,8 @@ namespace 极简浏览器
             JumpTask jumptask = new JumpTask( );
             jumptask.CustomCategory = "任务";
             jumptask.Title = "新建窗口";
-            jumptask.ApplicationPath = AppStartupPath + "\\极简浏览器.exe";
-            jumptask.IconResourcePath = AppStartupPath + "\\极简浏览器.exe";
+            jumptask.ApplicationPath = FilePath.AppStartupPath + "\\极简浏览器.exe";
+            jumptask.IconResourcePath = FilePath.AppStartupPath + "\\极简浏览器.exe";
             jumptask.Arguments = "about:blank false";
             jumplist.JumpItems.Add(jumptask);
             jumplist.Apply( );

@@ -13,19 +13,15 @@ namespace 极简浏览器.Api
     }
     public static class FileApi
     {
-        static string AppPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
-        static string HistoryPath =  AppPath + "\\DataBase\\History.db";
-        static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
-        static string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
 
         public static bool Write(string title, string url, FileType fileType)
         {
             try
             {
                 if (fileType == FileType.History)
-                    File.AppendAllText(HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
+                    File.AppendAllText(FilePath.HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
                 else
-                    File.AppendAllText(BookMarkPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
+                    File.AppendAllText(FilePath.BookMarkPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
             }
             catch(Exception)
             {
@@ -38,9 +34,9 @@ namespace 极简浏览器.Api
             try
             {
                 if (fileType == FileType.History)
-                    File.AppendAllText(HistoryPath, text + "\n");
+                    File.AppendAllText(FilePath.HistoryPath, text + "\n");
                 else
-                    File.AppendAllText(BookMarkPath, text + "\n");
+                    File.AppendAllText(FilePath.BookMarkPath, text + "\n");
             }
             catch (Exception)
             {
@@ -53,9 +49,9 @@ namespace 极简浏览器.Api
             try
             {
                 if(fileType == FileType.History)
-                    File.WriteAllText(HistoryPath, "");
+                    File.WriteAllText(FilePath.HistoryPath, "");
                 else
-                    File.WriteAllText(BookMarkPath, "");
+                    File.WriteAllText(FilePath.BookMarkPath, "");
             }
             catch(Exception)
             {
@@ -70,11 +66,11 @@ namespace 极简浏览器.Api
             FileStream fs = null;
             if(fileType == FileType.History)
             {
-                fs = new FileStream(HistoryPath, FileMode.OpenOrCreate, FileAccess.Read);
+                fs = new FileStream(FilePath.HistoryPath, FileMode.OpenOrCreate, FileAccess.Read);
             }
             if(fileType == FileType.BookMark)
             {
-                fs = new FileStream(BookMarkPath, FileMode.OpenOrCreate, FileAccess.Read);
+                fs = new FileStream(FilePath.BookMarkPath, FileMode.OpenOrCreate, FileAccess.Read);
             }
             StreamReader sr = new StreamReader(fs);
             while (sr.EndOfStream != true)
@@ -100,10 +96,10 @@ namespace 极简浏览器.Api
             }
             else if (!(isnew == "false"))
             {
-                string pathFile = File.ReadAllText(AppStartupPath + "\\DataBase\\Config.db");
+                string pathFile = File.ReadAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db");
                 if (string.IsNullOrEmpty(pathFile))
                 {
-                    File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", "about:blank");
+                    File.WriteAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db", "about:blank");
                     result = "about:blank";
                 }
                 else

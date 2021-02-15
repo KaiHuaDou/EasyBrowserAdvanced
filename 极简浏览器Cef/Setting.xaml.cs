@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
@@ -37,8 +38,7 @@ namespace 极简浏览器
         {
             try
             {
-                string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
-                File.WriteAllText(AppStartupPath + "\\DataBase\\Config.db", wb.Source.ToString( ));
+                File.WriteAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db", wb.Source.ToString( ));
                 this.Close( );
             }
             catch (Exception){ }
