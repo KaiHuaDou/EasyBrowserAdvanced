@@ -7,7 +7,10 @@ namespace 极简浏览器.Api
     {
         public static string AppPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
         public static string HistoryPath =  AppPath + "\\DataBase\\History.db";
+        public static string DataBaseDirectory =  AppPath + "\\DataBase";
+        public static string LogDirectory =  AppPath + "\\log;
         public static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
-        public static string AppStartupPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
+        public static string ConfigPath =  AppPath + "\\DataBase\\Config.db";
+        public static string AppStartupPath = AppPath;
     }
 }

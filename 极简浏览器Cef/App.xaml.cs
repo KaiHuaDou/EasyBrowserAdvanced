@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -7,7 +6,6 @@ using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using 极简浏览器.Api;
-using 极简浏览器.Properties;
 
 namespace 极简浏览器
 {
@@ -49,26 +47,25 @@ namespace 极简浏览器
 
         static void RuntimeCheckAndAutoFix( )
         {
-            if (Directory.Exists(FilePath.AppStartupPath + "\\DataBase") == false)
-                Directory.CreateDirectory(FilePath.AppStartupPath + "\\DataBase");
-            if (Directory.Exists(FilePath.AppStartupPath + "\\logs") == false)
-                Directory.CreateDirectory(FilePath.AppStartupPath + "\\logs");
-            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\History.db") == false)
-                File.Create(FilePath.AppStartupPath + "\\DataBase\\History.db");
-            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\BookMark.db") == false)
-                File.Create(FilePath.AppStartupPath + "\\DataBase\\BookMark.db");
-            if (File.Exists(FilePath.AppStartupPath + "\\DataBase\\Config.db") == false)
-                File.Create(FilePath.AppStartupPath + "\\DataBase\\Config.db");
-            if (File.Exists(FilePath.AppStartupPath + "\\logs\\log.log") == false)
-                File.Create(FilePath.AppStartupPath + "\\logs\\log.log");
+            if (Directory.Exists(FilePath.DataBaseDirectory) == false)
+                Directory.CreateDirectory(FilePath.DataBaseDirectory);
+            if (Directory.Exists(FilePath.LogDirectory) == false)
+                Directory.CreateDirectory(FilePath.LogDirectory);
+            if (File.Exists(FilePath.HistoryPath) == false)
+                File.Create(FilePath.HistoryPath);
+            if (File.Exists(FilePath.BookMarkPath))
+            if (File.Exists(FilePath.ConfigPath) == false)
+                File.Create(FilePath.ConfigPath);
+            if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
+                File.Create(FilePath.LogDirectory + "\\log.log");
             if(File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
             {
-                Thread t = new Thread(shownoaccsses);
+                Thread t = new Thread(showNoAccsses);
                 t.Start( );
                 App.Current.Shutdown( );
             }
         }
-        static void shownoaccsses()
+        static void showNoAccsses()
         {
             MessageBox.Show(极简浏览器.Properties.Resources.Accsses_cancel);
         }
@@ -79,7 +76,7 @@ namespace 极简浏览器
                 MainWindow.TaskbarItemInfo.ProgressValue = 100;
                 MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
                 MainWindow.TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
-                string LogPath = FilePath.AppStartupPath + @"\logs\log.log";
+                string LogPath = FilePath.LogDirectory + @"\log.log";
                 File.AppendAllText(LogPath ,
                     e.Exception.Message + "\n" + e.Exception.Source + "\n"
                     + e.Exception.TargetSite + "\n" + e.Exception.HelpLink);

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using 极简浏览器.Api;
 
@@ -18,7 +16,7 @@ namespace 极简浏览器
             InitializeComponent( );
         }
 
-        private void Go(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Go(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
@@ -38,7 +36,7 @@ namespace 极简浏览器
         {
             try
             {
-                File.WriteAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db", wb.Source.ToString( ));
+                File.WriteAllText(FilePath.ConfigPath, wb.Source.ToString( ));
                 this.Close( );
             }
             catch (Exception){ }

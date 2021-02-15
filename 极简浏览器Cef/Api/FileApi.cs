@@ -96,10 +96,10 @@ namespace 极简浏览器.Api
             }
             else if (!(isnew == "false"))
             {
-                string pathFile = File.ReadAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db");
+                string pathFile = File.ReadAllText(FilePath.ConfigPath);
                 if (string.IsNullOrEmpty(pathFile))
                 {
-                    File.WriteAllText(FilePath.AppStartupPath + "\\DataBase\\Config.db", "about:blank");
+                    File.WriteAllText(FilePath.ConfigPath, "about:blank");
                     result = "about:blank";
                 }
                 else
