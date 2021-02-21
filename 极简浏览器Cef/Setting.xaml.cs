@@ -24,8 +24,9 @@ namespace 极简浏览器
                 {
                     wb.Navigate(textBox.Text);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Log(ex, path: "\\other.log", shutWhenFail: false);
                     wb.Navigate("http://" + textBox.Text);
                 }
 
@@ -39,7 +40,10 @@ namespace 极简浏览器
                 File.WriteAllText(FilePath.ConfigPath, wb.Source.ToString( ));
                 this.Close( );
             }
-            catch (Exception){ }
+            catch (Exception ex)
+            {
+                Logger.Log(ex, path: "\\debug.log", shutWhenFail: false);
+            }
         }
 
         private void Loading(object sender, RoutedEventArgs e)
@@ -48,8 +52,9 @@ namespace 极简浏览器
             {
                 wb.Navigate(textBox.Text);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Log(ex, path: "\\other.log", shutWhenFail: false);
                 wb.Navigate("http://" + textBox.Text);
             }
 

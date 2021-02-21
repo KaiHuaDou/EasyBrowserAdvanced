@@ -40,6 +40,7 @@ namespace 极简浏览器
                 }
                 catch (XamlParseException e)
                 {
+                    Logger.Log(e, path: "\\error.log", shutWhenFail:true);
                     System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
             }
@@ -71,40 +72,16 @@ namespace 极简浏览器
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            try
-            {
-                MainWindow.TaskbarItemInfo.ProgressValue = 100;
-                MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
-                MainWindow.TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
-                string LogPath = FilePath.LogDirectory + @"\log.log";
-                File.AppendAllText(LogPath ,
-                    e.Exception.Message + "\n" + e.Exception.Source + "\n"
-                    + e.Exception.TargetSite + "\n" + e.Exception.HelpLink);
-                //MessageBox
-                string message, innermsg, endmsg;
-                message = 极简浏览器.Properties.Resources.Excep_msg;
-                innermsg = 极简浏览器.Properties.Resources.Excep_inmsg1 + e.Exception.Message + "\n" + e.Exception.Source + 极简浏览器.Properties.Resources.Excep_inmsg2 + e.Exception.TargetSite + 极简浏览器.Properties.Resources.Excep_inmsg3;
-                endmsg = 极简浏览器.Properties.Resources.Excep_endmsg + e.Exception.HelpLink;
-                DialogResult dr = new DialogResult( );
-                dr = MessageBox.Show(
-                    message + innermsg + endmsg, 极简浏览器.Properties.Resources.BrowserName,
-                    MessageBoxButtons.AbortRetryIgnore,
-                    MessageBoxIcon.Error);
-                MainWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
-                MainWindow.TaskbarItemInfo.Overlay = null;
-                e.Handled = true;
-                if (dr == DialogResult.Abort)
-                    Current.Shutdown(1);
-                if (dr == DialogResult.Retry)
-                    e.Handled = false;
-                if (dr == DialogResult.Ignore)
-                    return;
+            Logger.Log(e.Exception, path: @"\error.log", shutWhenFail: true);
+            DialogResult dr = new DialogResult( );
+            dr = Logger.Message(e.Exception, true);
+            if (dr == DialogResult.Abort)
+                App.Current.Shutdown(1);
+            if (dr == DialogResult.Retry)
+                e.Handled = false;
+            if (dr == DialogResult.Ignore)
                 return;
-            }
-            catch (NullReferenceException)
-            {
-                App.Current.Shutdown( );
-            }
+            return;
         }
 
         private void Application_Startup(object sender, System.Windows.StartupEventArgs e)

@@ -48,7 +48,10 @@ namespace 极简浏览器.Api
         public static void Refresh( )
         {
             try{ GetBrowser( ).Reload( ); }
-            catch (Exception) { }
+            catch (Exception e)
+            {
+                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
+            }
         }
     }
 }

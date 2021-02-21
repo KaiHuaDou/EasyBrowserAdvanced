@@ -23,8 +23,9 @@ namespace 极简浏览器.Api
                 else
                     File.AppendAllText(FilePath.BookMarkPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
                 return false;
             }
             return true;
@@ -38,8 +39,9 @@ namespace 极简浏览器.Api
                 else
                     File.AppendAllText(FilePath.BookMarkPath, text + "\n");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
                 return false;
             }
             return true;
@@ -53,8 +55,9 @@ namespace 极简浏览器.Api
                 else
                     File.WriteAllText(FilePath.BookMarkPath, "");
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
                 return false;
             }
             return true;

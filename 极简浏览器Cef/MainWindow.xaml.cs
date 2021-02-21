@@ -60,10 +60,11 @@ namespace 极简浏览器
             {
                 try
                 {
-                    FileApi.GetStartupPath(Url, Isnew);
+                    BrowserCore.Navigate(FileApi.GetStartupPath(Url, Isnew));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Log(ex, path: "\\debug.log", shutWhenFail: true);
                     this.Close( );
                 }
             });

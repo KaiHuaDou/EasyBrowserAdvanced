@@ -118,6 +118,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Api\BrowserCore.cs" />
+    <Compile Include="Api\CivilizedLanguage.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\NewInstance.cs" />
