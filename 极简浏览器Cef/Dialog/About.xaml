@@ -3,7 +3,7 @@
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Image x:Name="image" HorizontalAlignment="Left" Height="70" Margin="90,11,0,0" VerticalAlignment="Top"
-                Width="70" Source="favicon.ico" MouseLeftButtonDown="Circle" RenderTransformOrigin="0.5,0.5">
+                Width="70" Source="../favicon.ico" MouseLeftButtonDown="Circle" RenderTransformOrigin="0.5,0.5">
         </Image>
         <Label x:Name="label" Content="极简浏览器&#xD;&#xA;       3" HorizontalAlignment="Left" Margin="185,20,0,0"
                 VerticalAlignment="Top" />
