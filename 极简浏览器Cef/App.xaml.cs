@@ -14,7 +14,6 @@ namespace 极简浏览器
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        public static string[] BadSectence = {"fuck", "bitch", "die", "去死", "脑残", "有病", "骚货", "狗屁", "TMD", "NMD", "我草", "卧槽", "我擦", "他妈的", "你妈的", "操你妈", "草泥马", "他妈的"};
         JumpList jumplist = new JumpList( );
         public class Program
         {
