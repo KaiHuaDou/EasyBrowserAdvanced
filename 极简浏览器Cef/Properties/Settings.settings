@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">3.2.0.7</Value>
+      <Value Profile="(Default)">3.2.0.9</Value>
     </Setting>
     <Setting Name="Type" Type="System.String" Scope="User">
       <Value Profile="(Default)">Release</Value>
