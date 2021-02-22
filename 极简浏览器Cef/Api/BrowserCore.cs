@@ -50,7 +50,7 @@ namespace 极简浏览器.Api
             try{ GetBrowser( ).Reload( ); }
             catch (Exception e)
             {
-                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
+                Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
             }
         }
     }

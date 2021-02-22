@@ -6,13 +6,20 @@ using System.Windows.Shell;
 
 namespace 极简浏览器.Api
 {
+    public enum LogType
+    {
+        Debug,
+        Error,
+        Other
+    }
     public static class Logger
     {
-        public static void Log(Exception e, string path = @"\debug.log", bool shutWhenFail = false)
+
+        public static void Log(Exception e, LogType logType = LogType.Debug, bool shutWhenFail = false)
         {
             try
             {
-                string LogPath = FilePath.LogDirectory + path;
+                string LogPath = GenerateLogPath(logType);
                 File.AppendAllText(LogPath,
                     e.Message + "|" + e.Source + "|"
                     + e.TargetSite + "|" + e.HelpLink + "|" + e.StackTrace);
@@ -50,6 +57,16 @@ namespace 极简浏览器.Api
                     App.Current.Shutdown(1);
                 }
                 return DialogResult.None;
+            }
+        }
+        private static string GenerateLogPath(LogType logType)
+        {
+            switch (logType)
+            {
+                case LogType.Debug: return FilePath.LogDirectory + "\\debug.log";
+                case LogType.Error: return FilePath.LogDirectory + "\\error.log";
+                case LogType.Other: return FilePath.LogDirectory + "\\other.log";
+                default: return FilePath.LogDirectory + "\\LOG_EXCEPTION.LOG";
             }
         }
     }

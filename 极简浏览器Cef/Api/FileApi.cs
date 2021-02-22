@@ -25,7 +25,7 @@ namespace 极简浏览器.Api
             }
             catch(Exception e)
             {
-                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
+                Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
                 return false;
             }
             return true;
@@ -41,7 +41,7 @@ namespace 极简浏览器.Api
             }
             catch (Exception e)
             {
-                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
+                Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
                 return false;
             }
             return true;
@@ -57,7 +57,7 @@ namespace 极简浏览器.Api
             }
             catch(Exception e)
             {
-                Logger.Log(e, path: "\\debug.log", shutWhenFail: false);
+                Logger.Log(e ,logType: LogType.Debug, shutWhenFail: false);
                 return false;
             }
             return true;

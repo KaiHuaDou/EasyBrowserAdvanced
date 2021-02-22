@@ -26,7 +26,7 @@ namespace 极简浏览器
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex, path: "\\other.log", shutWhenFail: false);
+                    Logger.Log(ex, logType: LogType.Other, shutWhenFail: false);
                     wb.Navigate("http://" + textBox.Text);
                 }
 
@@ -42,7 +42,7 @@ namespace 极简浏览器
             }
             catch (Exception ex)
             {
-                Logger.Log(ex, path: "\\debug.log", shutWhenFail: false);
+                Logger.Log(ex, logType: LogType.Debug, shutWhenFail: false);
             }
         }
 
@@ -54,7 +54,7 @@ namespace 极简浏览器
             }
             catch (Exception ex)
             {
-                Logger.Log(ex, path: "\\other.log", shutWhenFail: false);
+                Logger.Log(ex, logType: LogType.Other, shutWhenFail: false);
                 wb.Navigate("http://" + textBox.Text);
             }
 

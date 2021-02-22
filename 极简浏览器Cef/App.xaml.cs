@@ -40,7 +40,7 @@ namespace 极简浏览器
                 }
                 catch (XamlParseException e)
                 {
-                    Logger.Log(e, path: "\\error.log", shutWhenFail:true);
+                    Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
                     System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
             }
@@ -72,7 +72,7 @@ namespace 极简浏览器
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.Log(e.Exception, path: @"\error.log", shutWhenFail: true);
+            Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
             DialogResult dr = new DialogResult( );
             dr = Logger.Message(e.Exception, true);
             if (dr == DialogResult.Abort)

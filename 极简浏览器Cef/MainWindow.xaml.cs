@@ -64,7 +64,7 @@ namespace 极简浏览器
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex, path: "\\debug.log", shutWhenFail: true);
+                    Logger.Log(ex, logType: LogType.Debug, shutWhenFail: true);
                     this.Close( );
                 }
             });
