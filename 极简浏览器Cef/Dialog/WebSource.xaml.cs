@@ -4,6 +4,7 @@ using CefSharp;
 using System.Threading;
 using System;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace 极简浏览器
 {
@@ -12,6 +13,7 @@ namespace 极简浏览器
     /// </summary>
     public partial class WebSource : Window
     {
+        string result = "";
         public WebSource(string text)
         {
             InitializeComponent( );
@@ -25,13 +27,7 @@ namespace 极简浏览器
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            string result;
-            //Thread thread = new Thread(delegate ( )
-            //{
-                result = HtmlFormatter.Format(textBox.Text);
-            //});
-            //thread.Start( );
-            textBox.Text = result;
+            textBox.Text = Formatter.Format(textBox.Text);
         }
     }
 }

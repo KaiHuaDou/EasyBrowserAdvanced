@@ -8,7 +8,7 @@ namespace 极简浏览器.Api
     public static class CivilizedLanguage
     {
         public static string[] BadSectence = {"fuck", "bitch", "die", "去死", "脑残", "有病", "骚货", "狗屁", "TMD", "NMD", "我草", "我操", "卧槽", "我擦", "他妈的", "你妈的", "操你妈", "草泥马"};
-        public static void ShowDeniedMessage()
+        public static void ShowDeniedMessage( )
         {
             MessageBox.Show(Properties.Resources.Access_killdown, Properties.Resources.Access_kdtitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
             try
