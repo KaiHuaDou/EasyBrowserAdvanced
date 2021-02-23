@@ -3,6 +3,7 @@
 
 ## 版本更新
 注：详细信息请参照Commit
++ FeatureAdd #7 格式化网页源代码时支持CSS
 + FeatureAdd #6 增加更多日志类型
 + FeatureAdd #5 增加网页源代码格式化的功能
 + FeatureAdd #4 加入全面日志的记录

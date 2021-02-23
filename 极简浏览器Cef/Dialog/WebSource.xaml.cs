@@ -13,7 +13,6 @@ namespace 极简浏览器
     /// </summary>
     public partial class WebSource : Window
     {
-        string result = "";
         public WebSource(string text)
         {
             InitializeComponent( );

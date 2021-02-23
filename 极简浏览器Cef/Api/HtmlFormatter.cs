@@ -215,12 +215,7 @@ namespace 极简浏览器.Api
             }
             catch (Exception e)
             {
-                throw e;
-                return Intput; //{"\r\n"+"您输入的代码有错误，请编译成功后再输入\r\n可能错误提示:\r\n'{'与'}'不匹配\r\n代码行大于5000行" };             
-            }
-            finally
-            {
-                //  return Intput;
+                Logger.Log(e, LogType.Other, false);
             }
             return Intput;
         }
