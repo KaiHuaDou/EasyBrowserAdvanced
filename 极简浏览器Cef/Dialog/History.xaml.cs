@@ -19,15 +19,7 @@ namespace 极简浏览器
         
         static void ShowFileError()
         {
-            System.Windows.Forms.NotifyIcon _NI = new System.Windows.Forms.NotifyIcon( );
-            _NI.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            _NI.BalloonTipText = Properties.Resources.File_Error;
-            _NI.BalloonTipTitle = Properties.Resources.BrowserName;
-            _NI.Text = Properties.Resources.File_Error;
-            _NI.Visible = true;
-            _NI.Icon = new System.Drawing.Icon("favicon.ico");
-            _NI.ShowBalloonTip(2000);
-            _NI.Dispose( );
+            StandardApi.ShowNotifyIcon(Properties.Resources.File_Error);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {

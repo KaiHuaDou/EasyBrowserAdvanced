@@ -13,7 +13,6 @@ namespace 极简浏览器.Api
     }
     public static class FileApi
     {
-
         public static bool Write(string title, string url, FileType fileType)
         {
             try
