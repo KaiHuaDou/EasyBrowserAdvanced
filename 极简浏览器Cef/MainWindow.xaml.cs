@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -84,6 +82,10 @@ namespace 极简浏览器
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
                 FileApi.Write(cwb.Title, cwb.Address, FileType.History);
+                if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.GetPageSource( )) == true)
+                {
+                    label2.Visibility = Visibility.Visible;
+                }
             });
         }
 
@@ -122,6 +124,7 @@ namespace 极简浏览器
         {
             if ((e.Key == Key.Enter || e.Key == Key.Return) && e.Key != Key.ImeProcessed)
             {
+                label2.Visibility = Visibility.Collapsed;
                 Load(sender, new RoutedEventArgs( ));
             }
             if(CivilizedLanguage.CheckIfNotCivilized(UrlTextBox.Text) == true)

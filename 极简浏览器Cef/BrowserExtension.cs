@@ -48,21 +48,18 @@ namespace 极简浏览器
             History history = new History( );
             history.Show( );
         }
-        public async void ViewPageSource()
-        {
-            WebSource webSource;
-            string x = await cwb.GetMainFrame( ).GetSourceAsync( );
-            webSource = new WebSource(x);
-            webSource.Show( );
-        }
         private void ViewSource_Click(object sender, RoutedEventArgs e)
         {
-            ViewPageSource( );
+            StandardApi.ViewPageSource( );
         }
         private void ViewHistory_Click(object sender, RoutedEventArgs e)
         {
             History history = new History( );
             history.Show( );
+        }
+        private void RunJavaScript_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

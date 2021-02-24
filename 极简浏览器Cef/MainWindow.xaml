@@ -1,8 +1,7 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
-        xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600" WindowStartupLocation="Manual" WindowState="Normal"
-        Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
+        xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600"
+        WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
     <Window.Resources>
         <ControlTemplate x:Key="FilletTextBox" TargetType="{x:Type TextBox}">
             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
@@ -36,8 +35,9 @@
                 Background="{x:Null}" FocusVisualStyle="{Binding ElementName=button3,Path=Style}" BorderThickness="0">
             <Image x:Name="image" Height="30" Width="30" Source="resource\刷新.png" />
         </Button>
-        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,72,0" VerticalAlignment="Bottom">
+        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom">
             <Label x:Name="label1" Content="" Height="35" />
+            <Label x:Name="label2" Content="此网页不文明!" Height="35" Visibility="Collapsed" Foreground="Red" />
         </StatusBar>
         <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top"
                 Width="35" FontSize="22" Height="30" Click="AddNewPageButton_Click" Background="{x:Null}"
@@ -45,7 +45,11 @@
             <Image x:Name="image1" Margin="0,0,0,0" Source="resource\添加.png" />
         </Button>
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
-                Width="72">
+                Width="144">
+            <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22">
+                <MenuItem Header="运行JavaScript" HorizontalAlignment="Left" Width="263" FontSize="24"
+                          Click="RunJavaScript_Click"/>
+            </MenuItem>
             <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22">
                 <MenuItem Header="上一页(_P)" HorizontalAlignment="Left" Width="263" FontSize="24"
                         Click="GoForwardButton_Click" />
@@ -55,7 +59,7 @@
                         Click="RefreshButton_Click" />
                 <MenuItem Header="添加新页面(_W)" HorizontalAlignment="Left" Width="263" FontSize="24"
                         Click="AddNewPageButton_Click" />
-                <MenuItem Header="查看网页源代码(_U)" HorizontalAlignment="Left" Width="294" Margin="-1,0,-30,0" FontSize="24"
+                <MenuItem Header="查看网页源代码(_U)" HorizontalAlignment="Left" Width="263" FontSize="24"
                         Click="ViewSource_Click" />
                 <MenuItem Header="设为书签(_B)" HorizontalAlignment="Left" Width="263" Click="SetBookMark_Click" />
                 <MenuItem Header="查看书签(_V)" HorizontalAlignment="Left" Width="263" Click="ViewBookMark_Click" />
@@ -70,7 +74,7 @@
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
                 VerticalAlignment="Top" Height="7" Background="{x:Null}" BorderThickness="0">
         </ProgressBar>
-        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="20"
+        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20"
                 Margin="70,0,70,0" Background="White" KeyDown="Go" Template="{StaticResource FilletTextBox}" />
     </Grid>
 </Window>

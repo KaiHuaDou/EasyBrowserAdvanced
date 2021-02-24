@@ -1,10 +1,26 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using CefSharp;
 
 namespace 极简浏览器.Api
 {
     public static class StandardApi
     {
+        public static string GetPageSource( )
+        {
+            TaskStringVisitor tsv = new TaskStringVisitor( );
+            BrowserCore.GetBrowser( ).GetMainFrame( ).GetText(tsv);
+            while (tsv.Task.IsCompleted == true)
+                ;
+            return tsv.Task.Result;
+        }
+        public static async void ViewPageSource( )
+        {
+            WebSource webSource;
+            string x = await BrowserCore.GetBrowser( ).GetMainFrame( ).GetSourceAsync( );
+            webSource = new WebSource(x);
+            webSource.Show( );
+        }
         public static void ShowNotifyIcon(string text, ToolTipIcon icon = ToolTipIcon.Info, int timeOut = 2000)
         {
             NotifyIcon _NI = new NotifyIcon( );
