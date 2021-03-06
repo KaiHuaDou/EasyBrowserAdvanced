@@ -139,7 +139,7 @@ namespace 极简浏览器
         }
         protected virtual void Dispose(bool IsDispose)
         {
-            BrowserCore.GetBrowser( ).Dispose( );
+            cwb.Dispose( );
         }
 
         private void Topmost_Checked(object sender, RoutedEventArgs e)

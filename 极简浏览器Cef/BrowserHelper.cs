@@ -73,8 +73,10 @@ namespace 极简浏览器
         }
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            //StartNewWindow?.Invoke(this, e);
-            NewInstance.StartNewInstance(e.Url);
+            if (BrowserCore.GetInstance( ).OnlyThis.IsChecked == false)
+                NewInstance.StartNewInstance(e.Url);
+            else
+                BrowserCore.Navigate(e.Url);
         }
     }
     public class NewWindowEventArgs : EventArgs

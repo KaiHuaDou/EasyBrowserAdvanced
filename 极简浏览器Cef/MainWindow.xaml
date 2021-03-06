@@ -47,27 +47,29 @@
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
                 Width="144">
             <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22">
-                <MenuItem Header="敬请期待" HorizontalAlignment="Left" Width="263" FontSize="24"/>
+                <MenuItem Header="敬请期待" HorizontalAlignment="Left" Width="285" FontSize="24" />
             </MenuItem>
             <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22">
-                <MenuItem Header="上一页(_P)" HorizontalAlignment="Left" Width="263" FontSize="24"
+                <MenuItem Header="上一页(_P)" HorizontalAlignment="Left" Width="285" FontSize="24"
                         Click="GoForwardButton_Click" />
-                <MenuItem Header="下一页(_N)" HorizontalAlignment="Left" Width="263" FontSize="24"
+                <MenuItem Header="下一页(_N)" HorizontalAlignment="Left" Width="285" FontSize="24"
                         Click="GoBackButton_Click" />
-                <MenuItem Header="刷新(_R)" HorizontalAlignment="Left" Width="263" FontSize="24"
+                <MenuItem Header="刷新(_R)" HorizontalAlignment="Left" Width="285" FontSize="24"
                         Click="RefreshButton_Click" />
-                <MenuItem Header="添加新页面(_W)" HorizontalAlignment="Left" Width="263" FontSize="24"
+                <MenuItem Header="添加新页面(_W)" HorizontalAlignment="Left" Width="285" FontSize="24"
                         Click="AddNewPageButton_Click" />
-                <MenuItem Header="查看网页源代码(_U)" HorizontalAlignment="Left" Width="263" FontSize="24"
-                        Click="ViewSource_Click" />
-                <MenuItem Header="设为书签(_B)" HorizontalAlignment="Left" Width="263" Click="SetBookMark_Click" />
-                <MenuItem Header="查看书签(_V)" HorizontalAlignment="Left" Width="263" Click="ViewBookMark_Click" />
-                <MenuItem Header="历史记录(_H)" HorizontalAlignment="Left" Width="263" Click="ViewHistory_Click" />
-                <MenuItem Header="设置(_S)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="Setting_Click" />
-                <MenuItem Header="帮助(_H)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="Help_Click" />
-                <MenuItem Header="关于(_A)" HorizontalAlignment="Left" Width="263" FontSize="24" Click="About_Click" />
-                <MenuItem Header="置顶(_T)" HorizontalAlignment="Left" Width="263" FontSize="24" IsCheckable="True"
+                <MenuItem Header="查看网页源代码(_U)" HorizontalAlignment="Left" Width="285" FontSize="24"
+                        Click="ViewSource_Click" Margin="0,0,-22,0" />
+                <MenuItem Header="设为书签(_B)" HorizontalAlignment="Left" Width="285" Click="SetBookMark_Click" />
+                <MenuItem Header="查看书签(_V)" HorizontalAlignment="Left" Width="285" Click="ViewBookMark_Click" />
+                <MenuItem Header="历史记录(_H)" HorizontalAlignment="Left" Width="285" Click="ViewHistory_Click" />
+                <MenuItem Header="设置(_S)" HorizontalAlignment="Left" Width="285" FontSize="24" Click="Setting_Click" />
+                <MenuItem Header="帮助(_H)" HorizontalAlignment="Left" Width="285" FontSize="24" Click="Help_Click" />
+                <MenuItem Header="关于(_A)" HorizontalAlignment="Left" Width="285" FontSize="24" Click="About_Click" />
+                <MenuItem Header="置顶(_T)" HorizontalAlignment="Left" Width="285" FontSize="24" IsCheckable="True"
                         Click="Topmost_Checked" />
+                <MenuItem Header="在本窗口打开(_C)" HorizontalAlignment="Left" Width="263" FontSize="24" IsCheckable="True"
+                        x:Name="OnlyThis" />
             </MenuItem>
         </Menu>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
