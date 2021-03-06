@@ -18,6 +18,8 @@ namespace 极简浏览器.Api
             {
                 if (BrowserCore.GetInstance( ).NotLoging == true)
                     goto skip;
+                if (url == "about:blank")
+                    title = "新标签页";
                 if (fileType == FileType.History)
                     File.AppendAllText(FilePath.HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
                 else
