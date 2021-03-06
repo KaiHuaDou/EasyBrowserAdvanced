@@ -45,7 +45,7 @@ namespace 极简浏览器
             cwb.DownloadHandler = new DownloadHandler( );
             //CefSettings settings = new CefSettings( );
             //settings.Locale = "zh-CN";
-            //cwb.BrowserSettings = (IBrowserSettings)settings;
+            //Cef.Initialize(settings);
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)

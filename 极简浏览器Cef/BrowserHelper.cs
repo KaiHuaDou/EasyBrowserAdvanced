@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
 using 极简浏览器.Api;
