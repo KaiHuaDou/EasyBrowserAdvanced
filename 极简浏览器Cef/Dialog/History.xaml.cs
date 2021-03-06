@@ -109,7 +109,7 @@ namespace 极简浏览器
         {
             foreach (CheckBox cb in listBox.Items)
             {
-                cb.IsChecked = !cb.IsChecked;
+                cb.IsChecked = true;
             }
         }
 
@@ -117,7 +117,7 @@ namespace 极简浏览器
         {
             foreach(CheckBox cb in listBox1.Items)
             {
-                cb.IsChecked = !cb.IsChecked;
+                cb.IsChecked = true;
             }
         }
     }
