@@ -57,9 +57,5 @@ namespace 极简浏览器
             History history = new History( );
             history.Show( );
         }
-        private void RunJavaScript_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
