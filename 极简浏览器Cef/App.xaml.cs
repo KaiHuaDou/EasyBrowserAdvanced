@@ -19,6 +19,7 @@ namespace 极简浏览器
         {
             public static string InputArgu ="";
             public static string Isnew { get; private set; }
+            public static bool isNotLog { get; private set; }
             ///<summary>
             ///应用程序的主入口点。
             ///</summary>
@@ -29,6 +30,7 @@ namespace 极简浏览器
                 {
                     InputArgu = args[0];
                     Isnew = args[1];
+                    isNotLog = Convert.ToBoolean(args[2]);
                 }
                 try
                 {

@@ -18,15 +18,19 @@ namespace 极简浏览器
         public static object document;
         public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
         string Isnew;
+        public bool NotLoging { get { return NoLogs.IsChecked; } set { NoLogs.IsChecked = value; } }
+        public bool IsTopMost { get { return Topmost; } set { Topmost = value; } }
         public MainWindow( )
         {
             Initialize( );
+            NotLoging = App.Program.isNotLog;
             Isnew = App.Program.Isnew;
         }
         public MainWindow(string url)
         {
             Initialize( );
             Url = url;
+            NotLoging = App.Program.isNotLog;
             Isnew = App.Program.Isnew;
         }
         public void Initialize( )

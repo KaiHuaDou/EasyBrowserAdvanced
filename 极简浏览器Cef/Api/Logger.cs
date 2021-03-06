@@ -18,6 +18,10 @@ namespace 极简浏览器.Api
         {
             try
             {
+                if(logType != LogType.Error && BrowserCore.GetInstance().NotLoging)
+                {
+                    goto skip;
+                }
                 string LogPath = GenerateLogPath(logType);
                 File.AppendAllText(LogPath,
                     e.Message + "|" + e.Source + "|"
@@ -28,6 +32,8 @@ namespace 极简浏览器.Api
                 if (shutWhenFail == true)
                     App.Current.Shutdown( );
             }
+            skip:
+            return;
         }
         public static DialogResult Message(Exception e, bool shutWhenFail = false)
         {

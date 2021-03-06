@@ -1,8 +1,7 @@
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
-using System.Collections.Generic;
 
 namespace 极简浏览器.Api
 {
@@ -17,6 +16,8 @@ namespace 极简浏览器.Api
         {
             try
             {
+                if (BrowserCore.GetInstance( ).NotLoging == true)
+                    goto skip;
                 if (fileType == FileType.History)
                     File.AppendAllText(FilePath.HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
                 else
@@ -27,12 +28,15 @@ namespace 极简浏览器.Api
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
                 return false;
             }
+            skip:
             return true;
         }
         public static bool Write(string text, FileType fileType)
         {
             try
             {
+                if (BrowserCore.GetInstance( ).NotLoging == true)
+                    goto skip;
                 if (fileType == FileType.History)
                     File.AppendAllText(FilePath.HistoryPath, text + "\n");
                 else
@@ -43,6 +47,7 @@ namespace 极简浏览器.Api
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
                 return false;
             }
+            skip:
             return true;
         }
         public static bool Clear(FileType fileType)

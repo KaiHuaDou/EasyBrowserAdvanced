@@ -70,6 +70,8 @@
                         Click="Topmost_Checked" />
                 <MenuItem Header="在本窗口打开(_C)" HorizontalAlignment="Left" Width="285" FontSize="24" IsCheckable="True"
                         x:Name="OnlyThis" />
+                <MenuItem Header="无痕模式(_C)" HorizontalAlignment="Left" Width="285" FontSize="24" IsCheckable="True"
+                        x:Name="NoLogs" />
             </MenuItem>
         </Menu>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
