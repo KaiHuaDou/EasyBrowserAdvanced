@@ -6,6 +6,7 @@ namespace 极简浏览器.Api
     public static class FilePath
     {
         public static string AppPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
+        public static string AppRuntime = Path.GetFullPath(Process.GetCurrentProcess( ).MainModule.FileName);
         public static string HistoryPath =  AppPath + "\\DataBase\\History.db";
         public static string DataBaseDirectory =  AppPath + "\\DataBase";
         public static string LogDirectory =  AppPath + "\\log";
