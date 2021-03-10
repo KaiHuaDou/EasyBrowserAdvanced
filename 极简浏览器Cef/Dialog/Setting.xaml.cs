@@ -16,28 +16,11 @@ namespace 极简浏览器
             InitializeComponent( );
         }
 
-        private void Go(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                try
-                {
-                    wb.Navigate(textBox.Text);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex, logType: LogType.Other, shutWhenFail: false);
-                    wb.Navigate("http://" + textBox.Text);
-                }
-
-            }
-        }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                File.WriteAllText(FilePath.ConfigPath, wb.Source.ToString( ));
+                File.WriteAllText(FilePath.ConfigPath, textBox.Text);
                 this.Close( );
             }
             catch (Exception ex)
@@ -46,18 +29,14 @@ namespace 极简浏览器
             }
         }
 
-        private void Loading(object sender, RoutedEventArgs e)
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
-            try
+            string[] files = Directory.GetFiles(FilePath.CacheDirectory);
+            foreach(string x in files)
             {
-                wb.Navigate(textBox.Text);
+                File.Delete(x);
             }
-            catch (Exception ex)
-            {
-                Logger.Log(ex, logType: LogType.Other, shutWhenFail: false);
-                wb.Navigate("http://" + textBox.Text);
-            }
-
+            label2.Visibility = Visibility.Visible;
         }
     }
 }

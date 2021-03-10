@@ -12,6 +12,7 @@ namespace 极简浏览器.Api
         public static string LogDirectory =  AppPath + "\\log";
         public static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
         public static string ConfigPath =  AppPath + "\\DataBase\\Config.db";
+        public static string CacheDirectory = AppPath + "\\GPUCache";
         public static string AppStartupPath = AppPath;
     }
 }

@@ -6,6 +6,10 @@ namespace 极简浏览器.Api
 {
     public static class BrowserCore
     {
+        public static void RunJavaSript(string script)
+        {
+            GetBrowser( ).WebBrowser.ExecuteScriptAsync(script);
+        }
         public static MainWindow GetInstance( )
         {
             foreach (Window window in Application.Current.Windows)
