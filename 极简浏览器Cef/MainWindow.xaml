@@ -47,7 +47,7 @@
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
                 Width="144">
             <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22">
-                <MenuItem Header="敬请期待" HorizontalAlignment="Left" Width="285" FontSize="24" />
+                <MenuItem  x:Name="DevToolsButton" Header="开发者工具(_D)" HorizontalAlignment="Left" Width="285" FontSize="24" Click="DevToolsButton_Click" />
             </MenuItem>
             <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22">
                 <MenuItem Header="上一页(_P)" HorizontalAlignment="Left" Width="285" FontSize="24"

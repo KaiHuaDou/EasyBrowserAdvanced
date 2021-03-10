@@ -150,5 +150,10 @@ namespace 极简浏览器
         {
             this.Topmost = !this.Topmost;
         }
+
+        private void DevToolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserCore.GetBrowser( ).ShowDevTools( );
+        }
     }
 }
