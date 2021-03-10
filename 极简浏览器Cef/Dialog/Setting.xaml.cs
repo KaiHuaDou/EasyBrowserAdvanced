@@ -34,7 +34,14 @@ namespace 极简浏览器
             string[] files = Directory.GetFiles(FilePath.CacheDirectory);
             foreach(string x in files)
             {
-                File.Delete(x);
+                try
+                {
+                    File.Delete(x);
+                }
+                catch (Exception)
+                {
+                    //Donot Log!
+                }
             }
             label2.Visibility = Visibility.Visible;
         }

@@ -153,7 +153,7 @@ namespace 极简浏览器
 
         private void DevToolsButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.GetBrowser( ).ShowDevTools( );
+            BrowserCore.GetBrowser( ).ShowDevTools();
         }
     }
 }
