@@ -243,3 +243,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Special
+/list.txt
+/极简浏览器Cef/favicon1.ico
+/极简浏览器Cef/favicon1.png
