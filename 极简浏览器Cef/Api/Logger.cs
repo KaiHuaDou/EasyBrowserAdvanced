@@ -18,7 +18,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if(logType != LogType.Error && BrowserCore.GetInstance().NotLoging)
+                if(logType != LogType.Error && App.Program.arguments.isNotLogging)
                 {
                     goto skip;
                 }

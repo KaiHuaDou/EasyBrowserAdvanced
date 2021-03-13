@@ -17,21 +17,14 @@ namespace 极简浏览器
         string Url = "";
         public static object document;
         public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
-        string Isnew;
-        public bool NotLoging { get { return NoLogs.IsChecked; } set { NoLogs.IsChecked = value; } }
-        public bool IsTopMost { get { return Topmost; } set { Topmost = value; } }
         public MainWindow( )
         {
             Initialize( );
-            NotLoging = App.Program.isNotLog;
-            Isnew = App.Program.Isnew;
         }
         public MainWindow(string url)
         {
             Initialize( );
             Url = url;
-            NotLoging = App.Program.isNotLog;
-            Isnew = App.Program.Isnew;
         }
         public void Initialize( )
         {
@@ -62,7 +55,7 @@ namespace 极简浏览器
             {
                 try
                 {
-                    BrowserCore.Navigate(FileApi.GetStartupPath(Url, Isnew));
+                    BrowserCore.Navigate(FileApi.GetStartupPath(Url, App.Program.arguments.isNew));
                 }
                 catch (Exception ex)
                 {
@@ -154,6 +147,11 @@ namespace 极简浏览器
         private void DevToolsButton_Click(object sender, RoutedEventArgs e)
         {
             BrowserCore.GetBrowser( ).ShowDevTools();
+        }
+
+        private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -14,7 +14,7 @@ namespace 极简浏览器
         }
         private void AddNewPageButton_Click(object sender, RoutedEventArgs e)
         {
-            NewInstance.StartNewInstance("about:blank", BrowserCore.GetInstance().NotLoging);
+            NewInstance.StartNewInstance("about:blank");
         }
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {

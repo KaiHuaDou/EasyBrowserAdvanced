@@ -9,6 +9,18 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
+    public struct Arguments
+    {
+        public Arguments(int code)
+        {
+            isNew = false;
+            isTopMost = false;
+            isNotLogging = false;
+        }
+        public bool isNew;
+        public bool isTopMost;
+        public bool isNotLogging;
+    }
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
@@ -18,8 +30,7 @@ namespace 极简浏览器
         public class Program
         {
             public static string InputArgu ="";
-            public static string Isnew { get; private set; }
-            public static bool isNotLog { get; private set; }
+            public static Arguments arguments = new Arguments(0);
             ///<summary>
             ///应用程序的主入口点。
             ///</summary>
@@ -29,8 +40,9 @@ namespace 极简浏览器
                 if (args.Length >= 1)
                 {
                     InputArgu = args[0];
-                    Isnew = args[1];
-                    isNotLog = Convert.ToBoolean(args[2]);
+                    arguments.isNew = Convert.ToBoolean(args[1]);
+                    arguments.isNotLogging = Convert.ToBoolean(args[2]);
+                    arguments.isTopMost = Convert.ToBoolean(args[3]);
                 }
                 try
                 {

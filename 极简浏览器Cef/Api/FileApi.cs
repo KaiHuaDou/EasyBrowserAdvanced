@@ -16,7 +16,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if (BrowserCore.GetInstance( ).NotLoging == true)
+                if (App.Program.arguments.isNotLogging == true)
                     goto skip;
                 if (url == "about:blank")
                     title = "新标签页";
@@ -37,7 +37,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if (BrowserCore.GetInstance( ).NotLoging == true)
+                if (App.Program.arguments.isNotLogging == true)
                     goto skip;
                 if (fileType == FileType.History)
                     File.AppendAllText(FilePath.HistoryPath, text + "\n");
@@ -92,7 +92,7 @@ namespace 极简浏览器.Api
             }
             return list;
         }
-        public static string GetStartupPath(string path, string isnew)
+        public static string GetStartupPath(string path, bool isnew)
         {
             string result = "";
             if (App.Program.InputArgu != "")
@@ -103,7 +103,7 @@ namespace 极简浏览器.Api
             {
                 result = path;
             }
-            else if (!(isnew == "false"))
+            else if (!(isnew == false))
             {
                 string pathFile = File.ReadAllText(FilePath.ConfigPath);
                 if (string.IsNullOrEmpty(pathFile))

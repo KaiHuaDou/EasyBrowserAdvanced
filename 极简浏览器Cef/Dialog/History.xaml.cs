@@ -27,7 +27,7 @@ namespace 极简浏览器
             {
                 if (cb.IsChecked == true)
                 {
-                    NewInstance.StartNewInstance((string) cb.Content, BrowserCore.GetInstance( ).NotLoging);
+                    NewInstance.StartNewInstance((string) cb.Content);
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace 极简浏览器
             {
                 if (cb.IsChecked == true)
                 {
-                    NewInstance.StartNewInstance((string)cb.Content, BrowserCore.GetInstance( ).NotLoging);
+                    NewInstance.StartNewInstance((string)cb.Content);
                 }
             }
         }
