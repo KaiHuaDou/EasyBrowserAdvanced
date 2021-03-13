@@ -92,18 +92,14 @@ namespace 极简浏览器.Api
             }
             return list;
         }
-        public static string GetStartupPath(string path, bool isnew)
+        public static string GetStartupPath(bool isnew)
         {
             string result = "";
             if (App.Program.InputArgu != "")
             {
                 result = App.Program.InputArgu;
             }
-            else if (path != null && path != "" && path != ".")
-            {
-                result = path;
-            }
-            else if (!(isnew == false))
+            else
             {
                 string pathFile = File.ReadAllText(FilePath.ConfigPath);
                 if (string.IsNullOrEmpty(pathFile))

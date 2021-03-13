@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
+using CefSharp.Enums;
 using CefSharp.Wpf;
 using 极简浏览器.Api;
 
@@ -14,17 +15,11 @@ namespace 极简浏览器
     /// </summary>
     public partial class MainWindow : Window
     {
-        string Url = "";
         public static object document;
         public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
         public MainWindow( )
         {
             Initialize( );
-        }
-        public MainWindow(string url)
-        {
-            Initialize( );
-            Url = url;
         }
         public void Initialize( )
         {
@@ -32,6 +27,7 @@ namespace 极简浏览器
             InitializeComponent( );
 
             //ChromiumWebBrowsers
+            cwb = new ExtChromiumBrowser( );
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0, 0, 0, 0);
             cwb.AddressChanged += Running;
@@ -39,10 +35,7 @@ namespace 极简浏览器
             cwb.TitleChanged += Cwb_TitleChanged;
             MenuHandler.mainWindow = this;
             cwb.MenuHandler = new MenuHandler( );
-            cwb.DownloadHandler = new DownloadHandler( );
-            //CefSettings settings = new CefSettings( );
-            //settings.Locale = "zh-CN";
-            //Cef.Initialize(settings);
+            cwb.DownloadHandler = new DownloadHandler( );                    
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -55,12 +48,12 @@ namespace 极简浏览器
             {
                 try
                 {
-                    BrowserCore.Navigate(FileApi.GetStartupPath(Url, App.Program.arguments.isNew));
+                    MessageBox.Show(FileApi.GetStartupPath(App.Program.arguments.isNew));
+                    BrowserCore.Navigate(FileApi.GetStartupPath(App.Program.arguments.isNew));
                 }
                 catch (Exception ex)
                 {
                     Logger.Log(ex, logType: LogType.Debug, shutWhenFail: true);
-                    this.Close( );
                 }
             });
         }
@@ -151,7 +144,8 @@ namespace 极简浏览器
 
         private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Extensions ext = new Extensions( );
+            ext.Show( );
         }
     }
 }
