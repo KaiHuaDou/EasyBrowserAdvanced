@@ -126,6 +126,9 @@
     <Compile Include="Api\StandardApi.cs" />
     <Compile Include="BrowserExtension.cs" />
     <Compile Include="BrowserHelper.cs" />
+    <Compile Include="Dialog\Extensions.xaml.cs">
+      <DependentUpon>Extensions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <DependentUpon>WebSource.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialog\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\Extensions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

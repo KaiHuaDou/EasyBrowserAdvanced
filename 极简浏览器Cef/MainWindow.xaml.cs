@@ -48,7 +48,6 @@ namespace 极简浏览器
             {
                 try
                 {
-                    MessageBox.Show(FileApi.GetStartupPath(App.Program.arguments.isNew));
                     BrowserCore.Navigate(FileApi.GetStartupPath(App.Program.arguments.isNew));
                 }
                 catch (Exception ex)

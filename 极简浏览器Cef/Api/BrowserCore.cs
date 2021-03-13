@@ -8,7 +8,7 @@ namespace 极简浏览器.Api
     {
         public static void RunJavaSript(string script)
         {
-            GetBrowser( ).WebBrowser.ExecuteScriptAsync(script);
+            GetBrowser( ).WebBrowser.EvaluateScriptAsync("eval", script);
         }
         public static MainWindow GetInstance( )
         {
