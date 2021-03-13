@@ -142,9 +142,6 @@ namespace 极简浏览器
         }
 
         private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Extensions ext = new Extensions( );
-            ext.Show( );
-        }
+        {        }
     }
 }
