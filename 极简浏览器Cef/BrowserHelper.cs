@@ -98,7 +98,8 @@ namespace 极简浏览器
         public event EventHandler<DownloadItem> OnBeforeDownloadFired;
         public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
 
-        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, 
+        public void OnBeforeDownload(
+            IWebBrowser chromiumWebBrowser, 
             IBrowser browser, 
             DownloadItem downloadItem, 
             IBeforeDownloadCallback callback)
@@ -113,7 +114,8 @@ namespace 极简浏览器
             }
         }
 
-        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, 
+        public void OnDownloadUpdated(
+            IWebBrowser chromiumWebBrowser, 
             IBrowser browser, 
             DownloadItem downloadItem, 
             IDownloadItemCallback callback)

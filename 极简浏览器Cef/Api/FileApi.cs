@@ -12,6 +12,22 @@ namespace 极简浏览器.Api
     }
     public static class FileApi
     {
+        public static string ParseFileType(FileType fileType)
+        {
+            if(fileType == FileType.History)
+            {
+                return FilePath.HistoryPath;
+            }
+            if(fileType == FileType.BookMark)
+            {
+                return FilePath.BookMarkPath;
+            }
+            return null;
+        }
+        public static string ParseContent(string title, string url)
+        {
+            return string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( ));
+        }
         public static bool Write(string title, string url, FileType fileType)
         {
             try
@@ -20,10 +36,7 @@ namespace 极简浏览器.Api
                     goto skip;
                 if (url == "about:blank")
                     title = "新标签页";
-                if (fileType == FileType.History)
-                    File.AppendAllText(FilePath.HistoryPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
-                else
-                    File.AppendAllText(FilePath.BookMarkPath, string.Format("{0,-50}{1,-50}{2,-20}\n", title, url, DateTime.Now.ToString( )));
+                File.AppendAllText(ParseFileType(fileType), ParseContent(title, url));
             }
             catch(Exception e)
             {
@@ -39,10 +52,7 @@ namespace 极简浏览器.Api
             {
                 if (App.Program.arguments.isNotLogging == true)
                     goto skip;
-                if (fileType == FileType.History)
-                    File.AppendAllText(FilePath.HistoryPath, text + "\n");
-                else
-                    File.AppendAllText(FilePath.BookMarkPath, text + "\n");
+                File.AppendAllText(ParseFileType(fileType), text + "\n");
             }
             catch (Exception e)
             {
@@ -56,10 +66,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if(fileType == FileType.History)
-                    File.WriteAllText(FilePath.HistoryPath, "");
-                else
-                    File.WriteAllText(FilePath.BookMarkPath, "");
+                File.WriteAllText(ParseFileType(fileType), "");
             }
             catch(Exception e)
             {
@@ -72,15 +79,7 @@ namespace 极简浏览器.Api
         {
             List<CheckBox> list = new List<CheckBox>( );
             CheckBox checkBox = new CheckBox();
-            FileStream fs = null;
-            if(fileType == FileType.History)
-            {
-                fs = new FileStream(FilePath.HistoryPath, FileMode.OpenOrCreate, FileAccess.Read);
-            }
-            if(fileType == FileType.BookMark)
-            {
-                fs = new FileStream(FilePath.BookMarkPath, FileMode.OpenOrCreate, FileAccess.Read);
-            }
+            FileStream fs = new FileStream(ParseFileType(fileType), FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader sr = new StreamReader(fs);
             while (sr.EndOfStream != true)
             {
@@ -113,6 +112,17 @@ namespace 极简浏览器.Api
                 }
             }
             return result;
+        }
+        public static string GetLastData(FileType fileType)
+        {
+            string lastData = "";
+            FileStream fs = new FileStream(ParseFileType(fileType), FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs);
+            while(sr.EndOfStream != true)
+            {
+                lastData = sr.ReadLine( );
+            }
+            return lastData;
         }
     }
 }

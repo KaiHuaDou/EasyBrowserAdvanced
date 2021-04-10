@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
-using CefSharp.Enums;
 using CefSharp.Wpf;
 using 极简浏览器.Api;
 
