@@ -72,7 +72,11 @@ namespace 极简浏览器
                 File.Create(FilePath.ConfigPath);
             if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
                 File.Create(FilePath.LogDirectory + "\\log.log");
-            if(File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
+            if (File.Exists(FilePath.LogDirectory + "\\error.log") == false)
+                File.Create(FilePath.LogDirectory + "\\error.log");
+            if (File.Exists(FilePath.LogDirectory + "\\debug.log") == false)
+                File.Create(FilePath.LogDirectory + "\\debug.log");
+            if (File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
             {
                 Thread t = new Thread(showNoAccsses);
                 t.Start( );
