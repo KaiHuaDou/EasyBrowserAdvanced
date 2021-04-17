@@ -4,12 +4,12 @@
         WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
     <Window.Resources>
         <ControlTemplate x:Key="FilletTextBox" TargetType="{x:Type TextBox}">
-            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="15">
                 <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" />
             </Border>
         </ControlTemplate>
-        <Style x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
-            <Setter Property="Background" Value="White"></Setter>
+        <Style  x:Name="wmi" x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
+            <Setter  x:Name="bg" Property="Background" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
             <Setter Property="Width" Value="285"></Setter>
@@ -25,7 +25,7 @@
                 <MenuItem x:Name="HidestartusBar" Header="隐藏状态栏" Click="StatusBar_ContextMenu_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
-        <Grid x:Name="CWBGrid" Margin="0,37,0,35">
+        <Grid x:Name="CWBGrid" Margin="0,37,0,0">
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
@@ -42,7 +42,7 @@
                 Background="{x:Null}" FocusVisualStyle="{Binding ElementName=button3,Path=Style}" BorderThickness="0">
             <Image x:Name="image" Height="30" Width="30" Source="resource\刷新.png" />
         </Button>
-        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom" Background="White">
+        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom" Background="Transparent">
             <Label x:Name="label1" Content="" Height="35" />
             <Label x:Name="label2" Content="此网页不文明!" Height="35" Visibility="Collapsed" Foreground="Red" />
         </StatusBar>
@@ -53,13 +53,13 @@
         </Button>
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
                 Width="144">
-            <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22" Background="White">
+            <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
                 <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Style="{StaticResource WhiteMenuItem}"
                         Click="DevToolsButton_Click" />
                 <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Style="{StaticResource WhiteMenuItem}"
                         Click="ExtensionsButton_Click" />
             </MenuItem>
-            <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22" Background="White">
+            <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
                 <MenuItem Header="上一页(_P)" Click="GoForwardButton_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="下一页(_N)" Click="GoBackButton_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="刷新(_R)" Click="RefreshButton_Click" Style="{StaticResource WhiteMenuItem}" />
@@ -72,7 +72,7 @@
                 <MenuItem Header="帮助(_H)" Click="Help_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="关于(_A)" Click="About_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="置顶(_T)" IsCheckable="True" Click="Topmost_Checked"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{DynamicResource WhiteMenuItem}" />
                 <MenuItem Header="在本窗口打开(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}"
                         x:Name="OnlyThis"/>
                 <MenuItem Header="无痕模式(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" 

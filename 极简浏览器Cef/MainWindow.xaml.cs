@@ -96,14 +96,12 @@ namespace 极简浏览器
             {
                 startusBar.Visibility = Visibility.Collapsed;
                 OptionMenu.Visibility = Visibility.Collapsed;
-                BrowserCore.GetInstance( ).CWBGrid.Margin = new Thickness(0, 37, 0, 0);
                 HidestartusBar.Header = "显示状态栏";
             }
             else
             {
                 startusBar.Visibility = Visibility.Visible;
                 OptionMenu.Visibility = Visibility.Visible;
-                BrowserCore.GetInstance( ).CWBGrid.Margin = new Thickness(0, 37, 0, 35);
                 HidestartusBar.Header = "隐藏状态栏";
             }
         }

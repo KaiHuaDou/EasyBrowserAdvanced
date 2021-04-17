@@ -60,6 +60,17 @@ namespace 极简浏览器
         private void NoLogs_Click(object sender, RoutedEventArgs e)
         {
             App.Program.arguments.isNotLogging = NoLogs.IsChecked;
+            /*if(NoLogs.IsChecked == true)
+            {
+                var v = this.Resources.Values.GetEnumerator( );
+                v.MoveNext( );
+                v.MoveNext( );
+                var s = v.Current as Style;
+                var v2 = s.Setters.GetEnumerator( );
+                v.MoveNext( );
+                var s2 = v2.Current as Setter;
+                s2.Value = "Black";
+            }*/
         }
     }
 }
