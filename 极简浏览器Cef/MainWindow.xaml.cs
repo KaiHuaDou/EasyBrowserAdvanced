@@ -34,7 +34,16 @@ namespace 极简浏览器
             cwb.TitleChanged += Cwb_TitleChanged;
             MenuHandler.mainWindow = this;
             cwb.MenuHandler = new MenuHandler( );
-            cwb.DownloadHandler = new DownloadHandler( );                    
+            cwb.DownloadHandler = new DownloadHandler( );
+            cwb.LoadError += Cwb_LoadError;                  
+        }
+
+        private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
+        {
+            Dispatcher.BeginInvoke((Action) delegate ( )
+            {
+                BrowserCore.Navigate("https://www.baidu.com/s?w=" + cwb.Address);
+            });
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)

@@ -8,8 +8,8 @@
                 <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" />
             </Border>
         </ControlTemplate>
-        <Style  x:Name="wmi" x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
-            <Setter  x:Name="bg" Property="Background" Value="White"></Setter>
+        <Style x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
+            <Setter x:Name="bg" Property="Background" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
             <Setter Property="Width" Value="285"></Setter>
@@ -25,7 +25,7 @@
                 <MenuItem x:Name="HidestartusBar" Header="隐藏状态栏" Click="StatusBar_ContextMenu_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
-        <Grid x:Name="CWBGrid" Margin="0,37,0,0">
+        <Grid x:Name="CWBGrid" Margin="0,37,0,0" Panel.ZIndex="-100">
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
@@ -52,7 +52,7 @@
             <Image x:Name="image1" Margin="0,0,0,0" Source="resource\添加.png" />
         </Button>
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
-                Width="144">
+                Width="144" Background="Transparent">
             <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
                 <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Style="{StaticResource WhiteMenuItem}"
                         Click="DevToolsButton_Click" />
