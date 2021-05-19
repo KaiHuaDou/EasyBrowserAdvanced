@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
@@ -42,7 +43,8 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
-                BrowserCore.Navigate("https://www.baidu.com/s?w=" + cwb.Address);
+                if(e.ErrorCode.ToString() != "Aborted")
+                    BrowserCore.Navigate(FilePath.AppPath + "\\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
             });
         }
 
@@ -83,6 +85,10 @@ namespace 极简浏览器
                 {
                     label2.Visibility = Visibility.Visible;
                 }
+                if((UrlTextBox.Text.Contains("/Error.html?errorCode=") || UrlTextBox.Text.Contains("\\Error.html?errorCode=")) == true)
+                {
+                    UrlTextBox.Text = "加载错误";
+                }
             });
         }
 
@@ -96,7 +102,13 @@ namespace 极简浏览器
             Storyboard.SetTargetProperty(da, new PropertyPath("Value"));
             story.Children.Add(da);
             story.Begin( );
+            story.Completed += Story_Completed;
             UrlTextBox.Text = BrowserCore.GetBrowser( ).Address;
+        }
+
+        private void Story_Completed(object sender, EventArgs e)
+        {
+            LoadProgressBar.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
         }
 
         private void StatusBar_ContextMenu_Click(object sender, RoutedEventArgs e)

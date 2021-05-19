@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div{
+           text-align:center;
+        }
+        .info{
+            font-family:Calibri;
+        }
+        .big{
+            font-size:xx-large;
+        }
+        .text{
+            font-size:large;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p class="info big" id="infobig"></p>
+        <br />
+        <p class="info text" id="infotext"></p>
+        <button class="info text" onclick="searchit()">在百度上搜索</button>
+    </div>
+    <script>
+        function searchit() {
+            document.location = "https://www.baidu.com/s?wd=" + getQueryVariable("url");
+        }
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        }
+        document.title = getQueryVariable("errorCode");
+        document.getElementById("infobig").innerHTML = getQueryVariable("errorCode");
+        document.getElementById("infotext").innerHTML = getQueryVariable("errorText");
+    </script>
+</body>
+</html>
