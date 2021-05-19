@@ -25,7 +25,7 @@
                 <MenuItem x:Name="HidestartusBar" Header="隐藏状态栏" Click="StatusBar_ContextMenu_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
-        <Grid x:Name="CWBGrid" Margin="0,37,0,0" Panel.ZIndex="-100">
+        <Grid x:Name="CWBGrid" Margin="0,37,0,35">
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
