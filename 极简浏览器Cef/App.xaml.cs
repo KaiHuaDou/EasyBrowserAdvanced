@@ -76,11 +76,23 @@ namespace 极简浏览器
                 File.Create(FilePath.LogDirectory + "\\error.log");
             if (File.Exists(FilePath.LogDirectory + "\\debug.log") == false)
                 File.Create(FilePath.LogDirectory + "\\debug.log");
-            if (File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
+            try
             {
-                Thread t = new Thread(showNoAccsses);
-                t.Start( );
-                App.Current.Shutdown( );
+                if (File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
+                {
+                    Thread t = new Thread(showNoAccsses);
+                    t.Start( );
+                    App.Current.Shutdown( );
+                }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("文明语言检测器启动失败，单击确定以继续使用。",
+                    "极简浏览器",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.ServiceNotification);
             }
         }
         static void showNoAccsses()
