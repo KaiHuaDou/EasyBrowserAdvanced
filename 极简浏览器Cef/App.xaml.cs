@@ -102,15 +102,8 @@ namespace 极简浏览器
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
-            DialogResult dr = new DialogResult( );
-            dr = Logger.Message(e.Exception, true);
-            if (dr == DialogResult.Abort)
-                App.Current.Shutdown(1);
-            if (dr == DialogResult.Retry)
-                e.Handled = false;
-            if (dr == DialogResult.Ignore)
-                return;
-            return;
+            Report report = new Report(e.Exception.Message);
+            report.ShowDialog( );
         }
 
         private void Application_Startup(object sender, System.Windows.StartupEventArgs e)
