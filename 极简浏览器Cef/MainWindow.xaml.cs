@@ -55,7 +55,7 @@ namespace 极简浏览器
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            throw new Exception( );
+            //throw new Exception( );
             Dispatcher.BeginInvoke((Action)delegate ( )
             {
                 try
