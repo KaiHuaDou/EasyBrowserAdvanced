@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using CefSharp;
 using CefSharp.Wpf;
@@ -120,7 +121,18 @@ namespace 极简浏览器
             DownloadItem downloadItem, 
             IDownloadItemCallback callback)
         {
-            OnDownloadUpdatedFired?.Invoke(this, downloadItem);
+            //if(downloadItem.IsComplete == true)
+            //{
+            //    System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            //    {
+            //        ((Popup) BrowserCore.GetInstance( ).CWBGrid.Children[0]).Child = new Label { Content = downloadItem.FullPath + "已下载完成。" };
+            //        StandardApi.Popuping((Popup) BrowserCore.GetInstance( ).CWBGrid.Children[0]);
+            //    }));
+            //}
+            //else
+            //{
+                OnDownloadUpdatedFired?.Invoke(this, downloadItem);
+            //}
         }
     }
     public class MenuHandler : IContextMenuHandler

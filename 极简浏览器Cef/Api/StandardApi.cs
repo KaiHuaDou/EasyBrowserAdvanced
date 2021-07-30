@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Threading;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using CefSharp;
 
@@ -31,6 +33,15 @@ namespace 极简浏览器.Api
             _NI.Visible = true;
             _NI.Icon = new Icon("favicon.ico");
             _NI.ShowBalloonTip(2000);
+        }
+        public static void Popuping(Popup popup, int delay = 1000)
+        {
+            Thread thread = new Thread(( ) =>
+            {
+                popup.IsOpen = true;
+                Thread.Sleep(delay);
+                popup.IsOpen = false;
+            });
         }
     }
 }

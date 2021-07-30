@@ -26,6 +26,10 @@
             </ContextMenu>
         </Grid.ContextMenu>
         <Grid x:Name="CWBGrid" Margin="0,37,0,35">
+            <Popup x:Name="DownloadInfoPopup" HorizontalAlignment="Right" Margin="0,0,10,10"
+                    VerticalAlignment="Bottom" Height="50">
+                <Label x:Name="ContentLabel" Content="" />
+            </Popup>
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
@@ -42,7 +46,8 @@
                 Background="{x:Null}" FocusVisualStyle="{Binding ElementName=button3,Path=Style}" BorderThickness="0">
             <Image x:Name="image" Height="30" Width="30" Source="resource\刷新.png" />
         </Button>
-        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom" Background="Transparent">
+        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom"
+                Background="Transparent">
             <Label x:Name="label1" Content="" Height="35" />
             <Label x:Name="label2" Content="此网页不文明!" Height="35" Visibility="Collapsed" Foreground="Red" />
         </StatusBar>
@@ -74,9 +79,9 @@
                 <MenuItem Header="置顶(_T)" IsCheckable="True" Click="Topmost_Checked"
                         Style="{DynamicResource WhiteMenuItem}" />
                 <MenuItem Header="在本窗口打开(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}"
-                        x:Name="OnlyThis"/>
-                <MenuItem Header="无痕模式(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" 
-                        x:Name="NoLogs" Click="NoLogs_Click" />
+                        x:Name="OnlyThis" />
+                <MenuItem Header="无痕模式(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" x:Name="NoLogs"
+                        Click="NoLogs_Click" />
             </MenuItem>
         </Menu>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
