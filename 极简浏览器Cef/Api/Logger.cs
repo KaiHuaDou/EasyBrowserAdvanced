@@ -24,8 +24,8 @@ namespace 极简浏览器.Api
                 }
                 string LogPath = GenerateLogPath(logType);
                 File.AppendAllText(LogPath,
-                    e.Message + "|" + e.Source + "|"
-                    + e.TargetSite + "|" + e.HelpLink + "|" + e.StackTrace);
+                    "---------------" + e.Message + "\n" + e.Source + "\n"
+                    + e.TargetSite + "\n" + e.HelpLink + "\n" + e.StackTrace);
             }
             catch (NullReferenceException)
             {
@@ -48,7 +48,8 @@ namespace 极简浏览器.Api
                 endmsg = Properties.Resources.Excep_endmsg + e.HelpLink;
                 DialogResult dr = new DialogResult( );
                 dr = MessageBox.Show(
-                    message + innermsg + endmsg, Properties.Resources.BrowserName,
+                    message + innermsg + endmsg, 
+                    Properties.Resources.BrowserName,
                     MessageBoxButtons.AbortRetryIgnore,
                     MessageBoxIcon.Error);
                 BrowserCore.GetInstance( ).TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
@@ -59,7 +60,7 @@ namespace 极简浏览器.Api
             {
                 if(shutWhenFail == true)
                 {
-                    App.Current.Shutdown(1);
+                    App.Current.Shutdown();
                 }
                 return DialogResult.None;
             }
@@ -71,7 +72,6 @@ namespace 极简浏览器.Api
                 case LogType.Debug: return FilePath.LogDirectory + "\\debug.log";
                 case LogType.Error: return FilePath.LogDirectory + "\\error.log";
                 case LogType.Other: return FilePath.LogDirectory + "\\other.log";
-                default: return FilePath.LogDirectory + "\\LOG_EXCEPTION.LOG";
             }
         }
     }
