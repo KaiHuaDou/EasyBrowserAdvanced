@@ -26,10 +26,6 @@
             </ContextMenu>
         </Grid.ContextMenu>
         <Grid x:Name="CWBGrid" Margin="0,37,0,35">
-            <Popup x:Name="DownloadInfoPopup" HorizontalAlignment="Right" Margin="0,0,10,10"
-                    VerticalAlignment="Bottom" Height="50">
-                <Label x:Name="ContentLabel" Content="" />
-            </Popup>
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
                 Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
