@@ -55,6 +55,8 @@
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
                 Width="144" Background="Transparent">
             <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
+                <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)" Style="{StaticResource WhiteMenuItem}"
+                        Click="RunJSButton_Click" />
                 <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Style="{StaticResource WhiteMenuItem}"
                         Click="DevToolsButton_Click" />
                 <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Style="{StaticResource WhiteMenuItem}"
