@@ -8,50 +8,58 @@ namespace 极简浏览器.Api
     {
         public static void RunJavaSript(string script)
         {
-            GetBrowser( ).WebBrowser.EvaluateScriptAsync("eval", script);
+            CefBrowser.WebBrowser.ExecuteScriptAsync(script);
         }
-        public static MainWindow GetInstance( )
+        public static MainWindow CefInstance
         {
-            foreach (Window window in Application.Current.Windows)
+            get
             {
-                if (window is MainWindow)
+                foreach (Window window in Application.Current.Windows)
                 {
-                    return window as MainWindow;
+                    if (window is MainWindow)
+                    {
+                        return window as MainWindow;
+                    }
                 }
+                return null;
             }
-            throw new MemberAccessException( );
+            private set { }
         }
-        public static ExtChromiumBrowser GetBrowser()
+        public static ExtChromiumBrowser CefBrowser
         {
-            foreach (Window window in Application.Current.Windows)
+            get
             {
-                if (window is MainWindow)
+                foreach (Window window in Application.Current.Windows)
                 {
-                    return (((MainWindow)window).cwb) as ExtChromiumBrowser;
+                    if (window is MainWindow)
+                    {
+                        return (((MainWindow)window).cwb) as ExtChromiumBrowser;
+                    }
                 }
+                return null;
             }
-            throw new MemberAccessException( );
+            private set { }
         }
         public static void Navigate(string url)
         {
-            GetBrowser( ).Address = url;
+            CefBrowser.Address = url;
         }
 
         public static void GoBack( )
         {
-            if (GetBrowser( ).CanGoBack == true)
-                GetBrowser( ).Back( );
+            if (CefBrowser.CanGoBack == true)
+                CefBrowser.Back( );
         }
 
         public static void GoForward( )
         {
-            if (GetBrowser( ).CanGoForward == true)
-                GetBrowser( ).Forward( );
+            if (CefBrowser.CanGoForward == true)
+                CefBrowser.Forward( );
         }
 
         public static void Refresh( )
         {
-            try{ GetBrowser( ).Reload( ); }
+            try{ CefBrowser.Reload( ); }
             catch (Exception e)
             {
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
