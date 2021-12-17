@@ -16,6 +16,7 @@ namespace 极简浏览器
     public partial class MainWindow : Window
     {
         public static object document;
+        public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
         public MainWindow( )
         {

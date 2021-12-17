@@ -121,18 +121,17 @@ namespace 极简浏览器
             DownloadItem downloadItem, 
             IDownloadItemCallback callback)
         {
-            //if(downloadItem.IsComplete == true)
-            //{
-            //    System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
-            //    {
-            //        ((Popup) BrowserCore.GetInstance( ).CWBGrid.Children[0]).Child = new Label { Content = downloadItem.FullPath + "已下载完成。" };
-            //        StandardApi.Popuping((Popup) BrowserCore.GetInstance( ).CWBGrid.Children[0]);
-            //    }));
-            //}
-            //else
-            //{
+            if(downloadItem.IsComplete == true)
+            {
+                MainWindow.dispatcher.BeginInvoke(new Action(() =>
+                {
+
+                }));
+            }
+            else
+            {
                 OnDownloadUpdatedFired?.Invoke(this, downloadItem);
-            //}
+            }
         }
     }
     public class MenuHandler : IContextMenuHandler
