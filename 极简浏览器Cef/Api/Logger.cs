@@ -73,6 +73,7 @@ namespace 极简浏览器.Api
                 case LogType.Error: return FilePath.LogDirectory + "\\error.log";
                 case LogType.Other: return FilePath.LogDirectory + "\\other.log";
             }
+            return null;
         }
     }
 }
