@@ -11,7 +11,7 @@ namespace 极简浏览器.Api
         public static string GetPageSource( )
         {
             TaskStringVisitor tsv = new TaskStringVisitor( );
-            BrowserCore.GetBrowser( ).GetMainFrame( ).GetText(tsv);
+            BrowserCore.CefBrowser.GetMainFrame( ).GetText(tsv);
             while (tsv.Task.IsCompleted == true)
                 ;
             return tsv.Task.Result;
@@ -19,7 +19,7 @@ namespace 极简浏览器.Api
         public static async void ViewPageSource( )
         {
             WebSource webSource;
-            string x = await BrowserCore.GetBrowser( ).GetMainFrame( ).GetSourceAsync( );
+            string x = await BrowserCore.CefBrowser.GetMainFrame( ).GetSourceAsync( );
             webSource = new WebSource(x);
             webSource.Show( );
         }

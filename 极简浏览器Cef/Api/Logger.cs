@@ -39,9 +39,9 @@ namespace 极简浏览器.Api
         {
             try
             {
-                BrowserCore.GetInstance( ).TaskbarItemInfo.ProgressValue = 100;
-                BrowserCore.GetInstance( ).TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
-                BrowserCore.GetInstance( ).TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
+                BrowserCore.CefInstance.TaskbarItemInfo.ProgressValue = 100;
+                BrowserCore.CefInstance.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
+                BrowserCore.CefInstance.TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
                 string message, innermsg, endmsg;
                 message = Properties.Resources.Excep_msg;
                 innermsg = Properties.Resources.Excep_inmsg1 + e.Message + "\n" + e.Source + Properties.Resources.Excep_inmsg2 + e.TargetSite + Properties.Resources.Excep_inmsg3;
@@ -52,8 +52,8 @@ namespace 极简浏览器.Api
                     Properties.Resources.BrowserName,
                     MessageBoxButtons.AbortRetryIgnore,
                     MessageBoxIcon.Error);
-                BrowserCore.GetInstance( ).TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
-                BrowserCore.GetInstance( ).TaskbarItemInfo.Overlay = null;
+                BrowserCore.CefInstance.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
+                BrowserCore.CefInstance.TaskbarItemInfo.Overlay = null;
                 return dr;
             }
             catch (Exception)

@@ -73,7 +73,7 @@ namespace 极简浏览器
         }
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            if (BrowserCore.GetInstance( ).OnlyThis.IsChecked == false)
+            if (BrowserCore.CefInstance.OnlyThis.IsChecked == false)
                 NewInstance.StartNewInstance(e.Url);
             else
                 BrowserCore.Navigate(e.Url);
