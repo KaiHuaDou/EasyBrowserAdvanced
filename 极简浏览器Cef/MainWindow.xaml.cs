@@ -105,7 +105,7 @@ namespace 极简浏览器
             story.Children.Add(da);
             story.Begin( );
             story.Completed += Story_Completed;
-            UrlTextBox.Text = BrowserCore.GetBrowser( ).Address;
+            UrlTextBox.Text = BrowserCore.CefBrowser.Address;
         }
 
         private void Story_Completed(object sender, EventArgs e)
@@ -158,10 +158,16 @@ namespace 极简浏览器
 
         private void DevToolsButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.GetBrowser( ).ShowDevTools();
+            BrowserCore.CefBrowser.ShowDevTools();
         }
 
         private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
         {        }
+
+        private void RunJSButton_Click(object sender, RoutedEventArgs e)
+        {
+            RunJavascript rj = new RunJavascript();
+            rj.Show();
+        }
     }
 }
