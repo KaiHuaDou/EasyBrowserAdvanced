@@ -52,7 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2.0R|AnyCPU'">
     <OutputPath>bin\2.0R\</OutputPath>
@@ -113,10 +113,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -131,6 +130,8 @@
     </ApplicationDefinition>
     <Compile Include="Api\BrowserCore.cs" />
     <Compile Include="Api\CivilizedLanguage.cs" />
+    <Compile Include="Api\ConfigHelper.cs" />
+    <Compile Include="Api\DownloadApi.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\NewInstance.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="Api\StandardApi.cs" />
     <Compile Include="BrowserExtension.cs" />
     <Compile Include="BrowserHelper.cs" />
+    <Compile Include="Dialog\Download.xaml.cs">
+      <DependentUpon>Download.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\Extensions.xaml.cs">
       <DependentUpon>Extensions.xaml</DependentUpon>
     </Compile>
@@ -161,6 +165,10 @@
       <DependentUpon>WebSource.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialog\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\Download.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

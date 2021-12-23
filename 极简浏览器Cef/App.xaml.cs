@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Markup;
-using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using 极简浏览器.Api;
 
