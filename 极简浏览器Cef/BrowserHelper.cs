@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using CefSharp;
 using CefSharp.Wpf;
+using Microsoft.Win32;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -94,46 +94,44 @@ namespace 极简浏览器
             this.Url = url;
         }
     }
-    public class DownloadHandler : IDownloadHandler
+    internal class DownloadHandler : IDownloadHandler
     {
-        public event EventHandler<DownloadItem> OnBeforeDownloadFired;
-        public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
+        private readonly Action<bool, DownloadItem> _downloadCallBackEvent;
 
-        public void OnBeforeDownload(
-            IWebBrowser chromiumWebBrowser, 
-            IBrowser browser, 
-            DownloadItem downloadItem, 
+        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
             IBeforeDownloadCallback callback)
         {
-            OnBeforeDownloadFired?.Invoke(this, downloadItem);
-            if (!callback.IsDisposed)
-            {
-                using (callback)
-                {
-                    callback.Continue(downloadItem.SuggestedFileName, showDialog: true);
-                }
-            }
+            if (callback.IsDisposed) return;
+            _downloadCallBackEvent?.Invoke(false, downloadItem);
+            downloadItem.IsInProgress = true;
+            var path = GetDownloadFullPath(downloadItem);
+            Download d = new Download(downloadItem, path);
+            d.Show();
+            //callback.Continue(path, false);
         }
 
-        public void OnDownloadUpdated(
-            IWebBrowser chromiumWebBrowser, 
-            IBrowser browser, 
-            DownloadItem downloadItem, 
+
+        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
             IDownloadItemCallback callback)
         {
-            if(downloadItem.IsComplete == true)
-            {
-                MainWindow.dispatcher.BeginInvoke(new Action(() =>
-                {
+            _downloadCallBackEvent?.Invoke(true, downloadItem);
+        }
 
-                }));
-            }
-            else
+
+        private string GetDownloadFullPath(DownloadItem item)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = item.SuggestedFileName;
+            sfd.Title = "下载文件";
+            bool? dr = sfd.ShowDialog();
+            if(dr == true)
             {
-                OnDownloadUpdatedFired?.Invoke(this, downloadItem);
+                return sfd.FileName;
             }
+            return null;
         }
     }
+
     public class MenuHandler : IContextMenuHandler
     {
         public static Window mainWindow { get; set; }
@@ -244,13 +242,10 @@ namespace 极简浏览器
 
         private void MinWindow( )
         {
-            mainWindow.Dispatcher.Invoke(
-                new Action(
-                        delegate
-                        {
-                            mainWindow.WindowState = WindowState.Minimized;
-                        }
-                    ));
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                mainWindow.WindowState = WindowState.Minimized;
+            });
         }
         private static IEnumerable<Tuple<string, CefMenuCommand>> GetMenuItems(IMenuModel model)
         {
@@ -280,7 +275,7 @@ namespace 极简浏览器
         {
             if (_TargetCanExecuteMethod != null)
             {
-                return _TargetCanExecuteMethod( );
+                return _TargetCanExecuteMethod();
             }
             if (_TargetExecuteMethod != null)
             {
@@ -289,14 +284,14 @@ namespace 极简浏览器
             return false;
         }
 
-        public void RaiseCanExecuteChanged( )
+        public void RaiseCanExecuteChanged()
         {
             CanExecuteChanged(this, EventArgs.Empty);
         }
 
         void ICommand.Execute(object parameter)
         {
-            _TargetExecuteMethod?.Invoke( );
+            _TargetExecuteMethod?.Invoke();
         }
     }
 }

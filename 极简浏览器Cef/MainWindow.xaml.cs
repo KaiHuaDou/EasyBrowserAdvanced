@@ -36,8 +36,8 @@ namespace 极简浏览器
             cwb.TitleChanged += Cwb_TitleChanged;
             MenuHandler.mainWindow = this;
             cwb.MenuHandler = new MenuHandler( );
-            cwb.DownloadHandler = new DownloadHandler( );
-            cwb.LoadError += Cwb_LoadError;                  
+            cwb.DownloadHandler = new DownloadHandler();
+            cwb.LoadError += Cwb_LoadError;     
         }
 
         private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
@@ -168,6 +168,24 @@ namespace 极简浏览器
         {
             RunJavascript rj = new RunJavascript();
             rj.Show();
+        }
+
+        private void CWBGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
+            try
+            {
+                if (e.Delta > 0)
+                {
+                    BrowserCore.CefBrowser.ZoomInCommand.Execute(null);
+                }
+                else if (e.Delta < 0)
+                {
+                    BrowserCore.CefBrowser.ZoomOutCommand.Execute(null);
+                }
+                e.Handled = true;
+            }
+            catch (Exception){}
         }
     }
 }
