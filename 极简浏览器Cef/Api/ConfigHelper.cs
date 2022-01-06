@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading;
 using System.Xml.Serialization;
 namespace 极简浏览器.Api
 {
@@ -7,7 +8,8 @@ namespace 极简浏览器.Api
     {
         private static FileStream GenStream(string fileName)
         {
-            return new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            return stream;
         }
         public static void ClearConfig(string fileName)
         {
@@ -39,14 +41,13 @@ namespace 极简浏览器.Api
         {
             FileStream fs = GenStream(fileName);
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
-            return serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
+            ObservableCollection<ConfigData> config = serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
+            fs.Close();
+            return config;
         }
         public static void InitConfig(string fileName)
         {
-            FileStream fs = GenStream(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
-            serializer.Serialize(fs, new ObservableCollection<ConfigData>());
-            fs.Close();
+            SaveConfig(new ObservableCollection<ConfigData>(), fileName);
         }
     }
     public class ConfigDatas: ObservableCollection<ConfigData>
@@ -54,6 +55,17 @@ namespace 极简浏览器.Api
     }
     public class ConfigData
     {
+        public ConfigData()
+        {
+
+        }
+        public ConfigData(bool isChecked, string siteName, string siteAddress, string visitTime)
+        {
+            IsChecked = isChecked;
+            SiteName = siteName;
+            SiteAddress = siteAddress;
+            VisitTime = visitTime;
+        }
         public bool IsChecked
         {
             get; set;
@@ -62,7 +74,7 @@ namespace 极简浏览器.Api
         {
             get; set;
         }
-        public string SiteAdddress
+        public string SiteAddress
         {
             get; set;
         }

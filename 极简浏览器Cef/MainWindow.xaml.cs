@@ -82,7 +82,7 @@ namespace 极简浏览器
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
-                //FileApi.Write(cwb.Title, cwb.Address, FileType.History);
+                ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.GetLocalTime()), FilePath.HistoryPath);
                 if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.GetPageSource( )) == true)
                 {
                     label2.Visibility = Visibility.Visible;
