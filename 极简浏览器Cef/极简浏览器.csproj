@@ -135,7 +135,6 @@
     <Compile Include="Api\BrowserCore.cs" />
     <Compile Include="Api\CivilizedLanguage.cs" />
     <Compile Include="Api\ConfigHelper.cs" />
-    <Compile Include="Api\DownloadApi.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\NewInstance.cs" />
