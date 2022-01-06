@@ -18,7 +18,8 @@ StrollStars
 4. 由{}包裹的是正在开发的。
 -----
 ### 下一个更新
-+ {代码质量} #6 整合Api/ConfigHelper.cs
++ {代码质量} #6 整合Api/ConfigHelper.cs之书签部分
++ 代码质量 #6 整合Api/ConfigHelper.cs之历史记录部分
 + 增加功能 #1 增加下载窗口
 + 代码质量 #7 将部分函数改为属性
 + 增加功能 #18 执行Javascript窗口

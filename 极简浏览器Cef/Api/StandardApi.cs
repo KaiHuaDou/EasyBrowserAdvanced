@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
@@ -8,6 +9,10 @@ namespace 极简浏览器.Api
 {
     public static class StandardApi
     {
+        public static string GetLocalTime()
+        {
+            return DateTime.Now.ToLocalTime().ToString();
+        }
         public static string GetPageSource( )
         {
             TaskStringVisitor tsv = new TaskStringVisitor( );
@@ -33,15 +38,6 @@ namespace 极简浏览器.Api
             _NI.Visible = true;
             _NI.Icon = new Icon("favicon.ico");
             _NI.ShowBalloonTip(2000);
-        }
-        public static void Popuping(Popup popup, int delay = 1000)
-        {
-            Thread thread = new Thread(( ) =>
-            {
-                popup.IsOpen = true;
-                Thread.Sleep(delay);
-                popup.IsOpen = false;
-            });
         }
     }
 }
