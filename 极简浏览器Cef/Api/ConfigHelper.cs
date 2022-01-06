@@ -61,6 +61,7 @@ namespace 极简浏览器.Api
         }
         public static void InitConfig(string fileName)
         {
+            File.WriteAllText(fileName, "");
             SaveConfig(new ObservableCollection<ConfigData>(), fileName);
         }
     }
