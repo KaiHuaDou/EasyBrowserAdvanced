@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:极简浏览器"
         xmlns:localapi="clr-namespace:极简浏览器.Api"
         xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
-        Title="历史记录和书签" Height="400" Width="600">
+        Title="历史记录和书签" Height="400" Width="600" Closing="Window_Closing">
     <Grid>
         <TabControl x:Name="tabControl" Margin="0,0,0,0" BorderThickness="0">
             <TabItem Header="历史记录">
@@ -18,28 +18,29 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
-                            Width="100" Content="打开(_O)" Click="HistoryNewWindow" Margin="0,0,0,5" />
+                            Width="100" Content="打开(_O)" Click="HistoryNewWindow" Margin="10,0,0,5" />
                     <Button x:Name="History_SelectAll_Button" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                            Height="30" Width="100" Content="全选(_A)" Click="History_SelectAll_Button_Click"
-                            Margin="210,0,0,5" />
+                            Height="30" Width="100" Content="全选(_A)" Click="History_SelectAll_Button_Click" Margin="220,0,0,5" />
                     <Button x:Name="button1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30"
-                            Width="99" Content="清空(_C)" Click="HistoryClear" Margin="0,0,0,5" />
-                    <Button x:Name="button2" Content="删除(_D)" HorizontalAlignment="Left" Margin="105,0,0,5"
-                            VerticalAlignment="Bottom" Width="100" Click="HistoryDelete" Height="30" />
+                            Width="99" Content="清空(_C)" Click="HistoryClear" Margin="0,0,10,5" />
+                    <Button x:Name="button2" Content="删除(_D)" HorizontalAlignment="Left" Margin="115,0,0,5" VerticalAlignment="Bottom" Width="100" Click="HistoryDelete" Height="30" />
                 </Grid>
             </TabItem>
             <TabItem Header="书签">
                 <Grid>
-                    <ListBox x:Name="listBox1" Margin="0,0,0,40" BorderThickness="0" FontFamily="Consolas" />
-                    <Button x:Name="button_b" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
-                            Width="167" Content="在新标签页打开(_O)" Click="button_Click1" Margin="10,0,0,5" />
-                    <Button x:Name="BookMark_SelectAll_Button" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                            Height="30" Width="99" Content="全选(_A)" Click="BookMark_SelectAll_Button_Click"
-                            Margin="287,0,0,5" />
-                    <Button x:Name="button1_b" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30"
-                            Width="99" Content="清空(_C)" Click="button1_Click1" Margin="0,0,10,5" />
-                    <Button x:Name="button2_b" Content="删除(_D)" HorizontalAlignment="Left" Margin="182,0,0,5"
-                            VerticalAlignment="Bottom" Width="100" Click="BookMarkDelete" Height="30" />
+                    <DataGrid Margin="0,0,0,40" x:Name="BookMarkDataGrid" AutoGenerateColumns="False" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="选择" Binding="{Binding Path=IsChecked}" />
+                            <DataGridTextColumn Header="网站名称" Binding="{Binding Path=SiteName}" />
+                            <DataGridTextColumn Header="网站地址" Binding="{Binding Path=SiteAddress}" />
+                            <DataGridTextColumn Header="访问时间" Binding="{Binding Path=VisitTime}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="100" Content="打开(_O)" Click="BookMarkNewWindow" Margin="10,0,0,5" />
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                            Height="30" Width="100" Content="全选(_A)" Click="BookMark_SelectAll_Button_Click" Margin="220,0,0,5" />
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="100" Content="清空(_C)" Click="BookMarkClear" Margin="0,0,10,5" />
+                    <Button Content="删除(_D)" HorizontalAlignment="Left" Margin="115,0,0,5" VerticalAlignment="Bottom" Width="100" Click="BookMarkDelete" Height="30" />
                 </Grid>
             </TabItem>
         </TabControl>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
 using System.Xml.Serialization;
@@ -17,6 +18,7 @@ namespace 极简浏览器.Api
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
             serializer.Serialize(fs, new ObservableCollection<ConfigData>());
             fs.Close();
+            fs.Dispose();
         }
         public static void AddConfig(ConfigData data, string fileName)
         {
@@ -36,13 +38,25 @@ namespace 极简浏览器.Api
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
             serializer.Serialize(fs, data);
             fs.Close();
+            fs.Dispose();
         }
         public static ObservableCollection<ConfigData> GetConfig(string fileName)
         {
             FileStream fs = GenStream(fileName);
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
-            ObservableCollection<ConfigData> config = serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
-            fs.Close();
+            ObservableCollection<ConfigData> config = new ObservableCollection<ConfigData>();
+            try
+            {
+                config = serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
+                fs.Close();
+                fs.Dispose();
+            }
+            catch (Exception)
+            {
+                fs.Close();
+                fs.Dispose();
+                InitConfig(fileName);
+            }
             return config;
         }
         public static void InitConfig(string fileName)
