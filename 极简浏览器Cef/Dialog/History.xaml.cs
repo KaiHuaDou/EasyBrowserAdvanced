@@ -12,11 +12,14 @@ namespace 极简浏览器
     public partial class History : Window
     {
         ObservableCollection<ConfigData> HistoryData;
+        ObservableCollection<ConfigData> BookMarkData;
         public History()
         {
             InitializeComponent();
             HistoryData = ConfigHelper.GetConfig(FilePath.HistoryPath);
             HistoryDataGrid.ItemsSource = HistoryData;
+            BookMarkData = ConfigHelper.GetConfig(FilePath.BookMarkPath);
+            BookMarkDataGrid.ItemsSource = BookMarkData;
         }
 
         static void ShowFileError()
@@ -24,35 +27,6 @@ namespace 极简浏览器
             StandardApi.ShowNotifyIcon(Properties.Resources.File_Error);
         }
 
-        private void button_Click1(object sender, RoutedEventArgs e)
-        {
-            foreach (CheckBox cb in listBox1.Items)
-            {
-                if (cb.IsChecked == true)
-                {
-                    NewInstance.StartNewInstance((string)cb.Content);
-                }
-            }
-        }
-
-        private void WinLoaded(object sender, RoutedEventArgs e)
-        {
-            listBox1.ItemsSource = FileApi.ReadAll(FileType.BookMark);
-        }
-
-        private void button1_Click1(object sender, RoutedEventArgs e)
-        {
-            if (FileApi.Clear(FileType.BookMark) != true)
-            {
-                ShowFileError();
-            }
-            else
-            {
-                History his = new History( );
-                his.Show();
-                this.Close();
-            }
-        }
         #region History
         private void InitHistory()
         {
@@ -101,27 +75,57 @@ namespace 极简浏览器
         }
         #endregion
         #region BookMark
+        private void InitBookMark()
+        {
+            BookMarkDataGrid.ItemsSource = null;
+            BookMarkDataGrid.ItemsSource = BookMarkData;
+        }
         private void BookMark_SelectAll_Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (CheckBox cb in listBox1.Items)
+            foreach (ConfigData item in BookMarkData)
             {
-                cb.IsChecked = true;
+                item.IsChecked = !item.IsChecked;
             }
+            InitBookMark();
         }
+
         private void BookMarkDelete(object sender, RoutedEventArgs e)
         {
-            List<CheckBox> lc = new List<CheckBox>( );
-            FileApi.Clear(FileType.BookMark);
-            foreach (CheckBox cb in listBox1.Items)
+            ObservableCollection<ConfigData> temp = new ObservableCollection<ConfigData>();
+            foreach (ConfigData item in BookMarkData)
             {
-                if (cb.IsChecked != true)
+                if (item.IsChecked == true)
                 {
-                    FileApi.Write((string)cb.Content, FileType.BookMark);
-                    lc.Add(cb);
+                    temp.Add(item);
                 }
             }
-            listBox1.ItemsSource = lc;
+            foreach (ConfigData item in temp)
+            {
+                BookMarkData.Remove(item);
+            }
+            InitBookMark();
+        }
+        private void BookMarkClear(object sender, RoutedEventArgs e)
+        {
+            BookMarkData.Clear();
+            InitBookMark();
+        }
+        private void BookMarkNewWindow(object sender, RoutedEventArgs e)
+        {
+            foreach (ConfigData item in BookMarkData)
+            {
+                if (item.IsChecked == true)
+                {
+                    NewInstance.StartNewInstance(item.SiteAddress);
+                }
+            }
         }
         #endregion
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ConfigHelper.SaveConfig(HistoryData, FilePath.HistoryPath);
+            ConfigHelper.SaveConfig(BookMarkData, FilePath.BookMarkPath);
+        }
     }
 }

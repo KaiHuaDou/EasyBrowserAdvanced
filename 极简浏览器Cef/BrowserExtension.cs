@@ -36,7 +36,10 @@ namespace 极简浏览器
         }
         private void SetBookMark_Click(object sender, RoutedEventArgs e)
         {
-            FileApi.Write(BrowserCore.CefBrowser.Title, BrowserCore.CefBrowser.Address, FileType.BookMark);
+            ConfigHelper.AddConfig(
+                new ConfigData(false, BrowserCore.CefBrowser.Title, 
+                BrowserCore.CefBrowser.Address, StandardApi.GetLocalTime()),
+                FilePath.BookMarkPath);
         }
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
