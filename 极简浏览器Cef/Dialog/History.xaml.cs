@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using 极简浏览器.Api;
@@ -12,24 +11,23 @@ namespace 极简浏览器
     /// </summary>
     public partial class History : Window
     {
-        public History( )
+        ObservableCollection<ConfigData> HistoryData;
+        public History()
         {
-            InitializeComponent( );
+            InitializeComponent();
+            ConfigHelper.InitConfig(FilePath.HistoryPath);
+            HistoryData = ConfigHelper.GetConfig(FilePath.HistoryPath);
+            HistoryDataGrid.ItemsSource = HistoryData;
+            HistoryDataGrid.DataContext = HistoryData;
         }
-        
+
         static void ShowFileError()
         {
             StandardApi.ShowNotifyIcon(Properties.Resources.File_Error);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (CheckBox cb in listBox.Items)
-            {
-                if (cb.IsChecked == true)
-                {
-                    NewInstance.StartNewInstance((string) cb.Content);
-                }
-            }
+            
         }
         private void button_Click1(object sender, RoutedEventArgs e)
         {
@@ -44,51 +42,50 @@ namespace 极简浏览器
 
         private void WinLoaded(object sender, RoutedEventArgs e)
         {
-            listBox.ItemsSource = FileApi.ReadAll(FileType.History);
             listBox1.ItemsSource = FileApi.ReadAll(FileType.BookMark);
         }
 
         private void HistoryClear(object sender, RoutedEventArgs e)
         {
-            if(FileApi.Clear(FileType.History) != true)
+            if (FileApi.Clear(FileType.History) != true)
             {
                 ShowFileError();
             }
             else
             {
                 History his = new History( );
-                his.Show( );
-                this.Close( );
+                his.Show();
+                this.Close();
             }
         }
         private void button1_Click1(object sender, RoutedEventArgs e)
         {
-            if(FileApi.Clear(FileType.BookMark) != true)
+            if (FileApi.Clear(FileType.BookMark) != true)
             {
                 ShowFileError();
             }
             else
             {
                 History his = new History( );
-                his.Show( );
-                this.Close( );
+                his.Show();
+                this.Close();
             }
         }
 
-        private void HistoryDelete(object sender, RoutedEventArgs e)
-        {
-            List<CheckBox> lc = new List<CheckBox>( );
-            FileApi.Clear(FileType.History);
-            foreach (CheckBox cb in listBox.Items)
-            {
-                if (cb.IsChecked == false)
-                {
-                    FileApi.Write((string) cb.Content, FileType.History);
-                    lc.Add(cb);
-                }
-            }
-            listBox.ItemsSource = lc;
-        }
+        //private void HistoryDelete(object sender, RoutedEventArgs e)
+        //{
+        //    List<CheckBox> lc = new List<CheckBox>( );
+        //    FileApi.Clear(FileType.History);
+        //    foreach (CheckBox cb in listBox.Items)
+        //    {
+        //        if (cb.IsChecked == false)
+        //        {
+        //            FileApi.Write((string) cb.Content, FileType.History);
+        //            lc.Add(cb);
+        //        }
+        //    }
+        //    listBox.ItemsSource = lc;
+        //}
 
         private void BookMarkDelete(object sender, RoutedEventArgs e)
         {
@@ -98,7 +95,7 @@ namespace 极简浏览器
             {
                 if (cb.IsChecked != true)
                 {
-                    FileApi.Write((string) cb.Content, FileType.BookMark);
+                    FileApi.Write((string)cb.Content, FileType.BookMark);
                     lc.Add(cb);
                 }
             }
@@ -107,18 +104,24 @@ namespace 极简浏览器
 
         private void History_SelectAll_Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (CheckBox cb in listBox.Items)
+            foreach (ConfigData item in HistoryData)
+            {
+                item.IsChecked = true;
+            }
+            
+        }
+
+        private void BookMark_SelectAll_Button_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (CheckBox cb in listBox1.Items)
             {
                 cb.IsChecked = true;
             }
         }
 
-        private void BookMark_SelectAll_Button_Click(object sender, RoutedEventArgs e)
+        private void HistoryDelete(object sender, RoutedEventArgs e)
         {
-            foreach(CheckBox cb in listBox1.Items)
-            {
-                cb.IsChecked = true;
-            }
+
         }
     }
 }

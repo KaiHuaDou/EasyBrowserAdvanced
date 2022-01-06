@@ -55,6 +55,7 @@ namespace 极简浏览器
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
                     System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
+                catch (Exception) { }
             }
         }
 
