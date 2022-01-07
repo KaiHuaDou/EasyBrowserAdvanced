@@ -27,6 +27,12 @@ namespace 极简浏览器
             //Initialize
             InitializeComponent( );
 
+            //Initalize Images
+            rightInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Right);
+            leftInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Left);
+            refreshInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Refresh);
+            newInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.New);
+
             //ChromiumWebBrowsers
             cwb = new ExtChromiumBrowser( );
             CWBGrid.Children.Add(cwb);
@@ -71,7 +77,14 @@ namespace 极简浏览器
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            BrowserCore.Navigate(UrlTextBox.Text);
+            if(!UrlTextBox.Text.Contains("easy://"))
+            {
+                BrowserCore.Navigate(UrlTextBox.Text);
+            }
+            else
+            {
+                BrowserCore.Navigate("about:blank");
+            }
         }
 
 
@@ -82,14 +95,17 @@ namespace 极简浏览器
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "加载完成";
-                ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.GetLocalTime()), FilePath.HistoryPath);
+                if(NoLogs.IsChecked != true)
+                {
+                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.GetLocalTime()), FilePath.HistoryPath);
+                }
                 if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.GetPageSource( )) == true)
                 {
                     label2.Visibility = Visibility.Visible;
                 }
                 if((UrlTextBox.Text.Contains("/Error.html?errorCode=") || UrlTextBox.Text.Contains("\\Error.html?errorCode=")) == true)
                 {
-                    UrlTextBox.Text = "加载错误";
+                    UrlTextBox.Text = "easy://errorPage";
                 }
             });
         }
@@ -150,26 +166,6 @@ namespace 极简浏览器
         {
             cwb.Dispose( );
         }
-
-        private void Topmost_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Topmost = !this.Topmost;
-        }
-
-        private void DevToolsButton_Click(object sender, RoutedEventArgs e)
-        {
-            BrowserCore.CefBrowser.ShowDevTools();
-        }
-
-        private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
-        {        }
-
-        private void RunJSButton_Click(object sender, RoutedEventArgs e)
-        {
-            RunJavascript rj = new RunJavascript();
-            rj.Show();
-        }
-
         private void CWBGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
