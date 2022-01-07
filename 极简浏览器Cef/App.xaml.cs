@@ -105,19 +105,6 @@ namespace 极简浏览器
             Report report = new Report(e.Exception.Message);
             report.ShowDialog( );
         }
-
-        private void Application_Startup(object sender, System.Windows.StartupEventArgs e)
-        {
-            JumpList.SetJumpList(App.Current, jumplist);
-            JumpTask jumptask = new JumpTask( );
-            jumptask.CustomCategory = "任务";
-            jumptask.Title = "新建窗口";
-            jumptask.ApplicationPath = FilePath.AppRuntime;
-            jumptask.IconResourcePath = FilePath.AppRuntime;
-            jumptask.Arguments = "about:blank false";
-            jumplist.JumpItems.Add(jumptask);
-            jumplist.Apply( );
-        }
     }
 }
 

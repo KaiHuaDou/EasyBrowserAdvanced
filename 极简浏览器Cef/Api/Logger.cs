@@ -35,36 +35,6 @@ namespace 极简浏览器.Api
             skip:
             return;
         }
-        public static DialogResult Message(Exception e, bool shutWhenFail = false)
-        {
-            try
-            {
-                BrowserCore.CefInstance.TaskbarItemInfo.ProgressValue = 100;
-                BrowserCore.CefInstance.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
-                BrowserCore.CefInstance.TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/resource/Error.png"));
-                string message, innermsg, endmsg;
-                message = Properties.Resources.Excep_msg;
-                innermsg = Properties.Resources.Excep_inmsg1 + e.Message + "\n" + e.Source + Properties.Resources.Excep_inmsg2 + e.TargetSite + Properties.Resources.Excep_inmsg3;
-                endmsg = Properties.Resources.Excep_endmsg + e.HelpLink;
-                DialogResult dr = new DialogResult( );
-                dr = MessageBox.Show(
-                    message + innermsg + endmsg, 
-                    Properties.Resources.BrowserName,
-                    MessageBoxButtons.AbortRetryIgnore,
-                    MessageBoxIcon.Error);
-                BrowserCore.CefInstance.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
-                BrowserCore.CefInstance.TaskbarItemInfo.Overlay = null;
-                return dr;
-            }
-            catch (Exception)
-            {
-                if(shutWhenFail == true)
-                {
-                    App.Current.Shutdown();
-                }
-                return DialogResult.None;
-            }
-        }
         private static string GenerateLogPath(LogType logType)
         {
             switch (logType)
