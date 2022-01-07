@@ -84,6 +84,6 @@
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
                 VerticalAlignment="Top" Height="7" Background="{x:Null}" BorderThickness="0">
         </ProgressBar>
-        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0" Background="White" KeyDown="Go" Template="{StaticResource FilletTextBox}" />
+        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0" Background="#FFABADB3" KeyDown="Go" Template="{StaticResource FilletTextBox}" BorderBrush="{x:Null}" SelectionBrush="#FF000078" />
     </Grid>
 </Window>

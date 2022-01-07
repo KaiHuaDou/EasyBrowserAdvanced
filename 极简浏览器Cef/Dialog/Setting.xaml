@@ -11,8 +11,7 @@
                 Width="115" Click="button_Click" />
         <Button x:Name="button1" Content="清除缓存" HorizontalAlignment="Left" Margin="235,126,0,0" VerticalAlignment="Top"
                 Width="137" Click="button1_Click" />
-        <Label x:Name="label2" Content="清除成功！" HorizontalAlignment="Left" Margin="190,126,0,0" VerticalAlignment="Top"
-                Foreground="#FF3DF971" Visibility="Collapsed" />
+        <Label x:Name="label2" Content="清除成功！" HorizontalAlignment="Left" Margin="245,157,0,0" VerticalAlignment="Top" Foreground="#FF3DF971" Visibility="Collapsed"/>
 
     </Grid>
 </Window>

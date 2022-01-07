@@ -12,14 +12,9 @@ namespace 极简浏览器.Api
         {
             MessageBox.Show(Properties.Resources.Access_killdown, Properties.Resources.Access_kdtitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
             try
-            { File.Create("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin"); }
+            { File.Create(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"); }
             catch (Exception) { }
             App.Current.Shutdown( );
-            Process.Start("%SystemRoot%\\System32\\taskkill.exe", " /f /im " + Process.GetCurrentProcess( ).MainModule.FileName);
-            Process.Start("%SystemRoot%\\System32\\taskkill.exe", " /f /im " + Process.GetCurrentProcess( ).MainModule.FileName);
-            Process.Start("%SystemRoot%\\System32\\taskkill.exe", " /f /im " + Process.GetCurrentProcess( ).MainModule.FileName);
-            Process.Start("%SystemRoot%\\System32\\taskkill.exe", " /f /im " + Process.GetCurrentProcess( ).MainModule.FileName);
-            Process.Start("%SystemRoot%\\System32\\taskkill.exe", " /f /im " + Process.GetCurrentProcess( ).MainModule.FileName);
         }
         public static bool CheckIfNotCivilized(string text)
         {
