@@ -125,35 +125,35 @@ namespace 极简浏览器.Api
     }
     public static class CssFormater
     {
-        public static string FormatCss(string InputString)
+        public static string FormatCss(string inputString)
         {
-            string OutputString = "";
-            InputString = Regex.Replace(InputString, ";", ";\n");//遇分号换行
-            InputString = Regex.Replace(InputString, "}", "\n } \n");//遇"}"换行
-            InputString = Regex.Replace(InputString, "{", "\n { \n");//遇"{"换行          
+            string outputString = "";
+            inputString = Regex.Replace(inputString, ";", ";\n");//遇分号换行
+            inputString = Regex.Replace(inputString, "}", "\n } \n");//遇"}"换行
+            inputString = Regex.Replace(inputString, "{", "\n { \n");//遇"{"换行          
             char[] cc = new char[1] { '\n', };
             string[] ArryInput = new string[5000];
-            ArryInput = InputString.Split(cc);
+            ArryInput = inputString.Split(cc);
             //去掉空行
             foreach (string ss in ArryInput)
             {
                 string ss1 = Regex.Replace(ss, "\\s*", "");
                 if (ss1 != "")
                 {
-                    OutputString += ss.Trim( ) + "\n";
+                    outputString += ss.Trim( ) + "\n";
                 }
             }
-            ArryInput = OutputString.Split(cc);
-            OutputString = "";
-            ArryInput = FormatKUOHAO(ArryInput);//处理{}匹配            
+            ArryInput = outputString.Split(cc);
+            outputString = "";
+            ArryInput = FormatKuoHao(ArryInput);//处理{}匹配            
             foreach (string ss in ArryInput)
             {
-                OutputString += ss + "\r\n";
+                outputString += ss + "\r\n";
             }
 
-            OutputString = Regex.Replace(OutputString, @"(?<Function>(?<=\r\n)\s*(int|long|void|char|bool|string|(unsigned\s*int)|(short\s*int)|unsigned|short|(long\s*int)|)\s*\*?\s*[A-Za-z_]*\w*\s*\(.*?\)\s*(?=\r\n|{))", "\r\n${Function}");
-            OutputString = Regex.Replace(OutputString, "\r\n\r\n(?<A>(\\s)*?(if|for|while|do)\\()", "\r\n${A}");
-            return OutputString;
+            outputString = Regex.Replace(outputString, @"(?<Function>(?<=\r\n)\s*(int|long|void|char|bool|string|(unsigned\s*int)|(short\s*int)|unsigned|short|(long\s*int)|)\s*\*?\s*[A-Za-z_]*\w*\s*\(.*?\)\s*(?=\r\n|{))", "\r\n${Function}");
+            outputString = Regex.Replace(outputString, "\r\n\r\n(?<A>(\\s)*?(if|for|while|do)\\()", "\r\n${A}");
+            return outputString;
         }
         /// <summary>
         /// 匹配括号所用的数据结构
@@ -164,7 +164,7 @@ namespace 极简浏览器.Api
             public int place;
         }
 
-        public static string[] FormatKUOHAO(string[] Intput)
+        public static string[] FormatKuoHao(string[] input)
         {
             Place[] MyPlace = new Place[5000];
             int Top = -1;
@@ -174,9 +174,9 @@ namespace 极简浏览器.Api
             try
             {
                 //找第一个”{“
-                for (j = 0; j < Intput.Length; j++)
+                for (j = 0; j < input.Length; j++)
                 {
-                    if (Intput[j] == "{")
+                    if (input[j] == "{")
                     {
                         Top++;
                         MyPlace[Top].data = "{";
@@ -185,22 +185,22 @@ namespace 极简浏览器.Api
                     }
                 }
                 i = j + 1;
-                while (Top >= 0 || i < Intput.Length)
+                while (Top >= 0 || i < input.Length)
                 {
-                    if (Intput[i] == "{")
+                    if (input[i] == "{")
                     {
                         Top++;
                         MyPlace[Top].data = "{";
                         MyPlace[Top].place = i;
                         i++;
                     }
-                    else if (Intput[i] == "}")
+                    else if (input[i] == "}")
                     {
                         int P1 = MyPlace[Top].place;
                         int P2 = i;
                         for (k = P1 + 1; k < P2; k++)
                         {
-                            Intput[k] = "    " + Intput[k];
+                            input[k] = "    " + input[k];
                         }
                         //Output[i] += "\n";
                         Top--;
@@ -216,7 +216,7 @@ namespace 极简浏览器.Api
             {
                 Logger.Log(e, LogType.Other, false);
             }
-            return Intput;
+            return input;
         }
     }
 }
