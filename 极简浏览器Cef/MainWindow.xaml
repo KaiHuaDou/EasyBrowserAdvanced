@@ -1,10 +1,7 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
-        xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600"
-        WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器" xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600" WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
     <Window.Resources>
-        <ControlTemplate x:Key="FilletTextBox" TargetType="{x:Type TextBox}">
-            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="15">
+        <ControlTemplate x:Key="NormalTextBox" TargetType="{x:Type TextBox}">
+            <Border CornerRadius="10">
                 <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" />
             </Border>
         </ControlTemplate>
@@ -27,39 +24,27 @@
         </Grid.ContextMenu>
         <Grid x:Name="CWBGrid" Margin="0,37,0,35" PreviewMouseWheel="CWBGrid_PreviewMouseWheel">
         </Grid>
-        <Button x:Name="GoBackButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30"
-                Click="GoBackButton_Click" Foreground="Black" FontWeight="ExtraBlack" Background="{x:Null}"
-                BorderBrush="{x:Null}" FontSize="24" FocusVisualStyle="{x:Null}" BorderThickness="0">
-            <Image x:Name="leftInnerImage"/>
+        <Button x:Name="GoBackButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="35" Height="30" Click="GoBackButton_Click" BorderBrush="{x:Null}" FontSize="24" BorderThickness="0" FocusVisualStyle="{x:Null}" Background="{x:Null}">
+            <Image x:Name="leftInnerImage" />
         </Button>
-        <Button x:Name="GoForwardButton" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="35"
-                Height="30" Click="GoForwardButton_Click" Foreground="Black" BorderBrush="{x:Null}" FontSize="24"
-                BorderThickness="0" FocusVisualStyle="{x:Null}" Background="{x:Null}">
+        <Button x:Name="GoForwardButton" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="35" Height="30" Click="GoForwardButton_Click" BorderBrush="{x:Null}" FontSize="24" BorderThickness="0" FocusVisualStyle="{x:Null}" Background="{x:Null}">
             <Image x:Name="rightInnerImage"></Image>
         </Button>
-        <Button x:Name="RefershButton" HorizontalAlignment="Right" Margin="0,0,35,0" VerticalAlignment="Top" Width="35" Height="30" Click="RefreshButton_Click" BorderBrush="{x:Null}" Foreground="{x:Null}"
-                Background="{x:Null}" FocusVisualStyle="{Binding ElementName=button3,Path=Style}" BorderThickness="0">
+        <Button x:Name="RefershButton" HorizontalAlignment="Right" Margin="0,0,35,0" VerticalAlignment="Top" Width="35" Height="30" Click="RefreshButton_Click" BorderBrush="{x:Null}" Background="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
             <Image x:Name="refreshInnerImage" />
         </Button>
-        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom"
-                Background="Transparent">
+        <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom" Background="Transparent">
             <Label x:Name="label1" Content="" Height="35" />
             <Label x:Name="label2" Content="此网页不文明!" Height="35" Visibility="Collapsed" Foreground="Red" />
         </StatusBar>
-        <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top"
-                Width="35" FontSize="22" Height="30" Click="AddNewPageButton_Click" Background="{x:Null}"
-                Foreground="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
-            <Image x:Name="newInnerImage"/>
+        <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Width="35" FontSize="22" Height="30" Click="AddNewPageButton_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
+            <Image x:Name="newInnerImage" />
         </Button>
-        <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom"
-                Width="144" Background="Transparent">
+        <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="144" Background="Transparent">
             <MenuItem Header="开发者" Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
-                <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)" Style="{StaticResource WhiteMenuItem}"
-                        Click="RunJSButton_Click" />
-                <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Style="{StaticResource WhiteMenuItem}"
-                        Click="DevToolsButton_Click" />
-                <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Style="{StaticResource WhiteMenuItem}"
-                        Click="ExtensionsButton_Click" />
+                <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)" Style="{StaticResource WhiteMenuItem}" Click="RunJSButton_Click" />
+                <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Style="{StaticResource WhiteMenuItem}" Click="DevToolsButton_Click" />
+                <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Style="{StaticResource WhiteMenuItem}" Click="ExtensionsButton_Click" />
             </MenuItem>
             <MenuItem Header="更多..." Height="35" Width="72" BorderThickness="0" FontSize="22" Background="Transparent">
                 <MenuItem Header="上一页(_P)" Click="GoForwardButton_Click" Style="{StaticResource WhiteMenuItem}" />
@@ -73,17 +58,40 @@
                 <MenuItem Header="设置(_S)" Click="Setting_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="帮助(_H)" Click="Help_Click" Style="{StaticResource WhiteMenuItem}" />
                 <MenuItem Header="关于(_A)" Click="About_Click" Style="{StaticResource WhiteMenuItem}" />
-                <MenuItem Header="置顶(_T)" IsCheckable="True" Click="Topmost_Checked"
-                        Style="{DynamicResource WhiteMenuItem}" />
-                <MenuItem Header="在本窗口打开(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}"
-                        x:Name="OnlyThis" />
-                <MenuItem Header="无痕模式(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" x:Name="NoLogs"
-                        Click="NoLogs_Click" />
+                <MenuItem Header="置顶(_T)" IsCheckable="True" Click="Topmost_Checked" Style="{DynamicResource WhiteMenuItem}" />
+                <MenuItem Header="在本窗口打开(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" x:Name="OnlyThis" />
+                <MenuItem Header="无痕模式(_C)" IsCheckable="True" Style="{StaticResource WhiteMenuItem}" x:Name="NoLogs" Click="NoLogs_Click" />
             </MenuItem>
         </Menu>
-        <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch"
-                VerticalAlignment="Top" Height="7" Background="{x:Null}" BorderThickness="0">
+        <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="7" Background="{x:Null}" BorderThickness="0">
         </ProgressBar>
-        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0" Background="#FFABADB3" KeyDown="Go" Template="{StaticResource FilletTextBox}" BorderBrush="{x:Null}" SelectionBrush="#FF000078" />
+        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0" KeyDown="Go">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TextBox}">
+                                        <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="13" Background="White">
+                                            <ScrollViewer x:Name="PART_ContentHost" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border BorderBrush="#FFE6E6E6" BorderThickness="2" CornerRadius="13" Background="#FFE6E6E6">
+                                    <ScrollViewer x:Name="PART_ContentHost" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
     </Grid>
 </Window>
