@@ -1,10 +1,5 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器" xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600" WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器" xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="极简浏览器.MainWindow" Title="极简浏览器" Width="600" WindowStartupLocation="Manual" WindowState="Normal" Loaded="Window_Loaded" Icon="favicon.ico" Height="500">
     <Window.Resources>
-        <ControlTemplate x:Key="NormalTextBox" TargetType="{x:Type TextBox}">
-            <Border CornerRadius="10">
-                <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" />
-            </Border>
-        </ControlTemplate>
         <Style x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
             <Setter x:Name="bg" Property="Background" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
@@ -30,14 +25,46 @@
         <Button x:Name="GoForwardButton" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="35" Height="30" Click="GoForwardButton_Click" BorderBrush="{x:Null}" FontSize="24" BorderThickness="0" FocusVisualStyle="{x:Null}" Background="{x:Null}">
             <Image x:Name="rightInnerImage"></Image>
         </Button>
-        <Button x:Name="RefershButton" HorizontalAlignment="Right" Margin="0,0,35,0" VerticalAlignment="Top" Width="35" Height="30" Click="RefreshButton_Click" BorderBrush="{x:Null}" Background="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
-            <Image x:Name="refreshInnerImage" />
+        <Button x:Name="RefershButton" HorizontalAlignment="Right" Margin="0,0,70,0" VerticalAlignment="Top" Width="35" Height="30" Click="RefreshButton_Click" BorderBrush="{x:Null}" Background="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
+            <!--<Image x:Name="refreshInnerImage" />-->
+            <Grid Margin="0" Width="26" Height="28">
+                <ed:Arc ArcThickness="0" ArcThicknessUnit="Pixel" EndAngle="270" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="24" Margin="0.755,3.28,0,0" Stretch="None" Stroke="Black" StartAngle="0" VerticalAlignment="Top" Width="24" RenderTransformOrigin="0.5,0.5" StrokeThickness="4">
+                    <ed:Arc.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:Arc.RenderTransform>
+                </ed:Arc>
+                <ed:RegularPolygon HorizontalAlignment="Left" Height="6" InnerRadius="1" Margin="9.912,2.781,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="12" RenderTransformOrigin="0.5,0.5" Fill="Black" StrokeThickness="0">
+                    <ed:RegularPolygon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:RegularPolygon.RenderTransform>
+                </ed:RegularPolygon>
+                <ed:Arc ArcThickness="1" ArcThicknessUnit="Percent" EndAngle="180" Fill="Black" HorizontalAlignment="Left" Height="4" Margin="21.225,13.345,0,0" Stretch="None" Stroke="Black" VerticalAlignment="Top" Width="4" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
+                    <ed:Arc.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="-90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:Arc.RenderTransform>
+                </ed:Arc>
+            </Grid>
         </Button>
         <StatusBar x:Name="startusBar" Height="35" Margin="0,0,144,0" VerticalAlignment="Bottom" Background="Transparent">
             <Label x:Name="label1" Content="" Height="35" />
             <Label x:Name="label2" Content="此网页不文明!" Height="35" Visibility="Collapsed" Foreground="Red" />
         </StatusBar>
-        <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Width="35" FontSize="22" Height="30" Click="AddNewPageButton_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
+        <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,35,0" VerticalAlignment="Top" Width="35" FontSize="22" Height="30" Click="AddNewPageButton_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
             <Image x:Name="newInnerImage" />
         </Button>
         <Menu x:Name="OptionMenu" HorizontalAlignment="Right" Height="35" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="144" Background="Transparent">
@@ -65,7 +92,7 @@
         </Menu>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,30,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="7" Background="{x:Null}" BorderThickness="0">
         </ProgressBar>
-        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0" KeyDown="Go">
+        <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="20" Margin="70,0,105,0" KeyDown="Go">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Triggers>
@@ -84,7 +111,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TextBox}">
-                                <Border BorderBrush="#FFE6E6E6" BorderThickness="2" CornerRadius="13" Background="#FFE6E6E6">
+                                <Border BorderBrush="#FFF0F0F0" BorderThickness="2" CornerRadius="13" Background="#FFF0F0F0">
                                     <ScrollViewer x:Name="PART_ContentHost" />
                                 </Border>
                             </ControlTemplate>
