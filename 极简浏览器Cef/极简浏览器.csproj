@@ -238,7 +238,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="FootClear\Clear.bat">
+    <None Include="CleanTools\清除足迹.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="CleanTools\清理垃圾.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -280,10 +283,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Error.html">
+    <Content Include="CleanTools\rm.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="FootClear\rm.exe">
+    <Content Include="Error.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

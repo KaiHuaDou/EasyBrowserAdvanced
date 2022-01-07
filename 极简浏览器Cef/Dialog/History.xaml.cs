@@ -22,11 +22,6 @@ namespace 极简浏览器
             BookMarkDataGrid.ItemsSource = BookMarkData;
         }
 
-        static void ShowFileError()
-        {
-            StandardApi.ShowNotifyIcon(Properties.Resources.File_Error);
-        }
-
         #region History
         private void InitHistory()
         {
