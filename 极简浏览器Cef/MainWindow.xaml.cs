@@ -30,7 +30,7 @@ namespace 极简浏览器
             //Initalize Images
             rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
             leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
-            refreshInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Refresh);
+            //refreshInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Refresh);
             newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
