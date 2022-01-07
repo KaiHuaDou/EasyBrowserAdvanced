@@ -13,7 +13,7 @@ namespace 极简浏览器.Api
             return text;
         }
     }
-    public class HtmlFormatter
+    public static class HtmlFormatter
     {
         public static string FormatHtml(string inputString)
         {
@@ -123,7 +123,7 @@ namespace 极简浏览器.Api
             None
         }
     }
-    public class CssFormater
+    public static class CssFormater
     {
         public static string FormatCss(string InputString)
         {

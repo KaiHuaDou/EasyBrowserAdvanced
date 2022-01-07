@@ -118,7 +118,7 @@ namespace 极简浏览器
         }
 
 
-        private string GetDownloadFullPath(DownloadItem item)
+        private static string GetDownloadFullPath(DownloadItem item)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.FileName = item.SuggestedFileName;

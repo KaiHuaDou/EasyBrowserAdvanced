@@ -97,9 +97,9 @@ namespace 极简浏览器
                 label1.Content = "加载完成";
                 if(NoLogs.IsChecked != true)
                 {
-                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.GetLocalTime()), FilePath.HistoryPath);
+                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.LocalTime), FilePath.HistoryPath);
                 }
-                if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.GetPageSource( )) == true)
+                if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.CefPageSource) == true)
                 {
                     label2.Visibility = Visibility.Visible;
                 }

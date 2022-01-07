@@ -10,11 +10,11 @@ namespace 极简浏览器
 {
     public struct Arguments
     {
-        public Arguments(int code)
+        public Arguments(bool value)
         {
-            isNew = false;
-            isTopMost = false;
-            isNotLogging = false;
+            isNew = value;
+            isTopMost = value;
+            isNotLogging = value;
         }
         public bool isNew;
         public bool isTopMost;
@@ -25,11 +25,10 @@ namespace 极简浏览器
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        JumpList jumplist = new JumpList( );
         public class Program
         {
             public static string InputArgu ="";
-            public static Arguments arguments = new Arguments(0);
+            public static Arguments arguments = new Arguments(false);
             ///<summary>
             ///应用程序的主入口点。
             ///</summary>
