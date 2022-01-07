@@ -6,9 +6,9 @@ namespace 极简浏览器
     /// <summary>
     /// RunJavascript.xaml 的交互逻辑
     /// </summary>
-    public partial class RunJavascript : Window
+    public partial class RunJavaScript : Window
     {
-        public RunJavascript()
+        public RunJavaScript()
         {
             InitializeComponent();
         }

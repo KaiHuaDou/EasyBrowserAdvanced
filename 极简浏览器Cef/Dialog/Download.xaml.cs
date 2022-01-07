@@ -115,8 +115,6 @@ namespace 极简浏览器
             fs.Dispose();
             timer.Close();
             timer.Dispose();
-            GC.SuppressFinalize(fs);
-            GC.SuppressFinalize(timer);
         }
     }
 }

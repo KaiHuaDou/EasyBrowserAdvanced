@@ -79,7 +79,7 @@ namespace 极简浏览器
 
         private void RunJSButton_Click(object sender, RoutedEventArgs e)
         {
-            RunJavascript rj = new RunJavascript();
+            RunJavaScript rj = new RunJavaScript();
             rj.Show();
         }
     }

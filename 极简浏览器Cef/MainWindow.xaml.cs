@@ -162,7 +162,7 @@ namespace 极简浏览器
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        protected virtual void Dispose(bool IsDispose)
+        protected virtual void Dispose(bool isDispose)
         {
             cwb.Dispose( );
         }
