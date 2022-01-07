@@ -38,7 +38,7 @@ namespace 极简浏览器
         {
             ConfigHelper.AddConfig(
                 new ConfigData(false, BrowserCore.CefBrowser.Title, 
-                BrowserCore.CefBrowser.Address, StandardApi.LocalTime),
+                BrowserCore.CefBrowser.Address, StdApi.LocalTime),
                 FilePath.BookMarkPath);
         }
         private void Setting_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace 极简浏览器
         }
         private void ViewSource_Click(object sender, RoutedEventArgs e)
         {
-            StandardApi.ViewPageSource( );
+            StdApi.ViewPageSource( );
         }
         private void ViewHistory_Click(object sender, RoutedEventArgs e)
         {
