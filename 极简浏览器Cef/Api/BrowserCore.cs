@@ -23,7 +23,6 @@ namespace 极简浏览器.Api
                 }
                 return null;
             }
-            private set { }
         }
         public static ExtChromiumBrowser CefBrowser
         {
@@ -38,7 +37,6 @@ namespace 极简浏览器.Api
                 }
                 return null;
             }
-            private set { }
         }
         public static void Navigate(string url)
         {

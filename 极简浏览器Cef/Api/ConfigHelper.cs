@@ -18,7 +18,6 @@ namespace 极简浏览器.Api
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
             serializer.Serialize(fs, new ObservableCollection<ConfigData>());
             fs.Close();
-            fs.Dispose();
         }
         public static void AddConfig(ConfigData data, string fileName)
         {
@@ -38,7 +37,6 @@ namespace 极简浏览器.Api
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
             serializer.Serialize(fs, data);
             fs.Close();
-            fs.Dispose();
         }
         public static ObservableCollection<ConfigData> GetConfig(string fileName)
         {
@@ -49,12 +47,10 @@ namespace 极简浏览器.Api
             {
                 config = serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
                 fs.Close();
-                fs.Dispose();
             }
             catch (Exception)
             {
                 fs.Close();
-                fs.Dispose();
                 InitConfig(fileName);
             }
             return config;

@@ -19,17 +19,23 @@ namespace 极简浏览器.Api
             IntPtr temp2 = temp1.GetHbitmap();
             return Imaging.CreateBitmapSourceFromHBitmap(temp2, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
-        public static string GetLocalTime()
+        public static string LocalTime
         {
-            return DateTime.Now.ToLocalTime().ToString();
+            get
+            {
+                return DateTime.Now.ToLocalTime().ToString();
+            }
         }
-        public static string GetPageSource( )
+        public static string CefPageSource
         {
-            TaskStringVisitor tsv = new TaskStringVisitor( );
-            BrowserCore.CefBrowser.GetMainFrame( ).GetText(tsv);
-            while (tsv.Task.IsCompleted == true)
-                ;
-            return tsv.Task.Result;
+            get
+            {
+                TaskStringVisitor tsv = new TaskStringVisitor( );
+                BrowserCore.CefBrowser.GetMainFrame().GetText(tsv);
+                while (tsv.Task.IsCompleted == true)
+                    ;
+                return tsv.Task.Result;
+            }
         }
         public static async void ViewPageSource( )
         {

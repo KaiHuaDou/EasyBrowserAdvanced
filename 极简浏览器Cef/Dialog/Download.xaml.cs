@@ -12,23 +12,23 @@ namespace 极简浏览器
     /// <summary>
     /// Download.xaml 的交互逻辑
     /// </summary>
-    public partial class Download : Window
+    public partial class Download : Window, IDisposable
     {
-        public static DownloadItem cur = new DownloadItem();
-        public string FilePath;
-        public WebRequest httpRequest;
-        public WebResponse httpResponse;
-        public byte[] buffer = new byte[short.MaxValue];
-        public Thread downloadThread;
-        public Stream ns;
-        public FileStream fs;
-        public long length;
-        public long downlength=0;
-        public long lastlength = 0;
-        public delegate void updateData(string value);
-        public int totalseconds = 0;
-        public updateData UIDel;
-        public System.Timers.Timer timer = new System.Timers.Timer(1000);
+        private static DownloadItem cur = new DownloadItem();
+        private string FilePath;
+        private WebRequest httpRequest;
+        private WebResponse httpResponse;
+        private byte[] buffer = new byte[short.MaxValue];
+        private Thread downloadThread;
+        private Stream ns;
+        private FileStream fs;
+        private long length;
+        private long downlength=0;
+        private long lastlength = 0;
+        private delegate void updateData(string value);
+        private int totalseconds = 0;
+        private updateData UIDel;
+        private System.Timers.Timer timer = new System.Timers.Timer(1000);
         public Download(DownloadItem item, string path)
         {
             InitializeComponent();
@@ -107,6 +107,16 @@ namespace 极简浏览器
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             downloadThread.Abort();
+        }
+
+        public void Dispose()
+        {
+            fs.Close();
+            fs.Dispose();
+            timer.Close();
+            timer.Dispose();
+            GC.SuppressFinalize(fs);
+            GC.SuppressFinalize(timer);
         }
     }
 }

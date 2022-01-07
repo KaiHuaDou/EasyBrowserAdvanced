@@ -10,7 +10,7 @@
         <Label x:Name="Speed" Content="999KB/s" HorizontalAlignment="Left" Margin="390,83,0,0" VerticalAlignment="Top"
                 Height="37" />
         <Button x:Name="OpenButton" Content="打开" HorizontalAlignment="Left" Margin="395,125,0,0" VerticalAlignment="Top"
-                Width="87" IsEnabled="False" />
+                Width="87" IsEnabled="False" Click="OpenButton_Click"/>
         <Label x:Name="Percent" Content="100%" HorizontalAlignment="Left" Margin="416,44,0,0" VerticalAlignment="Top" />
         <Label x:Name="lastTime" Content="剩余100分钟" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" />
 
