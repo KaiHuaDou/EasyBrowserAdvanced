@@ -11,7 +11,7 @@ using CefSharp;
 
 namespace 极简浏览器.Api
 {
-    public static class StandardApi
+    public static class StdApi
     {
         public static ImageSource ConvertImage(Bitmap image)
         {
@@ -43,6 +43,10 @@ namespace 极简浏览器.Api
             string x = await BrowserCore.CefBrowser.GetMainFrame( ).GetSourceAsync( );
             webSource = new WebSource(x);
             webSource.Show( );
+        }
+        public static void ShowWindow(Window window)
+        {
+            window.Show();
         }
     }
 }

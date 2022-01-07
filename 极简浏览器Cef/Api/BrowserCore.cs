@@ -63,5 +63,21 @@ namespace 极简浏览器.Api
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
             }
         }
+        public static bool PraseEasy(string easySite)
+        {
+            switch(easySite.ToLower().Replace("easy://",""))
+            {
+                case "about": StdApi.ShowWindow(new About()); break;
+                case "extensions": StdApi.ShowWindow(new Extensions()); break;
+                case "help": StdApi.ShowWindow(new Help()); break;
+                case "history": StdApi.ShowWindow(new History()); break;
+                case "runjavascript": StdApi.ShowWindow(new RunJavaScript()); break;
+                case "setting": StdApi.ShowWindow(new Setting()); break;
+                case "websource": StdApi.ViewPageSource(); break;
+                case "new-tab": NewInstance.StartNewInstance("about:blank"); break;
+                default: return false;
+            }
+            return true;
+        }
     }
 }

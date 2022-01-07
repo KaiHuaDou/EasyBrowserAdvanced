@@ -28,10 +28,10 @@ namespace 极简浏览器
             InitializeComponent( );
 
             //Initalize Images
-            rightInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Right);
-            leftInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Left);
-            refreshInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.Refresh);
-            newInnerImage.Source = StandardApi.ConvertImage(Properties.Resources.New);
+            rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
+            leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
+            refreshInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Refresh);
+            newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
             cwb = new ExtChromiumBrowser( );
@@ -77,13 +77,13 @@ namespace 极简浏览器
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            if(!UrlTextBox.Text.Contains("easy://"))
+            if (UrlTextBox.Text.ToLower().Contains("easy://"))
             {
-                BrowserCore.Navigate(UrlTextBox.Text);
+                BrowserCore.PraseEasy(UrlTextBox.Text);
             }
             else
             {
-                BrowserCore.Navigate("about:blank");
+                BrowserCore.Navigate(UrlTextBox.Text);
             }
         }
 
@@ -97,9 +97,9 @@ namespace 极简浏览器
                 label1.Content = "加载完成";
                 if(NoLogs.IsChecked != true)
                 {
-                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StandardApi.LocalTime), FilePath.HistoryPath);
+                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.HistoryPath);
                 }
-                if (CivilizedLanguage.CheckIfNotCivilized(StandardApi.CefPageSource) == true)
+                if (CivilizedLanguage.CheckIfNotCivilized(StdApi.CefPageSource) == true)
                 {
                     label2.Visibility = Visibility.Visible;
                 }

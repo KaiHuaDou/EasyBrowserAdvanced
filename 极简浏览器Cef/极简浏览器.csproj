@@ -140,7 +140,7 @@
     <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\NewInstance.cs" />
     <Compile Include="Api\Logger.cs" />
-    <Compile Include="Api\StandardApi.cs" />
+    <Compile Include="Api\StdApi.cs" />
     <Compile Include="BrowserExtension.cs" />
     <Compile Include="BrowserHelper.cs" />
     <Compile Include="Dialog\Download.xaml.cs">

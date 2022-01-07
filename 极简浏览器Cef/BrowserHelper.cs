@@ -211,7 +211,7 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "查看网页源代码(_V)",
-                    Command = new CustomCommand(StandardApi.ViewPageSource)
+                    Command = new CustomCommand(StdApi.ViewPageSource)
                 });
                 menu.Items.Add(new MenuItem
                 {
