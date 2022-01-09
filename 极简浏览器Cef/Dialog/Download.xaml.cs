@@ -52,14 +52,22 @@ namespace 极简浏览器
 
         public void DownloadInit()
         {
-            httpRequest = WebRequest.Create(cur.Url);
-            httpResponse = httpRequest.GetResponse();
-            length = httpResponse.ContentLength;
-            Progress.Maximum = length;
-            downloadThread = new Thread(new ThreadStart(HttpDownloadFile));
-            fs = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write);
-            downloadThread.Start();
-            timer.Enabled = true;
+            try
+            {
+                httpRequest = WebRequest.Create(cur.Url);
+                httpResponse = httpRequest.GetResponse();
+                length = httpResponse.ContentLength;
+                Progress.Maximum = length;
+                downloadThread = new Thread(new ThreadStart(HttpDownloadFile));
+                fs = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write);
+                downloadThread.Start();
+                timer.Enabled = true;
+            }
+            catch(WebException e)
+            {
+                MessageBox.Show("无法下载，原因：:" + e.Status.ToString());
+                this.Close();
+            }
         }
 
         public void HttpDownloadFile()
