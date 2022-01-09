@@ -142,6 +142,9 @@
     <Compile Include="Api\NewInstance.cs" />
     <Compile Include="Api\Logger.cs" />
     <Compile Include="Api\StdApi.cs" />
+    <Compile Include="Blend.xaml.cs">
+      <DependentUpon>Blend.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowserExtension.cs" />
     <Compile Include="BrowserHelper.cs" />
     <Compile Include="Dialog\Download.xaml.cs">
@@ -170,6 +173,10 @@
       <DependentUpon>WebSource.xaml</DependentUpon>
     </Compile>
     <Content Include="废弃的代码.txt" />
+    <Page Include="Blend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialog\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
