@@ -1,9 +1,10 @@
 # 极简浏览器
 极简浏览器是基于Chromium的浏览器，轻巧易用，启动速度快。
 
-## 合作伙伴
+## 运行依赖
 
-@要饭的肥喵
+1. [.Net Framework 4.5.2](https://go.microsoft.com/fwlink/?LinkId=397707)
+2. [Visual C++ 运行时 2015](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 ## 特别鸣谢
 
@@ -18,6 +19,7 @@ StrollStars
 4. 由{}包裹的是正在开发的
 -----
 ### 下一个更新（V3.4.7.2)
++ 更新资源 #7 更换了新的图标
 + 更新资源 #6 添加了LICENSE文件(MIT)
 + Bug修复 #21 解决了浏览器太丑的Bug
 + 增加功能 #20 增加了导入以`easy://`开头的地址
