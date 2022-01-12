@@ -39,6 +39,10 @@
             }
             return (false);
         }
+        if(getQueryVariable("errorCode") == "NameNotResolved")
+        {
+            searchit();
+        }
         document.title = getQueryVariable("errorCode");
         document.getElementById("infobig").innerHTML = getQueryVariable("errorCode");
         document.getElementById("infotext").innerHTML = getQueryVariable("errorText");
