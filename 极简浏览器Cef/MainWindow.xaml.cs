@@ -50,8 +50,15 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
-                if(e.ErrorCode.ToString() != "Aborted")
+                if(e.ErrorCode.ToString() == "NameNotResolved" ||
+                e.ErrorCode.ToString() == "AddressUnreachable")
+                {
+                    BrowserCore.Navigate("https://www.baidu.com/s?wd=" + UrlTextBox.Text);
+                }
+                else if(e.ErrorCode.ToString() != "Aborted")
+                {
                     BrowserCore.Navigate(FilePath.AppPath + "\\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                }
             });
         }
 

@@ -7,11 +7,11 @@
         </Image>
         <Label x:Name="label" Content="极简浏览器&#xD;&#xA;       3" HorizontalAlignment="Left" Margin="185,20,0,0"
                 VerticalAlignment="Top" />
-        <Label x:Name="label1" Content="开发者：范铠齐" HorizontalAlignment="Left" Margin="25,96,0,0" VerticalAlignment="Top" />
-        <Label x:Name="label2" Content="操作系统：Windows 7/8/8.1/10" HorizontalAlignment="Left" Margin="25,130,0,0"
+        <Label x:Name="label1" Content="开发者：KaiHuaDou" HorizontalAlignment="Left" Margin="25,96,0,0" VerticalAlignment="Top" />
+        <Label x:Name="label2" Content="操作系统：Windows 7/8/8.1/10/11" HorizontalAlignment="Left" Margin="25,130,0,0"
                 VerticalAlignment="Top" />
         <Label x:Name="label3" Content="#####" HorizontalAlignment="Left" Margin="25,164,0,0" VerticalAlignment="Top" />
-        <Label x:Name="label4" Content="版权所有：FkqSoft©2019~2021" HorizontalAlignment="Left" Margin="25,198,0,0"
+        <Label x:Name="label4" Content="版权所有：FkqSoft©2019~2022" HorizontalAlignment="Left" Margin="25,198,0,0"
                 VerticalAlignment="Top" />
         <Label x:Name="label6" Content="您是合法用户" HorizontalAlignment="Left" Margin="125,233,0,0" VerticalAlignment="Top" />
         <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="285,275,0,0" VerticalAlignment="Top"
