@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -17,7 +18,7 @@ namespace 极简浏览器
     {
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
-        public ChromiumWebBrowser cwb = new ExtChromiumBrowser( );
+        public static ChromiumWebBrowser cwb;
         public MainWindow( )
         {
             Initialize( );
@@ -34,14 +35,25 @@ namespace 极简浏览器
             newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
-            cwb = new ExtChromiumBrowser( );
+            var settings = new CefSettings();
+            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+            settings.Locale = "zh-CN";
+            settings.AcceptLanguageList = "zh-CN";
+            settings.CefCommandLineArgs["enable-system-flash"] = "1";
+            settings.CefCommandLineArgs["log_severity"] = "disabled";
+            settings.CefCommandLineArgs.Add("remote-debugging-port", "9922");
+            settings.CefCommandLineArgs.Add("ppapi-flash-path", "pepflashplayer.dll");
+            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
+            Cef.Initialize(settings);
+            cwb = new ExtChromiumBrowser();
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0, 0, 0, 0);
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
             cwb.TitleChanged += Cwb_TitleChanged;
             MenuHandler.mainWindow = this;
-            cwb.MenuHandler = new MenuHandler( );
+            //cwb.MenuHandler = new MenuHandler( );
             cwb.DownloadHandler = new DownloadHandler();
             cwb.LoadError += Cwb_LoadError;     
         }
