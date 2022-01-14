@@ -28,14 +28,7 @@ namespace 极简浏览器.Api
         {
             get
             {
-                foreach (Window window in Application.Current.Windows)
-                {
-                    if (window is MainWindow)
-                    {
-                        return (((MainWindow)window).cwb) as ExtChromiumBrowser;
-                    }
-                }
-                return null;
+                return MainWindow.cwb as ExtChromiumBrowser;
             }
         }
         public static void Navigate(string url)
