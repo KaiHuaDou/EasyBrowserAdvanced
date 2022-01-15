@@ -19,6 +19,14 @@ namespace 极简浏览器.Api
             IntPtr temp2 = temp1.GetHbitmap();
             return Imaging.CreateBitmapSourceFromHBitmap(temp2, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
+        public static ImageSource ConvertIcon(Icon icon)
+        {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+            icon.Handle,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
+            return imageSource;
+        }
         public static string LocalTime
         {
             get

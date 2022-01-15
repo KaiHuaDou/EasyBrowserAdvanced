@@ -1,5 +1,6 @@
 @echo off
 del /f /s /q ..\GPUCache
+del /f /s /q ..\log
 del /f /q ..\locales\am.pak
 del /f /q ..\locales\ar.pak
 del /f /q ..\locales\bg.pak
@@ -52,5 +53,7 @@ del /f /q ..\locales\uk.pak
 del /f /q ..\locales\vi.pak
 del /f /q ..\locales\zh-TW.pak
 del /f /q ..\*.pdb
+del /f /q ..\README.txt
+del /f /q ..\debug.log
 pause
 

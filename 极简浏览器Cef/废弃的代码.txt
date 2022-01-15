@@ -26,3 +26,35 @@
                     <Setter Property="Background" Value="White"/>
                 </Style>
             </Button.Style>-->
+			            <!--<Grid Margin="0" Width="26" Height="28">
+                <ed:Arc ArcThickness="0" ArcThicknessUnit="Pixel" EndAngle="270" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="24" Margin="0.755,3.28,0,0" Stretch="None" Stroke="Black" StartAngle="0" VerticalAlignment="Top" Width="24" RenderTransformOrigin="0.5,0.5" StrokeThickness="4">
+                    <ed:Arc.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:Arc.RenderTransform>
+                </ed:Arc>
+                <ed:RegularPolygon HorizontalAlignment="Left" Height="6" InnerRadius="1" Margin="9.912,2.781,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="12" RenderTransformOrigin="0.5,0.5" Fill="Black" StrokeThickness="0">
+                    <ed:RegularPolygon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:RegularPolygon.RenderTransform>
+                </ed:RegularPolygon>
+                <ed:Arc ArcThickness="1" ArcThicknessUnit="Percent" EndAngle="180" Fill="Black" HorizontalAlignment="Left" Height="4" Margin="21.225,13.345,0,0" Stretch="None" Stroke="Black" VerticalAlignment="Top" Width="4" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
+                    <ed:Arc.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1.051" ScaleX="0.95" />
+                            <SkewTransform />
+                            <RotateTransform Angle="-90" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </ed:Arc.RenderTransform>
+                </ed:Arc>
+            </Grid>-->
