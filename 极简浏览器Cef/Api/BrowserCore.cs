@@ -64,6 +64,7 @@ namespace 极简浏览器.Api
                 case "extensions": StdApi.ShowWindow(new Extensions()); break;
                 case "help": StdApi.ShowWindow(new Help()); break;
                 case "history": StdApi.ShowWindow(new History()); break;
+                case "bookmark": StdApi.ShowWindow(new History()); break;
                 case "runjavascript": StdApi.ShowWindow(new RunJavaScript()); break;
                 case "setting": StdApi.ShowWindow(new Setting()); break;
                 case "websource": StdApi.ViewPageSource(); break;

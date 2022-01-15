@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -31,7 +32,7 @@ namespace 极简浏览器
             //Initalize Images
             rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
             leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
-            refreshInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Refresh);
+            refreshInnerImage.Source = StdApi.ConvertIcon(Properties.Resources.RefreshIcon);
             newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
@@ -150,16 +151,14 @@ namespace 极简浏览器
 
         private void StatusBar_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (startusBar.Visibility == Visibility.Visible)
+            if (statusBar.Visibility == Visibility.Visible)
             {
-                startusBar.Visibility = Visibility.Collapsed;
-                OptionMenu.Visibility = Visibility.Collapsed;
+                statusBar.Visibility = Visibility.Collapsed;
                 HidestartusBar.Header = "显示状态栏";
             }
             else
             {
-                startusBar.Visibility = Visibility.Visible;
-                OptionMenu.Visibility = Visibility.Visible;
+                statusBar.Visibility = Visibility.Visible;
                 HidestartusBar.Header = "隐藏状态栏";
             }
         }
@@ -201,6 +200,20 @@ namespace 极简浏览器
                 e.Handled = true;
             }
             catch (Exception){}
+        }
+
+        private void startusBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (statusBar.HorizontalAlignment == HorizontalAlignment.Right)
+            {
+                statusBar.HorizontalAlignment = HorizontalAlignment.Left;
+                barShadow.Direction = 45;
+            }
+            else
+            {
+                statusBar.HorizontalAlignment = HorizontalAlignment.Right;
+                barShadow.Direction = 135;
+            }
         }
     }
 }

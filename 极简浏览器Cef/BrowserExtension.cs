@@ -46,11 +46,6 @@ namespace 极简浏览器
             Setting setting = new Setting( );
             setting.Show( );
         }
-        private void ViewBookMark_Click(object sender, RoutedEventArgs e)
-        {
-            History history = new History( );
-            history.Show( );
-        }
         private void ViewSource_Click(object sender, RoutedEventArgs e)
         {
             StdApi.ViewPageSource( );
