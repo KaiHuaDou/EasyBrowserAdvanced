@@ -20,6 +20,7 @@ namespace 极简浏览器
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         public static ChromiumWebBrowser cwb;
+        public bool isLoaded = false;
         public MainWindow( )
         {
             Initialize( );
@@ -53,24 +54,39 @@ namespace 极简浏览器
             cwb.AddressChanged += Running;
             cwb.FrameLoadEnd += Check;
             cwb.TitleChanged += Cwb_TitleChanged;
+            cwb.IsBrowserInitializedChanged += OnInitialize;
             MenuHandler.mainWindow = this;
             //cwb.MenuHandler = new MenuHandler( );
             cwb.DownloadHandler = new DownloadHandler();
-            cwb.LoadError += Cwb_LoadError;     
+            cwb.LoadError += Cwb_LoadError;
+            Environment.SetEnvironmentVariable("ComSpec", "foobar.exe");
         }
-
+        private void OnInitialize(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (cwb.IsBrowserInitialized)
+            {
+                Cef.UIThreadTaskFactory.StartNew(() =>
+                {
+                    string error = "";
+                    var requestContext = cwb.GetBrowser().GetHost().RequestContext;
+                    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+                });
+            }
+        }
         private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
-                if(e.ErrorCode.ToString() == "NameNotResolved" ||
-                e.ErrorCode.ToString() == "AddressUnreachable")
+                if(isLoaded != true)
                 {
-                    BrowserCore.Navigate("https://www.baidu.com/s?wd=" + UrlTextBox.Text);
-                }
-                else if(e.ErrorCode.ToString() != "Aborted")
-                {
-                    BrowserCore.Navigate(FilePath.AppPath + "\\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                    if (e.ErrorCode.ToString() == "NameNotResolved" || e.ErrorCode.ToString() == "AddressUnreachable")
+                    {
+                        BrowserCore.Navigate("https://www.baidu.com/s?wd=" + UrlTextBox.Text);
+                    }
+                    else if (e.ErrorCode.ToString() != "Aborted")
+                    {
+                        BrowserCore.Navigate(FilePath.AppPath + "\\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                    }
                 }
             });
         }
@@ -105,6 +121,7 @@ namespace 极简浏览器
             {
                 BrowserCore.Navigate(UrlTextBox.Text);
             }
+            isLoaded = false;
         }
 
 
@@ -112,20 +129,24 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
+                isLoaded = true;
                 LoadProgressBar.Value = 100;
-                LoadProgressBar.Visibility = Visibility.Collapsed;
-                label1.Content = "加载完成";
+                LoadProgressBar.Visibility = Visibility.Hidden;
+                label1.Content = "";
+                label1.Visibility = Visibility.Collapsed;
+                statusBar.Visibility = Visibility.Collapsed;
                 if(NoLogs.IsChecked != true)
                 {
                     ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.HistoryPath);
                 }
-                if (CivilizedLanguage.CheckIfNotCivilized(StdApi.CefPageSource) == true)
-                {
-                    label2.Visibility = Visibility.Visible;
-                }
-                if((UrlTextBox.Text.Contains("/Error.html?errorCode=") || UrlTextBox.Text.Contains("\\Error.html?errorCode=")) == true)
+                if ((UrlTextBox.Text.Contains("/Error.html?errorCode=") || UrlTextBox.Text.Contains("\\Error.html?errorCode=")) == true)
                 {
                     UrlTextBox.Text = "easy://errorPage";
+                }
+                if (CivilizedLanguage.CheckIfNotCivilized(StdApi.CefPageSource) == true)
+                {
+                    statusBar.Visibility = Visibility.Visible;
+                    label2.Visibility = Visibility.Visible;
                 }
             });
         }
@@ -133,6 +154,7 @@ namespace 极简浏览器
         private void Running(object sender, DependencyPropertyChangedEventArgs e)
         {
             label1.Content = "正在加载中...";
+            label1.Visibility = Visibility.Visible;
             LoadProgressBar.Visibility = Visibility.Visible;
             Storyboard story = new Storyboard( );
             DoubleAnimation da = new DoubleAnimation(0, 95, new Duration(TimeSpan.FromSeconds(10)));
@@ -148,21 +170,6 @@ namespace 极简浏览器
         {
             LoadProgressBar.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
         }
-
-        private void StatusBar_ContextMenu_Click(object sender, RoutedEventArgs e)
-        {
-            if (statusBar.Visibility == Visibility.Visible)
-            {
-                statusBar.Visibility = Visibility.Collapsed;
-                HidestartusBar.Header = "显示状态栏";
-            }
-            else
-            {
-                statusBar.Visibility = Visibility.Visible;
-                HidestartusBar.Header = "隐藏状态栏";
-            }
-        }
-
         private void Go(object sender, KeyEventArgs e)
         {
             if ((e.Key == Key.Enter || e.Key == Key.Return) && e.Key != Key.ImeProcessed)
