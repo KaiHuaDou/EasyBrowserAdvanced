@@ -4,6 +4,86 @@
              xmlns:local="clr-namespace:极简浏览器" StartupUri="MainWindow.xaml" 
              DispatcherUnhandledException="ExpetionOpen">
     <Application.Resources>
-         
+        <Style x:Key="WhiteMenuItem" TargetType="{x:Type MenuItem}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Width" Value="285" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid Height="35" Background="White" Width="{TemplateBinding Width}">
+                            <Border x:Name="_border" />
+                            <CheckBox x:Name="_check" IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Visibility="Collapsed" VerticalAlignment="Center" Margin="10,0,0,0" IsEnabled="False" />
+                            <Label Foreground="Black" VerticalAlignment="Center" x:Name="_txt" Content="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}" Margin="30,0,0,0" />
+                            <Path Visibility="Collapsed" x:Name="_path" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M0,4 4,0 0,-4 z" Fill="#FF5F6368" Stretch="Fill" Width="9" Height="10" Margin="0,0,5,0" />
+                            <Popup Placement="Left" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}">
+                                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <Border Background="White" Name="SubmenuBorder" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Border>
+                                </ScrollViewer>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="true">
+                                <Setter TargetName="_path" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="_border" Property="Background" Value="#FFF1F3F4" />
+                            </Trigger>
+                            <Trigger Property="IsCheckable" Value="True">
+                                <Setter TargetName="_check" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TopMenuItem" TargetType="{x:Type MenuItem}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Width" Value="285" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid Height="35" Background="White" Width="{TemplateBinding Width}">
+                            <Border x:Name="_border" />
+                            <Label Foreground="Black" VerticalAlignment="Center" x:Name="_txt" Content="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}" Margin="0" />
+                            <Popup Placement="Left" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}">
+                                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <Border Background="White" Name="SubmenuBorder" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Border>
+                                </ScrollViewer>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="_border" Property="Background" Value="#FFF1F3F4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="TextboxStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="_border" BorderBrush="#FFF0F0F0" BorderThickness="2" CornerRadius="13" Background="#FFF0F0F0">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="_border" Property="BorderBrush" Value="Blue" />
+                                <Setter TargetName="_border" Property="Background" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>    
 </Application>
