@@ -55,5 +55,5 @@ del /f /q ..\locales\zh-TW.pak
 del /f /q ..\*.pdb
 del /f /q ..\README.txt
 del /f /q ..\debug.log
-pause
+exit
 
