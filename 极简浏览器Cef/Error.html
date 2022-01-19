@@ -24,11 +24,15 @@
         <p class="info big" id="infobig"></p>
         <br />
         <p class="info text" id="infotext"></p>
-        <button class="info text" onclick="searchit()">在百度上搜索</button>
+        <button class="info text" onclick="searchURL()">搜索URL</button>
+        <button class="info text" onclick="searchCode()">搜索错误代码</button>
     </div>
     <script>
-        function searchit() {
+        function searchURL() {
             document.location = "https://www.baidu.com/s?wd=" + getQueryVariable("url");
+        }
+        function searchCode() {
+            document.location = "https://www.baidu.com/s?wd=" + getQueryVariable("errorCode");
         }
         function getQueryVariable(variable) {
             var query = window.location.search.substring(1);

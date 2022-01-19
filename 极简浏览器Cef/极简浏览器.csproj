@@ -48,7 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2.0D|x86'">
-    <OutputPath>bin\x86\2.0D\</OutputPath>
+    <OutputPath>bin\2.0D\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -84,6 +84,10 @@
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <LangVersion>default</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2.0R|x86'">
     <OutputPath>bin\x86\2.0R\</OutputPath>
@@ -171,7 +175,7 @@
       <DependentUpon>WebSource.xaml</DependentUpon>
     </Compile>
     <Resource Include="favicon.old.ico" />
-    <Content Include="pepflashplayer.dll">
+    <Content Include="plugins\pepflashplayer.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="废弃的代码.txt" />
@@ -315,6 +319,10 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets'))" />
   </Target>
   <Import Project="..\packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

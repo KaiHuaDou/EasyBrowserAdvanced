@@ -45,7 +45,7 @@ namespace 极简浏览器
             settings.CefCommandLineArgs["enable-system-flash"] = "1";
             settings.CefCommandLineArgs["log_severity"] = "disabled";
             settings.CefCommandLineArgs.Add("remote-debugging-port", "9922");
-            settings.CefCommandLineArgs.Add("ppapi-flash-path", "pepflashplayer.dll");
+            settings.CefCommandLineArgs.Add("ppapi-flash-path", "plugins/pepflashplayer.dll");
             settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
             Cef.Initialize(settings);
             cwb = new ExtChromiumBrowser();

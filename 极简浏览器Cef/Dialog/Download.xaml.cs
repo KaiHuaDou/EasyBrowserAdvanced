@@ -84,7 +84,10 @@ namespace 极简浏览器
                     Dispatcher.Invoke(UIDel, value);
                     fs.Write(buffer, 0, i);
                 }
-                Speed.Content = (length / (1024 * totalseconds)) + "KB/s";
+                Dispatcher.Invoke(() =>
+                {
+                    Speed.Content = (length / (1024 * totalseconds)) + "KB/s";
+                });
             }
             catch (DivideByZeroException) { }
             catch (IOException) { }

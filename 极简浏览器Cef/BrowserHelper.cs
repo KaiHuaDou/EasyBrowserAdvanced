@@ -102,11 +102,15 @@ namespace 极简浏览器
             IBeforeDownloadCallback callback)
         {
             if (callback.IsDisposed) return;
+
             _downloadCallBackEvent?.Invoke(false, downloadItem);
-            downloadItem.IsInProgress = true;
-            var path = GetDownloadFullPath(downloadItem);
-            Download d = new Download(downloadItem, path);
-            d.Show();
+            var path = AskDownloadPath(downloadItem);
+            if(path != null)
+            {
+                Download d = new Download(downloadItem, path);
+                d.Show();
+                downloadItem.IsInProgress = true;
+            }
             //callback.Continue(path, false);
         }
 
@@ -118,7 +122,7 @@ namespace 极简浏览器
         }
 
 
-        private static string GetDownloadFullPath(DownloadItem item)
+        private static string AskDownloadPath(DownloadItem item)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.FileName = item.SuggestedFileName;
