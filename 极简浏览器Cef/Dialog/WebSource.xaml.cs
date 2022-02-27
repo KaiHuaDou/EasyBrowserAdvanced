@@ -1,10 +1,7 @@
-﻿using System.Windows;
-using 极简浏览器.Api;
+﻿using System;
+using System.Windows;
 using CefSharp;
-using System.Threading;
-using System;
-using System.Windows.Threading;
-using System.Windows.Media;
+using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
@@ -26,7 +23,12 @@ namespace 极简浏览器
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = Formatter.Format(textBox.Text);
+            Dispatcher.BeginInvoke((Action)(() =>
+            {
+                string from = textBox.Text;
+                string to = from;
+                textBox.Text = to;
+            }));
         }
     }
 }
