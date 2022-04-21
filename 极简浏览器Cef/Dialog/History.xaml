@@ -17,13 +17,17 @@
                             <DataGridTextColumn Header="访问时间" Binding="{Binding Path=VisitTime}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
-                            Width="100" Content="打开(_O)" Click="HistoryNewWindow" Margin="10,0,0,5" />
-                    <Button x:Name="History_SelectAll_Button" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                            Height="30" Width="100" Content="全选(_A)" Click="History_SelectAll_Button_Click" Margin="220,0,0,5" />
-                    <Button x:Name="button1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30"
-                            Width="99" Content="清空(_C)" Click="HistoryClear" Margin="0,0,10,5" />
-                    <Button x:Name="button2" Content="删除(_D)" HorizontalAlignment="Left" Margin="115,0,0,5" VerticalAlignment="Bottom" Width="100" Click="HistoryDelete" Height="30" />
+                    <Button x:Name="button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="100" Content="打开(_O)" Click="HistoryNewWindow"
+                            Margin="10,0,0,5" Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button x:Name="History_SelectAll_Button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="100" Content="全选(_A)"
+                            Click="History_SelectAll_Button_Click" Margin="220,0,0,5"
+                            Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button x:Name="button1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="99" Content="清空(_C)" Click="HistoryClear"
+                            Margin="0,0,10,5" Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button x:Name="button2" Content="删除(_D)" HorizontalAlignment="Left"
+                            Margin="115,0,0,5" VerticalAlignment="Bottom" Width="100"
+                            Click="HistoryDelete" Height="30"
+                            Style="{StaticResource MaterialDesignPaperDarkButton}" />
                 </Grid>
             </TabItem>
             <TabItem Header="书签">
@@ -36,11 +40,18 @@
                             <DataGridTextColumn Header="访问时间" Binding="{Binding Path=VisitTime}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="100" Content="打开(_O)" Click="BookMarkNewWindow" Margin="10,0,0,5" />
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                            Height="30" Width="100" Content="全选(_A)" Click="BookMark_SelectAll_Button_Click" Margin="220,0,0,5" />
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="100" Content="清空(_C)" Click="BookMarkClear" Margin="0,0,10,5" />
-                    <Button Content="删除(_D)" HorizontalAlignment="Left" Margin="115,0,0,5" VerticalAlignment="Bottom" Width="100" Click="BookMarkDelete" Height="30" />
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
+                            Width="100" Content="打开(_O)" Click="BookMarkNewWindow" Margin="10,0,0,5"
+                            Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"
+                            Style="{StaticResource MaterialDesignPaperDarkButton}" Width="100" Content="全选(_A)" Click="BookMark_SelectAll_Button_Click"
+                            Margin="220,0,0,5"/>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30"
+                            Width="100" Content="清空(_C)" Click="BookMarkClear" Margin="0,0,10,5"
+                            Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button Content="删除(_D)" HorizontalAlignment="Left" Margin="115,0,0,5"
+                            VerticalAlignment="Bottom" Width="100" Click="BookMarkDelete"
+                            Height="30" Style="{StaticResource MaterialDesignPaperDarkButton}" />
                 </Grid>
             </TabItem>
         </TabControl>

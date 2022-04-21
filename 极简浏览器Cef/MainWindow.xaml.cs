@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -15,7 +13,7 @@ namespace 极简浏览器
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
@@ -31,10 +29,10 @@ namespace 极简浏览器
             InitializeComponent( );
 
             //Initalize Images
-            rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
-            leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
-            refreshInnerImage.Source = StdApi.ConvertIcon(Properties.Resources.RefreshIcon);
-            newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
+            //rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
+            //leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
+            //refreshInnerImage.Source = StdApi.ConvertIcon(Properties.Resources.RefreshIcon);
+            //newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
             var settings = new CefSettings();

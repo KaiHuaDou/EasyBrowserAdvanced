@@ -2,23 +2,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:极简浏览器"
-        mc:Ignorable="d" Title="帮助" Height="270.397" Width="538" Icon="../favicon.ico" ResizeMode="NoResize">
+        mc:Ignorable="d" Title="帮助" Height="340" Width="550"
+        Icon="../favicon.ico" ResizeMode="NoResize">
     <Grid>
         <TreeView x:Name="treeView" Margin="0,0,0,57" FontSize="20" FocusVisualStyle="{x:Null}" Focusable="False"
                 Background="White">
-            <TreeViewItem Header="一、无法播放视频？" IsExpanded="True" Background="White" Focusable="False">
-                <TreeViewItem Header="对不起，我们也解决不了这个问题，如果您有什么解决方案，&#xD;&#xA;可以到https://github.com/KaiHuaDou/EasyBrowserAdv&#xD;&#xA;anced/issue/3上反馈" HorizontalAlignment="Left" Width="501" FontSize="18"
-                        Background="White" Focusable="False" />
+            <TreeViewItem IsExpanded="True" Background="White" Focusable="False">
+                <TreeViewItem.Header>
+                    <TextBlock>一、无法播放视频？</TextBlock>
+                </TreeViewItem.Header>
+                <TreeViewItem
+                        FontSize="18" Background="White" Focusable="False">
+                    <TreeViewItem.Header>
+                        <TextBlock Margin="0" Width="479" Height="69" TextWrapping="Wrap">对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3上反馈</TextBlock>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
             </TreeViewItem>
-            <TreeViewItem Header="二、某些内容显示不全？" IsExpanded="True" Focusable="False">
-                <TreeViewItem Header="1、将系统默认字体调小" HorizontalAlignment="Left" Width="469" FontSize="18"
-                        Background="White" Focusable="False" />
-                <TreeViewItem Header="2、增大显示器大小" HorizontalAlignment="Left" Width="469" FontSize="18" Background="White"
-                        Focusable="False" />
+            <TreeViewItem IsExpanded="True" Focusable="False">
+                <TreeViewItem.Header>
+                    <TextBlock>二、某些内容显示不全？</TextBlock>
+                </TreeViewItem.Header>
+                <TreeViewItem FontSize="18" Background="White"
+                        Focusable="False">
+                    <TreeViewItem.Header>
+                        <TextBlock>1、将系统默认字体调小</TextBlock>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem FontSize="18" Background="White" Focusable="False">
+                    <TreeViewItem.Header>
+                        <TextBlock>2、增大显示器大小</TextBlock>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
             </TreeViewItem>
         </TreeView>
-        <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="442,190,0,0" VerticalAlignment="Top"
-                Width="75" IsDefault="True" Click="button_Click" />
+        <Button x:Name="button" Content="确定" HorizontalAlignment="Right" Margin="0,0,10,10"
+                VerticalAlignment="Bottom" Width="75" IsDefault="True" Click="button_Click"
+                Style="{StaticResource MaterialDesignPaperDarkButton}" />
 
     </Grid>
 </Window>

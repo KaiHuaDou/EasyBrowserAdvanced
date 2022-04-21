@@ -14,7 +14,7 @@
         <Label x:Name="label4" Content="版权所有：FkqSoft©2019~2022" HorizontalAlignment="Left" Margin="25,198,0,0"
                 VerticalAlignment="Top" />
         <Label x:Name="label6" Content="您是合法用户" HorizontalAlignment="Left" Margin="125,233,0,0" VerticalAlignment="Top" />
-        <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="285,275,0,0" VerticalAlignment="Top"
-                Width="75" Click="button_Click" />
+        <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="285,275,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"
+                Style="{StaticResource MaterialDesignPaperDarkButton}" />
     </Grid>
 </Window>

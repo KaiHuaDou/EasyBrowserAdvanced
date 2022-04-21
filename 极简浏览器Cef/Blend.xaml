@@ -1,6 +1,0 @@
-﻿<Window x:Class="极简浏览器.Blend" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:极简浏览器" mc:Ignorable="d" Title="Blend" Height="300" Width="300">
-    <Grid>
-        <Path Visibility="Visible" x:Name="_path" HorizontalAlignment="Right" Data="M0,4 4,0 0,-4 z" Fill="Black" Stretch="Fill" Width="18" Height="20" />
-
-    </Grid>
-</Window>
