@@ -44,17 +44,25 @@ namespace 极简浏览器
                 }
                 try
                 {
-                     App app = new App( );
-                     app.InitializeComponent( );
-                     RuntimeCheckAndAutoFix( );
-                     app.Run( );
+                    RuntimeCheckAndAutoFix();
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(e, LogType.Error, shutWhenFail: false);
+                    Report report = new Report(e.Message);
+                    report.Show();
+                }
+                try
+                {
+                    App app = new App();
+                    app.InitializeComponent();
+                    app.Run();
                 }
                 catch (XamlParseException e)
                 {
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
                     System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
                 }
-                catch (Exception) { }
             }
         }
 
@@ -65,8 +73,13 @@ namespace 极简浏览器
             if (Directory.Exists(FilePath.LogDirectory) == false)
                 Directory.CreateDirectory(FilePath.LogDirectory);
             if (File.Exists(FilePath.HistoryPath) == false)
+            {
                 File.Create(FilePath.HistoryPath);
-            if (File.Exists(FilePath.BookMarkPath))
+            }
+            if (File.Exists(FilePath.BookMarkPath) == false)
+            {
+                File.Create(FilePath.BookMarkPath);
+            }
             if (File.Exists(FilePath.ConfigPath) == false)
                 File.Create(FilePath.ConfigPath);
             if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
@@ -86,12 +99,7 @@ namespace 极简浏览器
             }
             catch(Exception)
             {
-                MessageBox.Show("文明语言检测器启动失败，单击确定以继续使用。",
-                    "极简浏览器",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.ServiceNotification);
+                App.Current.Shutdown();
             }
         }
         static void showNoAccsses()

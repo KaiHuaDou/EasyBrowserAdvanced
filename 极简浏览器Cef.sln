@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "极简浏览器", "极简浏览器Cef\极简浏览器.csproj", "{42E299F0-DF88-406B-9E7E-C9FA72DF8064}"
 EndProject
@@ -21,6 +21,8 @@ Global
 		2.0R|x86 = 2.0R|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|Any CPU.ActiveCfg = 2.0D|Any CPU
@@ -35,6 +37,10 @@ Global
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|Any CPU.Build.0 = 2.0D|x86
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.ActiveCfg = 2.0D|x86
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.Build.0 = 2.0D|x86
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.ActiveCfg = 2.0R|Any CPU
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.Build.0 = 2.0R|Any CPU
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.ActiveCfg = 2.0R|x86
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.Build.0 = 2.0R|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

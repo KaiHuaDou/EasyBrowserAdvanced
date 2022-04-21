@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="扩展" Height="154" Width="334">
     <Grid>
-        <Button x:Name="button" Content="加载扩展(_L)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
-                Width="110" Click="button_Click" />
+        <Button x:Name="button" Content="加载扩展(_L)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="110" Click="button_Click"
+                Style="{StaticResource MaterialDesignPaperDarkButton}" />
         <Label x:Name="label" Content="暂无扩展" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" />
         <Label x:Name="label1" Content="请加载扩展以显示路径" HorizontalAlignment="Left" Margin="10,77,0,0"
                 VerticalAlignment="Top" />

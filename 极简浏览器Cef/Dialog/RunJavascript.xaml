@@ -5,10 +5,10 @@
         mc:Ignorable="d" Title="执行Javascript" Height="400" Width="600">
     <Grid>
         <Label x:Name="label" Content="代码：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" />
-        <TextBox x:Name="JsCode" HorizontalAlignment="Left" Height="268" Margin="10,42,0,0" TextWrapping="Wrap"
-                VerticalAlignment="Top" Width="572" />
-        <Button x:Name="button" Content="执行" HorizontalAlignment="Left" Margin="490,320,0,0" VerticalAlignment="Top"
-                Width="92" Click="button_Click" />
+        <TextBox x:Name="JsCode" HorizontalAlignment="Left" Height="268" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="572"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <Button x:Name="button" Content="执行" HorizontalAlignment="Left" Margin="490,320,0,0" VerticalAlignment="Top" Width="92" Click="button_Click"
+                Style="{StaticResource MaterialDesignPaperDarkButton}" />
 
     </Grid>
 </Window>

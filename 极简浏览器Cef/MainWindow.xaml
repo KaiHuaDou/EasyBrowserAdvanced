@@ -1,9 +1,11 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
-        xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="极简浏览器.MainWindow"
+        xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow"
         Title="极简浏览器" Width="600" WindowStartupLocation="Manual" WindowState="Normal"
-        Loaded="Window_Loaded" Icon="favicon.ico" Height="500" SnapsToDevicePixels="True">
+        Loaded="Window_Loaded" Icon="favicon.ico" Height="500" SnapsToDevicePixels="True"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:wms="clr-namespace:WpfMultiStyle;assembly=WpfMultiStyle"
+        FontFamily="Microsoft YaHei UI">
     <Window.Resources>
     </Window.Resources>
     <Window.TaskbarItemInfo>
@@ -14,18 +16,18 @@
         </Grid>
         <Button x:Name="GoBackButton" HorizontalAlignment="Left" Margin="0,0,0,0"
                 VerticalAlignment="Top" Width="35" Height="35" Click="GoBackButton_Click"
-                BorderThickness="0" Style="{StaticResource ShadowButton}">
-            <Image x:Name="leftInnerImage" />
+                BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}">
+            <materialDesign:PackIcon Kind="ArrowLeft" />
         </Button>
         <Button x:Name="GoForwardButton" HorizontalAlignment="Left" Margin="35,0,0,0"
                 VerticalAlignment="Top" Width="35" Height="35" Click="GoForwardButton_Click"
-                BorderThickness="0" Style="{StaticResource ShadowButton}">
-            <Image x:Name="rightInnerImage"></Image>
+                BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}">
+            <materialDesign:PackIcon Kind="ArrowRight" />
         </Button>
         <Button x:Name="RefershButton" HorizontalAlignment="Right" Margin="0,0,70,0"
                 VerticalAlignment="Top" Width="35" Height="35" Click="RefreshButton_Click"
-                BorderThickness="0" Style="{StaticResource ShadowButton}">
-            <Image x:Name="refreshInnerImage" />
+                BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}">
+            <materialDesign:PackIcon Kind="Refresh" />
         </Button>
         <StackPanel x:Name="statusBar" Height="33" VerticalAlignment="Bottom" Background="#FFF1F3F4"
                 HorizontalAlignment="Left" MouseEnter="startusBar_MouseEnter"
@@ -37,9 +39,10 @@
             <Label x:Name="label2" Content="此网页不文明!" Visibility="Collapsed" Foreground="Red" />
         </StackPanel>
         <Button x:Name="AddNewPageButton" HorizontalAlignment="Right" Margin="0,0,35,0"
-                VerticalAlignment="Top" Width="35" FontSize="22" Height="35" Click="AddNewPageButton_Click" BorderThickness="0"
-                Style="{StaticResource ShadowButton}">
-            <Image x:Name="newInnerImage" />
+                VerticalAlignment="Top" Width="35" FontSize="22" Height="35"
+                Click="AddNewPageButton_Click" BorderThickness="0"
+                Style="{StaticResource MaterialDesignIconForegroundButton}">
+            <materialDesign:PackIcon Kind="Plus" />
         </Button>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,35,0,0"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="7"
@@ -49,44 +52,43 @@
                 VerticalAlignment="Top" FontSize="20" Margin="70,2.5,105,0" KeyDown="Go"
                 Style="{StaticResource TextboxStyle}">
         </TextBox>
-        <Menu HorizontalAlignment="Right" VerticalAlignment="Top" Background="White">
-            <MenuItem Header="..." BorderThickness="0" FontSize="22" Background="White" Width="35"
-                    Height="35" Style="{StaticResource TopMenuItem}">
+        <Menu HorizontalAlignment="Right" VerticalAlignment="Top" Width="35">
+            <MenuItem Height="35">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="DotsVertical" />
+                </MenuItem.Icon>
                 <MenuItem Header="上一页(_B)" Click="GoForwardButton_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="下一页(_F)" Click="GoBackButton_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="刷新(_R)" Click="RefreshButton_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="添加新页面(_N)" Click="AddNewPageButton_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="查看网页源代码(_V)" Click="ViewSource_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="设为书签(_E)" Click="SetBookMark_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="历史记录/书签(_H)" Click="ViewHistory_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="设置(_S)" Click="Setting_Click"
-                        Style="{StaticResource WhiteMenuItem}" />
-                <MenuItem Header="帮助(_H)" Click="Help_Click" Style="{StaticResource WhiteMenuItem}" />
-                <MenuItem Header="关于(_A)" Click="About_Click" Style="{StaticResource WhiteMenuItem}" />
-                <MenuItem Header="开发者(_D)" Style="{StaticResource WhiteMenuItem}">
-                    <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)"
-                            Style="{StaticResource WhiteMenuItem}" Click="RunJSButton_Click" />
-                    <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)"
-                            Style="{StaticResource WhiteMenuItem}" Click="DevToolsButton_Click" />
-                    <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)"
-                            Style="{StaticResource WhiteMenuItem}" Click="ExtensionsButton_Click" />
-                </MenuItem>
-                <MenuItem Header="选项(_O)" Style="{StaticResource WhiteMenuItem}">
-                    <MenuItem Header="置顶(_T)" IsCheckable="True" Click="Topmost_Checked"
-                            Style="{DynamicResource WhiteMenuItem}" />
-                    <MenuItem Header="在本窗口打开(_S)" IsCheckable="True"
-                            Style="{StaticResource WhiteMenuItem}" x:Name="OnlyThis" />
-                    <MenuItem Header="无痕模式(_P)" IsCheckable="True"
-                            Style="{StaticResource WhiteMenuItem}" x:Name="NoLogs"
-                            Click="NoLogs_Click" />
-                </MenuItem>
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                <MenuItem Header="帮助(_H)" Click="Help_Click"
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                <MenuItem Header="关于(_A)" Click="About_Click"
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)" Click="RunJSButton_Click"
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Click="DevToolsButton_Click"
+                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Click="ExtensionsButton_Click"
+                        Style="{wms:MultiStyle WhitePoupuItem }" />
+                <CheckBox Content="置顶(_T)" Click="Topmost_Checked"
+                        Foreground="Black" FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20"/>
+                <CheckBox Content="在本窗口打开(_S)" x:Name="OnlyThis" Foreground="Black"
+                        FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
+                <CheckBox Content="无痕模式(_P)" x:Name="NoLogs" Click="NoLogs_Click" Foreground="Black"
+                        FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
             </MenuItem>
         </Menu>
     </Grid>
