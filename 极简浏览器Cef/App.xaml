@@ -7,9 +7,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="#FF1A73E8"
-                        SecondaryColor="#FF212121">
+                        SecondaryColor="Black">
                     <materialDesign:CustomColorTheme.ColorAdjustment>
-                        <materialDesign:ColorAdjustment DesiredContrastRatio="3.5" Contrast="Medium" />
+                        <materialDesign:ColorAdjustment DesiredContrastRatio="1" Contrast="None" />
                     </materialDesign:CustomColorTheme.ColorAdjustment>
                 </materialDesign:CustomColorTheme>
                 <ResourceDictionary

@@ -5,7 +5,7 @@
         Loaded="Window_Loaded" Icon="favicon.ico" Height="500" SnapsToDevicePixels="True"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wms="clr-namespace:WpfMultiStyle;assembly=WpfMultiStyle"
-        FontFamily="Microsoft YaHei UI">
+        FontFamily="Microsoft YaHei UI" Style="{StaticResource MaterialDesignWindow}">
     <Window.Resources>
     </Window.Resources>
     <Window.TaskbarItemInfo>

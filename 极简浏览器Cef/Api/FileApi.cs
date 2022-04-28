@@ -7,7 +7,7 @@ namespace 极简浏览器.Api
         public static string GetStartupPath(bool isnew)
         {
             string result = "";
-            if (App.Program.InputArgu != "")
+            if (string.IsNullOrEmpty(App.Program.InputArgu) == false)
             {
                 result = App.Program.InputArgu;
             }
