@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FkqSoft")]
 [assembly: AssemblyProduct("极简浏览器")]
-[assembly: AssemblyCopyright("Copyright © FkqSoft  2021")]
+[assembly: AssemblyCopyright("Copyright © FkqSoft  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
