@@ -57,7 +57,7 @@ namespace 极简浏览器
             //cwb.MenuHandler = new MenuHandler( );
             cwb.DownloadHandler = new DownloadHandler();
             cwb.LoadError += Cwb_LoadError;
-            Environment.SetEnvironmentVariable("ComSpec", "foobar.exe");
+            //Environment.SetEnvironmentVariable("ComSpec", "foobar.exe");
         }
         private void OnInitialize(object sender, DependencyPropertyChangedEventArgs e)
         {
