@@ -60,7 +60,7 @@ namespace 极简浏览器
         }
         private void NoLogs_Click(object sender, RoutedEventArgs e)
         {
-            App.Program.arguments.isNotLogging = (bool)NoLogs.IsChecked;
+            App.Program.arguments.IsStopLog = (bool)NoLogs.IsChecked;
         }
         private void Topmost_Checked(object sender, RoutedEventArgs e)
         {

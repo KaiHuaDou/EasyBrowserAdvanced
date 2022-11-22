@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Markup;
-using System.Windows.Shell;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -12,20 +11,20 @@ namespace 极简浏览器
     {
         public Arguments(bool value)
         {
-            isNew = value;
-            isTopMost = value;
-            isNotLogging = value;
+            IsNew = value;
+            IsTopMost = value;
+            IsStopLog = value;
         }
-        public bool isNew;
-        public bool isTopMost;
-        public bool isNotLogging;
+        public bool IsNew { get; set; }
+        public bool IsTopMost { get; set; }
+        public bool IsStopLog { get; set; }
     }
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        public class Program
+        public static class Program
         {
             public static string InputArgu ="";
             public static Arguments arguments = new Arguments(false);
@@ -38,9 +37,9 @@ namespace 极简浏览器
                 if (args.Length >= 1)
                 {
                     InputArgu = args[0];
-                    arguments.isNew = Convert.ToBoolean(args[1]);
-                    arguments.isNotLogging = Convert.ToBoolean(args[2]);
-                    arguments.isTopMost = Convert.ToBoolean(args[3]);
+                    arguments.IsNew = Convert.ToBoolean(args[1]);
+                    arguments.IsStopLog = Convert.ToBoolean(args[2]);
+                    arguments.IsTopMost = Convert.ToBoolean(args[3]);
                 }
                 try
                 {
@@ -90,16 +89,16 @@ namespace 极简浏览器
                 File.Create(FilePath.LogDirectory + "\\debug.log");
             try
             {
-                if (File.Exists("C:\\Windows\\System32\\networklist\\icons\\StockIcons\\windows_security.bin") == true)
+                if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)
                 {
                     Thread t = new Thread(showNoAccsses);
                     t.Start( );
-                    App.Current.Shutdown( );
+                    Current.Shutdown( );
                 }
             }
             catch(Exception)
             {
-                App.Current.Shutdown();
+                Current.Shutdown();
             }
         }
         static void showNoAccsses()
