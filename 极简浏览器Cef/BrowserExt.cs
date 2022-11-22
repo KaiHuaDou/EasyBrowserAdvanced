@@ -71,14 +71,5 @@ namespace 极简浏览器
         {
             BrowserCore.CefBrowser.ShowDevTools();
         }
-
-        private void ExtensionsButton_Click(object sender, RoutedEventArgs e)
-        { }
-
-        private void RunJSButton_Click(object sender, RoutedEventArgs e)
-        {
-            RunJavaScript rj = new RunJavaScript();
-            rj.Show();
-        }
     }
 }
