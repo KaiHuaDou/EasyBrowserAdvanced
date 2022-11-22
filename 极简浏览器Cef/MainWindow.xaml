@@ -77,12 +77,8 @@
                         Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem Header="关于(_A)" Click="About_Click"
                         Style="{wms:MultiStyle  WhitePoupuItem}" />
-                <MenuItem x:Name="RunJSButton" Header="执行Javascript(_J)" Click="RunJSButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
                 <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Click="DevToolsButton_Click"
                         Style="{wms:MultiStyle  WhitePoupuItem}" />
-                <MenuItem x:Name="ExtensionsButton" Header="扩展(_E)" Click="ExtensionsButton_Click"
-                        Style="{wms:MultiStyle WhitePoupuItem }" />
                 <CheckBox Content="置顶(_T)" Click="Topmost_Checked"
                         Foreground="Black" FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20"/>
                 <CheckBox Content="在本窗口打开(_S)" x:Name="OnlyThis" Foreground="Black"
