@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Threading;
+using System.Windows;
 using System.Xml.Serialization;
 namespace 极简浏览器.Api
 {
@@ -52,6 +52,7 @@ namespace 极简浏览器.Api
             {
                 fs.Close();
                 InitConfig(fileName);
+                MessageBox.Show("读取历史记录错误，已重置文件");
             }
             return config;
         }
@@ -65,10 +66,7 @@ namespace 极简浏览器.Api
     }
     public class ConfigData
     {
-        public ConfigData()
-        {
-
-        }
+        public ConfigData( ) { }
         public ConfigData(bool isChecked, string siteName, string siteAddress, string visitTime)
         {
             IsChecked = isChecked;
@@ -76,21 +74,9 @@ namespace 极简浏览器.Api
             SiteAddress = siteAddress;
             VisitTime = visitTime;
         }
-        public bool IsChecked
-        {
-            get; set;
-        }
-        public string SiteName
-        {
-            get; set;
-        }
-        public string SiteAddress
-        {
-            get; set;
-        }
-        public string VisitTime
-        {
-            get; set;
-        }
+        public bool IsChecked { get; set; }
+        public string SiteName { get; set; }
+        public string SiteAddress { get; set; }
+        public string VisitTime { get; set; }
     }
 }

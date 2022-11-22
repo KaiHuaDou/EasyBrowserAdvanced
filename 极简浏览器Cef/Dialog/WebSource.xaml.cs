@@ -25,9 +25,11 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                string from = textBox.Text;
-                string to = from;
-                textBox.Text = to;
+                string result = HtmlFormatter.ConvertToXml(textBox.Text, true);
+                Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    textBox.Text = result;
+                }));
             }));
         }
     }
