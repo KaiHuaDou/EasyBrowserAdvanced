@@ -1,17 +1,17 @@
 # 极简浏览器
 极简浏览器用C#编写的基于Chromium的浏览器。有许多优点：
 
-1. 体积小巧，仅有Chrome的29%，Firefox的63%。
+1. 体积小巧，仅有Chrome 的29%，Firefox 的63%。
 2. 界面干净，无广告，无插件
 3. 便于携带，无需安装，数据与应用程序储存在同样位置
 4. 便于使用，有着与主流浏览器相似的布局
-5. 启动速度快，大约需要1.5s
-6. 支持Flash，可以在不安装任何Flash插件的情况下运行Flash
-7. 开源代码，全部源代码都在Github和Azure上公开。
+5. 启动速度快，大约需要 1s
+6. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
+7. 开源代码，全部源代码都在 Github 和 Azure 上公开。
 
 ## 运行依赖
 
-1. [.Net Framework 4.5.2](https://go.microsoft.com/fwlink/?LinkId=397707)
+1. [.Net Framework 4.6.2](https://go.microsoft.com/fwlink/?LinkId=397707)
 2. [Visual C++ 运行时 2015](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 ## 特别鸣谢
@@ -21,21 +21,25 @@ StrollStars
 ## 版本更新
 
 注：
-1. 详细信息请参照Commit
+1. 详细信息请参照 Commit
 2. 每24个项更改为一个版本
-3. 现在此文件是UTF-8了
+3. 现在此文件是 UTF-8 了
 4. 由`{}`包裹的是正在开发的
 -----
 ### 下一个更新（V3.4.7.2)
 
 #### 下一个Beta（Beta 2）
 
-+ Bug修复 #35 更新了应用程序的颜色
-+ Bug修复 #34 更新了Material Design的版本
++ Bug修复 #35 修正了历史遗留问题若干
++ 框架升级 #4 升级到了 MaterialDesignColors 2.0.9
++ 框架升级 #3 升级到了 MaterialDesignThemes 4.6.1
++ 框架升级 #2 升级到了.Net Framework 4.6.2
++ Bug修复 #34 更新了应用程序的颜色
++ 框架升级 #1 更新了 Material Design 的版本
 + Bug修复 #33 修复了对话框字体颜色偏灰的问题
 + Bug修复 #32 修复了菜单栏颜色字体不正确的问题
 + Bug修复 #31 修复了书签文件启动崩溃的问题
-+ Bug修复 #30 全面应用Material Design
++ Bug修复 #30 全面应用 Material Design
 + Bug修复 #29 修复了下载完成后窗口崩溃的Bug
 + 增加功能 #22 网页加载完成后不再显示”加载完成“字样
 + Bug修复 #28 修复了无法自动播放`Flash`的Bug

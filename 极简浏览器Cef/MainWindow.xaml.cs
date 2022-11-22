@@ -83,7 +83,7 @@ namespace 极简浏览器
                     }
                     else if (e.ErrorCode.ToString() != "Aborted")
                     {
-                        BrowserCore.Navigate(FilePath.AppPath + "\\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                        BrowserCore.Navigate(FilePath.AppPath + @"\page\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
                     }
                 }
             });
