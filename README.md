@@ -30,6 +30,7 @@ StrollStars
 
 #### 下一个Beta（Beta 2）
 
++ 增加功能 #23 使用了全新的HTML格式化引擎
 + Bug修复 #37 干掉了一点都不精简的扩展模块
 + Bug修复 #36 删除了被开发者工具替代的 RunJavaScript 模块
 + Bug修复 #35 修正了历史遗留问题若干
