@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
         xmlns:c="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf" x:Class="极简浏览器.MainWindow"
         Title="极简浏览器" Width="800" WindowStartupLocation="Manual" WindowState="Normal"
-        Loaded="Window_Loaded" Icon="favicon.ico" Height="600" SnapsToDevicePixels="True"
+        Loaded="Window_Loaded" Icon="favicon/favicon.ico" Height="600" SnapsToDevicePixels="True"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wms="clr-namespace:WpfMultiStyle;assembly=WpfMultiStyle"
         FontFamily="Microsoft YaHei UI" Style="{StaticResource MaterialDesignWindow}">
