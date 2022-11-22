@@ -12,7 +12,7 @@ namespace 极简浏览器
     /// <summary>
     /// Download.xaml 的交互逻辑
     /// </summary>
-    public partial class Download : Window, IDisposable
+    public partial class Download : Window
     {
         private static DownloadItem cur = new DownloadItem();
         private string FilePath;
@@ -118,14 +118,6 @@ namespace 极简浏览器
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             downloadThread.Abort();
-        }
-
-        public void Dispose()
-        {
-            fs.Close();
-            fs.Dispose();
-            timer.Close();
-            timer.Dispose();
         }
     }
 }

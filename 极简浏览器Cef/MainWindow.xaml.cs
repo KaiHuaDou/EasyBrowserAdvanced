@@ -18,21 +18,16 @@ namespace 极简浏览器
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         public static ChromiumWebBrowser cwb;
-        public bool isLoaded = false;
+        public bool IsSuccess { get; set; }
         public MainWindow( )
         {
             Initialize( );
+            IsSuccess = false;
         }
         public void Initialize( )
         {
             //Initialize
             InitializeComponent( );
-
-            //Initalize Images
-            //rightInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Right);
-            //leftInnerImage.Source = StdApi.ConvertImage(Properties.Resources.Left);
-            //refreshInnerImage.Source = StdApi.ConvertIcon(Properties.Resources.RefreshIcon);
-            //newInnerImage.Source = StdApi.ConvertImage(Properties.Resources.New);
 
             //ChromiumWebBrowsers
             var settings = new CefSettings();
@@ -75,7 +70,7 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
-                if(isLoaded != true)
+                if(IsSuccess != true)
                 {
                     if (e.ErrorCode.ToString() == "NameNotResolved" || e.ErrorCode.ToString() == "AddressUnreachable")
                     {
@@ -83,7 +78,7 @@ namespace 极简浏览器
                     }
                     else if (e.ErrorCode.ToString() != "Aborted")
                     {
-                        BrowserCore.Navigate(FilePath.AppPath + @"\page\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                        BrowserCore.Navigate(FilePath.AppPath + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
                     }
                 }
             });
@@ -100,7 +95,7 @@ namespace 极简浏览器
             {
                 try
                 {
-                    BrowserCore.Navigate(FileApi.GetStartupPath(App.Program.arguments.isNew));
+                    BrowserCore.Navigate(FileApi.StartupPath);
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +114,7 @@ namespace 极简浏览器
             {
                 BrowserCore.Navigate(UrlTextBox.Text);
             }
-            isLoaded = false;
+            IsSuccess = false;
         }
 
 
@@ -127,7 +122,7 @@ namespace 极简浏览器
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
-                isLoaded = true;
+                IsSuccess = true;
                 LoadProgressBar.Value = 100;
                 LoadProgressBar.Visibility = Visibility.Hidden;
                 label1.Content = "";

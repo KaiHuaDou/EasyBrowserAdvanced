@@ -4,27 +4,26 @@ namespace 极简浏览器.Api
 {
     public static class FileApi
     {
-        public static string GetStartupPath(bool isnew)
+        public static string StartupPath
         {
-            string result = "";
-            if (string.IsNullOrEmpty(App.Program.InputArgu) == false)
+            get
             {
-                result = App.Program.InputArgu;
-            }
-            else
-            {
-                string pathFile = File.ReadAllText(FilePath.ConfigPath);
-                if (string.IsNullOrEmpty(pathFile))
-                {
-                    File.WriteAllText(FilePath.ConfigPath, "about:blank");
-                    result = "about:blank";
-                }
+                string result = "";
+                if (string.IsNullOrEmpty(App.Program.InputArgu) == false)
+                    result = App.Program.InputArgu;
                 else
                 {
-                    result = pathFile;
+                    string pathFile = File.ReadAllText(FilePath.ConfigPath);
+                    if (string.IsNullOrEmpty(pathFile))
+                    {
+                        File.WriteAllText(FilePath.ConfigPath, "about:blank");
+                        result = "about:blank";
+                    }
+                    else
+                        result = pathFile;
                 }
+                return result;
             }
-            return result;
         }
     }
 }

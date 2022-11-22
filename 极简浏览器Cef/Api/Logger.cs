@@ -14,18 +14,18 @@ namespace 极简浏览器.Api
     }
     public static class Logger
     {
-        public static void Log(Exception e, LogType logType = LogType.Debug, bool shutWhenFail = false)
+        public static void Log(Exception ex, LogType logType = LogType.Debug, bool shutWhenFail = false)
         {
             try
             {
-                if(logType != LogType.Error && App.Program.arguments.isNotLogging)
+                if(logType != LogType.Error && App.Program.arguments.IsStopLog)
                 {
                     goto skip;
                 }
                 string LogPath = GenerateLogPath(logType);
                 File.AppendAllText(LogPath,
-                    "---------------" + e.Message + "\n" + e.Source + "\n"
-                    + e.TargetSite + "\n" + e.HelpLink + "\n" + e.StackTrace);
+                    "---------------" + ex.Message + "\n" + ex.Source + "\n"
+                    + ex.TargetSite + "\n" + ex.HelpLink + "\n" + ex.StackTrace);
             }
             catch (NullReferenceException)
             {
