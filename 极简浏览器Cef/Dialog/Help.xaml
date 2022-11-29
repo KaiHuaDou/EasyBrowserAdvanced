@@ -3,9 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:极简浏览器"
         mc:Ignorable="d" Title="帮助" Height="340" Width="550"
-        Icon="../favicon.ico" ResizeMode="NoResize">
-    <Grid>
-        <TreeView x:Name="treeView" Margin="0,0,0,57" FontSize="20" FocusVisualStyle="{x:Null}" Focusable="False"
+        Icon="/极简浏览器;component/favicon/favicon.ico" ResizeMode="NoResize">
+    <StackPanel>
+        <TreeView x:Name="treeView" Margin="0" FontSize="20" FocusVisualStyle="{x:Null}" Focusable="False"
                 Background="White">
             <TreeViewItem IsExpanded="True" Background="White" Focusable="False">
                 <TreeViewItem.Header>
@@ -35,9 +35,9 @@
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
-        <Button x:Name="button" Content="确定" HorizontalAlignment="Right" Margin="0,0,10,10"
-                VerticalAlignment="Bottom" Width="75" IsDefault="True" Click="button_Click"
+        <Button x:Name="button" Content="确定" HorizontalAlignment="Right" Margin="10" Width="100"
+                IsDefault="True" Click="button_Click"
                 Style="{StaticResource MaterialDesignPaperDarkButton}" />
 
-    </Grid>
+    </StackPanel>
 </Window>

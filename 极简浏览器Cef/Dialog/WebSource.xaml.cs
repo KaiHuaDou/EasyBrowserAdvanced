@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using CefSharp;
+using Microsoft.Win32;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -16,21 +18,34 @@ namespace 极简浏览器
             textBox.Text = text;
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void refreshButton_Click(object sender, RoutedEventArgs e)
         {
             textBox.Text = await BrowserCore.CefBrowser.GetMainFrame( ).GetSourceAsync( );
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void formatButton_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                string result = HtmlFormatter.ConvertToXml(textBox.Text, true);
+                string result = Formatter.FormartHtml(textBox.Text, true);
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
                     textBox.Text = result;
                 }));
             }));
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                DefaultExt = ".html",
+                FileName = BrowserCore.CefBrowser.Title,
+                AddExtension = true,
+                Filter = "网页文件(.html)|.html"
+            };
+            sfd.ShowDialog();
+            File.WriteAllText(sfd.FileName, textBox.Text);
         }
     }
 }

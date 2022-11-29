@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
@@ -21,56 +19,23 @@ namespace 极简浏览器
         public bool IsSuccess { get; set; }
         public MainWindow( )
         {
-            Initialize( );
+            InitializeComponent();
             IsSuccess = false;
-        }
-        public void Initialize( )
-        {
-            //Initialize
-            InitializeComponent( );
-
-            //ChromiumWebBrowsers
-            var settings = new CefSettings();
-            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
-            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
-            settings.Locale = "zh-CN";
-            settings.AcceptLanguageList = "zh-CN";
-            settings.CefCommandLineArgs["enable-system-flash"] = "1";
-            settings.CefCommandLineArgs["log_severity"] = "disabled";
-            settings.CefCommandLineArgs.Add("remote-debugging-port", "9922");
-            settings.CefCommandLineArgs.Add("ppapi-flash-path", "plugins/pepflashplayer.dll");
-            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
-            Cef.Initialize(settings);
-            cwb = new ExtChromiumBrowser();
-            CWBGrid.Children.Add(cwb);
-            cwb.Margin = new Thickness(0, 0, 0, 0);
-            cwb.AddressChanged += Running;
-            cwb.FrameLoadEnd += Check;
-            cwb.TitleChanged += Cwb_TitleChanged;
-            cwb.IsBrowserInitializedChanged += OnInitialize;
-            MenuHandler.mainWindow = this;
-            //cwb.MenuHandler = new MenuHandler( );
-            cwb.DownloadHandler = new DownloadHandler();
-            cwb.LoadError += Cwb_LoadError;
-            //Environment.SetEnvironmentVariable("ComSpec", "foobar.exe");
         }
         private void OnInitialize(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (cwb.IsBrowserInitialized)
+            Cef.UIThreadTaskFactory.StartNew(() =>
             {
-                Cef.UIThreadTaskFactory.StartNew(() =>
-                {
-                    string error = "";
-                    var requestContext = cwb.GetBrowser().GetHost().RequestContext;
-                    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
-                });
-            }
+                string error = "";
+                var requestContext = cwb.GetBrowser().GetHost().RequestContext;
+                requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+            });
         }
         private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action) delegate ( )
+            Dispatcher.BeginInvoke((Action)(() =>
             {
-                if(IsSuccess != true)
+                if (IsSuccess != true)
                 {
                     if (e.ErrorCode.ToString() == "NameNotResolved" || e.ErrorCode.ToString() == "AddressUnreachable")
                     {
@@ -81,17 +46,38 @@ namespace 极简浏览器
                         BrowserCore.Navigate(FilePath.AppPath + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
                     }
                 }
-            });
+            }));
         }
-
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.Title = cwb.Title + " - 极简浏览器";
+                this.Title = cwb.Title + " - 极简浏览器";
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //throw new Exception( );
-            Dispatcher.BeginInvoke((Action)delegate ( )
+            //ChromiumWebBrowsers
+            var settings = new CefSettings();
+            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+            settings.Locale = "zh-CN";
+            settings.AcceptLanguageList = "zh-CN";
+            settings.CefCommandLineArgs["enable-system-flash"] = "1";
+            settings.CefCommandLineArgs["log_severity"] = "disabled";
+            settings.CefCommandLineArgs.Add("remote-debugging-port", "9922");
+            settings.CefCommandLineArgs.Add("ppapi-flash-path", "resource/pepflashplayer.dll");
+            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
+            Cef.Initialize(settings);
+            cwb = new ExtChromiumBrowser();
+            CWBGrid.Children.Add(cwb);
+            cwb.Margin = new Thickness(0, 0, 0, 0);
+            cwb.AddressChanged += Running;
+            cwb.FrameLoadEnd += Check;
+            cwb.TitleChanged += Cwb_TitleChanged;
+            cwb.IsBrowserInitializedChanged += OnInitialize;
+            //MenuHandler.mainWindow = this;
+            //cwb.MenuHandler = new MenuHandler( );
+            cwb.DownloadHandler = new DownloadHandler();
+            cwb.LoadError += Cwb_LoadError;
+            Dispatcher.BeginInvoke((Action)(() =>
             {
                 try
                 {
@@ -101,9 +87,8 @@ namespace 极简浏览器
                 {
                     Logger.Log(ex, logType: LogType.Debug, shutWhenFail: true);
                 }
-            });
+            }));
         }
-
         private void Load(object sender, RoutedEventArgs e)
         {
             if (UrlTextBox.Text.ToLower().Contains("easy://"))
@@ -116,25 +101,18 @@ namespace 极简浏览器
             }
             IsSuccess = false;
         }
-
-
         private void Check(object sender, FrameLoadEndEventArgs e)
         {
             Dispatcher.BeginInvoke((Action) delegate ( )
             {
                 IsSuccess = true;
-                LoadProgressBar.Value = 100;
-                LoadProgressBar.Visibility = Visibility.Hidden;
+                LoadProgressBar.Visibility = Visibility.Collapsed;
                 label1.Content = "";
                 label1.Visibility = Visibility.Collapsed;
                 statusBar.Visibility = Visibility.Collapsed;
                 if(NoLogs.IsChecked != true)
                 {
                     ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.HistoryPath);
-                }
-                if ((UrlTextBox.Text.Contains("/Error.html?errorCode=") || UrlTextBox.Text.Contains("\\Error.html?errorCode=")) == true)
-                {
-                    UrlTextBox.Text = "easy://errorPage";
                 }
                 if (CivilizedLanguage.CheckIfNotCivilized(StdApi.CefPageSource) == true)
                 {
@@ -143,25 +121,15 @@ namespace 极简浏览器
                 }
             });
         }
-
         private void Running(object sender, DependencyPropertyChangedEventArgs e)
         {
             label1.Content = "正在加载中...";
             label1.Visibility = Visibility.Visible;
             LoadProgressBar.Visibility = Visibility.Visible;
-            Storyboard story = new Storyboard( );
-            DoubleAnimation da = new DoubleAnimation(0, 95, new Duration(TimeSpan.FromSeconds(10)));
-            Storyboard.SetTarget(da, LoadProgressBar);
-            Storyboard.SetTargetProperty(da, new PropertyPath("Value"));
-            story.Children.Add(da);
-            story.Begin( );
-            story.Completed += Story_Completed;
-            UrlTextBox.Text = BrowserCore.CefBrowser.Address;
-        }
-
-        private void Story_Completed(object sender, EventArgs e)
-        {
-            LoadProgressBar.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            if (!BrowserCore.CefBrowser.Address.Contains("Error.html?errorCode="))
+            {
+                UrlTextBox.Text = BrowserCore.CefBrowser.Address;
+            }
         }
         private void Go(object sender, KeyEventArgs e)
         {
@@ -174,15 +142,6 @@ namespace 极简浏览器
             {
                 CivilizedLanguage.ShowDeniedMessage( );
             }
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool isDispose)
-        {
-            cwb.Dispose( );
         }
         private void CWBGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -201,7 +160,6 @@ namespace 极简浏览器
             }
             catch (Exception){}
         }
-
         private void startusBar_MouseEnter(object sender, MouseEventArgs e)
         {
             if (statusBar.HorizontalAlignment == HorizontalAlignment.Right)
@@ -214,6 +172,15 @@ namespace 极简浏览器
                 statusBar.HorizontalAlignment = HorizontalAlignment.Right;
                 barShadow.Direction = 135;
             }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool isDispose)
+        {
+            cwb.Dispose( );
         }
     }
 }

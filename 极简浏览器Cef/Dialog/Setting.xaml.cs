@@ -14,13 +14,14 @@ namespace 极简浏览器
         public Setting( )
         {
             InitializeComponent( );
+            MainPageBox.Text = File.ReadAllText(FilePath.ConfigPath);
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                File.WriteAllText(FilePath.ConfigPath, textBox.Text);
+                File.WriteAllText(FilePath.ConfigPath, MainPageBox.Text);
                 this.Close( );
             }
             catch (Exception ex)
@@ -29,7 +30,7 @@ namespace 极简浏览器
             }
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void CacheButton_Click(object sender, RoutedEventArgs e)
         {
             string[] files = Directory.GetFiles(FilePath.CacheDirectory);
             foreach(string x in files)
@@ -38,12 +39,21 @@ namespace 极简浏览器
                 {
                     File.Delete(x);
                 }
-                catch (Exception)
-                {
-                    //Donot Log!
-                }
+                catch (Exception) { }
             }
-            label2.Visibility = Visibility.Visible;
+        }
+
+        private void LogButton_Click(object sender, RoutedEventArgs e)
+        {
+            string[] files = Directory.GetFiles(FilePath.LogDirectory);
+            foreach (string x in files)
+            {
+                try
+                {
+                    File.Delete(x);
+                }
+                catch (Exception) { }
+            }
         }
     }
 }

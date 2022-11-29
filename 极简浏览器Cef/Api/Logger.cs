@@ -1,8 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
-using System.Windows.Media.Imaging;
-using System.Windows.Shell;
 
 namespace 极简浏览器.Api
 {

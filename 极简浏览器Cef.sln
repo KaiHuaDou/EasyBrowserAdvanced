@@ -15,32 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		2.0D|Any CPU = 2.0D|Any CPU
 		2.0D|x86 = 2.0D|x86
-		2.0R|Any CPU = 2.0R|Any CPU
 		2.0R|x86 = 2.0R|x86
-		Debug|Any CPU = Debug|Any CPU
-		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|Any CPU.ActiveCfg = 2.0D|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|Any CPU.Build.0 = 2.0D|Any CPU
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|x86.ActiveCfg = 2.0D|x86
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|x86.Build.0 = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|Any CPU.ActiveCfg = 2.0D|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|Any CPU.Build.0 = 2.0D|Any CPU
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|x86.ActiveCfg = 2.0R|x86
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|x86.Build.0 = 2.0R|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|Any CPU.ActiveCfg = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|Any CPU.Build.0 = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.ActiveCfg = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.Build.0 = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.ActiveCfg = 2.0R|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.Build.0 = 2.0R|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.ActiveCfg = 2.0R|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.Build.0 = 2.0R|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

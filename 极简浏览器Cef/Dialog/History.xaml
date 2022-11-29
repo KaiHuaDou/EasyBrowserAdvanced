@@ -8,7 +8,7 @@
         <TabControl x:Name="tabControl" Margin="0,0,0,0" BorderThickness="0">
             <TabItem Header="历史记录">
                 <Grid>
-                    <DataGrid Margin="0,0,0,40" x:Name="HistoryDataGrid" AutoGenerateColumns="False" BorderThickness="0">
+                    <DataGrid Margin="0,0,0,45" x:Name="HistoryDataGrid" AutoGenerateColumns="False" BorderThickness="0">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="选择" Binding="{Binding Path=IsChecked}"/>
                             <DataGridTextColumn Header="网站名称" Binding="{Binding Path=SiteName}"/>
@@ -31,7 +31,7 @@
             </TabItem>
             <TabItem Header="书签">
                 <Grid>
-                    <DataGrid Margin="0,0,0,40" x:Name="BookMarkDataGrid" AutoGenerateColumns="False" BorderThickness="0">
+                    <DataGrid Margin="0,0,0,45" x:Name="BookMarkDataGrid" AutoGenerateColumns="False" BorderThickness="0">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="选择" Binding="{Binding Path=IsChecked}" />
                             <DataGridTextColumn Header="网站名称" Binding="{Binding Path=SiteName}" />
