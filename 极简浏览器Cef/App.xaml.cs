@@ -28,9 +28,6 @@ namespace 极简浏览器
         {
             public static string InputArgu ="";
             public static Arguments arguments = new Arguments(false);
-            ///<summary>
-            ///应用程序的主入口点。
-            ///</summary>
             [STAThread]
             public static void Main(string[] args)
             {
@@ -43,18 +40,9 @@ namespace 极简浏览器
                 }
                 try
                 {
-                    RuntimeCheckAndAutoFix();
-                }
-                catch (Exception e)
-                {
-                    Logger.Log(e, LogType.Error, shutWhenFail: false);
-                    Report report = new Report(e.Message);
-                    report.Show();
-                }
-                try
-                {
                     App app = new App();
                     app.InitializeComponent();
+                    RuntimeCheckAndAutoFix();
                     app.Run();
                 }
                 catch (XamlParseException e)
@@ -64,29 +52,27 @@ namespace 极简浏览器
                 }
             }
         }
-
         static void RuntimeCheckAndAutoFix( )
         {
-            if (Directory.Exists(FilePath.DataBaseDirectory) == false)
-                Directory.CreateDirectory(FilePath.DataBaseDirectory);
-            if (Directory.Exists(FilePath.LogDirectory) == false)
-                Directory.CreateDirectory(FilePath.LogDirectory);
-            if (File.Exists(FilePath.HistoryPath) == false)
+            new Thread(() =>
             {
-                File.Create(FilePath.HistoryPath);
-            }
-            if (File.Exists(FilePath.BookMarkPath) == false)
-            {
-                File.Create(FilePath.BookMarkPath);
-            }
-            if (File.Exists(FilePath.ConfigPath) == false)
-                File.Create(FilePath.ConfigPath);
-            if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
-                File.Create(FilePath.LogDirectory + "\\log.log");
-            if (File.Exists(FilePath.LogDirectory + "\\error.log") == false)
-                File.Create(FilePath.LogDirectory + "\\error.log");
-            if (File.Exists(FilePath.LogDirectory + "\\debug.log") == false)
-                File.Create(FilePath.LogDirectory + "\\debug.log");
+                if (Directory.Exists(FilePath.DataBaseDirectory) == false)
+                    Directory.CreateDirectory(FilePath.DataBaseDirectory);
+                if (Directory.Exists(FilePath.LogDirectory) == false)
+                    Directory.CreateDirectory(FilePath.LogDirectory);
+                if (File.Exists(FilePath.HistoryPath) == false)
+                    File.Create(FilePath.HistoryPath);
+                if (File.Exists(FilePath.BookMarkPath) == false)
+                    File.Create(FilePath.BookMarkPath);
+                if (File.Exists(FilePath.ConfigPath) == false)
+                    File.Create(FilePath.ConfigPath);
+                if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
+                    File.Create(FilePath.LogDirectory + "\\log.log");
+                if (File.Exists(FilePath.LogDirectory + "\\error.log") == false)
+                    File.Create(FilePath.LogDirectory + "\\error.log");
+                if (File.Exists(FilePath.LogDirectory + "\\debug.log") == false)
+                    File.Create(FilePath.LogDirectory + "\\debug.log");
+            }).Start();
             try
             {
                 if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)

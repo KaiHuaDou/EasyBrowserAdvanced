@@ -28,84 +28,76 @@
                 <Setter Property="Foreground" Value="Black" />
             </Style>
             <Style x:Key="TopMenuItem" TargetType="{x:Type MenuItem}">
-                        <Setter Property="HorizontalAlignment" Value="Left" />
-                        <Setter Property="Width" Value="285" />
-                        <Setter Property="FontSize" Value="22" />
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="MenuItem">
-                                    <Grid Height="35" Background="White"
-                                            Width="{TemplateBinding Width}">
-                                        <Border x:Name="_border" CornerRadius="20"
-                                                Background="#FFE6E6E6" Opacity="0" />
-                                        <Label Foreground="Black" VerticalAlignment="Center"
-                                                x:Name="_txt"
-                                                Content="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}"
-                                                Margin="0" />
-                                        <Popup Placement="Left" x:Name="SubMenuPopup"
-                                                AllowsTransparency="True" Focusable="False"
-                                                IsOpen="{TemplateBinding IsSubmenuOpen}">
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                                    HorizontalScrollBarVisibility="Disabled">
-                                                <Border Background="White" Name="SubmenuBorder"
-                                                        SnapsToDevicePixels="True"
-                                                        BorderThickness="1"
-                                                        BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                                                    <StackPanel IsItemsHost="True"
-                                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                                </Border>
-                                            </ScrollViewer>
-                                        </Popup>
-                                    </Grid>
-                                    <ControlTemplate.Triggers>
-                                        <EventTrigger RoutedEvent="MenuItem.MouseEnter">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation From="0" To="1"
-                                                            Duration="0:0:0.1"
-                                                            Storyboard.TargetName="_border"
-                                                            Storyboard.TargetProperty="Opacity" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                        <EventTrigger RoutedEvent="MenuItem.MouseLeave">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation From="1" To="0"
-                                                            Duration="0:0:0.1"
-                                                            Storyboard.TargetName="_border"
-                                                            Storyboard.TargetProperty="Opacity" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style TargetType="{x:Type TextBox}" x:Key="TextboxStyle">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type TextBox}">
-                                    <Border x:Name="_border" BorderThickness="2"
-                                            BorderBrush="#FFF0F0F0" CornerRadius="13"
-                                            Background="#FFF0F0F0">
-                                        <ScrollViewer x:Name="PART_ContentHost" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsFocused" Value="True">
-                                            <Setter TargetName="_border" Property="BorderBrush"
-                                                    Value="Blue" />
-                                            <Setter TargetName="_border" Property="Background"
-                                                    Value="White" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <!--<Style x:Key="ShadowButton" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Width" Value="285" />
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid Height="35" Background="White" Width="{TemplateBinding Width}">
+                                <Border x:Name="_border" CornerRadius="20" Background="#FFE6E6E6"
+                                        Opacity="0" />
+                                <Label Foreground="Black" VerticalAlignment="Center" x:Name="_txt"
+                                        Content="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}"
+                                        Margin="0" />
+                                <Popup Placement="Left" x:Name="SubMenuPopup"
+                                        AllowsTransparency="True" Focusable="False"
+                                        IsOpen="{TemplateBinding IsSubmenuOpen}">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                            HorizontalScrollBarVisibility="Disabled">
+                                        <Border Background="White" Name="SubmenuBorder"
+                                                SnapsToDevicePixels="True" BorderThickness="1"
+                                                BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
+                                            <StackPanel IsItemsHost="True"
+                                                    KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                        </Border>
+                                    </ScrollViewer>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <EventTrigger RoutedEvent="MenuItem.MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="0" To="1" Duration="0:0:0.1"
+                                                    Storyboard.TargetName="_border"
+                                                    Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MenuItem.MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="1" To="0" Duration="0:0:0.1"
+                                                    Storyboard.TargetName="_border"
+                                                    Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type TextBox}" x:Key="TextboxStyle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border x:Name="_border" BorderThickness="2" BorderBrush="#F0F0F0"
+                                    CornerRadius="13" Background="#F0F0F0" Opacity="0.6">
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="_border" Property="BorderBrush" Value="Blue" />
+                                    <Setter TargetName="_border" Property="Background" Value="White" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--<Style x:Key="ShadowButton" TargetType="Button">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">

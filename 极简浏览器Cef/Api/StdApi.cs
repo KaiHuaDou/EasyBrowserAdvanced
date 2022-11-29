@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -13,20 +10,6 @@ namespace 极简浏览器.Api
 {
     public static class StdApi
     {
-        public static ImageSource ConvertImage(Bitmap image)
-        {
-            Bitmap temp1 = image;
-            IntPtr temp2 = temp1.GetHbitmap();
-            return Imaging.CreateBitmapSourceFromHBitmap(temp2, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-        }
-        public static ImageSource ConvertIcon(Icon icon)
-        {
-            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-            icon.Handle,
-            Int32Rect.Empty,
-            BitmapSizeOptions.FromEmptyOptions());
-            return imageSource;
-        }
         public static string LocalTime
         {
             get

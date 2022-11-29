@@ -46,41 +46,40 @@
         </Button>
         <ProgressBar x:Name="LoadProgressBar" Maximum="100" Margin="0,35,0,0"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="7"
-                Background="{x:Null}" BorderThickness="0">
+                Background="{x:Null}" BorderThickness="0" IsIndeterminate="True">
         </ProgressBar>
         <TextBox x:Name="UrlTextBox" Height="30" TextWrapping="NoWrap" Text=""
                 VerticalAlignment="Top" FontSize="20" Margin="70,2.5,105,0" KeyDown="Go"
                 Style="{StaticResource TextboxStyle}">
         </TextBox>
         <Menu HorizontalAlignment="Right" VerticalAlignment="Top" Width="35">
-            <MenuItem Height="35">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon Kind="DotsVertical" />
-                </MenuItem.Icon>
+            <MenuItem Height="35" Width="35">
+                <MenuItem.Header>
+                    <materialDesign:PackIcon Kind="DotsVertical"/>
+                </MenuItem.Header>
                 <MenuItem Header="上一页(_B)" Click="GoForwardButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="下一页(_F)" Click="GoBackButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="刷新(_R)" Click="RefreshButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="添加新页面(_N)" Click="AddNewPageButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="查看网页源代码(_V)" Click="ViewSource_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="设为书签(_E)" Click="SetBookMark_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="历史记录/书签(_H)" Click="ViewHistory_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="设置(_S)" Click="Setting_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
-                <MenuItem Header="帮助(_H)" Click="Help_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
+                <MenuItem Header="帮助(_H)" Click="Help_Click" Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem Header="关于(_A)" Click="About_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
                 <MenuItem x:Name="DevToolsButton" Header="开发者工具(_D)" Click="DevToolsButton_Click"
-                        Style="{wms:MultiStyle  WhitePoupuItem}" />
-                <CheckBox Content="置顶(_T)" Click="Topmost_Checked"
-                        Foreground="Black" FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20"/>
+                        Style="{wms:MultiStyle WhitePoupuItem}" />
+                <CheckBox Content="置顶(_T)" Click="Topmost_Checked" Foreground="Black"
+                        FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
                 <CheckBox Content="在本窗口打开(_S)" x:Name="OnlyThis" Foreground="Black"
                         FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
                 <CheckBox Content="无痕模式(_P)" x:Name="NoLogs" Click="NoLogs_Click" Foreground="Black"

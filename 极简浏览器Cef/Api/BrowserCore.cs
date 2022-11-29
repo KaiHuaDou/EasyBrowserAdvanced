@@ -6,10 +6,6 @@ namespace 极简浏览器.Api
 {
     public static class BrowserCore
     {
-        public static void RunJavaSript(string script)
-        {
-            CefBrowser.WebBrowser.ExecuteScriptAsync(script);
-        }
         public static MainWindow CefInstance
         {
             get
@@ -50,7 +46,8 @@ namespace 极简浏览器.Api
 
         public static void Refresh( )
         {
-            try { CefBrowser.Reload(); }
+            try {
+                CefBrowser.Reload(); }
             catch (Exception e)
             {
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);

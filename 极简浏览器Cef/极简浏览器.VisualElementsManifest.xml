@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <VisualElements BackgroundColor="#353535"
+                  ShowNameOnSquare150x150Logo="off"
+                  ForegroundText="dark"
+                  Square150x150Logo="favicon/favicon.ico"
+                  Square70x70Logo="favicon/favicon.ico"
+                  Lnk32x32Logo="" />
+</Application>

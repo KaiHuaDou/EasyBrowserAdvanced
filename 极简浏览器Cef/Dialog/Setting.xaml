@@ -1,19 +1,19 @@
 ﻿<Window x:Class="极简浏览器.Setting" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="设置" Height="200" Width="600"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="设置" Height="175" Width="420"
         ResizeMode="NoResize">
     <Grid>
-        <Label x:Name="label1" Content="主页：" HorizontalAlignment="Left" Margin="10,19,0,0"
-                VerticalAlignment="Top" Height="34" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="78,23,0,0"
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="492" />
-        <Button x:Name="button" Content="确定(_O)" HorizontalAlignment="Left" Margin="455,96,0,0"
-                VerticalAlignment="Top" Width="115" Click="button_Click"
+        <Label Content="主页：" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                Height="34" />
+        <TextBox x:Name="MainPageBox" Height="35" Margin="80,11,10,0" TextWrapping="Wrap"
+                VerticalAlignment="Top" />
+        <Button x:Name="OKButton" Content="确定(_O)" HorizontalAlignment="Right" Margin="0,0,10,10"
+                VerticalAlignment="Bottom" Width="100" Click="OKButton_Click"
                 Style="{StaticResource MaterialDesignPaperDarkButton}" />
-        <Button x:Name="button1" Content="清除缓存" HorizontalAlignment="Left" Margin="235,58,0,0"
-                VerticalAlignment="Top" Width="137" Click="button1_Click"
+        <Button x:Name="CacheButton" Content="清除缓存" HorizontalAlignment="Right" Margin="0,0,125,10"
+                VerticalAlignment="Bottom" Width="100" Click="CacheButton_Click"
                 Style="{StaticResource MaterialDesignPaperDarkButton}" />
-        <Label x:Name="label2" Content="清除成功！" HorizontalAlignment="Left" Margin="245,157,0,0"
-                VerticalAlignment="Top" Foreground="#FF3DF971" Visibility="Collapsed" />
-
+        <Button x:Name="LogButton" Content="清除日志" HorizontalAlignment="Right" Margin="0,0,240,10"
+                VerticalAlignment="Bottom" Width="100" Click="LogButton_Click"
+                Style="{StaticResource MaterialDesignPaperDarkButton}" />
     </Grid>
 </Window>

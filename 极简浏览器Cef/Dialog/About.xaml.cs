@@ -41,8 +41,7 @@ namespace 极简浏览器
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            label3.Content = "版本："
-                + Settings.Default.Attach + " "
+            label3.Content = Settings.Default.Attach + " "
                 + Settings.Default.Version + " "
                 + Settings.Default.Type;
         }
