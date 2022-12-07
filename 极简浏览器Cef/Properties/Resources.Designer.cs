@@ -61,92 +61,92 @@ namespace 极简浏览器.Properties {
         }
         
         /// <summary>
-        ///   查找类似 网络文明监察局 的本地化字符串。
+        ///   查找类似 极简浏览器 的本地化字符串。
         /// </summary>
-        public static string Access_kdtitle {
+        public static string browserName {
             get {
-                return ResourceManager.GetString("Access_kdtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 我认为您是不善意的，软件将强行关闭！ 的本地化字符串。
-        /// </summary>
-        public static string Access_killdown {
-            get {
-                return ResourceManager.GetString("Access_killdown", resourceCulture);
+                return ResourceManager.GetString("browserName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 您已被取消软件使用资格 的本地化字符串。
         /// </summary>
-        public static string Accsses_cancel {
+        public static string civiRefuse {
             get {
-                return ResourceManager.GetString("Accsses_cancel", resourceCulture);
+                return ResourceManager.GetString("civiRefuse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 极简浏览器 的本地化字符串。
+        ///   查找类似 我认为您是不善意的，软件将强行关闭！ 的本地化字符串。
         /// </summary>
-        public static string BrowserName {
+        public static string civiShutdown {
             get {
-                return ResourceManager.GetString("BrowserName", resourceCulture);
+                return ResourceManager.GetString("civiShutdown", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 帮助链接: 的本地化字符串。
+        ///   查找类似 网络文明监察局 的本地化字符串。
         /// </summary>
-        public static string Excep_endmsg {
+        public static string civiTitle {
             get {
-                return ResourceManager.GetString("Excep_endmsg", resourceCulture);
+                return ResourceManager.GetString("civiTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 原因: 的本地化字符串。
         /// </summary>
-        public static string Excep_inmsg1 {
+        public static string exCause {
             get {
-                return ResourceManager.GetString("Excep_inmsg1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 程序集中的 的本地化字符串。
-        /// </summary>
-        public static string Excep_inmsg2 {
-            get {
-                return ResourceManager.GetString("Excep_inmsg2", resourceCulture);
+                return ResourceManager.GetString("exCause", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 方法引发了此异常。 的本地化字符串。
         /// </summary>
-        public static string Excep_inmsg3 {
+        public static string exEnd {
             get {
-                return ResourceManager.GetString("Excep_inmsg3", resourceCulture);
+                return ResourceManager.GetString("exEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 帮助链接: 的本地化字符串。
+        /// </summary>
+        public static string exLink {
+            get {
+                return ResourceManager.GetString("exLink", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 很抱歉，程序发生了未处理的异常， 的本地化字符串。
         /// </summary>
-        public static string Excep_msg {
+        public static string exMain {
             get {
-                return ResourceManager.GetString("Excep_msg", resourceCulture);
+                return ResourceManager.GetString("exMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序集中的 的本地化字符串。
+        /// </summary>
+        public static string exPlace {
+            get {
+                return ResourceManager.GetString("exPlace", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 写入失败，请重试！ 的本地化字符串。
         /// </summary>
-        public static string File_Error {
+        public static string fileError {
             get {
-                return ResourceManager.GetString("File_Error", resourceCulture);
+                return ResourceManager.GetString("fileError", resourceCulture);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace 极简浏览器
 
         private async void refreshButton_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = await BrowserCore.CefBrowser.GetMainFrame( ).GetSourceAsync( );
+            textBox.Text = await Browser.Core.GetMainFrame( ).GetSourceAsync( );
         }
 
         private void formatButton_Click(object sender, RoutedEventArgs e)
@@ -40,9 +40,9 @@ namespace 极简浏览器
             SaveFileDialog sfd = new SaveFileDialog
             {
                 DefaultExt = ".html",
-                FileName = BrowserCore.CefBrowser.Title,
+                FileName = Browser.Core.Title,
                 AddExtension = true,
-                Filter = "网页文件(.html)|.html"
+                Filter = "HTML 文件|.html"
             };
             sfd.ShowDialog();
             File.WriteAllText(sfd.FileName, textBox.Text);

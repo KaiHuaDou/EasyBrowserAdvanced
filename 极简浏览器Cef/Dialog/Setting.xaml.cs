@@ -14,14 +14,14 @@ namespace 极简浏览器
         public Setting( )
         {
             InitializeComponent( );
-            MainPageBox.Text = File.ReadAllText(FilePath.ConfigPath);
+            MainPageBox.Text = File.ReadAllText(FilePath.Config);
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                File.WriteAllText(FilePath.ConfigPath, MainPageBox.Text);
+                File.WriteAllText(FilePath.Config, MainPageBox.Text);
                 this.Close( );
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace 极简浏览器
 
         private void CacheButton_Click(object sender, RoutedEventArgs e)
         {
-            string[] files = Directory.GetFiles(FilePath.CacheDirectory);
+            string[] files = Directory.GetFiles(FilePath.Caches);
             foreach(string x in files)
             {
                 try
@@ -45,7 +45,7 @@ namespace 极简浏览器
 
         private void LogButton_Click(object sender, RoutedEventArgs e)
         {
-            string[] files = Directory.GetFiles(FilePath.LogDirectory);
+            string[] files = Directory.GetFiles(FilePath.Logs);
             foreach (string x in files)
             {
                 try

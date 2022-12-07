@@ -4,45 +4,45 @@ using System.IO;
 using System.Xml.Serialization;
 namespace 极简浏览器.Api
 {
-    public static class ConfigHelper
+    public static class Configer
     {
-        private static FileStream GenStreamGet(string fileName)
+        private static FileStream genGetStream(string fileName)
         {
             FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             return stream;
         }
-        private static FileStream GenStreamSet(string fileName)
+        private static FileStream genSetStream(string fileName)
         {
             FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
             return stream;
         }
-        public static void AddConfig(ConfigData data, string fileName)
+        public static void AddConfig(Config data, string fileName)
         {
-            ObservableCollection<ConfigData> savedData = GetConfig(fileName);
+            ObservableCollection<Config> savedData = GetConfig(fileName);
             savedData.Add(data);
             SaveConfig(savedData, fileName);
         }
-        public static void RemoveConfig(ConfigData data, string fileName)
+        public static void RemoveConfig(Config data, string fileName)
         {
-            ObservableCollection<ConfigData> savedData = GetConfig(fileName);
+            ObservableCollection<Config> savedData = GetConfig(fileName);
             savedData.Remove(data);
             SaveConfig(savedData, fileName);
         }
-        public static void SaveConfig(ObservableCollection<ConfigData> data,  string fileName)
+        public static void SaveConfig(ObservableCollection<Config> data,  string fileName)
         {
-            FileStream fs = GenStreamSet(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
+            FileStream fs = genSetStream(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Config>));
             serializer.Serialize(fs, data);
             fs.Close();
         }
-        public static ObservableCollection<ConfigData> GetConfig(string fileName)
+        public static ObservableCollection<Config> GetConfig(string fileName)
         {
-            FileStream fs = GenStreamGet(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ConfigData>));
-            ObservableCollection<ConfigData> config = new ObservableCollection<ConfigData>();
+            FileStream fs = genGetStream(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Config>));
+            ObservableCollection<Config> config = new ObservableCollection<Config>();
             try
             {
-                config = serializer.Deserialize(fs) as ObservableCollection<ConfigData>;
+                config = serializer.Deserialize(fs) as ObservableCollection<Config>;
                 fs.Close();
             }
             catch (InvalidOperationException)
@@ -54,13 +54,13 @@ namespace 极简浏览器.Api
         }
         public static void InitConfig(string fileName)
         {
-            SaveConfig(new ObservableCollection<ConfigData>(), fileName);
+            SaveConfig(new ObservableCollection<Config>(), fileName);
         }
     }
-    public class ConfigData
+    public class Config
     {
-        public ConfigData( ) { }
-        public ConfigData(bool isChecked, string siteName, string siteAddress, string visitTime)
+        public Config( ) { }
+        public Config(bool isChecked, string siteName, string siteAddress, string visitTime)
         {
             IsChecked = isChecked;
             SiteName = siteName;

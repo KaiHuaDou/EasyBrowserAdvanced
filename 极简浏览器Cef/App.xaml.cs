@@ -48,7 +48,10 @@ namespace 极简浏览器
                 catch (XamlParseException e)
                 {
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
-                    System.Windows.MessageBox.Show(e.Message, 极简浏览器.Properties.Resources.BrowserName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error, System.Windows.MessageBoxResult.OK, System.Windows.MessageBoxOptions.ServiceNotification);
+                    System.Windows.MessageBox.Show(
+                        e.Message, 极简浏览器.Properties.Resources.browserName, 
+                        System.Windows.MessageBoxButton.OK, 
+                        System.Windows.MessageBoxImage.Error);
                 }
             }
         }
@@ -56,22 +59,22 @@ namespace 极简浏览器
         {
             new Thread(() =>
             {
-                if (Directory.Exists(FilePath.DataBaseDirectory) == false)
-                    Directory.CreateDirectory(FilePath.DataBaseDirectory);
-                if (Directory.Exists(FilePath.LogDirectory) == false)
-                    Directory.CreateDirectory(FilePath.LogDirectory);
-                if (File.Exists(FilePath.HistoryPath) == false)
-                    File.Create(FilePath.HistoryPath);
-                if (File.Exists(FilePath.BookMarkPath) == false)
-                    File.Create(FilePath.BookMarkPath);
-                if (File.Exists(FilePath.ConfigPath) == false)
-                    File.Create(FilePath.ConfigPath);
-                if (File.Exists(FilePath.LogDirectory + "\\log.log") == false)
-                    File.Create(FilePath.LogDirectory + "\\log.log");
-                if (File.Exists(FilePath.LogDirectory + "\\error.log") == false)
-                    File.Create(FilePath.LogDirectory + "\\error.log");
-                if (File.Exists(FilePath.LogDirectory + "\\debug.log") == false)
-                    File.Create(FilePath.LogDirectory + "\\debug.log");
+                if (Directory.Exists(FilePath.Datas) == false)
+                    Directory.CreateDirectory(FilePath.Datas);
+                if (Directory.Exists(FilePath.Logs) == false)
+                    Directory.CreateDirectory(FilePath.Logs);
+                if (File.Exists(FilePath.History) == false)
+                    File.Create(FilePath.History);
+                if (File.Exists(FilePath.BookMark) == false)
+                    File.Create(FilePath.BookMark);
+                if (File.Exists(FilePath.Config) == false)
+                    File.Create(FilePath.Config);
+                if (File.Exists(FilePath.Logs + "\\log.log") == false)
+                    File.Create(FilePath.Logs + "\\log.log");
+                if (File.Exists(FilePath.Logs + "\\error.log") == false)
+                    File.Create(FilePath.Logs + "\\error.log");
+                if (File.Exists(FilePath.Logs + "\\debug.log") == false)
+                    File.Create(FilePath.Logs + "\\debug.log");
             }).Start();
             try
             {
@@ -89,7 +92,7 @@ namespace 极简浏览器
         }
         static void showNoAccsses()
         {
-            MessageBox.Show(极简浏览器.Properties.Resources.Accsses_cancel);
+            MessageBox.Show(极简浏览器.Properties.Resources.civiRefuse);
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
