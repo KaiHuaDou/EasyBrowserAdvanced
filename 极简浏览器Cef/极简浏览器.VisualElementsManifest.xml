@@ -3,7 +3,7 @@
   <VisualElements BackgroundColor="#353535"
                   ShowNameOnSquare150x150Logo="off"
                   ForegroundText="dark"
-                  Square150x150Logo="favicon/favicon.ico"
-                  Square70x70Logo="favicon/favicon.ico"
+                  Square150x150Logo="favicon/favicon.png"
+                  Square70x70Logo="favicon/favicon.png"
                   Lnk32x32Logo="" />
 </Application>

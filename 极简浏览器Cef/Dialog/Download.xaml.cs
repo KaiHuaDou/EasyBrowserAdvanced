@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using CefSharp;
+using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
@@ -14,28 +15,27 @@ namespace 极简浏览器
     /// </summary>
     public partial class Download : Window
     {
-        private static DownloadItem cur = new DownloadItem();
-        private string FilePath;
-        private WebRequest httpRequest;
-        private WebResponse httpResponse;
-        private byte[] buffer = new byte[short.MaxValue];
-        private Thread downloadThread;
-        private Stream ns;
-        private FileStream fs;
-        private long length;
-        private long downlength=0;
-        private long lastlength = 0;
+        private static DownloadItem basicInfo = new DownloadItem();
+        private string dlPath;
+        private WebRequest httpReq;
+        private WebResponse httpRes;
+        private byte[] buf = new byte[short.MaxValue];
+        private Thread dlThread;
+        private Stream dlStream;
+        private FileStream dlFS;
+        private long length = 0;
+        private long dlLen = 0;
+        private long lastLen = 0;
+        private double totalSec = 0;
         private delegate void updateData(string value);
-        private int totalseconds = 0;
-        private updateData UIDel;
-        private System.Timers.Timer timer = new System.Timers.Timer(1000);
-        public Download(DownloadItem item, string path)
+        private updateData doFront;
+        private System.Timers.Timer timer = new System.Timers.Timer(500);
+        public Download(DownloadItem item, string savePath)
         {
             InitializeComponent();
-            cur = item;
-            FilePath = path;
-            FileName.Content = cur.SuggestedFileName;
-            FromURL.Content = "从" + cur.Url.Substring(0, 20) + "…下载";
+            basicInfo = item;
+            dlPath = savePath;
+            FileName.Content = basicInfo.SuggestedFileName;
             timer.Elapsed += Timer_Elapsed;
             DownloadInit();
         }
@@ -44,9 +44,9 @@ namespace 极简浏览器
         {
             Dispatcher.Invoke(() =>
             {
-                Speed.Content = ((downlength - lastlength) / 1024) + "KB/s";
-                lastlength = downlength;
-                totalseconds++;
+                Speed.Content = Convert.ToUInt32((dlLen - lastLen) / 1024) + "KB/s";
+                lastLen = dlLen;
+                totalSec += 0.5;
             });
         }
 
@@ -54,16 +54,16 @@ namespace 极简浏览器
         {
             try
             {
-                httpRequest = WebRequest.Create(cur.Url);
-                httpResponse = httpRequest.GetResponse();
-                length = httpResponse.ContentLength;
+                httpReq = WebRequest.Create(basicInfo.Url);
+                httpRes = httpReq.GetResponse();
+                length = httpRes.ContentLength;
                 Progress.Maximum = length;
-                downloadThread = new Thread(new ThreadStart(HttpDownloadFile));
-                fs = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write);
-                downloadThread.Start();
+                dlThread = new Thread(new ThreadStart(HttpDownloadFile));
+                dlFS = new FileStream(dlPath, FileMode.Create, FileAccess.ReadWrite);
                 timer.Enabled = true;
+                dlThread.Start();
             }
-            catch(WebException e)
+            catch (WebException e)
             {
                 MessageBox.Show("无法下载，原因：:" + e.Status.ToString());
                 this.Close();
@@ -72,32 +72,26 @@ namespace 极简浏览器
 
         public void HttpDownloadFile()
         {
-            ns = httpResponse.GetResponseStream();
+            dlStream = httpRes.GetResponseStream();
             int i;
-            UIDel = new updateData(updateUI);
-            try
+            doFront = new updateData(updateUI);
+            while ((i = dlStream.Read(buf, 0, buf.Length)) > 0)
             {
-                while ((i = ns.Read(buffer, 0, buffer.Length)) > 0)
+                try
                 {
-                    downlength += i;
-                    string value = downlength.ToString();
-                    Dispatcher.Invoke(UIDel, value);
-                    fs.Write(buffer, 0, i);
+                    dlLen += i;
+                    Dispatcher.Invoke(doFront, dlLen.ToString());
+                    dlFS.Write(buf, 0, i);
                 }
-                Dispatcher.Invoke(() =>
+                catch (IOException ex)
                 {
-                    Speed.Content = (length / (1024 * totalseconds)) + "KB/s";
-                });
+                    Logger.Log(ex, LogType.Debug);
+                }
             }
-            catch (DivideByZeroException) { }
-            catch (IOException) { }
             timer.Enabled = false;
-            fs.Close();
-            ns.Close();
-            Dispatcher.Invoke(() =>
-            {
-                OpenButton.IsEnabled = true;
-            });
+            dlFS.Close();
+            dlStream.Close();
+            Dispatcher.Invoke(() => { OpenButton.IsEnabled = true; });
         }
         void updateUI(string value)
         {
@@ -105,19 +99,24 @@ namespace 极简浏览器
             {
                 Progress.Value = int.Parse(value);
                 double percent = Progress.Value / Progress.Maximum * 100.0;
-                Percent.Content = decimal.Round((decimal)percent, 1) + "%";
+                Percent.Content = decimal.Round((decimal)percent, 2) + "%";
             }
             catch (Exception) { }
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(FilePath);
+            Process.Start(dlPath);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            downloadThread.Abort();
+            dlThread.Abort();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FromURL.Content = "下载地址：" + basicInfo.Url.Substring(0, (int)(this.ActualWidth / 25));
         }
     }
 }
