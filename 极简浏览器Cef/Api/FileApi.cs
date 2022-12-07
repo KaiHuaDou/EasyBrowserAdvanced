@@ -13,10 +13,10 @@ namespace 极简浏览器.Api
                     result = App.Program.InputArgu;
                 else
                 {
-                    string pathFile = File.ReadAllText(FilePath.ConfigPath);
+                    string pathFile = File.ReadAllText(FilePath.Config);
                     if (string.IsNullOrEmpty(pathFile))
                     {
-                        File.WriteAllText(FilePath.ConfigPath, "about:blank");
+                        File.WriteAllText(FilePath.Config, "about:blank");
                         result = "about:blank";
                     }
                     else

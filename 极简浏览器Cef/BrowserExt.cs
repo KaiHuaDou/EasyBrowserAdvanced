@@ -17,15 +17,15 @@ namespace 极简浏览器
         }
         private void AddNewPageButton_Click(object sender, RoutedEventArgs e)
         {
-            NewInstance.StartNewInstance("about:blank");
+            Instance.New("about:blank");
         }
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.GoBack( );
+            Browser.GoBack( );
         }
         private void GoForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.GoForward( );
+            Browser.GoForward( );
         }
         private void Help_Click(object sender, RoutedEventArgs e)
         {
@@ -35,14 +35,14 @@ namespace 极简浏览器
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.Refresh( );
+            Browser.Refresh( );
         }
         private void SetBookMark_Click(object sender, RoutedEventArgs e)
         {
-            ConfigHelper.AddConfig(
-                new ConfigData(false, BrowserCore.CefBrowser.Title, 
-                BrowserCore.CefBrowser.Address, StdApi.LocalTime),
-                FilePath.BookMarkPath);
+            Configer.AddConfig(
+                new Config(false, Browser.Core.Title, 
+                Browser.Core.Address, StdApi.LocalTime),
+                FilePath.BookMark);
         }
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
@@ -51,7 +51,7 @@ namespace 极简浏览器
         }
         private void ViewSource_Click(object sender, RoutedEventArgs e)
         {
-            StdApi.ViewPageSource( );
+            StdApi.ViewSource( );
         }
         private void ViewHistory_Click(object sender, RoutedEventArgs e)
         {
@@ -69,7 +69,7 @@ namespace 极简浏览器
 
         private void DevToolsButton_Click(object sender, RoutedEventArgs e)
         {
-            BrowserCore.CefBrowser.ShowDevTools();
+            Browser.Core.ShowDevTools();
         }
     }
 }

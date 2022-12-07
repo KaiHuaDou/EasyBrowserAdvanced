@@ -11,7 +11,7 @@
 
 ## 运行依赖
 
-1. [.Net Framework 4.6.2](https://go.microsoft.com/fwlink/?LinkId=397707)
+1. [.Net Framework 4.6.2](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net462-offline-installer)
 2. [Visual C++ 运行时 2015](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 ## 特别鸣谢
@@ -28,24 +28,28 @@ StrollStars
 -----
 ### 下一个更新（V3.4.7.2)
 
-#### 下一个Beta（Beta 2）
+#### 下一个RC（RC1）
 
-+ 代码质量 #10 使用 StackPanel 优化界面布局
++ 代码质量 #11 优化了 Api 名称
++ 代码质量 #10 使用 `StackPanel`/`DockPanel` 优化界面布局
 + 增加功能 #43 对保存网页源代码的支持
 + 增加功能 #42 对 Windows 10 磁贴做了特别的支持
 + Bug修复 #40 修复了历史记录有时无法读取的问题
 + 增加功能 #41 更改了错误页面以及其地址的显示方式
 + 增加功能 #40 更改了加载进度条的样式
 + 增加功能 #38 更改了设置页面的布局和逻辑
-+ {Bug修复 #39 降低 MainWindow 的耦合度} 
++ {Bug修复 #39 降低 `MainWindow` 的耦合度} 
 + Bug修复 #38 通过规则集保持代码质量
-+ 增加功能 #23 使用了全新的 HTM L格式化引擎
++ 增加功能 #23 使用了全新的 HTML 格式化引擎
 + Bug修复 #37 干掉了一点都不精简的扩展模块
-+ Bug修复 #36 删除了被开发者工具替代的 RunJavaScript 模块
++ Bug修复 #36 删除了被开发者工具替代的 `RunJavaScript` 模块
 + Bug修复 #35 修正了历史遗留问题若干
 + 框架升级 #4 升级到了 MaterialDesignColors 2.0.9
 + 框架升级 #3 升级到了 MaterialDesignThemes 4.6.1
-+ 框架升级 #2 升级到了 .Net Framework 4.6.2
++ 框架升级 #2 升级到了 .NET Framework 4.6.2
+
+#### Beta 2
+
 + Bug修复 #34 更新了应用程序的颜色
 + 框架升级 #1 更新了 Material Design 的版本
 + Bug修复 #33 修复了对话框字体颜色偏灰的问题
@@ -54,7 +58,7 @@ StrollStars
 + Bug修复 #30 全面应用 Material Design
 + Bug修复 #29 修复了下载完成后窗口崩溃的 Bug
 + 增加功能 #22 网页加载完成后不再显示”加载完成“字样
-+ Bug修复 #28 修复了无法自动播放`Flash`的 Bug
++ Bug修复 #28 修复了无法自动播放 Flash 的 Bug
 + Bug修复 #27 修复了加载完成后跳转到错误页面的 Bug
 
 #### Beta 1
@@ -66,7 +70,7 @@ StrollStars
 + Bug修复 #23 改进了可以直接跳转搜索的功能
 + Bug修复 #22 改进了帮助界面和关于界面
 + 更新资源 #5 更换了新的图标
-+ 更新资源 #4 添加了 LICENSE 文件 (MIT)
++ 更新资源 #4 添加了`LICENSE `文件 (MIT)
 + Bug修复 #21 更改了地址栏的样式
 + 增加功能 #20 增加了导入以`easy://`开头的地址
 + 代码质量 #9 根据微软的建议进行第二轮修改

@@ -39,11 +39,11 @@ namespace 极简浏览器
                 {
                     if (e.ErrorCode.ToString() == "NameNotResolved" || e.ErrorCode.ToString() == "AddressUnreachable")
                     {
-                        BrowserCore.Navigate("https://www.baidu.com/s?wd=" + UrlTextBox.Text);
+                        Browser.Navigate("https://www.baidu.com/s?wd=" + UrlTextBox.Text);
                     }
                     else if (e.ErrorCode.ToString() != "Aborted")
                     {
-                        BrowserCore.Navigate(FilePath.AppPath + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                        Browser.Navigate(FilePath.App + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
                     }
                 }
             }));
@@ -81,7 +81,7 @@ namespace 极简浏览器
             {
                 try
                 {
-                    BrowserCore.Navigate(FileApi.StartupPath);
+                    Browser.Navigate(FileApi.StartupPath);
                 }
                 catch (Exception ex)
                 {
@@ -93,11 +93,11 @@ namespace 极简浏览器
         {
             if (UrlTextBox.Text.ToLower().Contains("easy://"))
             {
-                BrowserCore.PraseEasy(UrlTextBox.Text);
+                Browser.PraseEasy(UrlTextBox.Text);
             }
             else
             {
-                BrowserCore.Navigate(UrlTextBox.Text);
+                Browser.Navigate(UrlTextBox.Text);
             }
             IsSuccess = false;
         }
@@ -112,9 +112,9 @@ namespace 极简浏览器
                 statusBar.Visibility = Visibility.Collapsed;
                 if(NoLogs.IsChecked != true)
                 {
-                    ConfigHelper.AddConfig(new ConfigData(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.HistoryPath);
+                    Configer.AddConfig(new Config(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.History);
                 }
-                if (CivilizedLanguage.CheckIfNotCivilized(StdApi.CefPageSource) == true)
+                if (Civilized.CheckCivilized(StdApi.GetSource) == true)
                 {
                     statusBar.Visibility = Visibility.Visible;
                     label2.Visibility = Visibility.Visible;
@@ -126,9 +126,9 @@ namespace 极简浏览器
             label1.Content = "正在加载中...";
             label1.Visibility = Visibility.Visible;
             LoadProgressBar.Visibility = Visibility.Visible;
-            if (!BrowserCore.CefBrowser.Address.Contains("Error.html?errorCode="))
+            if (!Browser.Core.Address.Contains("Error.html?errorCode="))
             {
-                UrlTextBox.Text = BrowserCore.CefBrowser.Address;
+                UrlTextBox.Text = Browser.Core.Address;
             }
         }
         private void Go(object sender, KeyEventArgs e)
@@ -138,9 +138,9 @@ namespace 极简浏览器
                 label2.Visibility = Visibility.Collapsed;
                 Load(sender, new RoutedEventArgs( ));
             }
-            if(CivilizedLanguage.CheckIfNotCivilized(UrlTextBox.Text) == true)
+            if(Civilized.CheckCivilized(UrlTextBox.Text) == true)
             {
-                CivilizedLanguage.ShowDeniedMessage( );
+                Civilized.DeniedMsg( );
             }
         }
         private void CWBGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -150,11 +150,11 @@ namespace 极简浏览器
             {
                 if (e.Delta > 0)
                 {
-                    BrowserCore.CefBrowser.ZoomInCommand.Execute(null);
+                    Browser.Core.ZoomInCommand.Execute(null);
                 }
                 else if (e.Delta < 0)
                 {
-                    BrowserCore.CefBrowser.ZoomOutCommand.Execute(null);
+                    Browser.Core.ZoomOutCommand.Execute(null);
                 }
                 e.Handled = true;
             }

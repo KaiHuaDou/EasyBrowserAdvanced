@@ -19,7 +19,7 @@ namespace 极简浏览器.Api
                 {
                     goto skip;
                 }
-                string LogPath = GenerateLogPath(logType);
+                string LogPath = genLogPath(logType);
                 File.AppendAllText(LogPath,
                     "---------------" + ex.Message + "\n" + ex.Source + "\n"
                     + ex.TargetSite + "\n" + ex.HelpLink + "\n" + ex.StackTrace);
@@ -32,13 +32,13 @@ namespace 极简浏览器.Api
             skip:
             return;
         }
-        private static string GenerateLogPath(LogType logType)
+        private static string genLogPath(LogType logType)
         {
             switch (logType)
             {
-                case LogType.Debug: return FilePath.LogDirectory + "\\debug.log";
-                case LogType.Error: return FilePath.LogDirectory + "\\error.log";
-                case LogType.Other: return FilePath.LogDirectory + "\\other.log";
+                case LogType.Debug: return FilePath.Logs + "\\debug.log";
+                case LogType.Error: return FilePath.Logs + "\\error.log";
+                case LogType.Other: return FilePath.Logs + "\\other.log";
             }
             return null;
         }

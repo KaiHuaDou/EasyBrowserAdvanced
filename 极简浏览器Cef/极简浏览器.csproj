@@ -33,12 +33,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>zh-Hans</TargetCulture>
     <ProductName>极简浏览器</ProductName>
-    <PublisherName>范铠齐</PublisherName>
+    <PublisherName>KaiHuaDou</PublisherName>
     <SuiteName>极简浏览器</SuiteName>
     <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>3.4.7.2</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>favicon\favicon.ico</ApplicationIcon>
@@ -58,7 +58,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>universalRulset.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -126,12 +126,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Api\BrowserCore.cs" />
-    <Compile Include="Api\CivilizedLanguage.cs" />
-    <Compile Include="Api\ConfigHelper.cs" />
+    <Compile Include="Api\Browser.cs" />
+    <Compile Include="Api\Civilized.cs" />
+    <Compile Include="Api\Config.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
-    <Compile Include="Api\NewInstance.cs" />
+    <Compile Include="Api\Instance.cs" />
     <Compile Include="Api\Logger.cs" />
     <Compile Include="Api\StdApi.cs" />
     <Compile Include="BrowserExt.cs" />
@@ -254,27 +254,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="SHDocVw">
-      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

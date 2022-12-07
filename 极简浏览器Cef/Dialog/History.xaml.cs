@@ -9,14 +9,14 @@ namespace 极简浏览器
     /// </summary>
     public partial class History : Window
     {
-        ObservableCollection<ConfigData> HistoryData;
-        ObservableCollection<ConfigData> BookMarkData;
+        ObservableCollection<Config> HistoryData;
+        ObservableCollection<Config> BookMarkData;
         public History()
         {
             InitializeComponent();
-            HistoryData = ConfigHelper.GetConfig(FilePath.HistoryPath);
+            HistoryData = Configer.GetConfig(FilePath.History);
             HistoryDataGrid.ItemsSource = HistoryData;
-            BookMarkData = ConfigHelper.GetConfig(FilePath.BookMarkPath);
+            BookMarkData = Configer.GetConfig(FilePath.BookMark);
             BookMarkDataGrid.ItemsSource = BookMarkData;
         }
 
@@ -28,7 +28,7 @@ namespace 极简浏览器
         }
         private void History_SelectAll_Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ConfigData item in HistoryData)
+            foreach (Config item in HistoryData)
             {
                 item.IsChecked = !item.IsChecked;
             }
@@ -37,15 +37,15 @@ namespace 极简浏览器
 
         private void HistoryDelete(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<ConfigData> temp = new ObservableCollection<ConfigData>();
-            foreach (ConfigData item in HistoryData)
+            ObservableCollection<Config> temp = new ObservableCollection<Config>();
+            foreach (Config item in HistoryData)
             {
                 if (item.IsChecked == true)
                 {
                     temp.Add(item);
                 }
             }
-            foreach (ConfigData item in temp)
+            foreach (Config item in temp)
             {
                 HistoryData.Remove(item);
             }
@@ -58,11 +58,11 @@ namespace 极简浏览器
         }
         private void HistoryNewWindow(object sender, RoutedEventArgs e)
         {
-            foreach(ConfigData item in HistoryData)
+            foreach(Config item in HistoryData)
             {
                 if(item.IsChecked == true)
                 {
-                    NewInstance.StartNewInstance(item.SiteAddress);
+                    Instance.New(item.SiteAddress);
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace 极简浏览器
         }
         private void BookMark_SelectAll_Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ConfigData item in BookMarkData)
+            foreach (Config item in BookMarkData)
             {
                 item.IsChecked = !item.IsChecked;
             }
@@ -84,15 +84,15 @@ namespace 极简浏览器
 
         private void BookMarkDelete(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<ConfigData> temp = new ObservableCollection<ConfigData>();
-            foreach (ConfigData item in BookMarkData)
+            ObservableCollection<Config> temp = new ObservableCollection<Config>();
+            foreach (Config item in BookMarkData)
             {
                 if (item.IsChecked == true)
                 {
                     temp.Add(item);
                 }
             }
-            foreach (ConfigData item in temp)
+            foreach (Config item in temp)
             {
                 BookMarkData.Remove(item);
             }
@@ -105,11 +105,11 @@ namespace 极简浏览器
         }
         private void BookMarkNewWindow(object sender, RoutedEventArgs e)
         {
-            foreach (ConfigData item in BookMarkData)
+            foreach (Config item in BookMarkData)
             {
                 if (item.IsChecked == true)
                 {
-                    NewInstance.StartNewInstance(item.SiteAddress);
+                    Instance.New(item.SiteAddress);
                 }
             }
         }
@@ -117,8 +117,8 @@ namespace 极简浏览器
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ConfigHelper.SaveConfig(HistoryData, FilePath.HistoryPath);
-            ConfigHelper.SaveConfig(BookMarkData, FilePath.BookMarkPath);
+            Configer.SaveConfig(HistoryData, FilePath.History);
+            Configer.SaveConfig(BookMarkData, FilePath.BookMark);
         }
     }
 }

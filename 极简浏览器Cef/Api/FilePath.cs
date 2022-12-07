@@ -5,14 +5,14 @@ namespace 极简浏览器.Api
 {
     public static class FilePath
     {
-        public static string AppPath = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
-        public static string AppRuntime = Path.GetFullPath(Process.GetCurrentProcess( ).MainModule.FileName);
-        public static string HistoryPath =  AppPath + "\\DataBase\\History.db";
-        public static string DataBaseDirectory =  AppPath + "\\DataBase";
-        public static string LogDirectory =  AppPath + "\\log";
-        public static string BookMarkPath =  AppPath + "\\DataBase\\BookMark.db";
-        public static string ConfigPath =  AppPath + "\\DataBase\\Config.db";
-        public static string CacheDirectory = AppPath + "\\GPUCache";
-        public static string AppStartupPath = AppPath;
+        public static string App = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
+        public static string Runtime = Path.GetFullPath(Process.GetCurrentProcess( ).MainModule.FileName);
+        public static string Datas = App + "\\DataBase";
+        public static string History =  App + "\\DataBase\\History.db";
+        public static string BookMark = App + "\\DataBase\\BookMark.db";
+        public static string Config = App + "\\DataBase\\Config.db";
+        public static string Logs = App + "\\log";
+        public static string Caches = App + "\\GPUCache";
+        public static string Startup = App;
     }
 }

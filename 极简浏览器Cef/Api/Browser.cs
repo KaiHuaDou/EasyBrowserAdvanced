@@ -4,9 +4,9 @@ using CefSharp;
 
 namespace 极简浏览器.Api
 {
-    public static class BrowserCore
+    public static class Browser
     {
-        public static MainWindow CefInstance
+        public static MainWindow HostWindow
         {
             get
             {
@@ -20,7 +20,7 @@ namespace 极简浏览器.Api
                 return null;
             }
         }
-        public static ExtChromiumBrowser CefBrowser
+        public static ExtChromiumBrowser Core
         {
             get
             {
@@ -29,25 +29,24 @@ namespace 极简浏览器.Api
         }
         public static void Navigate(string url)
         {
-            CefBrowser.Address = url;
+            Core.Address = url;
         }
 
         public static void GoBack( )
         {
-            if (CefBrowser.CanGoBack == true)
-                CefBrowser.Back( );
+            if (Core.CanGoBack == true)
+                Core.Back( );
         }
 
         public static void GoForward( )
         {
-            if (CefBrowser.CanGoForward == true)
-                CefBrowser.Forward( );
+            if (Core.CanGoForward == true)
+                Core.Forward( );
         }
 
         public static void Refresh( )
         {
-            try {
-                CefBrowser.Reload(); }
+            try { Core.Reload(); }
             catch (Exception e)
             {
                 Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
@@ -57,13 +56,13 @@ namespace 极简浏览器.Api
         {
             switch(easySite.ToLower().Replace("easy://",""))
             {
-                case "about": StdApi.ShowWindow(new About()); break;
-                case "help": StdApi.ShowWindow(new Help()); break;
-                case "history": StdApi.ShowWindow(new History()); break;
-                case "bookmark": StdApi.ShowWindow(new History()); break;
-                case "setting": StdApi.ShowWindow(new Setting()); break;
-                case "websource": StdApi.ViewPageSource(); break;
-                case "new-tab": NewInstance.StartNewInstance("about:blank"); break;
+                case "about": new About().Show(); break;
+                case "help": new Help().Show(); break;
+                case "history": new History().Show(); break;
+                case "bookmark": new History().Show(); break;
+                case "setting": new Setting().Show(); break;
+                case "websource": StdApi.ViewSource(); break;
+                case "newtab": Instance.New("about:blank"); break;
                 default: return false;
             }
             return true;

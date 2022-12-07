@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Access_kdtitle" xml:space="preserve">
-    <value>网络文明监察局</value>
-  </data>
-  <data name="Access_killdown" xml:space="preserve">
+  <data name="civiShutdown" xml:space="preserve">
     <value>我认为您是不善意的，软件将强行关闭！</value>
   </data>
-  <data name="Accsses_cancel" xml:space="preserve">
+  <data name="civiRefuse" xml:space="preserve">
     <value>您已被取消软件使用资格</value>
   </data>
-  <data name="BrowserName" xml:space="preserve">
+  <data name="browserName" xml:space="preserve">
     <value>极简浏览器</value>
   </data>
-  <data name="Excep_endmsg" xml:space="preserve">
+  <data name="civiTitle" xml:space="preserve">
+    <value>网络文明监察局</value>
+  </data>
+  <data name="exLink" xml:space="preserve">
     <value>帮助链接:</value>
   </data>
-  <data name="Excep_inmsg1" xml:space="preserve">
+  <data name="exCause" xml:space="preserve">
     <value>原因:</value>
   </data>
-  <data name="Excep_inmsg2" xml:space="preserve">
+  <data name="exPlace" xml:space="preserve">
     <value>程序集中的</value>
   </data>
-  <data name="Excep_inmsg3" xml:space="preserve">
+  <data name="exEnd" xml:space="preserve">
     <value>方法引发了此异常。</value>
   </data>
-  <data name="Excep_msg" xml:space="preserve">
+  <data name="exMain" xml:space="preserve">
     <value>很抱歉，程序发生了未处理的异常，</value>
   </data>
-  <data name="File_Error" xml:space="preserve">
+  <data name="fileError" xml:space="preserve">
     <value>写入失败，请重试！</value>
   </data>
 </root>

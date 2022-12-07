@@ -17,27 +17,20 @@ namespace 极简浏览器.Api
                 return DateTime.Now.ToLocalTime().ToString();
             }
         }
-        public static string CefPageSource
+        public static string GetSource
         {
             get
             {
-                TaskStringVisitor tsv = new TaskStringVisitor( );
-                BrowserCore.CefBrowser.GetMainFrame().GetText(tsv);
-                while (tsv.Task.IsCompleted == true)
-                    ;
-                return tsv.Task.Result;
+                TaskStringVisitor task = new TaskStringVisitor();
+                Browser.Core.GetMainFrame().GetText(task);
+                while (task.Task.IsCompleted == true) ;
+                return task.Task.Result;
             }
         }
-        public static async void ViewPageSource( )
+        public static async void ViewSource()
         {
-            WebSource webSource;
-            string x = await BrowserCore.CefBrowser.GetMainFrame( ).GetSourceAsync( );
-            webSource = new WebSource(x);
-            webSource.Show( );
-        }
-        public static void ShowWindow(Window window)
-        {
-            window.Show();
+            string code = await Browser.Core.GetMainFrame().GetSourceAsync();
+            new WebSource(code).Show();
         }
     }
 }

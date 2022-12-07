@@ -73,10 +73,10 @@ namespace 极简浏览器
         }
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            if (BrowserCore.CefInstance.OnlyThis.IsChecked == false)
-                NewInstance.StartNewInstance(e.Url);
+            if (Browser.HostWindow.OnlyThis.IsChecked == false)
+                Instance.New(e.Url);
             else
-                BrowserCore.Navigate(e.Url);
+                Browser.Navigate(e.Url);
         }
     }
     public class NewWindowEventArgs : EventArgs
@@ -200,22 +200,22 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "前进(_F)",
-                    Command = new CustomCommand(BrowserCore.GoForward)
+                    Command = new CustomCommand(Browser.GoForward)
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "后退(_B)",
-                    Command = new CustomCommand(BrowserCore.GoBack)
+                    Command = new CustomCommand(Browser.GoBack)
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "刷新(_R)",
-                    Command = new CustomCommand(BrowserCore.Refresh)
+                    Command = new CustomCommand(Browser.Refresh)
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "查看网页源代码(_V)",
-                    Command = new CustomCommand(StdApi.ViewPageSource)
+                    Command = new CustomCommand(StdApi.ViewSource)
                 });
                 menu.Items.Add(new MenuItem
                 {

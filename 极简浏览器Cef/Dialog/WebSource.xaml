@@ -1,15 +1,20 @@
 ﻿<Window x:Class="极简浏览器.WebSource" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="网页源代码" Height="400" Width="700">
-    <Grid>
-            <TextBox x:Name="textBox" Margin="10,50,10,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="45" Orientation="Horizontal">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="网页源代码" Height="400"
+        Width="700">
+    <DockPanel>
+        <StackPanel Height="45" Orientation="Horizontal" HorizontalAlignment="Center"
+                DockPanel.Dock="Bottom" Margin="0,0,0,5">
             <Button x:Name="refreshButton" Content="刷新(_R)" Width="100" Height="30" Margin="5"
-                    Click="refreshButton_Click" Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    Click="refreshButton_Click"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}" />
             <Button x:Name="formatButton" Content="格式化(_F)" Width="100" Height="30" Margin="5"
-                    Click="formatButton_Click" Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    Click="formatButton_Click"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}" />
             <Button x:Name="saveButton" Content="保存(_S)" Width="100" Height="30" Margin="5"
                     Click="saveButton_Click" Style="{StaticResource MaterialDesignPaperDarkButton}" />
         </StackPanel>
-    </Grid>
+        <TextBox x:Name="textBox" Margin="5,5,5,0" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                DockPanel.Dock="Top" />
+    </DockPanel>
 </Window>

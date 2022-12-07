@@ -30,7 +30,7 @@ namespace 极简浏览器
             return document1;
         }
     }
-    public class HtmlFormatter
+    internal class HtmlFormatter
     {
         private static Hashtable hashtable;
         private const string elementS = ",LINK,META,BASE,BGSOUND,BR,HR,INPUT,PARAM,IMG,AREA,";
