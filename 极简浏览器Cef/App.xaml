@@ -84,7 +84,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border x:Name="_border" BorderThickness="2" BorderBrush="#F0F0F0"
-                                    CornerRadius="13" Background="#F0F0F0" Opacity="0.6">
+                                    CornerRadius="13" Background="#F0F0F0">
                                 <ScrollViewer x:Name="PART_ContentHost" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -97,40 +97,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <!--<Style x:Key="ShadowButton" TargetType="Button">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid>
-                                <Border x:Name="_border" CornerRadius="33" BorderThickness="0"
-                                        Background="#FFE6E6E6" Opacity="0" />
-                                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <EventTrigger RoutedEvent="Button.MouseEnter">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation From="0" To="1" Duration="0:0:0.1"
-                                                    Storyboard.TargetName="_border"
-                                                    Storyboard.TargetProperty="Opacity" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                                <EventTrigger RoutedEvent="Button.MouseLeave">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation From="1" To="0" Duration="0:0:0.1"
-                                                    Storyboard.TargetName="_border"
-                                                    Storyboard.TargetProperty="Opacity" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

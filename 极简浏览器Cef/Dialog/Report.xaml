@@ -8,7 +8,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label x:Name="label1" Content="请到" HorizontalAlignment="Left" Margin="0,5"
                     VerticalAlignment="Top" />
-            <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="33" Margin="0,5"
+            <TextBox HorizontalAlignment="Left" Height="36" Margin="0,5"
                     TextWrapping="Wrap"
                     Text="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue"
                     VerticalAlignment="Top" Width="617" IsReadOnly="True" />

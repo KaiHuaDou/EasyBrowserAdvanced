@@ -9,14 +9,17 @@
 6. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
 7. 开源代码，全部源代码都在 Github 和 Azure 上公开。
 
+> 特别鸣谢 StrollStars 对运行依赖的改进建议
+
 ## 运行依赖
 
 1. [.Net Framework 4.6.2](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net462-offline-installer)
 2. [Visual C++ 运行时 2015](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
-## 特别鸣谢
+## 测试环境
 
-StrollStars
+可以使用浏览器进入[测试页](https://pinyin.sogou.com/help.php?list=8)测试 Flash 的可用性。
+可以使用浏览器进入[测试页](http://cachefly.cachefly.net/10mb.test)测试下载功能
 
 ## 版本更新
 
@@ -28,8 +31,13 @@ StrollStars
 -----
 ### 下一个更新（V3.4.7.2)
 
-#### 下一个RC（RC1）
+#### 下一个 RC（RC1）
 
++ 框架升级 #5 删除了并不极简的`WPFMultiStyle`
++ 代码质量 #12 优化了`MainWindow`的布局
++ 增加功能 #44 删掉了并不极简的快捷键
++ Bug修复 #42 解决了设置编辑框显示不全的问题
++ Bug修复 #41 解决了下载时程序崩溃的 Bug
 + 代码质量 #11 优化了 Api 名称
 + 代码质量 #10 使用 `StackPanel`/`DockPanel` 优化界面布局
 + 增加功能 #43 对保存网页源代码的支持
@@ -84,8 +92,9 @@ StrollStars
 + 增加功能 #18 执行 Javascript 窗口
 + Bug修复 #20 解决了下载时闪退的问题
 + Bug修复 #19 删除了设置窗口的空白区域
------
+
 ### V3.3.1.11更新
+
 + 增加功能 #17 更好的反馈窗口
 + Bug修复 #18 权限不足导致的无法启动
 + Bug修复 #17 解决了加载错误导致的浏览中断
@@ -108,8 +117,9 @@ StrollStars
 + Bug修复 #11 修复了`about:blank`没有标题
 + 增加功能 #9 增加了无痕模式(由`@要饭的肥喵`提出建议)
 + 增加功能 #8 增加了在单窗口打开的功能
------
+
 ### 3.2.1.11更新
+
 + 代码质量 #5 整合`Api/StandardApi.cs`
 + 增加功能 #7 格式化网页源代码时支持 CSS
 + 增加功能 #6 增加更多日志类型
@@ -134,18 +144,9 @@ StrollStars
 + Bug修复 #4 修复了快捷键失效的错误
 + Waring修复 #2 修复了`History.xaml.cs`的函数名不规范
 + Waring修复 #1 修复了`FileApi.cs`的代码质量问题
------
+
 ### 3.0.0.0更新
+
 + Bug修复 #3 修复了写入日志错误
 + Bug修复 #2 修复了无法删除历史记录&书签的错误
 + Bug修复 #1 修复了无法清除历史记录&书签的错误
-
-## 内核更换计划（已成功）
-
-1. 创建极简浏览器的副本
-（在副本上）
-2. 删除全部后端
-3. 更换内核
-4. 重写后端
-8. 进行黑盒测试
-9. 发布到GitHub
