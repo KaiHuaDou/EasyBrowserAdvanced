@@ -11,46 +11,31 @@ namespace 极简浏览器.Api
             get
             {
                 foreach (Window window in Application.Current.Windows)
-                {
                     if (window is MainWindow)
-                    {
                         return window as MainWindow;
-                    }
-                }
                 return null;
             }
         }
         public static ExtChromiumBrowser Core
-        {
-            get
-            {
-                return MainWindow.cwb as ExtChromiumBrowser;
-            }
-        }
+        { get { return MainWindow.cwb as ExtChromiumBrowser; } }
         public static void Navigate(string url)
-        {
-            Core.Address = url;
-        }
+        { Core.Address = url; }
 
-        public static void GoBack( )
-        {
-            if (Core.CanGoBack == true)
-                Core.Back( );
-        }
+        public static void GoBack()
+        { if (Core.CanGoBack == true) Core.Back(); }
 
-        public static void GoForward( )
-        {
-            if (Core.CanGoForward == true)
-                Core.Forward( );
-        }
+        public static void GoForward()
+        { if (Core.CanGoForward == true) Core.Forward(); }
 
         public static void Refresh( )
         {
-            try { Core.Reload(); }
-            catch (Exception e)
+            try
             {
-                Logger.Log(e, logType: LogType.Debug, shutWhenFail: false);
+                if (Core.Address == HostWindow.UrlTextBox.Text)
+                    Core.Reload();
+                else Navigate(HostWindow.UrlTextBox.Text);
             }
+            catch (Exception e) { Logger.Log(e); }
         }
         public static bool PraseEasy(string easySite)
         {
@@ -62,7 +47,7 @@ namespace 极简浏览器.Api
                 case "bookmark": new History().Show(); break;
                 case "setting": new Setting().Show(); break;
                 case "websource": StdApi.ViewSource(); break;
-                case "newtab": Instance.New("about:blank"); break;
+                case "newtab": Instance.New(); break;
                 default: return false;
             }
             return true;

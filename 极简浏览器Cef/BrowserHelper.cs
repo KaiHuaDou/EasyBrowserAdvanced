@@ -12,7 +12,7 @@ namespace 极简浏览器
 {
     public class CefLifeSpanHandler : ILifeSpanHandler
     {
-        public CefLifeSpanHandler( )
+        public CefLifeSpanHandler()
         {
 
         }
@@ -35,21 +35,21 @@ namespace 极简浏览器
         }
 
 
-        public bool OnBeforePopup(IWebBrowser chromiumWebBrowser, 
-            IBrowser browser, 
-            IFrame frame, 
-            string targetUrl, 
-            string targetFrameName, 
-            WindowOpenDisposition targetDisposition, 
-            bool userGesture, 
-            IPopupFeatures popupFeatures, 
-            IWindowInfo windowInfo, 
-            IBrowserSettings browserSettings, 
-            ref bool noJavascriptAccess, 
+        public bool OnBeforePopup(IWebBrowser chromiumWebBrowser,
+            IBrowser browser,
+            IFrame frame,
+            string targetUrl,
+            string targetFrameName,
+            WindowOpenDisposition targetDisposition,
+            bool userGesture,
+            IPopupFeatures popupFeatures,
+            IWindowInfo windowInfo,
+            IBrowserSettings browserSettings,
+            ref bool noJavascriptAccess,
             out IWebBrowser newBrowser)
         {
-            ExtChromiumBrowser chromiumWebBrowser1 = (ExtChromiumBrowser) chromiumWebBrowser;
-            chromiumWebBrowser1.Dispatcher.Invoke(new Action(( ) =>
+            ExtChromiumBrowser chromiumWebBrowser1 = (ExtChromiumBrowser)chromiumWebBrowser;
+            chromiumWebBrowser1.Dispatcher.Invoke(new Action(() =>
             {
                 NewWindowEventArgs e = new NewWindowEventArgs(windowInfo, targetUrl);
                 chromiumWebBrowser1.OnNewWindow(e);
@@ -61,19 +61,19 @@ namespace 极简浏览器
     }
     public class ExtChromiumBrowser : ChromiumWebBrowser
     {
-        public ExtChromiumBrowser( ) : base(null)
+        public ExtChromiumBrowser() : base(null)
         {
-            this.LifeSpanHandler = new CefLifeSpanHandler( );
-            this.DownloadHandler = new DownloadHandler( );
+            this.LifeSpanHandler = new CefLifeSpanHandler();
+            this.DownloadHandler = new DownloadHandler();
         }
 
         public ExtChromiumBrowser(string url) : base(url)
         {
-            this.LifeSpanHandler = new CefLifeSpanHandler( );
+            this.LifeSpanHandler = new CefLifeSpanHandler();
         }
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            if (Browser.HostWindow.OnlyThis.IsChecked == false)
+            if (Browser.HostWindow.singleBox.IsChecked == false)
                 Instance.New(e.Url);
             else
                 Browser.Navigate(e.Url);
@@ -105,7 +105,7 @@ namespace 极简浏览器
 
             _downloadCallBackEvent?.Invoke(false, downloadItem);
             var path = AskDownloadPath(downloadItem);
-            if(path != null)
+            if (path != null)
             {
                 Download d = new Download(downloadItem, path);
                 d.Show();
@@ -128,7 +128,7 @@ namespace 极简浏览器
             sfd.FileName = item.SuggestedFileName;
             sfd.Title = "下载文件";
             bool? dr = sfd.ShowDialog();
-            if(dr == true)
+            if (dr == true)
             {
                 return sfd.FileName;
             }
@@ -140,48 +140,48 @@ namespace 极简浏览器
     {
         public static Window mainWindow { get; set; }
         void IContextMenuHandler.OnBeforeContextMenu(
-            IWebBrowser browserControl, 
-            IBrowser browser, IFrame frame, 
-            IContextMenuParams parameters, 
+            IWebBrowser browserControl,
+            IBrowser browser, IFrame frame,
+            IContextMenuParams parameters,
             IMenuModel model)
         {
 
         }
 
         bool IContextMenuHandler.OnContextMenuCommand(
-            IWebBrowser browserControl, 
-            IBrowser browser, 
-            IFrame frame, 
-            IContextMenuParams parameters, 
-            CefMenuCommand commandId, 
+            IWebBrowser browserControl,
+            IBrowser browser,
+            IFrame frame,
+            IContextMenuParams parameters,
+            CefMenuCommand commandId,
             CefEventFlags eventFlags)
         {
             return true;
         }
 
         void IContextMenuHandler.OnContextMenuDismissed(
-            IWebBrowser browserControl, 
-            IBrowser browser, 
+            IWebBrowser browserControl,
+            IBrowser browser,
             IFrame frame)
         {
-            var chromiumWebBrowser = (ChromiumWebBrowser) browserControl;
+            var chromiumWebBrowser = (ChromiumWebBrowser)browserControl;
 
-            chromiumWebBrowser.Dispatcher.Invoke(( ) =>
+            chromiumWebBrowser.Dispatcher.Invoke(() =>
             {
                 chromiumWebBrowser.ContextMenu = null;
             });
         }
 
         bool IContextMenuHandler.RunContextMenu(
-            IWebBrowser browserControl, 
-            IBrowser browser, 
-            IFrame frame, 
-            IContextMenuParams parameters, 
-            IMenuModel model, 
+            IWebBrowser browserControl,
+            IBrowser browser,
+            IFrame frame,
+            IContextMenuParams parameters,
+            IMenuModel model,
             IRunContextMenuCallback callback)
         {
-           var chromiumWebBrowser = (ChromiumWebBrowser) browserControl;
-            chromiumWebBrowser.Dispatcher.Invoke(( ) =>
+            var chromiumWebBrowser = (ChromiumWebBrowser)browserControl;
+            chromiumWebBrowser.Dispatcher.Invoke(() =>
             {
                 var menu = new ContextMenu
                 {
@@ -193,39 +193,34 @@ namespace 极简浏览器
                     menu.Closed -= handler;
                     if (!callback.IsDisposed)
                     {
-                        callback.Cancel( );
+                        callback.Cancel();
                     }
                 };
                 menu.Closed += handler;
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "前进(_F)",
+                    Header = "前进",
                     Command = new CustomCommand(Browser.GoForward)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "后退(_B)",
+                    Header = "后退",
                     Command = new CustomCommand(Browser.GoBack)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "刷新(_R)",
+                    Header = "刷新",
                     Command = new CustomCommand(Browser.Refresh)
                 });
                 menu.Items.Add(new MenuItem
                 {
-                    Header = "查看网页源代码(_V)",
+                    Header = "新窗口",
+                    Command = new CustomCommand(() => { Instance.New(); })
+                });
+                menu.Items.Add(new MenuItem
+                {
+                    Header = "网页源代码",
                     Command = new CustomCommand(StdApi.ViewSource)
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "最小化(_M)",
-                    Command = new CustomCommand(MinWindow)
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "关闭(_Q)",
-                    Command = new CustomCommand(CloseWindow)
                 });
                 chromiumWebBrowser.ContextMenu = menu;
 
@@ -233,34 +228,15 @@ namespace 极简浏览器
 
             return true;
         }
-        private void CloseWindow( )
-        {
-            mainWindow.Dispatcher.Invoke(
-                new Action(
-                        delegate
-                        {
-                            Application.Current.Shutdown( );
-                        }
-                    ));
-        }
-
-        private void MinWindow( )
-        {
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.WindowState = WindowState.Minimized;
-            });
-        }
         private static IEnumerable<Tuple<string, CefMenuCommand>> GetMenuItems(IMenuModel model)
         {
-            var list = new List<Tuple<string, CefMenuCommand>>( );
+            var list = new List<Tuple<string, CefMenuCommand>>();
             for (var i = 0; i < model.Count; i++)
             {
                 var header = model.GetLabelAt(i);
                 var commandId = model.GetCommandIdAt(i);
                 list.Add(new Tuple<string, CefMenuCommand>(header, commandId));
             }
-
             return list;
         }
     }
