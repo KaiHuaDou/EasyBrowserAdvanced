@@ -140,14 +140,5 @@ namespace 极简浏览器.Properties {
                 return ResourceManager.GetString("exPlace", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   查找类似 写入失败，请重试！ 的本地化字符串。
-        /// </summary>
-        public static string fileError {
-            get {
-                return ResourceManager.GetString("fileError", resourceCulture);
-            }
-        }
     }
 }
