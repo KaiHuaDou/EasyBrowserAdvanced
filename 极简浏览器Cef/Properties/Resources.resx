@@ -144,7 +144,4 @@
   <data name="exMain" xml:space="preserve">
     <value>很抱歉，程序发生了未处理的异常，</value>
   </data>
-  <data name="fileError" xml:space="preserve">
-    <value>写入失败，请重试！</value>
-  </data>
 </root>

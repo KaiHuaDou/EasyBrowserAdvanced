@@ -8,11 +8,11 @@ using System.Windows;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("极简浏览器")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("基于 Chromium 的极简浏览器")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("FkqSoft")]
+[assembly: AssemblyCompany("KaiHuaDou Studio")]
 [assembly: AssemblyProduct("极简浏览器")]
-[assembly: AssemblyCopyright("Copyright © FkqSoft  2022")]
+[assembly: AssemblyCopyright("Copyright © KaiHuaDou Studio 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
