@@ -1,36 +1,25 @@
 ﻿<Window x:Class="极简浏览器.Help" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:极简浏览器"
-        mc:Ignorable="d" Title="帮助" Height="340" Width="550"
-        Icon="/极简浏览器;component/favicon/favicon.ico" ResizeMode="NoResize">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="帮助"
+        Icon="/极简浏览器;component/favicon/favicon.ico" ResizeMode="NoResize" Width="460" Height="440">
     <StackPanel>
-        <TreeView x:Name="treeView" Margin="0" FontSize="20" FocusVisualStyle="{x:Null}" Focusable="False"
-                Background="White">
-            <TreeViewItem IsExpanded="True" Background="White" Focusable="False">
-                <TreeViewItem.Header>
-                    <TextBlock>一、无法播放视频？</TextBlock>
-                </TreeViewItem.Header>
-                <TreeViewItem
-                        FontSize="18" Background="White" Focusable="False">
+        <TreeView x:Name="treeView" Margin="0" FontSize="20" FocusVisualStyle="{x:Null}"
+                Focusable="False" Background="White">
+            <TreeViewItem IsExpanded="True" Background="White" Focusable="False" Header="一、无法播放视频？">
+                <TreeViewItem FontSize="18" Background="White" Focusable="False">
                     <TreeViewItem.Header>
-                        <TextBlock Margin="0" Width="479" Height="69" TextWrapping="Wrap">对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3上反馈</TextBlock>
+                        <TextBlock Margin="0" TextWrapping="Wrap" Width="370">对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3上反馈</TextBlock>
                     </TreeViewItem.Header>
                 </TreeViewItem>
             </TreeViewItem>
-            <TreeViewItem IsExpanded="True" Focusable="False">
-                <TreeViewItem.Header>
-                    <TextBlock>二、某些内容显示不全？</TextBlock>
-                </TreeViewItem.Header>
-                <TreeViewItem FontSize="18" Background="White"
-                        Focusable="False">
-                    <TreeViewItem.Header>
-                        <TextBlock>1、将系统默认字体调小</TextBlock>
-                    </TreeViewItem.Header>
-                </TreeViewItem>
+            <TreeViewItem IsExpanded="True" Focusable="False" Header="二、某些内容显示不全？">
+                <TreeViewItem FontSize="18" Background="White" Focusable="False"
+                        Header="1、将系统默认字体调小" />
+                <TreeViewItem FontSize="18" Background="White" Focusable="False" Header="2、增大显示器大小" />
+            </TreeViewItem>
+            <TreeViewItem IsExpanded="True" Focusable="False" Header="三、许可">
                 <TreeViewItem FontSize="18" Background="White" Focusable="False">
                     <TreeViewItem.Header>
-                        <TextBlock>2、增大显示器大小</TextBlock>
+                        <TextBlock x:Name="licenseBox" Margin="0" TextWrapping="Wrap">http://www.apache.org/licenses/LICENSE-2.0</TextBlock>
                     </TreeViewItem.Header>
                 </TreeViewItem>
             </TreeViewItem>
@@ -38,6 +27,5 @@
         <Button x:Name="button" Content="确定" HorizontalAlignment="Right" Margin="10" Width="100"
                 IsDefault="True" Click="button_Click"
                 Style="{StaticResource MaterialDesignPaperDarkButton}" />
-
     </StackPanel>
 </Window>

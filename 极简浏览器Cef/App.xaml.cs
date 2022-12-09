@@ -7,17 +7,15 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    public struct Arguments
+    public struct Argus
     {
-        public Arguments(bool value)
+        public Argus(int _)
         {
-            IsNew = value;
-            IsTopMost = value;
-            IsStopLog = value;
+            IsTopmost = false;
+            IsPrivate = false;
         }
-        public bool IsNew { get; set; }
-        public bool IsTopMost { get; set; }
-        public bool IsStopLog { get; set; }
+        public bool IsTopmost { get; set; }
+        public bool IsPrivate { get; set; }
     }
     /// <summary>
     /// App.xaml 的交互逻辑
@@ -26,23 +24,22 @@ namespace 极简浏览器
     {
         public static class Program
         {
-            public static string InputArgu ="";
-            public static Arguments arguments = new Arguments(false);
+            public static string inputUrl ="";
+            public static Argus argus = new Argus(0);
             [STAThread]
             public static void Main(string[] args)
             {
                 if (args.Length >= 1)
                 {
-                    InputArgu = args[0];
-                    arguments.IsNew = Convert.ToBoolean(args[1]);
-                    arguments.IsStopLog = Convert.ToBoolean(args[2]);
-                    arguments.IsTopMost = Convert.ToBoolean(args[3]);
+                    inputUrl = args[0];
+                    argus.IsPrivate = Convert.ToBoolean(args[1]);
+                    argus.IsTopmost = Convert.ToBoolean(args[2]);
                 }
                 try
                 {
                     App app = new App();
                     app.InitializeComponent();
-                    RuntimeCheckAndAutoFix();
+                    RuntimeFix();
                     app.Run();
                 }
                 catch (XamlParseException e)
@@ -55,33 +52,32 @@ namespace 极简浏览器
                 }
             }
         }
-        static void RuntimeCheckAndAutoFix( )
+        static void RuntimeFix( )
         {
             new Thread(() =>
             {
-                if (Directory.Exists(FilePath.Datas) == false)
+                if (!Directory.Exists(FilePath.Datas))
                     Directory.CreateDirectory(FilePath.Datas);
-                if (Directory.Exists(FilePath.Logs) == false)
+                if (!Directory.Exists(FilePath.Logs))
                     Directory.CreateDirectory(FilePath.Logs);
-                if (File.Exists(FilePath.History) == false)
+                if (!File.Exists(FilePath.History))
                     File.Create(FilePath.History);
-                if (File.Exists(FilePath.BookMark) == false)
+                if (!File.Exists(FilePath.BookMark))
                     File.Create(FilePath.BookMark);
-                if (File.Exists(FilePath.Config) == false)
+                if (!File.Exists(FilePath.Config))
                     File.Create(FilePath.Config);
-                if (File.Exists(FilePath.Logs + "\\log.log") == false)
+                if (!File.Exists(FilePath.Logs + "\\log.log"))
                     File.Create(FilePath.Logs + "\\log.log");
-                if (File.Exists(FilePath.Logs + "\\error.log") == false)
+                if (!File.Exists(FilePath.Logs + "\\error.log"))
                     File.Create(FilePath.Logs + "\\error.log");
-                if (File.Exists(FilePath.Logs + "\\debug.log") == false)
+                if (!File.Exists(FilePath.Logs + "\\debug.log"))
                     File.Create(FilePath.Logs + "\\debug.log");
             }).Start();
             try
             {
                 if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)
                 {
-                    Thread t = new Thread(showNoAccsses);
-                    t.Start( );
+                    new Thread(showNoAccsses).Start( );
                     Current.Shutdown( );
                 }
             }
@@ -97,8 +93,7 @@ namespace 极简浏览器
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
-            Report report = new Report(e.Exception.Message);
-            report.ShowDialog( );
+            new Report(e.Exception.Message).ShowDialog( );
         }
     }
 }

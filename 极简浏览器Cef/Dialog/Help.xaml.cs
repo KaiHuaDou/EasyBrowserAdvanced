@@ -10,6 +10,7 @@ namespace 极简浏览器
         public Help( )
         {
             InitializeComponent( );
+            this.SizeToContent = SizeToContent.WidthAndHeight;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

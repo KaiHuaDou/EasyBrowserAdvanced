@@ -8,21 +8,15 @@ namespace 极简浏览器.Api
         {
             get
             {
-                string result = "";
-                if (string.IsNullOrEmpty(App.Program.InputArgu) == false)
-                    result = App.Program.InputArgu;
-                else
+                if (!string.IsNullOrEmpty(App.Program.inputUrl))
+                    return App.Program.inputUrl;
+                string path = File.ReadAllText(FilePath.Config);
+                if (string.IsNullOrEmpty(path))
                 {
-                    string pathFile = File.ReadAllText(FilePath.Config);
-                    if (string.IsNullOrEmpty(pathFile))
-                    {
-                        File.WriteAllText(FilePath.Config, "about:blank");
-                        result = "about:blank";
-                    }
-                    else
-                        result = pathFile;
+                    File.WriteAllText(FilePath.Config, "about:blank");
+                    return "about:blank";
                 }
-                return result;
+                return path;
             }
         }
     }

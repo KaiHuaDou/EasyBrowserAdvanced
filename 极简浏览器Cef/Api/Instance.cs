@@ -4,12 +4,11 @@ namespace 极简浏览器.Api
 {
     public static class Instance
     {
-        public static void New(string url)
+        public static void New(string url = "about:blank")
         {
-            Arguments argus = App.Program.arguments;
-            string newInstanceArgs = argus.IsNew + " " + argus.IsStopLog + " " + argus.IsTopMost;
-            ProcessStartInfo psi = new ProcessStartInfo(FilePath.Runtime, url + " " + newInstanceArgs);
-            Process.Start(psi);
+            Argus argus = App.Program.argus;
+            string newInstanceArgs = url + " " + argus.IsPrivate + " " + argus.IsTopmost;
+            Process.Start(new ProcessStartInfo(FilePath.App, newInstanceArgs));
         }
     }
 }
