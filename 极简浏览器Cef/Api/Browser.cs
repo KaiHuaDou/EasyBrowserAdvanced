@@ -16,18 +16,17 @@ namespace 极简浏览器.Api
                 return null;
             }
         }
+
         public static ExtChromiumBrowser Core
         { get { return MainWindow.cwb as ExtChromiumBrowser; } }
-        public static void Navigate(string url)
-        { Core.Address = url; }
 
-        public static void GoBack()
-        { if (Core.CanGoBack == true) Core.Back(); }
+        public static string Address { get { return Core.Address; } }
+        public static string Title { get { return Core.Title; } }
+        public static void Navigate(string url) { Core.Address = url; }
+        public static void GoBack() { if (Core.CanGoBack) Core.Back(); }
+        public static void GoForward() { if (Core.CanGoForward) Core.Forward(); }
 
-        public static void GoForward()
-        { if (Core.CanGoForward == true) Core.Forward(); }
-
-        public static void Refresh( )
+        public static void Refresh()
         {
             try
             {
@@ -37,9 +36,10 @@ namespace 极简浏览器.Api
             }
             catch (Exception e) { Logger.Log(e); }
         }
-        public static bool PraseEasy(string easySite)
+
+        public static bool PraseEasy(string url)
         {
-            switch(easySite.ToLower().Replace("easy://",""))
+            switch (url.ToLower().Replace("easy://", ""))
             {
                 case "about": new About().Show(); break;
                 case "help": new Help().Show(); break;

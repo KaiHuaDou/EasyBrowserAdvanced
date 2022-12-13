@@ -37,9 +37,9 @@ namespace 极简浏览器
                 }
                 try
                 {
+                    RuntimeFix();
                     App app = new App();
                     app.InitializeComponent();
-                    RuntimeFix();
                     app.Run();
                 }
                 catch (XamlParseException e)

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading;
 
 namespace 极简浏览器.Api
 {
@@ -6,8 +7,7 @@ namespace 极简浏览器.Api
     {
         public static void New(string url = "about:blank")
         {
-            Argus argus = App.Program.argus;
-            string newInstanceArgs = url + " " + argus.IsPrivate + " " + argus.IsTopmost;
+            string newInstanceArgs = url + " " + App.Program.argus.IsPrivate + " " + App.Program.argus.IsTopmost;
             Process.Start(new ProcessStartInfo(FilePath.App, newInstanceArgs));
         }
     }

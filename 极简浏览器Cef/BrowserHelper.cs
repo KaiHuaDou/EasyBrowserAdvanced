@@ -73,7 +73,7 @@ namespace 极简浏览器
         }
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            if (Browser.HostWindow.singleBox.IsChecked == false)
+            if (Browser.HostWindow.singleBox.IsChecked != true)
                 Instance.New(e.Url);
             else
                 Browser.Navigate(e.Url);

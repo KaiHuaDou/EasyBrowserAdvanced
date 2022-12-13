@@ -10,9 +10,6 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    /// <summary>
-    /// Download.xaml 的交互逻辑
-    /// </summary>
     public partial class Download : Window
     {
         private static DownloadItem basicInfo = new DownloadItem();
@@ -65,7 +62,7 @@ namespace 极简浏览器
             }
             catch (WebException e)
             {
-                MessageBox.Show("无法下载，原因：:" + e.Status.ToString());
+                MessageBox.Show("无法下载，原因:" + e.Status.ToString());
                 this.Close();
             }
         }
@@ -116,7 +113,7 @@ namespace 极简浏览器
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            FromURL.Content = "下载地址：" + basicInfo.Url.Substring(0, (int)(this.ActualWidth / 25));
+            FromURL.Content = StdApi.ZipStr(basicInfo.Url, (int)(this.ActualWidth / 15));
         }
     }
 }

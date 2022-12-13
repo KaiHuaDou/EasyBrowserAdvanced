@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using CefSharp;
 
 namespace 极简浏览器.Api
@@ -17,20 +12,35 @@ namespace 极简浏览器.Api
                 return DateTime.Now.ToLocalTime().ToString();
             }
         }
-        public static string GetSource
+        public static string PageText
         {
             get
             {
-                TaskStringVisitor task = new TaskStringVisitor();
-                Browser.Core.GetMainFrame().GetText(task);
-                while (task.Task.IsCompleted == true) ;
-                return task.Task.Result;
+                TaskStringVisitor tsv = new TaskStringVisitor();
+                Browser.Core.GetMainFrame().GetText(tsv);
+                while (tsv.Task.IsCompleted) ;
+                return tsv.Task.Result;
+            }
+        }
+        public static string PageSource
+        {
+            get
+            {
+                TaskStringVisitor tsv = new TaskStringVisitor();
+                Browser.Core.GetMainFrame().GetSource(tsv);
+                while (tsv.Task.IsCompleted) ;
+                return tsv.Task.Result;
             }
         }
         public static async void ViewSource()
         {
-            string code = await Browser.Core.GetMainFrame().GetSourceAsync();
-            new WebSource(code).Show();
+            new WebSource(PageSource).Show();
+        }
+
+        public static string ZipStr(string str, int len)
+        {
+            if (str.Length <= len) return str;
+            return str.Substring(0, len - 6) + "…" + str.Substring(str.Length - 6);
         }
     }
 }

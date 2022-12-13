@@ -1,15 +1,21 @@
 # 极简浏览器
-极简浏览器用C#编写的基于Chromium的浏览器。有许多优点：
+![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
+![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced)  ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
+![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/last-commit/kaihuadou/easybrowseradvanced)
 
-1. 体积小巧，仅有Chrome 的29%，Firefox 的63%。
-2. 界面干净，无广告，无插件
-3. 便于携带，无需安装，数据与应用程序储存在同样位置
-4. 便于使用，有着与主流浏览器相似的布局
-5. 启动速度快，大约需要 1s
-6. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
-7. 开源代码，全部源代码都在 Github 和 Azure 上公开。
+极简浏览器用 C# 编写的基于 Chromium 的浏览器。
+
+适用与性能一般的电脑或者需要 Flash 的场景。
 
 > 特别鸣谢 StrollStars 对运行依赖的改进建议
+
+## 特点
+1. 体积小巧，仅有 Chrome 的 29%，Firefox 的 63%。
+2. 界面干净，无广告，无插件
+3. 便于携带，无需安装，数据与应用程序储存在同样位置
+4. 启动速度快
+5. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
+6. 开源代码，全部源代码都在 Github 和 Azure 上公开。
 
 ## 运行依赖
 
@@ -18,9 +24,8 @@
 
 ## 测试环境
 
-可以使用浏览器进入[测试页](https://pinyin.sogou.com/help.php?list=8)测试 Flash 的可用性。
-
-可以使用浏览器进入[测试页](http://cachefly.cachefly.net/10mb.test)测试下载功能
++   可以使用浏览器进入[测试页](https://pinyin.sogou.com/help.php?list=8)测试 Flash 的可用性
++   可以使用浏览器进入[测试页](http://cachefly.cachefly.net/10mb.test)测试下载功能
 
 ## 版本更新
 
@@ -28,13 +33,16 @@
 1. 详细信息请参照 Commit
 2. 每24个项更改为一个版本
 3. 现在此文件是 UTF-8 了
-4. 由`{}`包裹的是正在开发的
------
-### 下一个更新（V3.4.7.2)
+4. 用斜体显示的是正在开发的
+
+### 下一个更新（V 3.4.7.2)
 
 #### 下一个RC（RC2）
 
-+ {Bug修复 #39 降低 `MainWindow` 的耦合度} 
++ *增加功能 #47 转换为单进程模式，提性能*
++ Bug修复 #46 修复了下载 URL 显示不全的问题
++ 增加功能 #46 增加了有关许可证的帮助
++ *Bug修复 #39 降低 `MainWindow` 的耦合度* 
 
 #### RC1
 
@@ -102,7 +110,7 @@
 + Bug修复 #20 解决了下载时闪退的问题
 + Bug修复 #19 删除了设置窗口的空白区域
 
-### V3.3.1.11更新
+### V 3.3.1.11更新
 
 + 增加功能 #17 更好的反馈窗口
 + Bug修复 #18 权限不足导致的无法启动
@@ -127,7 +135,7 @@
 + 增加功能 #9 增加了无痕模式(由`@要饭的肥喵`提出建议)
 + 增加功能 #8 增加了在单窗口打开的功能
 
-### 3.2.1.11更新
+### V 3.2.1.11更新
 
 + 代码质量 #5 整合`Api/StandardApi.cs`
 + 增加功能 #7 格式化网页源代码时支持 CSS
@@ -154,7 +162,7 @@
 + Waring修复 #2 修复了`History.xaml.cs`的函数名不规范
 + Waring修复 #1 修复了`FileApi.cs`的代码质量问题
 
-### 3.0.0.0更新
+### V 3.0.0.0更新
 
 + Bug修复 #3 修复了写入日志错误
 + Bug修复 #2 修复了无法删除历史记录&书签的错误

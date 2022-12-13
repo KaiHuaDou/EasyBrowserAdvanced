@@ -35,6 +35,7 @@ namespace 极简浏览器
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            #region CefInit
             var settings = new CefSettings();
             settings.CefCommandLineArgs.Add("enable-media-stream", "1");
             settings.CefCommandLineArgs.Add("no-proxy-server", "1");
@@ -56,6 +57,7 @@ namespace 极简浏览器
             cwb.MenuHandler = new MenuHandler();
             cwb.DownloadHandler = new DownloadHandler();
             cwb.LoadError += Cwb_LoadError;
+            #endregion
             Dispatcher.BeginInvoke((Action)(() =>
             {
                 try
@@ -92,41 +94,36 @@ namespace 极简浏览器
         {
             loadLabel.Visibility = Visibility.Visible;
             civiLabel.Visibility = Visibility.Collapsed;
-            LoadProgressBar.Visibility = Visibility.Visible;
-            if (!Browser.Core.Address.Contains("Error.html?errorCode="))
-                UrlTextBox.Text = Browser.Core.Address;
+            LoadProgress.Visibility = Visibility.Visible;
+            if (!Browser.Address.Contains("Error.html?errorCode="))
+                UrlTextBox.Text = Browser.Address;
         }
 
         private void Check(object sender, FrameLoadEndEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action)delegate ()
+            Dispatcher.BeginInvoke((Action)(() =>
             {
                 IsSuccess = true;
-                LoadProgressBar.Visibility = Visibility.Collapsed;
+                LoadProgress.Visibility = Visibility.Collapsed;
                 loadLabel.Visibility = Visibility.Collapsed;
-                if (privateBox.IsChecked != true)
+                if (!App.Program.argus.IsPrivate)
                     Configer.AddConfig(new Config(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.History);
-                if (Civilized.CheckCivilized(StdApi.GetSource) == true)
+                if (Civilized.CheckCivilized(StdApi.PageText))
                     civiLabel.Visibility = Visibility.Visible;
-            });
+            }));
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.Title = Browser.Core.Title + " - 极简浏览器";
+            this.Title = Browser.Title + " - 极简浏览器";
         }
 
         private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                if (IsSuccess != true)
-                {
-                    if (e.ErrorCode.ToString() != "Aborted")
-                    {
-                        Browser.Navigate(FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
-                    }
-                }
+                if (IsSuccess != true && e.ErrorCode.ToString() != "Aborted")
+                    Browser.Navigate(FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
             }));
         }
 
@@ -160,7 +157,6 @@ namespace 极简浏览器
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool isDispose)
-        { cwb.Dispose(); }
+        protected virtual void Dispose(bool isDispose) { cwb.Dispose(); }
     }
 }

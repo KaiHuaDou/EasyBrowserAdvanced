@@ -1,7 +1,0 @@
-[autorun]
-label = ¼«¼òä¯ÀÀÆ÷
-open = autorun.exe [open][1] "EasyBrowser_3_4_7_2_Setup.exe"
-icon = autorun.exe
-
-[Installed]
-ProductCode = {9E4690E5-4029-4D2C-91A8-4D44DC7197AB}

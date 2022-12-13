@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using CefSharp;
 using Microsoft.Win32;
 using 极简浏览器.Api;
 
@@ -18,9 +17,9 @@ namespace 极简浏览器
             textBox.Text = text;
         }
 
-        private async void refreshButton_Click(object sender, RoutedEventArgs e)
+        private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = await Browser.Core.GetMainFrame( ).GetSourceAsync( );
+            textBox.Text = StdApi.PageSource;
         }
 
         private void formatButton_Click(object sender, RoutedEventArgs e)
@@ -40,7 +39,7 @@ namespace 极简浏览器
             SaveFileDialog sfd = new SaveFileDialog
             {
                 DefaultExt = ".html",
-                FileName = Browser.Core.Title,
+                FileName = Browser.Title,
                 AddExtension = true,
                 Filter = "HTML 文件|.html"
             };

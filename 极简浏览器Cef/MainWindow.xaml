@@ -15,12 +15,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Button x:Name="GoBackButton" Width="35" Height="35" Click="GoBackButton_Click"
+            <Button x:Name="GoBackButton" Width="35" Height="35" Click="GoBack_Click"
                     BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
                     FocusVisualStyle="{x:Null}">
                 <materialDesign:PackIcon Kind="ArrowLeft" />
             </Button>
-            <Button x:Name="GoForwardButton" Width="35" Height="35" Click="GoForwardButton_Click"
+            <Button x:Name="GoForwardButton" Width="35" Height="35" Click="GoForward_Click"
                     BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
                     FocusVisualStyle="{x:Null}">
                 <materialDesign:PackIcon Kind="ArrowRight" />
@@ -30,26 +30,26 @@
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="DotsVertical" />
                     </MenuItem.Icon>
-                    <MenuItem Header="后退" Click="GoForwardButton_Click"
+                    <MenuItem Header="后退" Click="GoForward_Click"
                             Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="前进" Click="GoBackButton_Click"
+                    <MenuItem Header="前进" Click="GoBack_Click"
                             Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="刷新" Click="RefreshButton_Click"
+                    <MenuItem Header="刷新" Click="Refresh_Click"
                             Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="新窗口" Click="AddNewPageButton_Click"
+                    <MenuItem Header="新窗口" Click="NewPage_Click"
                             Style="{StaticResource WhitePoupuItem}" />
                     <MenuItem Header="网页源代码" Click="ViewSource_Click"
                             Style="{StaticResource WhitePoupuItem}" />
                     <MenuItem Header="设为书签" Click="SetBookMark_Click"
                             Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="历史记录/书签" Click="ViewHistory_Click"
+                    <MenuItem Header="历史记录/书签" Click="History_Click"
                             Style="{StaticResource WhitePoupuItem}" />
                     <MenuItem Header="设置" Click="Setting_Click"
                             Style="{StaticResource WhitePoupuItem}" />
                     <MenuItem Header="帮助" Click="Help_Click" Style="{StaticResource WhitePoupuItem}" />
                     <MenuItem Header="关于" Click="About_Click"
                             Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem x:Name="DevToolsButton" Header="开发者工具" Click="DevToolsButton_Click"
+                    <MenuItem x:Name="DevToolsButton" Header="开发者工具" Click="DevTool_Click"
                             Style="{StaticResource WhitePoupuItem}" />
                     <CheckBox Content="置顶" Click="Topmost_Checked" Foreground="Black"
                             FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
@@ -59,12 +59,12 @@
                             FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
                 </MenuItem>
             </Menu>
-            <Button x:Name="AddNewPageButton" Width="35" Height="35" Click="AddNewPageButton_Click"
+            <Button x:Name="NewPageButton" Width="35" Height="35" Click="NewPage_Click"
                     BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
                     FocusVisualStyle="{x:Null}" DockPanel.Dock="Right">
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
-            <Button x:Name="RefershButton" Width="35" Height="35" Click="RefreshButton_Click"
+            <Button x:Name="RefershButton" Width="35" Height="35" Click="Refresh_Click"
                     BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
                     FocusVisualStyle="{x:Null}" DockPanel.Dock="Right">
                 <materialDesign:PackIcon Kind="Refresh" />
@@ -72,7 +72,7 @@
             <TextBox x:Name="UrlTextBox" Height="33" TextWrapping="NoWrap" Text="" FontSize="20"
                     KeyDown="Go" Style="{StaticResource TextboxStyle}" VerticalAlignment="Center" />
         </DockPanel>
-        <ProgressBar x:Name="LoadProgressBar" Maximum="100" Background="{x:Null}"
+        <ProgressBar x:Name="LoadProgress" Maximum="100" Background="{x:Null}"
                 BorderThickness="0" IsIndeterminate="True" Grid.Row="1" Height="7" />
         <Grid x:Name="CWBGrid" Margin="0" PreviewMouseWheel="CWBGrid_PreviewMouseWheel" Grid.Row="2" />
         <StackPanel x:Name="statusBar" Height="33" VerticalAlignment="Bottom" Background="#FFF1F3F4"

@@ -1,26 +1,39 @@
 ﻿<Window x:Class="极简浏览器.Help" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="帮助"
-        Icon="/极简浏览器;component/favicon/favicon.ico" ResizeMode="NoResize" Width="460" Height="440">
+        Icon="/极简浏览器;component/favicon/favicon.ico" ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
     <StackPanel>
         <TreeView x:Name="treeView" Margin="0" FontSize="20" FocusVisualStyle="{x:Null}"
-                Focusable="False" Background="White">
-            <TreeViewItem IsExpanded="True" Background="White" Focusable="False" Header="一、无法播放视频？">
-                <TreeViewItem FontSize="18" Background="White" Focusable="False">
+                Background="White">
+            <TreeViewItem IsExpanded="True" Header="无法播放视频">
+                <TreeViewItem>
                     <TreeViewItem.Header>
                         <TextBlock Margin="0" TextWrapping="Wrap" Width="370">对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3上反馈</TextBlock>
                     </TreeViewItem.Header>
                 </TreeViewItem>
             </TreeViewItem>
-            <TreeViewItem IsExpanded="True" Focusable="False" Header="二、某些内容显示不全？">
-                <TreeViewItem FontSize="18" Background="White" Focusable="False"
-                        Header="1、将系统默认字体调小" />
-                <TreeViewItem FontSize="18" Background="White" Focusable="False" Header="2、增大显示器大小" />
+            <TreeViewItem IsExpanded="True" Header="内容显示不全">
+                <TreeViewItem Header="将系统默认字体调小" />
+                <TreeViewItem Header="增大显示器大小" />
             </TreeViewItem>
-            <TreeViewItem IsExpanded="True" Focusable="False" Header="三、许可">
-                <TreeViewItem FontSize="18" Background="White" Focusable="False">
-                    <TreeViewItem.Header>
-                        <TextBlock x:Name="licenseBox" Margin="0" TextWrapping="Wrap">http://www.apache.org/licenses/LICENSE-2.0</TextBlock>
-                    </TreeViewItem.Header>
+            <TreeViewItem Header="许可条件">
+                <TreeViewItem Header="本软件使用 Apache 2.0 License" />
+                <TreeViewItem Header="http://www.apache.org/licenses/LICENSE-2.0" />
+                <TreeViewItem Header="权利">
+                    <TreeViewItem Header="商业使用" />
+                    <TreeViewItem Header="修改（须注明）" />
+                    <TreeViewItem Header="分发" />
+                    <TreeViewItem Header="专利使用（须注明）" />
+                    <TreeViewItem Header="私人使用" />
+                </TreeViewItem>
+                <TreeViewItem Header="限制">
+                    <TreeViewItem Header="不得使用该商标" />
+                    <TreeViewItem Header="不承担产生的责任" />
+                    <TreeViewItem Header="不提供售后" />
+                </TreeViewItem>
+                <TreeViewItem Header="条件">
+                    <TreeViewItem Header="许可和版权声明" />
+                    <TreeViewItem Header="标记许可证更改" />
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>

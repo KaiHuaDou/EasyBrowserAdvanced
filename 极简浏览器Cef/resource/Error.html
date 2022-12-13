@@ -34,9 +34,9 @@
 
 <body>
     <div>
-        <p class="info big" id="infobig"></p>
+        <p class="info big" id="infobig">加载错误</p>
         <br />
-        <p class="info text" id="infotext"></p>
+        <p class="info text" id="infotext">ERR_LOAD_FAIL</p>
         <button class="info text" onclick="searchURL()">搜索 URL</button>
         <button class="info text" onclick="searchCode()">搜索错误代码</button>
     </div>
@@ -67,7 +67,7 @@
             if (code == "FileNotFound") code = "找不到文件";
             if (code == "NameNotResolved") code = "无法解析地址";
             if (code == "AddressUnreachable") code = "无法访问地址";
-            if (code == "ConnectionTimedOut") code = "响应时间过长"
+            if (code == "ConnectionTimedOut") code = "响应时间过长";
             return code;
         }
         document.title = dealPara(getPara("errorCode"));
