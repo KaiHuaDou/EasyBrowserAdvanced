@@ -8,7 +8,7 @@ namespace 极简浏览器
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window, IDisposable
+    public partial class MainWindow : Window
     {
         private void About_Click(object o, RoutedEventArgs e) { new About().Show(); }
         private void NewPage_Click(object o, RoutedEventArgs e) { Instance.New(); }

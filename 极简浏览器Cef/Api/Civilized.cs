@@ -10,8 +10,7 @@ namespace 极简浏览器.Api
         public static void DeniedMsg( )
         {
             MessageBox.Show(Properties.Resources.civiShutdown, Properties.Resources.civiTitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
-            try
-            { File.Create(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"); }
+            try { File.Create(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"); }
             catch (Exception) { }
             App.Current.Shutdown( );
         }

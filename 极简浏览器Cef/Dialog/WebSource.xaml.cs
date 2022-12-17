@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
 using 极简浏览器.Api;
@@ -24,14 +24,11 @@ namespace 极简浏览器
 
         private void formatButton_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action)(() =>
+            new Thread((html) =>
             {
-                string result = Formatter.FormartHtml(textBox.Text, true);
-                Dispatcher.BeginInvoke((Action)(() =>
-                {
-                    textBox.Text = result;
-                }));
-            }));
+                string result = Formatter.FormartHtml((string)html, true);
+                Dispatcher.Invoke(() => { textBox.Text = result; });
+            }).Start(textBox.Text);
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)

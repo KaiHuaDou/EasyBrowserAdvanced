@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using CefSharp;
+using CefSharp.Wpf;
 
 namespace 极简浏览器.Api
 {
@@ -17,9 +18,7 @@ namespace 极简浏览器.Api
             }
         }
 
-        public static ExtChromiumBrowser Core
-        { get { return MainWindow.cwb as ExtChromiumBrowser; } }
-
+        public static ExtChromiumBrowser Core { get; set; }
         public static string Address { get { return Core.Address; } }
         public static string Title { get { return Core.Title; } }
         public static void Navigate(string url) { Core.Address = url; }
@@ -35,6 +34,21 @@ namespace 极简浏览器.Api
                 else Navigate(HostWindow.UrlTextBox.Text);
             }
             catch (Exception e) { Logger.Log(e); }
+        }
+
+        public static void Init()
+        {
+            var settings = new CefSettings();
+            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+            settings.Locale = "zh-CN";
+            settings.AcceptLanguageList = "zh-CN";
+            settings.CefCommandLineArgs["enable-system-flash"] = "1";
+            settings.CefCommandLineArgs["log_severity"] = "disabled";
+            settings.CefCommandLineArgs.Add("ppapi-flash-path", "resource/pepflashplayer.dll");
+            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
+            Cef.Initialize(settings);
+            Core = new ExtChromiumBrowser();
         }
 
         public static bool PraseEasy(string url)

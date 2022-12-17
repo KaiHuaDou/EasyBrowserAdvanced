@@ -38,6 +38,7 @@ namespace 极简浏览器
                 try
                 {
                     RuntimeFix();
+                    Browser.Init();
                     App app = new App();
                     app.InitializeComponent();
                     app.Run();
@@ -97,4 +98,3 @@ namespace 极简浏览器
         }
     }
 }
-

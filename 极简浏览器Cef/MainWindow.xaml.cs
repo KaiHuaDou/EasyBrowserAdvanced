@@ -9,7 +9,7 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    public partial class MainWindow : Window, IDisposable
+    public partial class MainWindow : Window
     {
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
@@ -35,18 +35,8 @@ namespace 极简浏览器
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            #region CefInit
-            var settings = new CefSettings();
-            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
-            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
-            settings.Locale = "zh-CN";
-            settings.AcceptLanguageList = "zh-CN";
-            settings.CefCommandLineArgs["enable-system-flash"] = "1";
-            settings.CefCommandLineArgs["log_severity"] = "disabled";
-            settings.CefCommandLineArgs.Add("ppapi-flash-path", "resource/pepflashplayer.dll");
-            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
-            Cef.Initialize(settings);
-            cwb = new ExtChromiumBrowser();
+#region CefInit
+            cwb = Browser.Core;
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0);
             cwb.AddressChanged += Running;
@@ -57,7 +47,7 @@ namespace 极简浏览器
             cwb.MenuHandler = new MenuHandler();
             cwb.DownloadHandler = new DownloadHandler();
             cwb.LoadError += Cwb_LoadError;
-            #endregion
+#endregion
             Dispatcher.BeginInvoke((Action)(() =>
             {
                 try
@@ -150,13 +140,11 @@ namespace 极简浏览器
                 barShadow.Direction = 135;
             }
         }
-
-        public void Dispose()
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Dispose(true);
+            cwb.Dispose();
+            Browser.Core.Dispose();
             GC.SuppressFinalize(this);
         }
-
-        protected virtual void Dispose(bool isDispose) { cwb.Dispose(); }
     }
 }

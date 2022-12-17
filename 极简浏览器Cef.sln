@@ -19,13 +19,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		2.0D|x86 = 2.0D|x86
-		2.0R|x86 = 2.0R|x86
+		Release3|x86 = Release3|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|x86.ActiveCfg = 2.0D|x86
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|x86.Build.0 = 2.0D|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|x86.ActiveCfg = 2.0R|x86
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0R|x86.Build.0 = 2.0R|x86
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.2.0D|x86.Deploy.0 = 2.0D|x86
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release3|x86.ActiveCfg = 2.0D|x86
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release3|x86.Build.0 = 2.0D|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

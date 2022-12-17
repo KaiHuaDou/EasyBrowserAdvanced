@@ -20,12 +20,9 @@ namespace 极简浏览器
         private Thread dlThread;
         private Stream dlStream;
         private FileStream dlFS;
-        private long length = 0;
-        private long dlLen = 0;
-        private long lastLen = 0;
+        private long length = 0, dlLen = 0, lastLen = 0;
         private double totalSec = 0;
         private delegate void updateData(string value);
-        private updateData doFront;
         private System.Timers.Timer timer = new System.Timers.Timer(500);
         public Download(DownloadItem item, string savePath)
         {
@@ -71,13 +68,12 @@ namespace 极简浏览器
         {
             dlStream = httpRes.GetResponseStream();
             int i;
-            doFront = new updateData(updateUI);
             while ((i = dlStream.Read(buf, 0, buf.Length)) > 0)
             {
                 try
                 {
                     dlLen += i;
-                    Dispatcher.Invoke(doFront, dlLen.ToString());
+                    Dispatcher.Invoke(new updateData(updateUI), dlLen.ToString());
                     dlFS.Write(buf, 0, i);
                 }
                 catch (IOException ex)
@@ -92,13 +88,9 @@ namespace 极简浏览器
         }
         void updateUI(string value)
         {
-            try
-            {
-                Progress.Value = int.Parse(value);
-                double percent = Progress.Value / Progress.Maximum * 100.0;
-                Percent.Content = decimal.Round((decimal)percent, 2) + "%";
-            }
-            catch (Exception) { }
+            Progress.Value = int.Parse(value);
+            double percent = Progress.Value / Progress.Maximum * 100.0;
+            Percent.Content = decimal.Round((decimal)percent, 2) + "%";
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)

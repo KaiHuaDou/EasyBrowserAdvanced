@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Threading;
 
 namespace 极简浏览器.Api
 {

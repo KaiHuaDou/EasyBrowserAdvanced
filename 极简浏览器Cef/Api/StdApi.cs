@@ -32,7 +32,7 @@ namespace 极简浏览器.Api
                 return tsv.Task.Result;
             }
         }
-        public static async void ViewSource()
+        public static void ViewSource()
         {
             new WebSource(PageSource).Show();
         }

@@ -17,7 +17,7 @@ namespace 极简浏览器
 
         }
 
-        public bool DoClose(IWebBrowser chromiumWebBrowser, CefSharp.IBrowser browser)
+        public bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser)
         {
             if (browser.IsDisposed || browser.IsPopup)
             {
@@ -36,17 +36,12 @@ namespace 极简浏览器
 
 
         public bool OnBeforePopup(IWebBrowser chromiumWebBrowser,
-            IBrowser browser,
-            IFrame frame,
-            string targetUrl,
-            string targetFrameName,
+            IBrowser browser, IFrame frame,
+            string targetUrl, string targetFrameName,
             WindowOpenDisposition targetDisposition,
-            bool userGesture,
-            IPopupFeatures popupFeatures,
-            IWindowInfo windowInfo,
-            IBrowserSettings browserSettings,
-            ref bool noJavascriptAccess,
-            out IWebBrowser newBrowser)
+            bool userGesture, IPopupFeatures popupFeatures,
+            IWindowInfo windowInfo, IBrowserSettings browserSettings,
+            ref bool noJavascriptAccess, out IWebBrowser newBrowser)
         {
             ExtChromiumBrowser chromiumWebBrowser1 = (ExtChromiumBrowser)chromiumWebBrowser;
             chromiumWebBrowser1.Dispatcher.Invoke(new Action(() =>
@@ -54,7 +49,6 @@ namespace 极简浏览器
                 NewWindowEventArgs e = new NewWindowEventArgs(windowInfo, targetUrl);
                 chromiumWebBrowser1.OnNewWindow(e);
             }));
-
             newBrowser = null;
             return true;
         }
