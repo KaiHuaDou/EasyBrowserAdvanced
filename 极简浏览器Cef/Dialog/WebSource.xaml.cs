@@ -11,15 +11,16 @@ namespace 极简浏览器
     /// </summary>
     public partial class WebSource : Window
     {
-        public WebSource(string text)
+        public WebSource(int id, string text)
         {
             InitializeComponent( );
             textBox.Text = text;
+            identity = id;
         }
-
+        public int identity;
         private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = StdApi.PageSource;
+            textBox.Text = StdApi.PageSource(identity);
         }
 
         private void formatButton_Click(object sender, RoutedEventArgs e)
@@ -36,7 +37,7 @@ namespace 极简浏览器
             SaveFileDialog sfd = new SaveFileDialog
             {
                 DefaultExt = ".html",
-                FileName = Browser.Title,
+                FileName = Browser.Title(identity),
                 AddExtension = true,
                 Filter = "HTML 文件|.html"
             };

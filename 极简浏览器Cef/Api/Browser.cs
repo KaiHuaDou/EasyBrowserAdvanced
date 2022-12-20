@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
@@ -17,25 +18,26 @@ namespace 极简浏览器.Api
                 return null;
             }
         }
-        public static ExtChromiumBrowser Core { get; set; }
-        public static string Address { get { return Core.Address; } }
-        public static string Title { get { return Core.Title; } }
-        public static void Navigate(string url) { Core.Address = url; }
-        public static void GoBack() { if (Core.CanGoBack) Core.Back(); }
-        public static void GoForward() { if (Core.CanGoForward) Core.Forward(); }
-        public static void Refresh()
+        public static List<ExtChromiumBrowser> Core = new List<ExtChromiumBrowser>( );
+        public static string Address(int id) { return Core[id].Address; }
+        public static string Title(int id) { return Core[id].Title; }
+        public static void Navigate(int id, string url) { Core[id].Address = url; }
+        public static void GoBack(int id) { if (Core[id].CanGoBack) Core[id].Back( ); }
+        public static void GoForward(int id) { if (Core[id].CanGoForward) Core[id].Forward( ); }
+        public static void Refresh(int id)
         {
             try
             {
-                if (Core.Address == HostWindow.UrlTextBox.Text)
-                    Core.Reload();
-                else Navigate(HostWindow.UrlTextBox.Text);
+                if (Core[id].Address == HostWindow.UrlTextBox.Text)
+                    Core[id].Reload( );
+                else
+                    Navigate(id, HostWindow.UrlTextBox.Text);
             }
             catch (Exception e) { Logger.Log(e); }
         }
-        public static void Init()
+        public static void Init( )
         {
-            var settings = new CefSettings();
+            var settings = new CefSettings( );
             settings.Locale = "zh-CN";
             settings.AcceptLanguageList = "zh-CN";
             settings.CefCommandLineArgs["enable-media-stream"] = "1";
@@ -45,11 +47,10 @@ namespace 极简浏览器.Api
             settings.CefCommandLineArgs["ppapi-flash-path"] = "resource/pepflashplayer.dll";
             settings.CefCommandLineArgs["ppapi-flash-version"] = "99.0.0.999";
             Cef.Initialize(settings);
-            Core = new ExtChromiumBrowser();
-            CookieMgr.Get();
+            CookieMgr.Get( );
         }
 
-        public static bool PraseEasy(string url)
+        public static bool PraseEasy(int id, string url)
         {
             switch (url.ToLower().Replace("easy://", ""))
             {
@@ -58,7 +59,7 @@ namespace 极简浏览器.Api
                 case "history": new History().Show(); break;
                 case "bookmark": new History().Show(); break;
                 case "setting": new Setting().Show(); break;
-                case "websource": StdApi.ViewSource(); break;
+                case "websource": StdApi.ViewSource(id); break;
                 case "newtab": Instance.New(); break;
                 default: return false;
             }

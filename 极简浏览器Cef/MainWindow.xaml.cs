@@ -14,28 +14,36 @@ namespace 极简浏览器
         public static object document;
         public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         public static ChromiumWebBrowser cwb;
+        public static int identity;
 
         public bool IsSuccess { get; set; }
 
-        public MainWindow( )
+        public MainWindow()
+        {
+            this.Close( );
+        }
+
+        public MainWindow(int id)
         {
             InitializeComponent( );
             IsSuccess = false;
+            identity = id;
         }
 
         private void OnInitialize(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Cef.UIThreadTaskFactory.StartNew(( ) =>
-            {
-                string error = "";
-                var requestContext = cwb.GetBrowser( ).GetHost( ).RequestContext;
-                requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
-            });
+            //Cef.UIThreadTaskFactory.StartNew(( ) =>
+            //{
+            //    string error = "";
+            //    var requestContext = cwb.GetBrowser( ).GetHost( ).RequestContext;
+            //    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+            //});
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cwb = Browser.Core;
+            Browser.Core.Add(new ExtChromiumBrowser(identity));
+            cwb = Browser.Core[identity];
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0);
             cwb.AddressChanged += Running;
@@ -43,14 +51,14 @@ namespace 极简浏览器
             cwb.TitleChanged += Cwb_TitleChanged;
             cwb.IsBrowserInitializedChanged += OnInitialize;
             MenuHandler.mainWindow = this;
-            cwb.MenuHandler = new MenuHandler( );
+            cwb.MenuHandler = new MenuHandler(identity);
             cwb.DownloadHandler = new DownloadHandler( );
             cwb.LoadError += Cwb_LoadError;
             Dispatcher.BeginInvoke((Action) (( ) =>
             {
                 try
                 {
-                    Browser.Navigate(FileApi.StartupPath);
+                    Browser.Navigate(identity, FileApi.StartupPath);
                 }
                 catch (Exception ex)
                 {
@@ -72,11 +80,11 @@ namespace 极简浏览器
         private void Load(object sender, RoutedEventArgs e)
         {
             if (UrlTextBox.Text.ToLower( ).Contains("easy://"))
-                Browser.PraseEasy(UrlTextBox.Text);
+                Browser.PraseEasy(identity, UrlTextBox.Text);
             else if (Regex.IsMatch(UrlTextBox.Text, @"\.[A-Za-z]{1,4}|(://)|^[A-Za-z]:\\|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,4})?|^about:"))
-                Browser.Navigate(UrlTextBox.Text);
+                Browser.Navigate(identity, UrlTextBox.Text);
             else
-                Browser.Navigate("https://cn.bing.com/search?q=" + UrlTextBox.Text);
+                Browser.Navigate(identity, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
             IsSuccess = false;
         }
 
@@ -85,8 +93,8 @@ namespace 极简浏览器
             loadLabel.Visibility = Visibility.Visible;
             civiLabel.Visibility = Visibility.Collapsed;
             LoadProgress.Visibility = Visibility.Visible;
-            if (!Browser.Address.Contains("Error.html?errorCode="))
-                UrlTextBox.Text = Browser.Address;
+            if (!Browser.Address(identity).Contains("Error.html?errorCode="))
+                UrlTextBox.Text = Browser.Address(identity);
         }
 
         private void Check(object sender, FrameLoadEndEventArgs e)
@@ -96,17 +104,17 @@ namespace 极简浏览器
                 IsSuccess = true;
                 LoadProgress.Visibility = Visibility.Collapsed;
                 loadLabel.Visibility = Visibility.Collapsed;
-                CookieMgr.Set( );
+                CookieMgr.Set(identity);
                 if (!App.Program.argus.IsPrivate)
                     Configer<Config>.Add(new Config(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.History);
-                if (Civilized.CheckCivilized(StdApi.PageText))
+                if (Civilized.CheckCivilized(StdApi.PageText(identity)))
                     civiLabel.Visibility = Visibility.Visible;
             }));
         }
 
         private void Cwb_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.Title = Browser.Title + " - 极简浏览器";
+            this.Title = Browser.Title(identity) + " - 极简浏览器";
         }
 
         private void Cwb_LoadError(object sender, LoadErrorEventArgs e)
@@ -114,7 +122,7 @@ namespace 极简浏览器
             Dispatcher.BeginInvoke((Action) (( ) =>
             {
                 if (IsSuccess != true && e.ErrorCode.ToString( ) != "Aborted")
-                    Browser.Navigate(FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
+                    Browser.Navigate(identity, FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
             }));
         }
 
@@ -123,9 +131,9 @@ namespace 极简浏览器
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
                 return;
             if (e.Delta > 0)
-                Browser.Core.ZoomInCommand.Execute(null);
+                Browser.Core[identity].ZoomInCommand.Execute(null);
             else if (e.Delta < 0)
-                Browser.Core.ZoomOutCommand.Execute(null);
+                Browser.Core[identity].ZoomOutCommand.Execute(null);
             e.Handled = true;
         }
 
@@ -150,14 +158,14 @@ namespace 极简浏览器
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F12)
-                Browser.Core.ShowDevTools( ); 
+                Browser.Core[identity].ShowDevTools( ); 
             if (Keyboard.Modifiers != ModifierKeys.Control)
                 return;
             switch (e.Key)
             {
                 case Key.H: new History( ).Show( ); break;
                 case Key.I: new Setting( ).Show( ); break;
-                case Key.R: Browser.Refresh( ); break;
+                case Key.R: Browser.Refresh(identity); break;
                 case Key.N: Instance.New( ); break;
             }
         }

@@ -55,22 +55,26 @@ namespace 极简浏览器
     }
     public class ExtChromiumBrowser : ChromiumWebBrowser
     {
-        public ExtChromiumBrowser() : base(null)
+        public ExtChromiumBrowser(int id) : base(null)
         {
             this.LifeSpanHandler = new CefLifeSpanHandler();
             this.DownloadHandler = new DownloadHandler();
+            identity = id;
         }
 
-        public ExtChromiumBrowser(string url) : base(url)
+        public ExtChromiumBrowser(int id, string url) : base(url)
         {
             this.LifeSpanHandler = new CefLifeSpanHandler();
+            this.DownloadHandler = new DownloadHandler( );
+            identity = id;
         }
+        public static int identity;
         public void OnNewWindow(NewWindowEventArgs e)
         {
             if (Browser.HostWindow.singleBox.IsChecked != true)
                 Instance.New(e.Url);
             else
-                Browser.Navigate(e.Url);
+                Browser.Navigate(identity, e.Url);
         }
     }
     public class NewWindowEventArgs : EventArgs
@@ -132,7 +136,13 @@ namespace 极简浏览器
 
     public class MenuHandler : IContextMenuHandler
     {
+        public MenuHandler(int id)
+        {
+            identity = id;
+        }
+
         public static Window mainWindow { get; set; }
+        public static int identity;
         void IContextMenuHandler.OnBeforeContextMenu(
             IWebBrowser browserControl,
             IBrowser browser, IFrame frame,
@@ -194,17 +204,17 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "前进",
-                    Command = new CustomCommand(Browser.GoForward)
+                    Command = new CustomCommand(( ) => { Browser.GoForward(identity); })
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "后退",
-                    Command = new CustomCommand(Browser.GoBack)
+                    Command = new CustomCommand(( ) => { Browser.GoBack(identity); })
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "刷新",
-                    Command = new CustomCommand(Browser.Refresh)
+                    Command = new CustomCommand(()=> { Browser.Refresh(identity); })
                 });
                 menu.Items.Add(new MenuItem
                 {
@@ -214,7 +224,7 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "网页源代码",
-                    Command = new CustomCommand(StdApi.ViewSource)
+                    Command = new CustomCommand(()=> { StdApi.ViewSource(identity); })
                 });
                 chromiumWebBrowser.ContextMenu = menu;
 

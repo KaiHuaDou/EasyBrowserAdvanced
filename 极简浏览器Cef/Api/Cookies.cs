@@ -20,12 +20,12 @@ namespace 极简浏览器.Api
             catch (NullReferenceException) { }
         }
 
-        public static void Set()
+        public static void Set(int id)
         {
             CookieVisitor visitor = new CookieVisitor();
             visitor.SendCookie += visitor_SendCookie;
-            ICookieManager cookieManager = Browser.Core.GetCookieManager();
-            curUrl = Browser.Address;
+            ICookieManager cookieManager = Browser.Core[id].GetCookieManager();
+            curUrl = Browser.Address(id);
             cookieManager.VisitAllCookies(visitor);
         }
 
