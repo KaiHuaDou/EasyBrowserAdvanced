@@ -2,9 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="极简浏览器.MainWindow"
         Title="极简浏览器" Width="800" Loaded="Window_Loaded" Icon="favicon/favicon.ico" Height="600"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        FontFamily="Microsoft YaHei UI" Closing="Window_Closing" KeyDown="Window_KeyDown">
-    <Window.Resources>
-    </Window.Resources>
+        FontFamily="Microsoft YaHei UI" KeyDown="Window_KeyDown">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo />
     </Window.TaskbarItemInfo>

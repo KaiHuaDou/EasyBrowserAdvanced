@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:极简浏览器" StartupUri="MainWindow.xaml"
-        DispatcherUnhandledException="ExpetionOpen" ShutdownMode="OnLastWindowClose">
+        DispatcherUnhandledException="ExpetionOpen" ShutdownMode="OnLastWindowClose"
+        Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

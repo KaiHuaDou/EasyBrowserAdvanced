@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Markup;
+using CefSharp;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -27,7 +27,6 @@ namespace 极简浏览器
         {
             public static string inputUrl ="";
             public static Argus argus = new Argus(0);
-            public static List<MainWindow> windows = new List<MainWindow>();
             [STAThread]
             public static void Main(string[] args)
             {
@@ -43,8 +42,8 @@ namespace 极简浏览器
                     Browser.Init();
                     App app = new App();
                     app.InitializeComponent();
-                    windows.Add(new MainWindow(0));
-                    app.Run(windows[0]);
+                    Browser.Host[0] = new MainWindow(0);
+                    app.Run(Browser.Host[0]);
                 }
                 catch (XamlParseException e)
                 {
@@ -98,6 +97,11 @@ namespace 极简浏览器
         {
             Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
             new Report(e.Exception.Message).ShowDialog( );
+        }
+
+        private void Application_Exit(object sender, System.Windows.ExitEventArgs e)
+        {
+            Cef.Shutdown( );
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
 
@@ -8,17 +7,9 @@ namespace 极简浏览器.Api
 {
     public static class Browser
     {
-        public static MainWindow HostWindow
-        {
-            get
-            {
-                foreach (Window window in Application.Current.Windows)
-                    if (window is MainWindow)
-                        return window as MainWindow;
-                return null;
-            }
-        }
-        public static List<ExtChromiumBrowser> Core = new List<ExtChromiumBrowser>( );
+        public static Dictionary<int, MainWindow> Host = new Dictionary<int, MainWindow>( );
+        public static Dictionary<int, ExtChromiumBrowser> Core = new Dictionary<int, ExtChromiumBrowser>( );
+        public static int MaxCnt;
         public static string Address(int id) { return Core[id].Address; }
         public static string Title(int id) { return Core[id].Title; }
         public static void Navigate(int id, string url) { Core[id].Address = url; }
@@ -28,10 +19,10 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if (Core[id].Address == HostWindow.UrlTextBox.Text)
+                if (Core[id].Address == Host[id].UrlTextBox.Text)
                     Core[id].Reload( );
                 else
-                    Navigate(id, HostWindow.UrlTextBox.Text);
+                    Navigate(id, Host[id].UrlTextBox.Text);
             }
             catch (Exception e) { Logger.Log(e); }
         }
@@ -49,7 +40,13 @@ namespace 极简浏览器.Api
             Cef.Initialize(settings);
             CookieMgr.Get( );
         }
-
+        public static void New(string url = "about:blank")
+        {
+            MaxCnt++;
+            App.Program.inputUrl = url;
+            Host[MaxCnt] = new MainWindow(MaxCnt);
+            Host[MaxCnt].Show();
+        }
         public static bool PraseEasy(int id, string url)
         {
             switch (url.ToLower().Replace("easy://", ""))
@@ -60,7 +57,7 @@ namespace 极简浏览器.Api
                 case "bookmark": new History().Show(); break;
                 case "setting": new Setting().Show(); break;
                 case "websource": StdApi.ViewSource(id); break;
-                case "newtab": Instance.New(); break;
+                case "newtab": New( ); break;
                 default: return false;
             }
             return true;

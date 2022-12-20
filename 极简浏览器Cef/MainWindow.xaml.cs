@@ -11,11 +11,8 @@ namespace 极简浏览器
 {
     public partial class MainWindow : Window
     {
-        public static object document;
-        public static Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
-        public static ChromiumWebBrowser cwb;
-        public static int identity;
-
+        public ChromiumWebBrowser cwb;
+        public int identity;
         public bool IsSuccess { get; set; }
 
         public MainWindow()
@@ -32,17 +29,21 @@ namespace 极简浏览器
 
         private void OnInitialize(object sender, DependencyPropertyChangedEventArgs e)
         {
-            //Cef.UIThreadTaskFactory.StartNew(( ) =>
-            //{
-            //    string error = "";
-            //    var requestContext = cwb.GetBrowser( ).GetHost( ).RequestContext;
-            //    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
-            //});
+            try
+            {
+                Cef.UIThreadTaskFactory.StartNew(( ) =>
+                {
+                    string error = "";
+                    var requestContext = cwb.GetBrowser( ).GetHost( ).RequestContext;
+                    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+                });
+            }
+            catch (NullReferenceException) { }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Browser.Core.Add(new ExtChromiumBrowser(identity));
+            Browser.Core[identity] = new ExtChromiumBrowser(identity);
             cwb = Browser.Core[identity];
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0);
@@ -150,11 +151,6 @@ namespace 极简浏览器
                 barShadow.Direction = 135;
             }
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Cef.Shutdown( );
-            GC.SuppressFinalize(this);
-        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F12)
@@ -166,7 +162,7 @@ namespace 极简浏览器
                 case Key.H: new History( ).Show( ); break;
                 case Key.I: new Setting( ).Show( ); break;
                 case Key.R: Browser.Refresh(identity); break;
-                case Key.N: Instance.New( ); break;
+                case Key.N: Browser.New( ); break;
             }
         }
     }

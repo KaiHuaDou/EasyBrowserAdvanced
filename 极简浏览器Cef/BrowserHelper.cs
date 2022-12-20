@@ -71,8 +71,8 @@ namespace 极简浏览器
         public static int identity;
         public void OnNewWindow(NewWindowEventArgs e)
         {
-            if (Browser.HostWindow.singleBox.IsChecked != true)
-                Instance.New(e.Url);
+            if (Browser.Host[identity].singleBox.IsChecked != true)
+                Browser.New(e.Url);
             else
                 Browser.Navigate(identity, e.Url);
         }
@@ -219,7 +219,7 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "新窗口",
-                    Command = new CustomCommand(() => { Instance.New(); })
+                    Command = new CustomCommand(() => { Browser.New(); })
                 });
                 menu.Items.Add(new MenuItem
                 {

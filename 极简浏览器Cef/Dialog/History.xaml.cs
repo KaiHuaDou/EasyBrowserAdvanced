@@ -65,7 +65,7 @@ namespace 极简浏览器
             {
                 if(item.IsChecked == true)
                 {
-                    Instance.New(item.SiteAddress);
+                    Browser.New(item.SiteAddress);
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace 极简浏览器
             {
                 if (item.IsChecked == true)
                 {
-                    Instance.New(item.SiteAddress);
+                    Browser.New(item.SiteAddress);
                 }
             }
         }

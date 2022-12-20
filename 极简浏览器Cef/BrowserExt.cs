@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using CefSharp;
 using 极简浏览器.Api;
 
@@ -11,7 +10,7 @@ namespace 极简浏览器
     public partial class MainWindow : Window
     {
         private void About_Click(object o, RoutedEventArgs e) { new About().Show(); }
-        private void NewPage_Click(object o, RoutedEventArgs e) { Instance.New(); }
+        private void NewPage_Click(object o, RoutedEventArgs e) { Browser.New(); }
         private void GoBack_Click(object o, RoutedEventArgs e) { Browser.GoBack(identity); }
         private void GoForward_Click(object o, RoutedEventArgs e) { Browser.GoForward(identity); }
         private void Help_Click(object o, RoutedEventArgs e) { new Help().Show(); }

@@ -125,7 +125,6 @@
     <Compile Include="Api\Cookies.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
-    <Compile Include="Api\Instance.cs" />
     <Compile Include="Api\Logger.cs" />
     <Compile Include="Api\StdApi.cs" />
     <Compile Include="BrowserExt.cs" />
