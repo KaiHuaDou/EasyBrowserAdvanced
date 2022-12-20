@@ -18,7 +18,7 @@ namespace 极简浏览器
         private void Refresh_Click(object o, RoutedEventArgs e) { Browser.Refresh(); }
         private void SetBookMark_Click(object o, RoutedEventArgs e)
         {
-            Configer.AddConfig(
+            Configer<Config>.Add(
                 new Config(false, Browser.Title, Browser.Address, StdApi.LocalTime),
                 FilePath.BookMark);
         }

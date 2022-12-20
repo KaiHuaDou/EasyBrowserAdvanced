@@ -17,14 +17,12 @@ namespace 极简浏览器.Api
                 return null;
             }
         }
-
         public static ExtChromiumBrowser Core { get; set; }
         public static string Address { get { return Core.Address; } }
         public static string Title { get { return Core.Title; } }
         public static void Navigate(string url) { Core.Address = url; }
         public static void GoBack() { if (Core.CanGoBack) Core.Back(); }
         public static void GoForward() { if (Core.CanGoForward) Core.Forward(); }
-
         public static void Refresh()
         {
             try
@@ -35,20 +33,20 @@ namespace 极简浏览器.Api
             }
             catch (Exception e) { Logger.Log(e); }
         }
-
         public static void Init()
         {
             var settings = new CefSettings();
-            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
-            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
             settings.Locale = "zh-CN";
             settings.AcceptLanguageList = "zh-CN";
+            settings.CefCommandLineArgs["enable-media-stream"] = "1";
+            settings.CefCommandLineArgs["no-proxy-server"] = "1";
             settings.CefCommandLineArgs["enable-system-flash"] = "1";
             settings.CefCommandLineArgs["log_severity"] = "disabled";
-            settings.CefCommandLineArgs.Add("ppapi-flash-path", "resource/pepflashplayer.dll");
-            settings.CefCommandLineArgs.Add("ppapi-flash-version", "99.0.0.999");
+            settings.CefCommandLineArgs["ppapi-flash-path"] = "resource/pepflashplayer.dll";
+            settings.CefCommandLineArgs["ppapi-flash-version"] = "99.0.0.999";
             Cef.Initialize(settings);
             Core = new ExtChromiumBrowser();
+            CookieMgr.Get();
         }
 
         public static bool PraseEasy(string url)

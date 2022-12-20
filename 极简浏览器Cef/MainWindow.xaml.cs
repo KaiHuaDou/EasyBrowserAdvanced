@@ -35,7 +35,6 @@ namespace 极简浏览器
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#region CefInit
             cwb = Browser.Core;
             CWBGrid.Children.Add(cwb);
             cwb.Margin = new Thickness(0);
@@ -47,7 +46,6 @@ namespace 极简浏览器
             cwb.MenuHandler = new MenuHandler();
             cwb.DownloadHandler = new DownloadHandler();
             cwb.LoadError += Cwb_LoadError;
-#endregion
             Dispatcher.BeginInvoke((Action)(() =>
             {
                 try
@@ -96,8 +94,9 @@ namespace 极简浏览器
                 IsSuccess = true;
                 LoadProgress.Visibility = Visibility.Collapsed;
                 loadLabel.Visibility = Visibility.Collapsed;
+                CookieMgr.Set();
                 if (!App.Program.argus.IsPrivate)
-                    Configer.AddConfig(new Config(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.History);
+                    Configer<Config>.Add(new Config(false, cwb.Title, cwb.Address, StdApi.LocalTime), FilePath.History);
                 if (Civilized.CheckCivilized(StdApi.PageText))
                     civiLabel.Visibility = Visibility.Visible;
             }));
@@ -143,7 +142,7 @@ namespace 极简浏览器
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             cwb.Dispose();
-            Browser.Core.Dispose();
+            GC.SuppressFinalize(cwb);
             GC.SuppressFinalize(this);
         }
     }

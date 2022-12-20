@@ -122,6 +122,7 @@
     <Compile Include="Api\Browser.cs" />
     <Compile Include="Api\Civilized.cs" />
     <Compile Include="Api\Config.cs" />
+    <Compile Include="Api\Cookies.cs" />
     <Compile Include="Api\FileApi.cs" />
     <Compile Include="Api\FilePath.cs" />
     <Compile Include="Api\Instance.cs" />

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 namespace 极简浏览器.Api
 {
-    public static class Configer
+    public static class Configer<T>
     {
         private static FileStream genGetStream(string fileName)
         {
@@ -16,45 +16,45 @@ namespace 极简浏览器.Api
             FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
             return stream;
         }
-        public static void AddConfig(Config data, string fileName)
+        public static void Add(T data, string fileName)
         {
-            ObservableCollection<Config> savedData = GetConfig(fileName);
+            HashSet<T> savedData = Get(fileName);
             savedData.Add(data);
-            SaveConfig(savedData, fileName);
+            Save(savedData, fileName);
         }
-        public static void RemoveConfig(Config data, string fileName)
+        public static void Remove(T data, string fileName)
         {
-            ObservableCollection<Config> savedData = GetConfig(fileName);
+            HashSet<T> savedData = Get(fileName);
             savedData.Remove(data);
-            SaveConfig(savedData, fileName);
+            Save(savedData, fileName);
         }
-        public static void SaveConfig(ObservableCollection<Config> data,  string fileName)
+        public static void Save(HashSet<T> data,  string fileName)
         {
             FileStream fs = genSetStream(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Config>));
+            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
             serializer.Serialize(fs, data);
             fs.Close();
         }
-        public static ObservableCollection<Config> GetConfig(string fileName)
+        public static HashSet<T> Get(string fileName)
         {
             FileStream fs = genGetStream(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Config>));
-            ObservableCollection<Config> config = new ObservableCollection<Config>();
+            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
+            HashSet<T> config = new HashSet<T>();
             try
             {
-                config = serializer.Deserialize(fs) as ObservableCollection<Config>;
+                config = serializer.Deserialize(fs) as HashSet<T>;
                 fs.Close();
             }
             catch (InvalidOperationException)
             {
                 fs.Close();
-                InitConfig(fileName);
+                Init(fileName);
             }
             return config;
         }
-        public static void InitConfig(string fileName)
+        public static void Init(string fileName)
         {
-            SaveConfig(new ObservableCollection<Config>(), fileName);
+            Save(new HashSet<T>(), fileName);
         }
     }
     public class Config

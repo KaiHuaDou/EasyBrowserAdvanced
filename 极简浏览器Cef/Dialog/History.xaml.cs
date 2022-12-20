@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using 极简浏览器.Api;
 
@@ -9,14 +10,14 @@ namespace 极简浏览器
     /// </summary>
     public partial class History : Window
     {
-        ObservableCollection<Config> HistoryData;
-        ObservableCollection<Config> BookMarkData;
+        HashSet<Config> HistoryData;
+        HashSet<Config> BookMarkData;
         public History()
         {
             InitializeComponent();
-            HistoryData = Configer.GetConfig(FilePath.History);
+            HistoryData = Configer<Config>.Get(FilePath.History);
             HistoryDataGrid.ItemsSource = HistoryData;
-            BookMarkData = Configer.GetConfig(FilePath.BookMark);
+            BookMarkData = Configer<Config>.Get(FilePath.BookMark);
             BookMarkDataGrid.ItemsSource = BookMarkData;
         }
 
@@ -37,7 +38,7 @@ namespace 极简浏览器
 
         private void HistoryDelete(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Config> temp = new ObservableCollection<Config>();
+            HashSet<Config> temp = new HashSet<Config>();
             foreach (Config item in HistoryData)
             {
                 if (item.IsChecked == true)
@@ -84,7 +85,7 @@ namespace 极简浏览器
 
         private void BookMarkDelete(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Config> temp = new ObservableCollection<Config>();
+            HashSet<Config> temp = new HashSet<Config>();
             foreach (Config item in BookMarkData)
             {
                 if (item.IsChecked == true)
@@ -117,8 +118,8 @@ namespace 极简浏览器
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Configer.SaveConfig(HistoryData, FilePath.History);
-            Configer.SaveConfig(BookMarkData, FilePath.BookMark);
+            Configer<Config>.Save(HistoryData, FilePath.History);
+            Configer<Config>.Save(BookMarkData, FilePath.BookMark);
         }
     }
 }
