@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using 极简浏览器.Api;
 
@@ -11,14 +10,17 @@ namespace 极简浏览器
     public partial class History : Window
     {
         HashSet<Config> HistoryData;
-        HashSet<Config> BookMarkData;
+        HashSet<Config> BookmarkData;
+        HashSet<CookieData> CookiesData;
         public History()
         {
             InitializeComponent();
             HistoryData = Configer<Config>.Get(FilePath.History);
             HistoryDataGrid.ItemsSource = HistoryData;
-            BookMarkData = Configer<Config>.Get(FilePath.BookMark);
-            BookMarkDataGrid.ItemsSource = BookMarkData;
+            BookmarkData = Configer<Config>.Get(FilePath.BookMark);
+            BookmarkDataGrid.ItemsSource = BookmarkData;
+            CookiesData = Configer<CookieData>.Get(FilePath.Cookies);
+            CookiesDataGrid.ItemsSource = CookiesData;
         }
 
         #region History
@@ -27,7 +29,7 @@ namespace 极简浏览器
             HistoryDataGrid.ItemsSource = null;
             HistoryDataGrid.ItemsSource = HistoryData;
         }
-        private void History_SelectAll_Button_Click(object sender, RoutedEventArgs e)
+        private void HistoryAll(object sender, RoutedEventArgs e)
         {
             foreach (Config item in HistoryData)
             {
@@ -57,7 +59,7 @@ namespace 极简浏览器
             HistoryData.Clear();
             InitHistory();
         }
-        private void HistoryNewWindow(object sender, RoutedEventArgs e)
+        private void HistoryNew(object sender, RoutedEventArgs e)
         {
             foreach(Config item in HistoryData)
             {
@@ -69,24 +71,24 @@ namespace 极简浏览器
         }
         #endregion
         #region BookMark
-        private void InitBookMark()
+        private void InitBookmark()
         {
-            BookMarkDataGrid.ItemsSource = null;
-            BookMarkDataGrid.ItemsSource = BookMarkData;
+            BookmarkDataGrid.ItemsSource = null;
+            BookmarkDataGrid.ItemsSource = BookmarkData;
         }
-        private void BookMark_SelectAll_Button_Click(object sender, RoutedEventArgs e)
+        private void BookmarkAll(object sender, RoutedEventArgs e)
         {
-            foreach (Config item in BookMarkData)
+            foreach (Config item in BookmarkData)
             {
                 item.IsChecked = !item.IsChecked;
             }
-            InitBookMark();
+            InitBookmark();
         }
 
-        private void BookMarkDelete(object sender, RoutedEventArgs e)
+        private void BookmarkDelete(object sender, RoutedEventArgs e)
         {
             HashSet<Config> temp = new HashSet<Config>();
-            foreach (Config item in BookMarkData)
+            foreach (Config item in BookmarkData)
             {
                 if (item.IsChecked == true)
                 {
@@ -95,18 +97,18 @@ namespace 极简浏览器
             }
             foreach (Config item in temp)
             {
-                BookMarkData.Remove(item);
+                BookmarkData.Remove(item);
             }
-            InitBookMark();
+            InitBookmark();
         }
-        private void BookMarkClear(object sender, RoutedEventArgs e)
+        private void BookmarkClear(object sender, RoutedEventArgs e)
         {
-            BookMarkData.Clear();
-            InitBookMark();
+            BookmarkData.Clear();
+            InitBookmark();
         }
-        private void BookMarkNewWindow(object sender, RoutedEventArgs e)
+        private void BookmarkNew(object sender, RoutedEventArgs e)
         {
-            foreach (Config item in BookMarkData)
+            foreach (Config item in BookmarkData)
             {
                 if (item.IsChecked == true)
                 {
@@ -115,11 +117,49 @@ namespace 极简浏览器
             }
         }
         #endregion
+        #region Cookies
+        private void InitCookies()
+        {
+            CookiesDataGrid.ItemsSource = null;
+            CookiesDataGrid.ItemsSource = CookiesData;
+        }
+        private void CookiesAll(object sender, RoutedEventArgs e)
+        {
+            foreach (CookieData item in CookiesData)
+            {
+                item.IsChecked = !item.IsChecked;
+            }
+            InitCookies();
+        }
+
+        private void CookiesDelete(object sender, RoutedEventArgs e)
+        {
+            HashSet<CookieData> temp = new HashSet<CookieData>();
+            foreach (CookieData item in CookiesData)
+            {
+                if (item.IsChecked == true)
+                {
+                    temp.Add(item);
+                }
+            }
+            foreach (CookieData item in temp)
+            {
+                CookiesData.Remove(item);
+            }
+            InitCookies();
+        }
+        private void CookiesClear(object sender, RoutedEventArgs e)
+        {
+            CookiesData.Clear();
+            InitCookies();
+        }
+        #endregion
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Configer<Config>.Save(HistoryData, FilePath.History);
-            Configer<Config>.Save(BookMarkData, FilePath.BookMark);
+            Configer<Config>.Save(BookmarkData, FilePath.BookMark);
+            Configer<CookieData>.Save(CookiesData, FilePath.Cookies);
         }
     }
 }

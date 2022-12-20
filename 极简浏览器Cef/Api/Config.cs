@@ -60,12 +60,12 @@ namespace 极简浏览器.Api
     public class Config
     {
         public Config( ) { }
-        public Config(bool isChecked, string siteName, string siteAddress, string visitTime)
+        public Config(bool c, string n, string a, string t)
         {
-            IsChecked = isChecked;
-            SiteName = siteName;
-            SiteAddress = siteAddress;
-            VisitTime = visitTime;
+            IsChecked = c;
+            SiteName = n;
+            SiteAddress = a;
+            VisitTime = t;
         }
         public bool IsChecked { get; set; }
         public string SiteName { get; set; }

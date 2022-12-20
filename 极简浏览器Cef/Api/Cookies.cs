@@ -17,10 +17,7 @@ namespace 极简浏览器.Api
                 foreach (CookieData item in cookies)
                     manager.SetCookieAsync(item.Key, item.Value);
             }
-            catch (NullReferenceException)
-            {
-                System.Diagnostics.Debug.WriteLine("No Cookies");
-            }
+            catch (NullReferenceException) { }
         }
 
         public static void Set()
@@ -56,10 +53,7 @@ namespace 极简浏览器.Api
                     }
                 }
             }
-            catch (NullReferenceException)
-            {
-                System.Diagnostics.Debug.WriteLine("No Cookies");
-            }
+            catch (NullReferenceException) { }
             Configer<CookieData>.
                     Add(new CookieData(curUrl, obj), FilePath.Cookies);
         }
@@ -72,6 +66,7 @@ namespace 极简浏览器.Api
             Key = k;
             Value = v;
         }
+        public bool IsChecked;
         public string Key;
         public Cookie Value;
     }
