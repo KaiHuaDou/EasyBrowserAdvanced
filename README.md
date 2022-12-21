@@ -7,6 +7,8 @@
 
 适用与性能一般的电脑或者需要 Flash 的场景。
 
+[GitHub 储存库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)更新快，[Azure 储存库](https://dev.azure.com/qpsh/%E6%9E%81%E7%AE%80%E6%B5%8F%E8%A7%88%E5%99%A8)更新慢，建议访问 [GitHub 储存库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)。
+
 > 特别鸣谢 StrollStars 对运行依赖的改进建议
 
 ## 特点
@@ -40,6 +42,7 @@
 #### 下一个RC（RC2）
 
 + *Bug修复 #39 降低 `MainWindow` 的耦合度* 
++ 增加功能 #50 增加了缩放级别显示
 + 增加功能 #49 转换为单进程模式，提升性能
 + 增加功能 #48 增加通过`Ctrl`快捷键进入窗口的功能
 + Bug修复 #48 为配置类启用了泛型

@@ -18,23 +18,24 @@ namespace 极简浏览器
         public bool IsTopmost { get; set; }
         public bool IsPrivate { get; set; }
     }
-    /// <summary>
-    /// App.xaml 的交互逻辑
-    /// </summary>
+    
     public partial class App : System.Windows.Application
     {
+        /// <summary>
+        /// 应用程序的入口点、参数的处理与传递、运行时错误的处理
+        /// </summary>
         public static class Program
         {
             public static string inputUrl ="";
-            public static Argus argus = new Argus(0);
+            public static Argus Args = new Argus(0);
             [STAThread]
             public static void Main(string[] args)
             {
                 if (args.Length >= 1)
                 {
                     inputUrl = args[0];
-                    argus.IsPrivate = Convert.ToBoolean(args[1]);
-                    argus.IsTopmost = Convert.ToBoolean(args[2]);
+                    Args.IsPrivate = Convert.ToBoolean(args[1]);
+                    Args.IsTopmost = Convert.ToBoolean(args[2]);
                 }
                 try
                 {
@@ -98,7 +99,6 @@ namespace 极简浏览器
             Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
             new Report(e.Exception.Message).ShowDialog( );
         }
-
         private void Application_Exit(object sender, System.Windows.ExitEventArgs e)
         {
             Cef.Shutdown( );

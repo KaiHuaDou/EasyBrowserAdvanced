@@ -15,7 +15,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if(logType != LogType.Error && App.Program.argus.IsPrivate)
+                if(logType != LogType.Error && App.Program.Args.IsPrivate)
                 {
                     goto skip;
                 }

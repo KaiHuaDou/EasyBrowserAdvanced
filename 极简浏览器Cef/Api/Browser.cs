@@ -5,6 +5,9 @@ using CefSharp.Wpf;
 
 namespace 极简浏览器.Api
 {
+    /// <summary>
+    /// 访问浏览器与主窗口集合的唯一入口
+    /// </summary>
     public static class Browser
     {
         public static Dictionary<int, MainWindow> Host = new Dictionary<int, MainWindow>( );
@@ -15,6 +18,7 @@ namespace 极简浏览器.Api
         public static void Navigate(int id, string url) { Core[id].Address = url; }
         public static void GoBack(int id) { if (Core[id].CanGoBack) Core[id].Back( ); }
         public static void GoForward(int id) { if (Core[id].CanGoForward) Core[id].Forward( ); }
+        public static void ShowDevTools(int id) { Core[id].ShowDevTools( ); }
         public static void Refresh(int id)
         {
             try
@@ -56,11 +60,32 @@ namespace 极简浏览器.Api
                 case "history": new History().Show(); break;
                 case "bookmark": new History().Show(); break;
                 case "setting": new Setting().Show(); break;
-                case "websource": StdApi.ViewSource(id); break;
+                case "websource": ViewSource(id); break;
                 case "newtab": New( ); break;
                 default: return false;
             }
             return true;
         }
+        public static string PageText(int id)
+        {
+            TaskStringVisitor tsv = new TaskStringVisitor( );
+            Core[id].GetMainFrame( ).GetText(tsv);
+            while (tsv.Task.IsCompleted)
+                ;
+            return tsv.Task.Result;
+        }
+        public static string PageSource(int id)
+        {
+            TaskStringVisitor tsv = new TaskStringVisitor( );
+            Core[id].GetMainFrame( ).GetSource(tsv);
+            while (tsv.Task.IsCompleted)
+                ;
+            return tsv.Task.Result;
+        }
+        public static void ViewSource(int id)
+        {
+            new WebSource(id, PageSource(id)).Show( );
+        }
+
     }
 }

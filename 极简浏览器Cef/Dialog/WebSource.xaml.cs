@@ -20,7 +20,7 @@ namespace 极简浏览器
         public int identity;
         private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = StdApi.PageSource(identity);
+            textBox.Text = Browser.PageSource(identity);
         }
 
         private void formatButton_Click(object sender, RoutedEventArgs e)

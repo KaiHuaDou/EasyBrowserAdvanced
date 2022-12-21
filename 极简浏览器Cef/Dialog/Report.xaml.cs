@@ -3,7 +3,7 @@
 namespace 极简浏览器
 {
     /// <summary>
-    /// Report.xaml 的交互逻辑
+    /// 报错的模块
     /// </summary>
     public partial class Report : Window
     {

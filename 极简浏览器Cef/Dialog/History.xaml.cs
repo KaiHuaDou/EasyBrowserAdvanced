@@ -12,19 +12,19 @@ namespace 极简浏览器
         HashSet<Config> HistoryData;
         HashSet<Config> BookmarkData;
         HashSet<CookieData> CookiesData;
-        public History()
+        public History( )
         {
-            InitializeComponent();
+            InitializeComponent( );
             HistoryData = Configer<Config>.Get(FilePath.History);
-            HistoryDataGrid.ItemsSource = HistoryData;
             BookmarkData = Configer<Config>.Get(FilePath.BookMark);
-            BookmarkDataGrid.ItemsSource = BookmarkData;
             CookiesData = Configer<CookieData>.Get(FilePath.Cookies);
+            HistoryDataGrid.ItemsSource = HistoryData;
+            BookmarkDataGrid.ItemsSource = BookmarkData;
             CookiesDataGrid.ItemsSource = CookiesData;
         }
 
         #region History
-        private void InitHistory()
+        private void InitHistory( )
         {
             HistoryDataGrid.ItemsSource = null;
             HistoryDataGrid.ItemsSource = HistoryData;
@@ -35,12 +35,12 @@ namespace 极简浏览器
             {
                 item.IsChecked = !item.IsChecked;
             }
-            InitHistory();
+            InitHistory( );
         }
 
         private void HistoryDelete(object sender, RoutedEventArgs e)
         {
-            HashSet<Config> temp = new HashSet<Config>();
+            HashSet<Config> temp = new HashSet<Config>( );
             foreach (Config item in HistoryData)
             {
                 if (item.IsChecked == true)
@@ -52,18 +52,18 @@ namespace 极简浏览器
             {
                 HistoryData.Remove(item);
             }
-            InitHistory();
+            InitHistory( );
         }
         private void HistoryClear(object sender, RoutedEventArgs e)
         {
-            HistoryData.Clear();
-            InitHistory();
+            HistoryData.Clear( );
+            InitHistory( );
         }
         private void HistoryNew(object sender, RoutedEventArgs e)
         {
-            foreach(Config item in HistoryData)
+            foreach (Config item in HistoryData)
             {
-                if(item.IsChecked == true)
+                if (item.IsChecked == true)
                 {
                     Browser.New(item.SiteAddress);
                 }
@@ -71,7 +71,7 @@ namespace 极简浏览器
         }
         #endregion
         #region BookMark
-        private void InitBookmark()
+        private void InitBookmark( )
         {
             BookmarkDataGrid.ItemsSource = null;
             BookmarkDataGrid.ItemsSource = BookmarkData;
@@ -82,12 +82,12 @@ namespace 极简浏览器
             {
                 item.IsChecked = !item.IsChecked;
             }
-            InitBookmark();
+            InitBookmark( );
         }
 
         private void BookmarkDelete(object sender, RoutedEventArgs e)
         {
-            HashSet<Config> temp = new HashSet<Config>();
+            HashSet<Config> temp = new HashSet<Config>( );
             foreach (Config item in BookmarkData)
             {
                 if (item.IsChecked == true)
@@ -99,12 +99,12 @@ namespace 极简浏览器
             {
                 BookmarkData.Remove(item);
             }
-            InitBookmark();
+            InitBookmark( );
         }
         private void BookmarkClear(object sender, RoutedEventArgs e)
         {
-            BookmarkData.Clear();
-            InitBookmark();
+            BookmarkData.Clear( );
+            InitBookmark( );
         }
         private void BookmarkNew(object sender, RoutedEventArgs e)
         {
@@ -118,7 +118,7 @@ namespace 极简浏览器
         }
         #endregion
         #region Cookies
-        private void InitCookies()
+        private void InitCookies( )
         {
             CookiesDataGrid.ItemsSource = null;
             CookiesDataGrid.ItemsSource = CookiesData;
@@ -129,12 +129,12 @@ namespace 极简浏览器
             {
                 item.IsChecked = !item.IsChecked;
             }
-            InitCookies();
+            InitCookies( );
         }
 
         private void CookiesDelete(object sender, RoutedEventArgs e)
         {
-            HashSet<CookieData> temp = new HashSet<CookieData>();
+            HashSet<CookieData> temp = new HashSet<CookieData>( );
             foreach (CookieData item in CookiesData)
             {
                 if (item.IsChecked == true)
@@ -146,12 +146,12 @@ namespace 极简浏览器
             {
                 CookiesData.Remove(item);
             }
-            InitCookies();
+            InitCookies( );
         }
         private void CookiesClear(object sender, RoutedEventArgs e)
         {
-            CookiesData.Clear();
-            InitCookies();
+            CookiesData.Clear( );
+            InitCookies( );
         }
         #endregion
 

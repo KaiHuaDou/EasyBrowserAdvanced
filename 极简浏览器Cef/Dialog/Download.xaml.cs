@@ -10,6 +10,9 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
+    /// <summary>
+    /// 下载文件的模块
+    /// </summary>
     public partial class Download : Window
     {
         private static DownloadItem basicInfo = new DownloadItem();
