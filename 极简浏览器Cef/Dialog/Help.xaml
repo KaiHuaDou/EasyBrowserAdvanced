@@ -38,7 +38,6 @@
             </TreeViewItem>
         </TreeView>
         <Button x:Name="button" Content="确定" HorizontalAlignment="Right" Margin="10" Width="100"
-                IsDefault="True" Click="button_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                IsDefault="True" Click="button_Click" />
     </StackPanel>
 </Window>

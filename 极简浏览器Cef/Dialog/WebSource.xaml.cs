@@ -15,20 +15,20 @@ namespace 极简浏览器
         {
             InitializeComponent( );
             textBox.Text = text;
-            identity = id;
+            Id = id;
         }
-        public int identity;
+        public int Id;
         private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
-            textBox.Text = Browser.PageSource(identity);
+            textBox.Text = Browser.PageSource(Id);
         }
 
         private void formatButton_Click(object sender, RoutedEventArgs e)
         {
             new Thread((html) =>
             {
-                string result = Formatter.FormartHtml((string)html, true);
-                Dispatcher.Invoke(() => { textBox.Text = result; });
+                string result = Formatter.FormartHtml((string) html, true);
+                Dispatcher.Invoke(( ) => { textBox.Text = result; });
             }).Start(textBox.Text);
         }
 
@@ -37,12 +37,12 @@ namespace 极简浏览器
             SaveFileDialog sfd = new SaveFileDialog
             {
                 DefaultExt = ".html",
-                FileName = Browser.Title(identity),
+                FileName = Browser.Title(Id),
                 AddExtension = true,
                 Filter = "HTML 文件|.html"
             };
-            sfd.ShowDialog();
-            File.WriteAllText(sfd.FileName, textBox.Text);
+            if (sfd.ShowDialog( ) == true)
+                File.WriteAllText(sfd.FileName, textBox.Text);
         }
     }
 }

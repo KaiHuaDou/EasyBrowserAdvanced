@@ -1,85 +1,127 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="极简浏览器.MainWindow"
         Title="极简浏览器" Width="800" Loaded="WindowLoaded" Icon="favicon/favicon.ico" Height="600"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         FontFamily="Microsoft YaHei UI" KeyDown="ShortcutProcess">
-    <Window.TaskbarItemInfo>
-        <TaskbarItemInfo />
-    </Window.TaskbarItemInfo>
+    <Window.Resources>
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        <Style x:Key="WhiteMenu" TargetType="{x:Type MenuItem}">
+            <Setter Property="Padding" Value="0,5" />
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style x:Key="TopMenuItem" TargetType="{x:Type MenuItem}">
+            <Setter Property="Width" Value="35" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid Height="35" Width="35" Background="White">
+                            <Border x:Name="_border" CornerRadius="12" Background="#FFE6E6E6"
+                                    Opacity="0" />
+                            <Label Foreground="Black" VerticalAlignment="Center" x:Name="_txt"
+                                    Content="..." Margin="0" />
+                            <Popup Placement="Left" x:Name="SubMenuPopup" AllowsTransparency="True"
+                                    Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}"
+                                    PopupAnimation="Slide">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                        HorizontalScrollBarVisibility="Disabled">
+                                    <StackPanel IsItemsHost="True" Background="White"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                </ScrollViewer>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="1" TargetName="_border" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="TextboxStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="_border" BorderThickness="1" BorderBrush="Black"
+                                CornerRadius="12" Background="White">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="_border" Property="BorderBrush" Value="Blue" />
+                                <Setter TargetName="_border" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
-            <RowDefinition Height="7" />
+            <RowDefinition Height="3" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Button x:Name="GoBackButton" Width="35" Height="35" Click="GoBack_Click"
-                    BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    FocusVisualStyle="{x:Null}">
-                <materialDesign:PackIcon Kind="ArrowLeft" />
+            <Button x:Name="GoBackButton" Click="GoBack_Click" Style="{StaticResource RoundButton}">←
             </Button>
-            <Button x:Name="GoForwardButton" Width="35" Height="35" Click="GoForward_Click"
-                    BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    FocusVisualStyle="{x:Null}">
-                <materialDesign:PackIcon Kind="ArrowRight" />
-            </Button>
+            <Button x:Name="GoForwardButton" Click="GoForward_Click"
+                    Style="{StaticResource RoundButton}">
+                →</Button>
             <Menu Width="35" Height="35" DockPanel.Dock="Right">
-                <MenuItem Height="35" Width="43">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="DotsVertical" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="后退" Click="GoForward_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="前进" Click="GoBack_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="刷新" Click="Refresh_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="新窗口" Click="NewPage_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
+                <MenuItem Height="35" Width="35" Header="..." Style="{StaticResource TopMenuItem}">
+                    <MenuItem Header="后退" Click="GoForward_Click" Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="前进" Click="GoBack_Click" Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="刷新" Click="Refresh_Click" Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="新窗口" Click="NewPage_Click" Style="{StaticResource WhiteMenu}" />
                     <MenuItem Header="网页源代码" Click="ViewSource_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
+                            Style="{StaticResource WhiteMenu}" />
                     <MenuItem Header="设为书签" Click="SetBookMark_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
+                            Style="{StaticResource WhiteMenu}" />
                     <MenuItem Header="历史记录/书签" Click="History_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="设置" Click="Setting_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="帮助" Click="Help_Click" Style="{StaticResource WhitePoupuItem}" />
-                    <MenuItem Header="关于" Click="About_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
+                            Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="设置" Click="Setting_Click" Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="帮助" Click="Help_Click" Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="关于" Click="About_Click" Style="{StaticResource WhiteMenu}" />
                     <MenuItem x:Name="DevToolsButton" Header="开发者工具" Click="DevTool_Click"
-                            Style="{StaticResource WhitePoupuItem}" />
-                    <CheckBox Content="置顶" Click="Topmost_Checked" Foreground="Black"
-                            FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
-                    <CheckBox Content="本窗口打开" x:Name="singleBox" Foreground="Black"
-                            FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
-                    <CheckBox Content="无痕模式" x:Name="privateBox" Click="PrivateMode_Checked" Foreground="Black"
-                            FontFamily="Microsoft YaHei UI" Padding="-1, 5" FontSize="20" />
+                            Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Header="置顶" Click="Topmost_Checked" Style="{StaticResource WhiteMenu}"
+                            IsCheckable="True" />
+                    <MenuItem Header="本窗口打开" x:Name="singleBox" Style="{StaticResource WhiteMenu}"
+                            IsCheckable="True" />
+                    <MenuItem Header="无痕模式" x:Name="privateBox" Click="PrivateMode_Checked"
+                            Style="{StaticResource WhiteMenu}" IsCheckable="True" />
                 </MenuItem>
             </Menu>
-            <Button x:Name="NewPageButton" Width="35" Height="35" Click="NewPage_Click"
-                    BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    FocusVisualStyle="{x:Null}" DockPanel.Dock="Right">
-                <materialDesign:PackIcon Kind="Plus" />
-            </Button>
-            <Button x:Name="RefershButton" Width="35" Height="35" Click="Refresh_Click"
-                    BorderThickness="0" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    FocusVisualStyle="{x:Null}" DockPanel.Dock="Right">
-                <materialDesign:PackIcon Kind="Refresh" />
-            </Button>
-            <TextBox x:Name="UrlTextBox" Height="33" TextWrapping="NoWrap" Text="" FontSize="20"
-                    KeyDown="Nav_KeyDown" Style="{StaticResource TextboxStyle}" VerticalAlignment="Center" />
+            <Button x:Name="NewPageButton" Click="NewPage_Click"
+                    Style="{StaticResource RoundButton}" DockPanel.Dock="Right">
+                +</Button>
+            <Button x:Name="RefershButton" Click="Refresh_Click"
+                    Style="{StaticResource RoundButton}" DockPanel.Dock="Right" Content="@" />
+            <TextBox x:Name="UrlTextBox" TextWrapping="NoWrap" Text="" FontSize="20"
+                    KeyDown="Nav_KeyDown" Style="{StaticResource TextboxStyle}"
+                    VerticalAlignment="Center" Margin="0,2,0,0" Height="30" />
         </DockPanel>
-        <ProgressBar x:Name="LoadProgress" Maximum="100" Background="{x:Null}"
-                BorderThickness="0" IsIndeterminate="True" Grid.Row="1" Height="7" />
+        <ProgressBar x:Name="LoadProgress" Maximum="100" Background="{x:Null}" BorderThickness="0"
+                IsIndeterminate="True" Grid.Row="1" Height="3" Foreground="#FF007ACC" />
         <Grid x:Name="CWBGrid" Margin="0" PreviewMouseWheel="Cwb_MouseWheel" Grid.Row="2" />
         <StackPanel x:Name="statusBar" Height="33" VerticalAlignment="Bottom" Background="#FFF1F3F4"
-                HorizontalAlignment="Left" MouseEnter="StatusMouseEnter"
-                Orientation="Horizontal" Grid.Row="2">
+                HorizontalAlignment="Left" MouseEnter="StatusMouseEnter" Orientation="Horizontal"
+                Grid.Row="2">
             <StackPanel.Effect>
                 <DropShadowEffect x:Name="barShadow" Direction="45" Opacity="0.2" />
             </StackPanel.Effect>
-            <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed"/>
+            <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
             <Label x:Name="loadLabel" Content="正在加载中……" />
             <Label x:Name="civiLabel" Content="此网页不文明!" Visibility="Collapsed" Foreground="Red" />
         </StackPanel>

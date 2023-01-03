@@ -18,7 +18,7 @@ namespace 极简浏览器
         public bool IsTopmost { get; set; }
         public bool IsPrivate { get; set; }
     }
-    
+
     public partial class App : System.Windows.Application
     {
         /// <summary>
@@ -26,7 +26,7 @@ namespace 极简浏览器
         /// </summary>
         public static class Program
         {
-            public static string inputUrl ="";
+            public static string inputUrl = "";
             public static Argus Args = new Argus(0);
             [STAThread]
             public static void Main(string[] args)
@@ -39,10 +39,10 @@ namespace 极简浏览器
                 }
                 try
                 {
-                    RuntimeFix();
-                    Browser.Init();
-                    App app = new App();
-                    app.InitializeComponent();
+                    //RuntimeFix( );
+                    Browser.Init( );
+                    App app = new App( );
+                    app.InitializeComponent( );
                     Browser.Host[0] = new MainWindow(0);
                     app.Run(Browser.Host[0]);
                 }
@@ -50,49 +50,46 @@ namespace 极简浏览器
                 {
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
                     System.Windows.MessageBox.Show(
-                        e.Message, 极简浏览器.Properties.Resources.browserName, 
-                        System.Windows.MessageBoxButton.OK, 
+                        e.Message, 极简浏览器.Properties.Resources.browserName,
+                        System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Error);
                 }
             }
         }
         static void RuntimeFix( )
         {
-            new Thread(() =>
+            new Thread(( ) =>
             {
                 if (!Directory.Exists(FilePath.Datas))
                     Directory.CreateDirectory(FilePath.Datas);
-                if (!Directory.Exists(FilePath.Logs))
-                    Directory.CreateDirectory(FilePath.Logs);
                 if (!File.Exists(FilePath.History))
                     File.Create(FilePath.History);
                 if (!File.Exists(FilePath.BookMark))
                     File.Create(FilePath.BookMark);
+                if (!File.Exists(FilePath.Cookies))
+                    File.Create(FilePath.Cookies);
                 if (!File.Exists(FilePath.Config))
                     File.Create(FilePath.Config);
+                if (!Directory.Exists(FilePath.Logs))
+                    Directory.CreateDirectory(FilePath.Logs);
                 if (!File.Exists(FilePath.Logs + "\\log.log"))
                     File.Create(FilePath.Logs + "\\log.log");
                 if (!File.Exists(FilePath.Logs + "\\error.log"))
                     File.Create(FilePath.Logs + "\\error.log");
                 if (!File.Exists(FilePath.Logs + "\\debug.log"))
                     File.Create(FilePath.Logs + "\\debug.log");
-            }).Start();
+            }).Start( );
             try
             {
                 if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)
-                {
                     new Thread(showNoAccsses).Start( );
-                    Current.Shutdown( );
-                }
             }
-            catch(Exception)
-            {
-                Current.Shutdown();
-            }
+            catch (Exception) { }
         }
-        static void showNoAccsses()
+        static void showNoAccsses( )
         {
             MessageBox.Show(极简浏览器.Properties.Resources.civiRefuse);
+            Current.Shutdown( );
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {

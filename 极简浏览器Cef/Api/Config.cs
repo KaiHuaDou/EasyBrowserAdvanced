@@ -6,6 +6,7 @@ namespace 极简浏览器.Api
 {
     public static class Configer<T>
     {
+        private static XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
         private static FileStream genGetStream(string fileName)
         {
             FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -31,14 +32,12 @@ namespace 极简浏览器.Api
         public static void Save(HashSet<T> data,  string fileName)
         {
             FileStream fs = genSetStream(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
             serializer.Serialize(fs, data);
             fs.Close();
         }
         public static HashSet<T> Get(string fileName)
         {
             FileStream fs = genGetStream(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
             HashSet<T> config = new HashSet<T>();
             try
             {

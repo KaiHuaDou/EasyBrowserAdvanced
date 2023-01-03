@@ -16,7 +16,6 @@
         <Label Content="KaiHuaDou Studio © 2019~2022" HorizontalAlignment="Center"
                 Margin="10,0,10,5" Background="White" />
         <Button x:Name="button" Content="确定" HorizontalAlignment="Center" Margin="10,0,10,5"
-                Width="100" Click="button_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                Width="100" Click="button_Click" />
     </StackPanel>
 </Window>

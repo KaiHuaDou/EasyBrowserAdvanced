@@ -7,13 +7,10 @@
         <TextBox x:Name="MainPageBox" Height="35" Margin="80,11,10,0" TextWrapping="NoWrap"
                 VerticalAlignment="Top" />
         <Button x:Name="OKButton" Content="确定" HorizontalAlignment="Right" Margin="0,0,10,10"
-                VerticalAlignment="Bottom" Width="100" Click="OKButton_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                VerticalAlignment="Bottom" Width="100" Click="OKButton_Click" />
         <Button x:Name="CacheButton" Content="清除缓存" HorizontalAlignment="Right" Margin="0,0,125,10"
-                VerticalAlignment="Bottom" Width="100" Click="CacheButton_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                VerticalAlignment="Bottom" Width="100" Click="CacheButton_Click" />
         <Button x:Name="LogButton" Content="清除日志" HorizontalAlignment="Right" Margin="0,0,240,10"
-                VerticalAlignment="Bottom" Width="100" Click="LogButton_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                VerticalAlignment="Bottom" Width="100" Click="LogButton_Click" />
     </Grid>
 </Window>

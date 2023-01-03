@@ -5,16 +5,13 @@
         <StackPanel Height="45" Orientation="Horizontal" HorizontalAlignment="Center"
                 DockPanel.Dock="Bottom" Margin="0,0,0,5">
             <Button x:Name="refreshButton" Content="刷新(_R)" Width="100" Height="30" Margin="5"
-                    Click="refreshButton_Click"
-                    Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    Click="refreshButton_Click" />
             <Button x:Name="formatButton" Content="格式化(_F)" Width="100" Height="30" Margin="5"
-                    Click="formatButton_Click"
-                    Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    Click="formatButton_Click" />
             <Button x:Name="saveButton" Content="保存(_S)" Width="100" Height="30" Margin="5"
-                    Click="saveButton_Click" Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    Click="saveButton_Click" />
         </StackPanel>
-        <TextBox x:Name="textBox" Margin="5,5,5,0" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                DockPanel.Dock="Top" />
+        <TextBox x:Name="textBox" Margin="5,5,5,0" AcceptsReturn="True" AcceptsTab="True"
+                TextWrapping="Wrap" DockPanel.Dock="Top" />
     </DockPanel>
 </Window>

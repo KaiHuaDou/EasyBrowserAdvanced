@@ -3,20 +3,18 @@
         ResizeMode="NoResize" Loaded="Window_Loaded">
     <StackPanel>
         <Label x:Name="label" Content="抱歉，程序出现了错误" Margin="10,10,10,0" />
-        <TextBox x:Name="textBox" Height="145" Margin="10,0,10,5" TextWrapping="Wrap" IsReadOnly="True"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox x:Name="textBox" Height="145" Margin="10,0,10,5" TextWrapping="Wrap"
+                IsReadOnly="True" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label x:Name="label1" Content="请到" HorizontalAlignment="Left" Margin="0,5"
                     VerticalAlignment="Top" />
-            <TextBox HorizontalAlignment="Left" Height="36" Margin="0,5"
-                    TextWrapping="Wrap"
+            <TextBox HorizontalAlignment="Left" Height="36" Margin="0,5" TextWrapping="Wrap"
                     Text="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue"
                     VerticalAlignment="Top" Width="617" IsReadOnly="True" />
             <Label x:Name="label2" Content="上反馈" HorizontalAlignment="Left" Margin="0,5"
                     VerticalAlignment="Top" />
         </StackPanel>
-        <Button x:Name="button1" Content="确定" Margin="10,5" Click="button1_Click"
-                Style="{StaticResource MaterialDesignPaperDarkButton}" Width="100"
+        <Button x:Name="button1" Content="确定" Margin="10,5" Click="button1_Click" Width="100"
                 HorizontalAlignment="Right" />
 
     </StackPanel>

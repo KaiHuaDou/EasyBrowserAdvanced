@@ -9,17 +9,13 @@
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="5,10"
                             HorizontalAlignment="Center">
                         <Button Height="30" Width="100" Margin="5,0" Content="打开(_O)"
-                                Click="HistoryNew"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="HistoryNew" />
                         <Button Height="30" Width="100" Margin="5,0" Content="全选(_A)"
-                                Click="HistoryAll"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="HistoryAll" />
                         <Button Height="30" Width="100" Margin="5,0" Content="清空(_C)"
-                                Click="HistoryClear"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="HistoryClear" />
                         <Button Height="30" Width="100" Margin="5,0" Content="删除(_D)"
-                                Click="HistoryDelete"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="HistoryDelete" />
                     </StackPanel>
                     <DataGrid x:Name="HistoryDataGrid" AutoGenerateColumns="False"
                             BorderThickness="0">
@@ -37,17 +33,13 @@
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="5,10"
                             HorizontalAlignment="Center">
                         <Button Height="30" Width="100" Margin="5,0" Content="打开(_O)"
-                                Click="BookmarkNew"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="BookmarkNew" />
                         <Button Height="30" Width="100" Margin="5,0" Content="全选(_A)"
-                                Click="BookmarkAll"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="BookmarkAll" />
                         <Button Height="30" Width="100" Margin="5,0" Content="清空(_C)"
-                                Click="BookmarkClear"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="BookmarkClear" />
                         <Button Height="30" Width="100" Margin="5,0" Content="删除(_D)"
-                                Click="BookmarkDelete"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="BookmarkDelete" />
                     </StackPanel>
                     <DataGrid x:Name="BookmarkDataGrid" AutoGenerateColumns="False"
                             BorderThickness="0">
@@ -65,14 +57,11 @@
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="5,10"
                             HorizontalAlignment="Center">
                         <Button Height="30" Width="100" Margin="5,0" Content="全选(_A)"
-                                Click="CookiesAll"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="CookiesAll" />
                         <Button Height="30" Width="100" Margin="5,0" Content="清空(_C)"
-                                Click="CookiesClear"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="CookiesClear" />
                         <Button Height="30" Width="100" Margin="5,0" Content="删除(_D)"
-                                Click="CookiesDelete"
-                                Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                                Click="CookiesDelete" />
                     </StackPanel>
                     <DataGrid x:Name="CookiesDataGrid" AutoGenerateColumns="False"
                             BorderThickness="0" IsReadOnly="True">
