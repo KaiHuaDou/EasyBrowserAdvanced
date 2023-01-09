@@ -1,0 +1,68 @@
+name: .NET Build & Test
+
+on:
+  push:
+    branches: ["master"]
+
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [2.0D, Release3]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: 极简浏览器Cef.sln
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NuGetAPIKey }}
+          nuget-version: "5.x"
+
+      - name: Restore NuGet Packages
+        run: nuget restore
+
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Build the solution
+        run: MSBuild.exe /p:Configuration=$env:Configuration
+        env:
+          Configuration: ${{ matrix.configuration }}
+
+      - name: Execute unit tests
+        run: dotnet test -c $env:Configuration
+        env:
+          Configuration: ${{ matrix.configuration }}
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: zip
+          directory: .
+          path: ./极简浏览器Cef/bin
+          filename: bin.zip
+
+      - name: Upload Archive
+        uses: actions/upload-artifact@v3
+        with:
+          path: bin.zip
