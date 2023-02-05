@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
@@ -28,7 +29,11 @@ namespace 极简浏览器
             new Thread((html) =>
             {
                 string result = Formatter.FormartHtml((string) html, true);
-                Dispatcher.Invoke(( ) => { textBox.Text = result; });
+                Dispatcher.Invoke(( ) => 
+                {
+                    try { textBox.Text = result; }
+                    catch (Exception) { }
+                });
             }).Start(textBox.Text);
         }
 

@@ -58,6 +58,8 @@
 #### 下一个RC（RC2）
 
 + *BugFix #39 降低 `MainWindow` 的耦合度* 
++ BugFix #49 修复了源代码格式未完成导致崩溃的问题
++ Performance #4 移除 MaterialDesign
 + Feature #49 增加了缩放级别显示
 + Performance #3 转换为单进程模式，提升性能
 + Feature #48 增加通过`Ctrl`快捷键进入窗口的功能
