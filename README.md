@@ -33,8 +33,9 @@
 
 ### IDE
 
-1. Visual Studio 2015 Update 3，全选 Visual C# 工作负载。
-2. .NET Framework 4.6.2 SDK
+1. Visual Studio 2022 (x64, 17.4.4)
+    + 全选 .NET 桌面开发 工作负载。
+2. .NET Framework 4.5.2 SDK或目标包 (`Target Pack`)
 
 ### NuGet 包
 

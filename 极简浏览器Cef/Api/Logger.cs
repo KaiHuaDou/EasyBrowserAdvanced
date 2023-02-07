@@ -15,7 +15,7 @@ namespace 极简浏览器.Api
         {
             try
             {
-                if(logType != LogType.Error && App.Program.Args.IsPrivate)
+                if (logType != LogType.Error && App.Program.Args.IsPrivate)
                 {
                     goto skip;
                 }
@@ -29,16 +29,19 @@ namespace 极简浏览器.Api
                 if (shutWhenFail == true)
                     App.Current.Shutdown( );
             }
-            skip:
+        skip:
             return;
         }
         private static string genLogPath(LogType logType)
         {
             switch (logType)
             {
-                case LogType.Debug: return FilePath.Logs + "\\debug.log";
-                case LogType.Error: return FilePath.Logs + "\\error.log";
-                case LogType.Other: return FilePath.Logs + "\\other.log";
+                case LogType.Debug:
+                    return FilePath.Logs + "\\debug.log";
+                case LogType.Error:
+                    return FilePath.Logs + "\\error.log";
+                case LogType.Other:
+                    return FilePath.Logs + "\\other.log";
             }
             return null;
         }

@@ -37,8 +37,8 @@ namespace 极简浏览器
             IWindowInfo info, IBrowserSettings settings,
             ref bool noJs, out IWebBrowser newBrowser)
         {
-            ExtChromiumBrowser _browser = (ExtChromiumBrowser)webBrowser;
-            _browser.Dispatcher.Invoke(new Action(() =>
+            ExtChromiumBrowser _browser = (ExtChromiumBrowser) webBrowser;
+            _browser.Dispatcher.Invoke(new Action(( ) =>
             {
                 NewWindowEventArgs e = new NewWindowEventArgs(info, url);
                 _browser.OnNewWindow(e);
@@ -53,14 +53,14 @@ namespace 极简浏览器
 
         public ExtChromiumBrowser(int id) : base(null)
         {
-            this.LifeSpanHandler = new CefLifeSpanHandler();
-            this.DownloadHandler = new DownloadHandler();
+            this.LifeSpanHandler = new CefLifeSpanHandler( );
+            this.DownloadHandler = new DownloadHandler( );
             Id = id;
         }
 
         public ExtChromiumBrowser(int id, string url) : base(url)
         {
-            this.LifeSpanHandler = new CefLifeSpanHandler();
+            this.LifeSpanHandler = new CefLifeSpanHandler( );
             this.DownloadHandler = new DownloadHandler( );
             Id = id;
         }
@@ -86,16 +86,16 @@ namespace 极简浏览器
     {
         private readonly Action<bool, DownloadItem> _downloadCallBackEvent;
 
-        public void OnBeforeDownload(IWebBrowser webBrowser, IBrowser browser, 
+        public void OnBeforeDownload(IWebBrowser webBrowser, IBrowser browser,
             DownloadItem item, IBeforeDownloadCallback callback)
         {
-            if (callback.IsDisposed) return;
-
+            if (callback.IsDisposed)
+                return;
             _downloadCallBackEvent?.Invoke(false, item);
             var path = AskDownloadPath(item);
             if (path != null)
             {
-                new Download(item, path).Show();
+                new Download(item, path).Show( );
                 item.IsInProgress = true;
             }
         }
@@ -108,14 +108,12 @@ namespace 极简浏览器
 
         private static string AskDownloadPath(DownloadItem item)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
+            SaveFileDialog sfd = new SaveFileDialog( );
             sfd.FileName = item.SuggestedFileName;
             sfd.Title = "下载文件 - 极简浏览器";
-            bool? dr = sfd.ShowDialog();
+            bool? dr = sfd.ShowDialog( );
             if (dr == true)
-            {
                 return sfd.FileName;
-            }
             return null;
         }
     }
@@ -125,7 +123,6 @@ namespace 极简浏览器
         {
             Id = id;
         }
-
         public static Window mainWindow { get; set; }
         public static int Id;
         void IContextMenuHandler.OnBeforeContextMenu(
@@ -149,11 +146,8 @@ namespace 极简浏览器
             IBrowser browser,
             IFrame frame)
         {
-            var chromiumWebBrowser = (ChromiumWebBrowser)webBrowser;
-            chromiumWebBrowser.Dispatcher.Invoke(() =>
-            {
-                chromiumWebBrowser.ContextMenu = null;
-            });
+            var cwb = (ChromiumWebBrowser) webBrowser;
+            cwb.Dispatcher.Invoke(( ) => { cwb.ContextMenu = null; });
         }
 
         bool IContextMenuHandler.RunContextMenu(
@@ -164,21 +158,16 @@ namespace 极简浏览器
             IMenuModel model,
             IRunContextMenuCallback callback)
         {
-            var _browser = (ChromiumWebBrowser)webBrowser;
-            _browser.Dispatcher.Invoke(() =>
+            var _browser = (ChromiumWebBrowser) webBrowser;
+            _browser.Dispatcher.Invoke(( ) =>
             {
-                var menu = new ContextMenu
-                {
-                    IsOpen = true
-                };
+                var menu = new ContextMenu { IsOpen = true };
                 RoutedEventHandler handler = null;
                 handler = (s, e) =>
                 {
                     menu.Closed -= handler;
                     if (!callback.IsDisposed)
-                    {
-                        callback.Cancel();
-                    }
+                        callback.Cancel( );
                 };
                 menu.Closed += handler;
                 menu.Items.Add(new MenuItem
@@ -194,17 +183,17 @@ namespace 极简浏览器
                 menu.Items.Add(new MenuItem
                 {
                     Header = "刷新",
-                    Command = new CustomCommand(()=> { Browser.Refresh(Id); })
+                    Command = new CustomCommand(( ) => { Browser.Refresh(Id); })
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "新窗口",
-                    Command = new CustomCommand(() => { Browser.New(); })
+                    Command = new CustomCommand(( ) => { Browser.New( ); })
                 });
                 menu.Items.Add(new MenuItem
                 {
                     Header = "网页源代码",
-                    Command = new CustomCommand(()=> { Browser.ViewSource(Id); })
+                    Command = new CustomCommand(( ) => { Browser.ViewSource(Id); })
                 });
                 _browser.ContextMenu = menu;
             });
@@ -212,7 +201,7 @@ namespace 极简浏览器
         }
         private static IEnumerable<Tuple<string, CefMenuCommand>> GetMenuItems(IMenuModel model)
         {
-            var list = new List<Tuple<string, CefMenuCommand>>();
+            var list = new List<Tuple<string, CefMenuCommand>>( );
             for (var i = 0; i < model.Count; i++)
             {
                 var header = model.GetLabelAt(i);
@@ -236,20 +225,20 @@ namespace 极简浏览器
         bool ICommand.CanExecute(object o)
         {
             if (_TargetCanExecuteMethod != null)
-                return _TargetCanExecuteMethod();
+                return _TargetCanExecuteMethod( );
             if (_TargetExecuteMethod != null)
                 return true;
             return false;
         }
 
-        public void RaiseCanExecuteChanged()
+        public void RaiseCanExecuteChanged( )
         {
             CanExecuteChanged(this, EventArgs.Empty);
         }
 
         void ICommand.Execute(object parameter)
         {
-            _TargetExecuteMethod?.Invoke();
+            _TargetExecuteMethod?.Invoke( );
         }
     }
 }

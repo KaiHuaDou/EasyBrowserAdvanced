@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define FORMAT
+
+using System;
 using System.Collections.Generic;
 using CefSharp;
 using CefSharp.Wpf;
@@ -49,20 +51,22 @@ namespace 极简浏览器.Api
             MaxCnt++;
             App.Program.inputUrl = url;
             Host[MaxCnt] = new MainWindow(MaxCnt);
-            Host[MaxCnt].Show();
+            Host[MaxCnt].Show( );
         }
         public static bool PraseEasy(int id, string url)
         {
-            switch (url.ToLower().Replace("easy://", ""))
+            switch (url.ToLower( ).Replace("easy://", ""))
             {
-                case "about": new About().Show(); break;
-                case "help": new Help().Show(); break;
-                case "history": new History().Show(); break;
-                case "bookmark": new History().Show(); break;
-                case "setting": new Setting().Show(); break;
+#if FORMAT
+                case "about": new About( ).Show( ); break;
+                case "help": new Help( ).Show( ); break;
+                case "history": new History( ).Show( ); break;
+                case "bookmark": new History( ).Show( ); break;
+                case "setting": new Setting( ).Show( ); break;
                 case "websource": ViewSource(id); break;
                 case "newtab": New( ); break;
                 default: return false;
+#endif
             }
             return true;
         }

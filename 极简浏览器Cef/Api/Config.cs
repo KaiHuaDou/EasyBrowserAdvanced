@@ -29,31 +29,31 @@ namespace 极简浏览器.Api
             savedData.Remove(data);
             Save(savedData, fileName);
         }
-        public static void Save(HashSet<T> data,  string fileName)
+        public static void Save(HashSet<T> data, string fileName)
         {
             FileStream fs = genSetStream(fileName);
             serializer.Serialize(fs, data);
-            fs.Close();
+            fs.Close( );
         }
         public static HashSet<T> Get(string fileName)
         {
             FileStream fs = genGetStream(fileName);
-            HashSet<T> config = new HashSet<T>();
+            HashSet<T> config = new HashSet<T>( );
             try
             {
                 config = serializer.Deserialize(fs) as HashSet<T>;
-                fs.Close();
+                fs.Close( );
             }
             catch (InvalidOperationException)
             {
-                fs.Close();
+                fs.Close( );
                 Init(fileName);
             }
             return config;
         }
         public static void Init(string fileName)
         {
-            Save(new HashSet<T>(), fileName);
+            Save(new HashSet<T>( ), fileName);
         }
     }
     public class Config

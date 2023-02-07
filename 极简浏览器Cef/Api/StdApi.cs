@@ -1,5 +1,4 @@
 ﻿using System;
-using CefSharp;
 
 namespace 极简浏览器.Api
 {
@@ -12,12 +11,13 @@ namespace 极简浏览器.Api
         {
             get
             {
-                return DateTime.Now.ToLocalTime().ToString();
+                return DateTime.Now.ToLocalTime( ).ToString( );
             }
         }
         public static string ZipStr(string str, int len)
         {
-            if (str.Length <= len) return str;
+            if (str.Length <= len)
+                return str;
             return str.Substring(0, len - 6) + "…" + str.Substring(str.Length - 6);
         }
     }

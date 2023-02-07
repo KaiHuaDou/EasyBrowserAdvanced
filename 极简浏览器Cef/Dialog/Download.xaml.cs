@@ -15,7 +15,7 @@ namespace 极简浏览器
     /// </summary>
     public partial class Download : Window
     {
-        private static DownloadItem basicInfo = new DownloadItem();
+        private static DownloadItem basicInfo = new DownloadItem( );
         private string dlPath;
         private WebRequest httpReq;
         private WebResponse httpRes;
@@ -29,17 +29,17 @@ namespace 极简浏览器
         private System.Timers.Timer timer = new System.Timers.Timer(500);
         public Download(DownloadItem item, string savePath)
         {
-            InitializeComponent();
+            InitializeComponent( );
             basicInfo = item;
             dlPath = savePath;
             FileName.Content = basicInfo.SuggestedFileName;
             timer.Elapsed += Timer_Elapsed;
-            DownloadInit();
+            DownloadInit( );
         }
 
         void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(( ) =>
             {
                 Speed.Content = Convert.ToUInt32((dlLen - lastLen) / 1024) + "KB/s";
                 lastLen = dlLen;
@@ -47,36 +47,36 @@ namespace 极简浏览器
             });
         }
 
-        public void DownloadInit()
+        public void DownloadInit( )
         {
             try
             {
                 httpReq = WebRequest.Create(basicInfo.Url);
-                httpRes = httpReq.GetResponse();
+                httpRes = httpReq.GetResponse( );
                 length = httpRes.ContentLength;
                 Progress.Maximum = length;
                 dlThread = new Thread(new ThreadStart(HttpDownloadFile));
                 dlFS = new FileStream(dlPath, FileMode.Create, FileAccess.ReadWrite);
                 timer.Enabled = true;
-                dlThread.Start();
+                dlThread.Start( );
             }
             catch (WebException e)
             {
-                MessageBox.Show("无法下载，原因:" + e.Status.ToString());
-                this.Close();
+                MessageBox.Show("无法下载，原因:" + e.Status.ToString( ));
+                this.Close( );
             }
         }
 
-        public void HttpDownloadFile()
+        public void HttpDownloadFile( )
         {
-            dlStream = httpRes.GetResponseStream();
+            dlStream = httpRes.GetResponseStream( );
             int i;
             while ((i = dlStream.Read(buf, 0, buf.Length)) > 0)
             {
                 try
                 {
                     dlLen += i;
-                    Dispatcher.Invoke(new updateData(updateUI), dlLen.ToString());
+                    Dispatcher.Invoke(new updateData(updateUI), dlLen.ToString( ));
                     dlFS.Write(buf, 0, i);
                 }
                 catch (IOException ex)
@@ -85,15 +85,15 @@ namespace 极简浏览器
                 }
             }
             timer.Enabled = false;
-            dlFS.Close();
-            dlStream.Close();
-            Dispatcher.Invoke(() => { OpenButton.IsEnabled = true; });
+            dlFS.Close( );
+            dlStream.Close( );
+            Dispatcher.Invoke(( ) => { OpenButton.IsEnabled = true; });
         }
         void updateUI(string value)
         {
             Progress.Value = int.Parse(value);
             double percent = Progress.Value / Progress.Maximum * 100.0;
-            Percent.Content = decimal.Round((decimal)percent, 2) + "%";
+            Percent.Content = decimal.Round((decimal) percent, 2) + "%";
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -103,12 +103,12 @@ namespace 极简浏览器
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            dlThread.Abort();
+            dlThread.Abort( );
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            FromURL.Content = StdApi.ZipStr(basicInfo.Url, (int)(this.ActualWidth / 15));
+            FromURL.Content = StdApi.ZipStr(basicInfo.Url, (int) (this.ActualWidth / 15));
         }
     }
 }

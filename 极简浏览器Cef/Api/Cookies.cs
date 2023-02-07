@@ -7,13 +7,13 @@ namespace 极简浏览器.Api
     public static class CookieMgr
     {
         private static string curUrl;
-        public static void Get()
+        public static void Get( )
         {
             try
             {
                 HashSet<CookieData> cookies;
                 cookies = Configer<CookieData>.Get(FilePath.Cookies);
-                var manager = Cef.GetGlobalCookieManager();
+                var manager = Cef.GetGlobalCookieManager( );
                 foreach (CookieData item in cookies)
                     manager.SetCookieAsync(item.Key, item.Value);
             }
@@ -22,9 +22,9 @@ namespace 极简浏览器.Api
 
         public static void Set(int id)
         {
-            CookieVisitor visitor = new CookieVisitor();
+            CookieVisitor visitor = new CookieVisitor( );
             visitor.SendCookie += visitor_SendCookie;
-            ICookieManager cookieManager = Browser.Core[id].GetCookieManager();
+            ICookieManager cookieManager = Browser.Core[id].GetCookieManager( );
             curUrl = Browser.Address(id);
             cookieManager.VisitAllCookies(visitor);
         }
@@ -60,7 +60,7 @@ namespace 极简浏览器.Api
     }
     public class CookieData
     {
-        public CookieData() { }
+        public CookieData( ) { }
         public CookieData(string k, Cookie v)
         {
             Key = k;
@@ -73,7 +73,7 @@ namespace 极简浏览器.Api
     public class CookieVisitor : ICookieVisitor
     {
         public event Action<Cookie> SendCookie;
-        public void Dispose() { }
+        public void Dispose( ) { }
         public bool Visit(Cookie cookie, int count, int total, ref bool deleteCookie)
         {
             deleteCookie = false;

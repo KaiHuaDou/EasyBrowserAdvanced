@@ -29,9 +29,10 @@ namespace 极简浏览器
             new Thread((html) =>
             {
                 string result = Formatter.FormartHtml((string) html, true);
-                Dispatcher.Invoke(( ) => 
+                Dispatcher.Invoke(( ) =>
                 {
-                    try { textBox.Text = result; }
+                    try
+                    { textBox.Text = result; }
                     catch (Exception) { }
                 });
             }).Start(textBox.Text);

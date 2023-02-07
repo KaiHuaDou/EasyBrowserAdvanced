@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 using 极简浏览器.Api;
 
 namespace 极简浏览器
@@ -33,7 +32,7 @@ namespace 极简浏览器
         private void CacheButton_Click(object sender, RoutedEventArgs e)
         {
             string[] files = Directory.GetFiles(FilePath.Caches);
-            foreach(string x in files)
+            foreach (string x in files)
             {
                 try
                 {
