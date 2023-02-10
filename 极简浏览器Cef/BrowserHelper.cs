@@ -20,11 +20,7 @@ namespace 极简浏览器
 
         public bool DoClose(IWebBrowser webBrowser, IBrowser browser)
         {
-            if (browser.IsDisposed || browser.IsPopup)
-            {
-                return false;
-            }
-            return true;
+            return !(browser.IsDisposed || browser.IsPopup);
         }
 
         public void OnAfterCreated(IWebBrowser webBrowser, IBrowser browser) { }
@@ -123,6 +119,7 @@ namespace 极简浏览器
         {
             Id = id;
         }
+
         public static Window mainWindow { get; set; }
         public static int Id;
         void IContextMenuHandler.OnBeforeContextMenu(
@@ -170,31 +167,11 @@ namespace 极简浏览器
                         callback.Cancel( );
                 };
                 menu.Closed += handler;
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "前进",
-                    Command = new CustomCommand(( ) => { Browser.GoForward(Id); })
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "后退",
-                    Command = new CustomCommand(( ) => { Browser.GoBack(Id); })
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "刷新",
-                    Command = new CustomCommand(( ) => { Browser.Refresh(Id); })
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "新窗口",
-                    Command = new CustomCommand(( ) => { Browser.New( ); })
-                });
-                menu.Items.Add(new MenuItem
-                {
-                    Header = "网页源代码",
-                    Command = new CustomCommand(( ) => { Browser.ViewSource(Id); })
-                });
+                menu.Items.Add(new MenuItem { Header = "前进", Command = new CustomCommand(( ) => { Browser.GoForward(Id); }) });
+                menu.Items.Add(new MenuItem { Header = "后退", Command = new CustomCommand(( ) => { Browser.GoBack(Id); }) });
+                menu.Items.Add(new MenuItem { Header = "刷新", Command = new CustomCommand(( ) => { Browser.Refresh(Id); }) });
+                menu.Items.Add(new MenuItem { Header = "新窗口", Command = new CustomCommand(( ) => { Browser.New( ); }) });
+                menu.Items.Add(new MenuItem { Header = "网页源代码", Command = new CustomCommand(( ) => { Browser.ViewSource(Id); }) });
                 _browser.ContextMenu = menu;
             });
             return true;
@@ -203,11 +180,8 @@ namespace 极简浏览器
         {
             var list = new List<Tuple<string, CefMenuCommand>>( );
             for (var i = 0; i < model.Count; i++)
-            {
-                var header = model.GetLabelAt(i);
-                var command = model.GetCommandIdAt(i);
-                list.Add(new Tuple<string, CefMenuCommand>(header, command));
-            }
+                list.Add(new Tuple<string, CefMenuCommand>(
+                    model.GetLabelAt(i), model.GetCommandIdAt(i)));
             return list;
         }
     }
@@ -226,9 +200,7 @@ namespace 极简浏览器
         {
             if (_TargetCanExecuteMethod != null)
                 return _TargetCanExecuteMethod( );
-            if (_TargetExecuteMethod != null)
-                return true;
-            return false;
+            return _TargetExecuteMethod != null;
         }
 
         public void RaiseCanExecuteChanged( )

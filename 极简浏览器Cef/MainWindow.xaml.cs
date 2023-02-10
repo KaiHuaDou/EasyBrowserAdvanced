@@ -63,16 +63,14 @@ namespace 极简浏览器
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex, logType: LogType.Debug, shutWhenFail: true);
+                    Logger.Log(ex, LogType.Debug, true);
                 }
             });
         }
         private void Nav_KeyDown(object o, KeyEventArgs e)
         {
             if ((e.Key == Key.Enter || e.Key == Key.Return) && e.Key != Key.ImeProcessed)
-            {
                 Nav_ProcessUrl(o, new RoutedEventArgs( ));
-            }
             if (Civilized.CheckCivilized(UrlTextBox.Text))
                 Civilized.DeniedMsg( );
         }

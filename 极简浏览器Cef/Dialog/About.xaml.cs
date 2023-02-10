@@ -17,16 +17,13 @@ namespace 极简浏览器
             InitializeComponent( );
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close( );
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => this.Close( );
 
         private void Circle(object sender, MouseButtonEventArgs e)
         {
             RotateTransform rotate = new RotateTransform( );
             image.RenderTransform = rotate;
-            image.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
+            image.RenderTransformOrigin = new Point(0.5, 0.5);
             Storyboard story = new Storyboard( );
             DoubleAnimation da = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(0.5)));
             Storyboard.SetTarget(da, image);

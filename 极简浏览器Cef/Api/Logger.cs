@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define FORMAT
+
+using System;
 using System.IO;
 
 namespace 极简浏览器.Api
@@ -16,32 +18,26 @@ namespace 极简浏览器.Api
             try
             {
                 if (logType != LogType.Error && App.Program.Args.IsPrivate)
-                {
-                    goto skip;
-                }
+                    return;
                 string LogPath = genLogPath(logType);
                 File.AppendAllText(LogPath,
-                    "---------------" + ex.Message + "\n" + ex.Source + "\n"
-                    + ex.TargetSite + "\n" + ex.HelpLink + "\n" + ex.StackTrace);
+                    $"---------------{ex.Message}\n{ex.Source}\n{ex.TargetSite}\n{ex.HelpLink}\n{ex.StackTrace}");
             }
             catch (NullReferenceException)
             {
                 if (shutWhenFail == true)
                     App.Current.Shutdown( );
             }
-        skip:
-            return;
         }
         private static string genLogPath(LogType logType)
         {
             switch (logType)
             {
-                case LogType.Debug:
-                    return FilePath.Logs + "\\debug.log";
-                case LogType.Error:
-                    return FilePath.Logs + "\\error.log";
-                case LogType.Other:
-                    return FilePath.Logs + "\\other.log";
+#if FORMAT
+                case LogType.Debug: return FilePath.Logs + "\\debug.log";
+                case LogType.Error: return FilePath.Logs + "\\error.log";
+                case LogType.Other: return FilePath.Logs + "\\other.log";
+#endif
             }
             return null;
         }

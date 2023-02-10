@@ -39,23 +39,14 @@ namespace 极简浏览器.Api
                 {
                     if (item.Value.Name == obj.Name && item.Value.Domain == obj.Domain)
                     {
-                        item.Value.Value = obj.Value;
-                        item.Value.SameSite = obj.SameSite;
-                        item.Value.Secure = obj.Secure;
-                        item.Value.Priority = obj.Priority;
-                        item.Value.Path = obj.Path;
-                        item.Value.LastAccess = obj.LastAccess;
-                        item.Value.Expires = obj.Expires;
-                        item.Value.Creation = obj.Creation;
-                        item.Value.HttpOnly = obj.HttpOnly;
+                        item.Value = obj;
                         Configer<CookieData>.Save(cookies, FilePath.Cookies);
                         return;
                     }
                 }
             }
             catch (NullReferenceException) { }
-            Configer<CookieData>.
-                    Add(new CookieData(curUrl, obj), FilePath.Cookies);
+            Configer<CookieData>.Add(new CookieData(curUrl, obj), FilePath.Cookies);
         }
     }
     public class CookieData

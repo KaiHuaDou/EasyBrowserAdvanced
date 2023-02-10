@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define FORMAT
+
+using System;
 using System.Collections;
 using System.IO;
 using System.Text;
@@ -9,25 +11,27 @@ namespace 极简浏览器
     {
         public static string FormartHtml(string str, bool bLineAndIndent)
         {
-            XmlDocument document1 = XFormatHtml(str);
+            XmlDocument doc = XFormatHtml(str);
             if (bLineAndIndent)
             {
-                StringBuilder builder1 = new StringBuilder( );
-                XmlTextWriter writer1 = new XmlTextWriter(new StringWriter(builder1));
-                writer1.IndentChar = ' ';
-                writer1.Indentation = 4;
-                writer1.Formatting = Formatting.Indented;
-                document1.DocumentElement.WriteContentTo(writer1);
-                return builder1.ToString( );
+                StringBuilder builder = new StringBuilder( );
+                using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
+                {
+                    writer.IndentChar = ' ';
+                    writer.Indentation = 4;
+                    writer.Formatting = Formatting.Indented;
+                    doc.DocumentElement.WriteContentTo(writer);
+                }
+                return builder.ToString( );
             }
-            return document1.DocumentElement.InnerXml;
+            return doc.DocumentElement.InnerXml;
         }
         private static XmlDocument XFormatHtml(string str)
         {
-            XmlDocument document1 = new XmlDocument( );
-            document1.LoadXml("<xml/>");
-            HtmlFormatter.ParseHtml(document1.DocumentElement, str);
-            return document1;
+            XmlDocument doc = new XmlDocument( );
+            doc.LoadXml("<xml/>");
+            HtmlFormatter.ParseHtml(doc.DocumentElement, str);
+            return doc;
         }
     }
     internal class HtmlFormatter
@@ -42,12 +46,12 @@ namespace 极简浏览器
         private int gNum2;
         private static char[] filter = new char[2] { '&', ';' };
         private static char[] outFilter = new char[2] { '&', ';' };
-        private string a( )
+        private string A( )
         {
             StringBuilder builder1 = new StringBuilder( );
-            int num1 = this.gNum2;
-            builder1.Append(this.e( ));
-            this.gNum2 = num1;
+            int num1 = gNum2;
+            builder1.Append(e( ));
+            gNum2 = num1;
             if (builder1.Length == 0)
             {
                 return null;
@@ -56,66 +60,66 @@ namespace 极简浏览器
         }
         private string a(char ch)
         {
-            if (this.gNum2 >= this.gNum1)
+            if (gNum2 >= gNum1)
             {
                 return "";
             }
-            int num1 = this.gStr1.IndexOf(ch, this.gNum2);
+            int num1 = gStr1.IndexOf(ch, gNum2);
             if (num1 == -1)
             {
-                return this.e( );
+                return e( );
             }
-            int num2 = this.gStr1.IndexOf("<", this.gNum2, num1 - this.gNum2);
+            int num2 = gStr1.IndexOf("<", gNum2, num1 - gNum2);
             if (num2 != -1)
             {
                 num1 = num2;
             }
-            string text1 = this.gStr1.Substring(this.gNum2, num1 - this.gNum2);
-            this.gNum2 = num1 + 1;
+            string text1 = gStr1.Substring(gNum2, num1 - gNum2);
+            gNum2 = num1 + 1;
             return text1;
         }
         private string a(out string str)
         {
-            int num1 = this.gNum2;
-            str = this.d( );
-            string text1 = this.b( );
-            this.gNum2 = num1;
+            int num1 = gNum2;
+            str = d( );
+            string text1 = b( );
+            gNum2 = num1;
             return text1;
         }
         private string a(params char[] chars)
         {
-            if (this.gNum2 >= this.gNum1)
+            if (gNum2 >= gNum1)
             {
                 return "";
             }
-            int num1 = this.gStr1.IndexOfAny(chars, this.gNum2);
+            int num1 = gStr1.IndexOfAny(chars, gNum2);
             if (num1 == -1)
             {
-                return this.e( );
+                return e( );
             }
-            int num2 = this.gStr1.IndexOf("<", this.gNum2, num1 - this.gNum2);
+            int num2 = gStr1.IndexOf("<", gNum2, num1 - gNum2);
             if (num2 != -1)
             {
                 num1 = num2;
             }
-            string text1 = this.gStr1.Substring(this.gNum2, num1 - this.gNum2);
-            this.gNum2 = num1 + 1;
+            string text1 = gStr1.Substring(gNum2, num1 - gNum2);
+            gNum2 = num1 + 1;
             return text1;
         }
         private void a(XmlElement arg)
         {
-            string text1 = this.b( );
+            string text1 = b( );
             if (text1 != null)
             {
-                this.gNum2 += text1.Length;
-                arg.AppendChild(this.document.CreateProcessingInstruction(text1, this.a('>')));
+                gNum2 += text1.Length;
+                arg.AppendChild(document.CreateProcessingInstruction(text1, a('>')));
             }
             else
             {
-                arg.AppendChild(this.document.CreateTextNode("<?"));
+                arg.AppendChild(document.CreateTextNode("<?"));
             }
         }
-        private void a(XmlElement xml, string str1, string str2)
+        private void A(XmlElement xml, string str1, string str2)
         {
             str1 = str1.ToLower( );
             if (str1.IndexOf(":") == -1)
@@ -136,53 +140,47 @@ namespace 极简浏览器
         }
         private string b( )
         {
-            int num1 = this.gNum1;
-            if (this.gNum2 >= num1)
+            int num1 = gNum1;
+            if (gNum2 >= num1)
             {
                 return null;
             }
-            char ch1 = this.gStr1[this.gNum2];
+            char ch1 = gStr1[gNum2];
             if (((ch1 < 'a') || (ch1 > 'z')) && ((ch1 < 'A') || (ch1 > 'Z')))
             {
                 return null;
             }
-            int num2 = this.gNum2 + 1;
+            int num2 = gNum2 + 1;
             while (num2 < num1)
             {
-                ch1 = this.gStr1[num2];
+                ch1 = gStr1[num2];
                 if ((((ch1 < 'a') || (ch1 > 'z')) && ((ch1 < 'A') || (ch1 > 'Z'))) && (((ch1 < '0') || (ch1 > '9')) && (((ch1 != '_') && (ch1 != '-')) && ((ch1 != '.') && (ch1 != ':')))))
                 {
                     break;
                 }
                 num2++;
             }
-            return this.gStr1.Substring(this.gNum2, num2 - this.gNum2);
+            return gStr1.Substring(gNum2, num2 - gNum2);
         }
         private string b(char ch)
         {
-            if (this.gNum2 >= this.gNum1)
+            if (gNum2 >= gNum1)
             {
                 return "";
             }
-            int num1 = this.gStr1.IndexOf(ch, this.gNum2);
+            int num1 = gStr1.IndexOf(ch, gNum2);
             if (num1 == -1)
             {
-                return this.f( );
+                return f( );
             }
-            string text1 = this.gStr1.Substring(this.gNum2, num1 - this.gNum2);
-            this.gNum2 = num1 + 1;
+            string text1 = gStr1.Substring(gNum2, num1 - gNum2);
+            gNum2 = num1 + 1;
             return text1;
         }
-        private static string b(string arg)
+        private static string B(string arg)
         {
             if (string.IsNullOrEmpty(arg))
-            {
                 return null;
-            }
-            if (string.IsNullOrEmpty(arg))
-            {
-                return "";
-            }
             StringBuilder builder1 = new StringBuilder( );
             int num1 = arg.Length;
             int num2 = 0;
@@ -190,9 +188,7 @@ namespace 极简浏览器
             {
                 int num4 = arg.IndexOfAny(filter, num3 + 1);
                 if (num4 == -1)
-                {
                     break;
-                }
                 if (arg[num4] == '&')
                 {
                     builder1.Append(arg, num2, num4 - num2);
@@ -200,299 +196,243 @@ namespace 极简浏览器
                     continue;
                 }
                 if (num2 != num3)
-                {
                     builder1.Append(arg, num2, num3 - num2);
-                }
-                builder1.Append(HtmlFormatter.praseStr(arg.Substring(num3, (num4 + 1) - num3)));
+                builder1.Append(praseStr(arg.Substring(num3, (num4 + 1) - num3)));
                 num2 = num4 + 1;
                 if (num2 >= num1)
-                {
                     break;
-                }
             }
             if (num2 < num1)
-            {
                 builder1.Append(arg, num2, num1 - num2);
-            }
             return builder1.ToString( );
         }
-        private void b(XmlElement xml)
+        private void B(XmlElement xml)
         {
-            if (string.Compare(this.gStr1, this.gNum2, "[CDATA[", 0, 7, true) == 0)
+            if (string.Compare(gStr1, gNum2, "[CDATA[", 0, 7, true) == 0)
             {
-                this.gNum2 += 7;
-                xml.AppendChild(this.document.CreateCDataSection(this.c("]]>")));
+                gNum2 += 7;
+                xml.AppendChild(document.CreateCDataSection(c("]]>")));
             }
-            else if (string.Compare(this.gStr1, this.gNum2, "--", 0, "--".Length, true) == 0)
+            else if (string.Compare(gStr1, gNum2, "--", 0, "--".Length, true) == 0)
             {
-                this.gNum2 += 2;
-                string text1 = this.c("-->");
+                gNum2 += 2;
+                string text1 = c("-->");
                 if (text1.IndexOf("--") != -1)
-                {
                     text1 = text1.Replace("--", "- -");
-                }
                 if (text1.StartsWith("-") || text1.EndsWith("-"))
-                {
                     text1 = " " + text1 + " ";
-                }
-                xml.AppendChild(this.document.CreateComment(text1));
+                xml.AppendChild(document.CreateComment(text1));
             }
             else
             {
-                string text2 = this.b( );
+                string text2 = b( );
                 if (text2 != null)
-                {
-                    this.gNum2 += text2.Length;
                     try
                     {
-                        xml.AppendChild(this.document.CreateDocumentType(text2, null, null, this.a('>')));
+                        gNum2 += text2.Length;
+                        xml.AppendChild(document.CreateDocumentType(text2, null, null, a('>')));
                     }
-                    catch
-                    {
-                    }
-                }
+                    catch { }
                 else
-                {
-                    xml.AppendChild(this.document.CreateTextNode("<!"));
-                }
+                    xml.AppendChild(document.CreateTextNode("<!"));
             }
         }
         private string c( )
         {
-            int num1 = this.gNum1;
-            int num2 = this.gNum2;
+            int num1 = gNum1;
+            int num2 = gNum2;
             while (num2 < num1)
             {
-                char ch1 = this.gStr1[num2];
+                char ch1 = gStr1[num2];
                 if (!char.IsWhiteSpace(ch1))
-                {
                     break;
-                }
                 num2++;
             }
-            if (num2 == this.gNum2)
-            {
+            if (num2 == gNum2)
                 return null;
-            }
-            return this.gStr1.Substring(this.gNum2, num2 - this.gNum2);
+            return gStr1.Substring(gNum2, num2 - gNum2);
         }
         private string c(string str)
         {
-            if (this.gNum2 >= this.gNum1)
-            {
+            if (gNum2 >= gNum1)
                 return "";
-            }
-            int num1 = this.gStr1.IndexOf(str, this.gNum2);
+            int num1 = gStr1.IndexOf(str, gNum2);
             if (num1 == -1)
-            {
-                return this.e( );
-            }
-            int num2 = this.gStr1.IndexOf("<", this.gNum2, num1 - this.gNum2);
+                return e( );
+            int num2 = gStr1.IndexOf("<", gNum2, num1 - gNum2);
             if (num2 != -1)
-            {
                 num1 = num2;
-            }
-            string text1 = this.gStr1.Substring(this.gNum2, num1 - this.gNum2);
-            this.gNum2 = num1 + str.Length;
+            string text1 = gStr1.Substring(gNum2, num1 - gNum2);
+            gNum2 = num1 + str.Length;
             return text1;
         }
         private void c(XmlElement xml)
         {
-            while (this.gNum2 < this.gNum1)
+            while (gNum2 < gNum1)
             {
-                this.d( );
-                string text1 = this.b( );
+                d( );
+                string text1 = b( );
                 if (text1 == null)
+                    return;
+                gNum2 += text1.Length;
+                d( );
+                if (gNum2 >= gNum1)
                 {
+                    A(xml, text1, text1);
                     return;
                 }
-                this.gNum2 += text1.Length;
-                this.d( );
-                if (this.gNum2 >= this.gNum1)
-                {
-                    this.a(xml, text1, text1);
-                    return;
-                }
-                if (this.gStr1[this.gNum2] == '=')
+                if (gStr1[gNum2] == '=')
                 {
                     string text2;
-                    this.gNum2++;
-                    this.d( );
-                    if (this.gNum2 >= this.gNum1)
+                    gNum2++;
+                    d( );
+                    if (gNum2 >= gNum1)
                     {
-                        this.a(xml, text1, text1);
+                        A(xml, text1, text1);
                         return;
                     }
-                    char ch1 = this.gStr1[this.gNum2];
+                    char ch1 = gStr1[gNum2];
                     if ((ch1 == '"') || (ch1 == '\''))
                     {
-                        this.gNum2++;
+                        gNum2++;
                         outFilter = new char[2] { '>', ch1 };
-                        text2 = this.a(outFilter);
-                        if ((this.gNum2 < this.gNum1) && (this.gStr1[this.gNum2] == ch1))
-                        {
-                            this.gNum2++;
-                        }
+                        text2 = a(outFilter);
+                        if ((gNum2 < gNum1) && (gStr1[gNum2] == ch1))
+                            gNum2++;
                     }
                     else if (ch1 == '>')
-                    {
                         text2 = null;
-                    }
                     else
-                    {
-                        text2 = this.g( );
-                    }
+                        text2 = g( );
                     if (text2 == null)
-                    {
                         text2 = "";
-                    }
                     else
-                    {
-                        text2 = b(text2);
-                    }
-                    this.a(xml, text1, text2);
+                        text2 = B(text2);
+                    A(xml, text1, text2);
                 }
             }
         }
         private string d( )
         {
-            string text1 = this.c( );
+            string text1 = c( );
             if (text1 == null)
-            {
                 return null;
-            }
-            this.gNum2 += text1.Length;
+            gNum2 += text1.Length;
             return text1;
         }
-        private void d(string str)
+        private void D(string str)
         {
-            if (((this.gNum2 + 1) <= this.gNum1) && ((this.gStr1[this.gNum2] == '<') && (this.gStr1[this.gNum2 + 1] == '/')))
+            if (((gNum2 + 1) <= gNum1) && ((gStr1[gNum2] == '<') && (gStr1[gNum2 + 1] == '/')))
             {
-                int num1 = this.gNum2;
-                this.gNum2 += 2;
-                string text1 = this.b( );
+                int num1 = gNum2;
+                gNum2 += 2;
+                string text1 = b( );
                 if (text1 != null)
                 {
-                    this.gNum2 += text1.Length;
-                    this.d( );
-                    if ((this.gNum2 < this.gNum1) && (this.gStr1[this.gNum2] == '>'))
-                    {
-                        this.gNum2++;
-                    }
+                    gNum2 += text1.Length;
+                    d( );
+                    if ((gNum2 < gNum1) && (gStr1[gNum2] == '>'))
+                        gNum2++;
                     if (string.Compare(text1, str, true) == 0)
-                    {
                         return;
-                    }
                 }
-                this.gNum2 = num1;
+                gNum2 = num1;
             }
         }
         private void d(XmlElement xml)
         {
-            int num1 = this.gNum1;
-            if (this.gNum2 < num1)
+            int num1 = gNum1;
+            if (gNum2 < num1)
             {
-                char ch1 = this.gStr1[this.gNum2];
+                char ch1 = gStr1[gNum2];
                 if (ch1 == '!')
                 {
-                    this.gNum2++;
-                    this.b(xml);
+                    gNum2++;
+                    B(xml);
                     return;
                 }
                 if (ch1 == '?')
                 {
-                    this.gNum2++;
-                    this.a(xml);
+                    gNum2++;
+                    a(xml);
                     return;
                 }
-                string text1 = this.b( );
+                string text1 = b( );
                 if (text1 != null)
                 {
-                    this.gNum2 += text1.Length;
-                    XmlElement element1 = this.e(text1);
+                    gNum2 += text1.Length;
+                    XmlElement element1 = e(text1);
                     string text2 = element1.LocalName.ToUpper( );
                     xml.AppendChild(element1);
-                    this.c(element1);
-                    if (this.gNum2 < num1)
+                    c(element1);
+                    if (gNum2 < num1)
                     {
-                        ch1 = this.gStr1[this.gNum2];
+                        ch1 = gStr1[gNum2];
                         if (ch1 == '/')
                         {
-                            this.gNum2++;
-                            if ((this.gNum2 < num1) && (this.gStr1[this.gNum2] == '>'))
-                            {
-                                this.gNum2++;
-                            }
+                            gNum2++;
+                            if ((gNum2 < num1) && (gStr1[gNum2] == '>'))
+                                gNum2++;
                             return;
                         }
                         if (ch1 == '>')
-                        {
-                            this.gNum2++;
-                        }
-                        if (this.gNum2 >= num1)
-                        {
+                            gNum2++;
+                        if (gNum2 >= num1)
                             return;
-                        }
                         if (",LINK,META,BASE,BGSOUND,BR,HR,INPUT,PARAM,IMG,AREA,".IndexOf("," + text2 + ",") != -1)
-                        {
                             return;
-                        }
                         if (text2 == "SCRIPT")
                         {
                             string text3;
-                            int num2 = this.gStr2.IndexOf("</script", this.gNum2);
+                            int num2 = gStr2.IndexOf("</script", gNum2);
                             if (num2 == -1)
-                            {
-                                text3 = this.f( );
-                            }
-                            else if (num2 == this.gNum2)
-                            {
+                                text3 = f( );
+                            else if (num2 == gNum2)
                                 text3 = "";
-                            }
                             else
                             {
-                                text3 = this.gStr1.Substring(this.gNum2, num2 - this.gNum2);
-                                this.gNum2 = num2;
+                                text3 = gStr1.Substring(gNum2, num2 - gNum2);
+                                gNum2 = num2;
                             }
                             text3 = text3.Replace("/*<![CDATA[*/", "").Replace("/*]]>*/", "").Trim( ).Replace("]]>", "]]&gt;");
-                            element1.AppendChild(this.document.CreateTextNode("/*"));
-                            element1.AppendChild(this.document.CreateCDataSection("*/\r\n" + text3 + "\r\n/*"));
-                            element1.AppendChild(this.document.CreateTextNode("*/"));
+                            element1.AppendChild(document.CreateTextNode("/*"));
+                            element1.AppendChild(document.CreateCDataSection("*/\r\n" + text3 + "\r\n/*"));
+                            element1.AppendChild(document.CreateTextNode("*/"));
                         }
                         else
                         {
-                            this.e(element1);
+                            E(element1);
                             if ((",IFRAME,A,P,DIV,OBJECT,ADDRESS,BIG,BLOCKQUOTE,B,CAPTION,CENTER,CITE,CODE,\r\n\t\t\t\t\t\t\t\t\t,DD,DFN,DIR,DL,DT,EM,FONT,FORM,H1,H2,H3,H4,H5,H6,HEAD,HTML,I,LI,MAP,MENU,OL,OPTION,\r\n\t\t\t\t\t\t\t\t\t,PRE,SELECT,SMALL,STRIKE,STRONG,SUB,SUP,TABLE,TD,TEXTAREA,TH,TITLE,TR,TT,U,".IndexOf("," + text2 + ",") != -1) && (element1.ChildNodes.Count == 0))
                             {
-                                element1.AppendChild(this.document.CreateTextNode(""));
+                                element1.AppendChild(document.CreateTextNode(""));
                             }
                         }
-                        this.d(text1);
+                        D(text1);
                     }
                     return;
                 }
             }
-            xml.AppendChild(this.document.CreateTextNode("<"));
+            xml.AppendChild(document.CreateTextNode("<"));
         }
         private string e( )
         {
-            if (this.gNum2 >= this.gNum1)
+            if (gNum2 >= gNum1)
             {
                 return "";
             }
-            if (this.gStr1[this.gNum2] == '<')
+            if (gStr1[gNum2] == '<')
             {
                 return "";
             }
-            int num1 = this.gStr1.IndexOf('<', this.gNum2);
+            int num1 = gStr1.IndexOf('<', gNum2);
             if (num1 != -1)
             {
-                string text1 = this.gStr1.Substring(this.gNum2, num1 - this.gNum2);
-                this.gNum2 = num1;
+                string text1 = gStr1.Substring(gNum2, num1 - gNum2);
+                gNum2 = num1;
                 return text1;
             }
-            string text2 = this.gStr1.Substring(this.gNum2);
-            this.gNum2 = this.gNum1;
+            string text2 = gStr1.Substring(gNum2);
+            gNum2 = gNum1;
             return text2;
         }
         private XmlElement e(string str)
@@ -502,118 +442,96 @@ namespace 极简浏览器
             try
             {
                 if (str.IndexOf(":") == -1)
-                {
-                    return this.document.CreateElement(str);
-                }
+                    return document.CreateElement(str);
                 char[] chArray1 = new char[1] { ':' };
                 string[] textArray1 = str.Split(chArray1, 2);
                 string text1 = textArray1[0];
                 string text2 = textArray1[1];
                 if (text2.IndexOf(":") != -1)
-                {
                     text2 = text2.Replace(":", "-");
-                }
                 if (string.IsNullOrEmpty(text2))
-                {
-                    this.document.CreateElement(text1);
-                }
+                    document.CreateElement(text1);
                 if (string.IsNullOrEmpty(text1))
-                {
-                    return this.document.CreateElement(text2);
-                }
-                element1 = this.document.CreateElement(text1, text2, "http://unknownprefix/" + text1);
+                    return document.CreateElement(text2);
+                element1 = document.CreateElement(text1, text2, "http://unknownprefix/" + text1);
             }
             catch
             {
-                element1 = this.document.CreateElement("error");
+                element1 = document.CreateElement("error");
             }
             return element1;
         }
-        private void e(XmlElement xml)
+        private void E(XmlElement xml)
         {
-            int num1 = this.gNum1;
-            while (this.gNum2 < num1)
+            int num1 = gNum1;
+            while (gNum2 < num1)
             {
-                char ch1 = this.gStr1[this.gNum2];
+                char ch1 = gStr1[gNum2];
                 if (ch1 == '<')
                 {
-                    if (((this.gNum2 + 1) < num1) && (this.gStr1[this.gNum2 + 1] == '/'))
-                    {
+                    if (((gNum2 + 1) < num1) && (gStr1[gNum2 + 1] == '/'))
                         return;
-                    }
-                    this.gNum2++;
-                    this.d(xml);
+                    gNum2++;
+                    d(xml);
                     continue;
                 }
-                string text1 = this.d( );
-                string text2 = this.a( );
+                string text1 = d( );
+                string text2 = A( );
                 if (text2 == null)
                 {
                     if (text1 == null)
-                    {
-                        this.gNum2++;
-                    }
+                        gNum2++;
                     continue;
                 }
-                this.gNum2 += text2.Length;
-                xml.AppendChild(this.document.CreateTextNode(text1 + b(text2)));
+                gNum2 += text2.Length;
+                xml.AppendChild(document.CreateTextNode(text1 + B(text2)));
             }
         }
         private string f( )
         {
-            if (this.gNum2 < this.gNum1)
+            if (gNum2 < gNum1)
             {
-                string text1 = this.gStr1.Substring(this.gNum2);
-                this.gNum2 = this.gNum1;
+                string text1 = gStr1.Substring(gNum2);
+                gNum2 = gNum1;
                 return text1;
             }
             return "";
         }
         private string g( )
         {
-            int num1 = this.gNum2;
-            while (this.gNum2 < this.gNum1)
+            int num1 = gNum2;
+            while (gNum2 < gNum1)
             {
-                char ch1 = this.gStr1[this.gNum2];
+                char ch1 = gStr1[gNum2];
                 if ((ch1 == '>') || char.IsWhiteSpace(ch1))
-                {
                     break;
-                }
-                this.gNum2++;
+                gNum2++;
             }
-            if (num1 == this.gNum2)
-            {
+            if (num1 == gNum2)
                 return null;
-            }
-            return this.gStr1.Substring(num1, this.gNum2 - num1);
+            return gStr1.Substring(num1, gNum2 - num1);
         }
         private void h( )
         {
-            if (((this.gNum2 + 1) <= this.gNum1) && ((this.gStr1[this.gNum2] == '<') && (this.gStr1[this.gNum2 + 1] == '/')))
+            if (((gNum2 + 1) <= gNum1) && ((gStr1[gNum2] == '<') && (gStr1[gNum2 + 1] == '/')))
             {
-                this.gNum2 += 2;
-                string text1 = this.b( );
+                gNum2 += 2;
+                string text1 = b( );
                 if (text1 != null)
                 {
-                    this.gNum2 += text1.Length;
-                    this.d( );
-                    if ((this.gNum2 < this.gNum1) && (this.gStr1[this.gNum2] == '>'))
-                    {
-                        this.gNum2++;
-                    }
+                    gNum2 += text1.Length;
+                    d( );
+                    if ((gNum2 < gNum1) && (gStr1[gNum2] == '>'))
+                        gNum2++;
                 }
             }
         }
         public static void ParseHtml(XmlElement xml, string str)
         {
             if (xml == null)
-            {
                 throw new ArgumentNullException("element");
-            }
             if (str == null)
-            {
                 throw new ArgumentNullException("xmlstring");
-            }
             HtmlFormatter parser1 = new HtmlFormatter( );
             parser1.document = xml.OwnerDocument;
             parser1.gStr1 = str;
@@ -622,11 +540,9 @@ namespace 极简浏览器
             parser1.gNum2 = 0;
             while (true)
             {
-                parser1.e(xml);
+                parser1.E(xml);
                 if (parser1.gNum2 >= parser1.gNum1)
-                {
                     return;
-                }
                 parser1.h( );
             }
         }
@@ -645,1043 +561,529 @@ namespace 极简浏览器
                     0xfe, 0xff, 0x100, 0x101, 0x102, 0x103, 260, 0x105, 0x106, 0x107, 0x108, 0x109, 0x10a, 0x10b, 0x10c, 0x10d, 270, 0x10f, 0x110, 0x111, 0x112, 0x113, 0x114, 0x115, 0x116, 0x117, 280, 0x119, 0x11a, 0x11b, 0x11c, 0x11d, 0x11e, 0x11f, 0x120, 0x121, 290,0x123, 0x124, 0x125, 0x126, 0x127, 0x128, 0x129, 0x12a, 0x12b, 300, 0x12d, 0x12e, 0x12f, 0x130, 0x131, 0x132, 0x133, 0x134, 0x135, 310, 0x137, 0x138, 0x139, 0x13a, 0x13b, 0x13c, 0x13d, 0x13e, 0x13f, 320, 0x141, 0x142, 0x143, 0x144, 0x145, 0x146, 0x147, 0x148, 0x149, 330, 0x14b, 0x14c, 0x14d, 0x14e, 0x14f, 0x150, 0x151, 0x152, 0x153, 340, 0x155, 0x156, 0x157, 0x158, 0x159, 0x15a, 0x15b, 0x15c, 0x15d, 350, 0x15f, 0x160, 0x161, 0x162, 0x163, 0x164, 0x165, 0x166, 0x167, 360, 0x169, 0x16a, 0x16b, 0x16c, 0x16d, 0x16e, 0x16f, 0x170, 0x171, 370, 0x173, 0x174, 0x175, 0x176, 0x177, 0x178, 0x179, 0x17a, 0x17b, 380, 0x17d, 0x17e, 0x17f, 0x180, 0x181, 0x182, 0x183, 0x184, 0x185, 390, 0x187, 0x188, 0x189, 0x18a, 0x18b, 0x18c, 0x18d, 0x18e, 0x18f, 400, 0x191, 0x192, 0x193, 0x194, 0x195, 0x196, 0x197, 0x198, 0x199, 410, 0x19b, 0x19c, 0x19d, 0x19e, 0x19f, 0x1a0, 0x1a1, 0x1a2, 0x1a3, 420, 0x1a5, 0x1a6, 0x1a7, 0x1a8, 0x1a9, 0x1aa, 0x1ab, 0x1ac, 0x1ad, 430, 0x1af, 0x1b0, 0x1b1, 0x1b2, 0x1b3, 0x1b4, 0x1b5, 0x1b6, 0x1b7, 440, 0x1b9, 0x1ba, 0x1bb, 0x1bc, 0x1bd, 0x1be, 0x1bf, 0x1c0, 0x1c1, 450, 0x1c3, 0x1c4, 0x1c5, 0x1c6, 0x1c7, 0x1c8, 0x1c9, 0x1ca, 0x1cb, 460, 0x1cd, 0x1ce, 0x1cf, 0x1d0, 0x1d1, 0x1d2, 0x1d3, 0x1d4, 0x1d5,
                     470, 0x1d7, 0x1d8, 0x1d9, 0x1da, 0x1db, 0x1dc, 0x1dd, 0x1de, 0x1df, 480, 0x1e1, 0x1e2, 0x1e3, 0x1e4, 0x1e5, 0x1e6, 0x1e7, 0x1e8, 0x1e9, 490, 0x1eb, 0x1ec, 0x1ed, 0x1ee, 0x1ef, 0x1f0, 0x1f1, 0x1f2, 0x1f3, 500, 0x1f5, 0x1f6, 0x1f7, 0x1f8, 0x1f9, 0x1fa, 0x1fb, 0x1fc, 0x1fd, 510, 0x1ff, 0x200, 0x201 };
                 for (int i = 0; i < before.Length; i++)
-                {
                     t.Add(before[i], after[i]);
-                }
                 hashtable = t;
             }
             if (((obj1 = str.ToLower( )) != null) && ((obj1 = hashtable[obj1]) != null))
             {
                 switch ((int) obj1)
                 {
-                    case 0:
-                        return "\"";
-                    case 1:
-                        return "&";
-                    case 2:
-                        return "<";
-                    case 3:
-                        return ">";
-                    case 4:
-                        return "\x00a0";
-                    case 5:
-                        return "\x00a1";
-                    case 6:
-                        return "\x00a2";
-                    case 7:
-                        return "\x00a3";
-                    case 8:
-                        return "\x00a4";
-                    case 9:
-                        return "\x00a5";
-                    case 10:
-                        return "\x00a6";
-                    case 11:
-                        return "\x00a6";
-                    case 12:
-                        return "\x00a7";
-                    case 13:
-                        return "\x00a8";
-                    case 14:
-                        return "\x00a8";
-                    case 15:
-                        return "\x00a9";
-                    case 0x10:
-                        return "\x00aa";
-                    case 0x11:
-                        return "\x00ab";
-                    case 0x12:
-                        return "\x00ac";
-                    case 0x13:
-                        return "\x00ad";
-                    case 20:
-                        return "\x00ae";
-                    case 0x15:
-                        return "\x00af";
-                    case 0x16:
-                        return "\x00af";
-                    case 0x17:
-                        return "\x00b0";
-                    case 0x18:
-                        return "\x00b1";
-                    case 0x19:
-                        return "\x00b2";
-                    case 0x1a:
-                        return "\x00b3";
-                    case 0x1b:
-                        return "\x00b4";
-                    case 0x1c:
-                        return "\x00b5";
-                    case 0x1d:
-                        return "\x00b6";
-                    case 30:
-                        return "\x00b7";
-                    case 0x1f:
-                        return "\x00b8";
-                    case 0x20:
-                        return "\x00b9";
-                    case 0x21:
-                        return "\x00ba";
-                    case 0x22:
-                        return "\x00bb";
-                    case 0x23:
-                        return "\x00bc";
-                    case 0x24:
-                        return "\x00bd";
-                    case 0x25:
-                        return "\x00be";
-                    case 0x26:
-                        return "\x00bf";
-                    case 0x27:
-                        return "\x00c0";
-                    case 40:
-                        return "\x00c1";
-                    case 0x29:
-                        return "\x00c2";
-                    case 0x2a:
-                        return "\x00c3";
-                    case 0x2b:
-                        return "\x00c4";
-                    case 0x2c:
-                        return "\x00c5";
-                    case 0x2d:
-                        return "\x00c6";
-                    case 0x2e:
-                        return "\x00c7";
-                    case 0x2f:
-                        return "\x00c8";
-                    case 0x30:
-                        return "\x00c9";
-                    case 0x31:
-                        return "\x00ca";
-                    case 50:
-                        return "\x00cb";
-                    case 0x33:
-                        return "\x00cc";
-                    case 0x34:
-                        return "\x00cd";
-                    case 0x35:
-                        return "\x00ce";
-                    case 0x36:
-                        return "\x00cf";
-                    case 0x37:
-                        return "\x00d0";
-                    case 0x38:
-                        return "\x00d1";
-                    case 0x39:
-                        return "\x00d2";
-                    case 0x3a:
-                        return "\x00d3";
-                    case 0x3b:
-                        return "\x00d4";
-                    case 60:
-                        return "\x00d5";
-                    case 0x3d:
-                        return "\x00d6";
-                    case 0x3e:
-                        return "\x00d7";
-                    case 0x3f:
-                        return "\x00d8";
-                    case 0x40:
-                        return "\x00d9";
-                    case 0x41:
-                        return "\x00da";
-                    case 0x42:
-                        return "\x00db";
-                    case 0x43:
-                        return "\x00dc";
-                    case 0x44:
-                        return "\x00dd";
-                    case 0x45:
-                        return "\x00de";
-                    case 70:
-                        return "\x00df";
-                    case 0x47:
-                        return "\x00e0";
-                    case 0x48:
-                        return "\x00e1";
-                    case 0x49:
-                        return "\x00e2";
-                    case 0x4a:
-                        return "\x00e3";
-                    case 0x4b:
-                        return "\x00e4";
-                    case 0x4c:
-                        return "\x00e5";
-                    case 0x4d:
-                        return "\x00e6";
-                    case 0x4e:
-                        return "\x00e7";
-                    case 0x4f:
-                        return "\x00e8";
-                    case 80:
-                        return "\x00e9";
-                    case 0x51:
-                        return "\x00ea";
-                    case 0x52:
-                        return "\x00eb";
-                    case 0x53:
-                        return "\x00ec";
-                    case 0x54:
-                        return "\x00ed";
-                    case 0x55:
-                        return "\x00ee";
-                    case 0x56:
-                        return "\x00ef";
-                    case 0x57:
-                        return "\x00f0";
-                    case 0x58:
-                        return "\x00f1";
-                    case 0x59:
-                        return "\x00f2";
-                    case 90:
-                        return "\x00f3";
-                    case 0x5b:
-                        return "\x00f4";
-                    case 0x5c:
-                        return "\x00f5";
-                    case 0x5d:
-                        return "\x00f6";
-                    case 0x5e:
-                        return "\x00f7";
-                    case 0x5f:
-                        return "\x00f8";
-                    case 0x60:
-                        return "\x00f9";
-                    case 0x61:
-                        return "\x00fa";
-                    case 0x62:
-                        return "\x00fb";
-                    case 0x63:
-                        return "\x00fc";
-                    case 100:
-                        return "\x00fd";
-                    case 0x65:
-                        return "\x00fe";
-                    case 0x66:
-                        return "\x00ff";
-                    case 0x67:
-                        return "\u0192";
-                    case 0x68:
-                        return "\u0391";
-                    case 0x69:
-                        return "\u0392";
-                    case 0x6a:
-                        return "\u0393";
-                    case 0x6b:
-                        return "\u0394";
-                    case 0x6c:
-                        return "\u0395";
-                    case 0x6d:
-                        return "\u0396";
-                    case 110:
-                        return "\u0397";
-                    case 0x6f:
-                        return "\u0398";
-                    case 0x70:
-                        return "\u0399";
-                    case 0x71:
-                        return "\u039a";
-                    case 0x72:
-                        return "\u039b";
-                    case 0x73:
-                        return "\u039c";
-                    case 0x74:
-                        return "\u039d";
-                    case 0x75:
-                        return "\u039e";
-                    case 0x76:
-                        return "\u039f";
-                    case 0x77:
-                        return "\u03a0";
-                    case 120:
-                        return "\u03a1";
-                    case 0x79:
-                        return "\u03a3";
-                    case 0x7a:
-                        return "\u03a4";
-                    case 0x7b:
-                        return "\u03a5";
-                    case 0x7c:
-                        return "\u03a6";
-                    case 0x7d:
-                        return "\u03a7";
-                    case 0x7e:
-                        return "\u03a8";
-                    case 0x7f:
-                        return "\u03a9";
-                    case 0x80:
-                        return "\u03b1";
-                    case 0x81:
-                        return "\u03b2";
-                    case 130:
-                        return "\u03b3";
-                    case 0x83:
-                        return "\u03b4";
-                    case 0x84:
-                        return "\u03b5";
-                    case 0x85:
-                        return "\u03b6";
-                    case 0x86:
-                        return "\u03b7";
-                    case 0x87:
-                        return "\u03b8";
-                    case 0x88:
-                        return "\u03b9";
-                    case 0x89:
-                        return "\u03ba";
-                    case 0x8a:
-                        return "\u03bb";
-                    case 0x8b:
-                        return "\u03bc";
-                    case 140:
-                        return "\u03bd";
-                    case 0x8d:
-                        return "\u03be";
-                    case 0x8e:
-                        return "\u03bf";
-                    case 0x8f:
-                        return "\u03c0";
-                    case 0x90:
-                        return "\u03c1";
-                    case 0x91:
-                        return "\u03c2";
-                    case 0x92:
-                        return "\u03c3";
-                    case 0x93:
-                        return "\u03c4";
-                    case 0x94:
-                        return "\u03c5";
-                    case 0x95:
-                        return "\u03c6";
-                    case 150:
-                        return "\u03c7";
-                    case 0x97:
-                        return "\u03c8";
-                    case 0x98:
-                        return "\u03c9";
-                    case 0x99:
-                        return "\u03d1";
-                    case 0x9a:
-                        return "\u03d2";
-                    case 0x9b:
-                        return "\u03d6";
-                    case 0x9c:
-                        return "\u2022";
-                    case 0x9d:
-                        return "\u2026";
-                    case 0x9e:
-                        return "\u2032";
-                    case 0x9f:
-                        return "\u2033";
-                    case 160:
-                        return "\u203e";
-                    case 0xa1:
-                        return "\u2044";
-                    case 0xa2:
-                        return "\u2118";
-                    case 0xa3:
-                        return "\u2111";
-                    case 0xa4:
-                        return "\u211c";
-                    case 0xa5:
-                        return "\u2122";
-                    case 0xa6:
-                        return "\u2135";
-                    case 0xa7:
-                        return "\u2190";
-                    case 0xa8:
-                        return "\u2191";
-                    case 0xa9:
-                        return "\u2192";
-                    case 170:
-                        return "\u2193";
-                    case 0xab:
-                        return "\u2194";
-                    case 0xac:
-                        return "\u21b5";
-                    case 0xad:
-                        return "\u21d0";
-                    case 0xae:
-                        return "\u21d1";
-                    case 0xaf:
-                        return "\u21d2";
-                    case 0xb0:
-                        return "\u21d3";
-                    case 0xb1:
-                        return "\u21d4";
-                    case 0xb2:
-                        return "\u2200";
-                    case 0xb3:
-                        return "\u2202";
-                    case 180:
-                        return "\u2203";
-                    case 0xb5:
-                        return "\u2205";
-                    case 0xb6:
-                        return "\u2207";
-                    case 0xb7:
-                        return "\u2208";
-                    case 0xb8:
-                        return "\u2209";
-                    case 0xb9:
-                        return "\u220b";
-                    case 0xba:
-                        return "\u220f";
-                    case 0xbb:
-                        return "\u2212";
-                    case 0xbc:
-                        return "\u2212";
-                    case 0xbd:
-                        return "\u2217";
-                    case 190:
-                        return "\u221a";
-                    case 0xbf:
-                        return "\u221d";
-                    case 0xc0:
-                        return "\u221e";
-                    case 0xc1:
-                        return "\u2220";
-                    case 0xc2:
-                        return "\u22a5";
-                    case 0xc3:
-                        return "\u22a6";
-                    case 0xc4:
-                        return "\u2229";
-                    case 0xc5:
-                        return "\u222a";
-                    case 0xc6:
-                        return "\u222b";
-                    case 0xc7:
-                        return "\u2234";
-                    case 200:
-                        return "\u223c";
-                    case 0xc9:
-                        return "\u2245";
-                    case 0xca:
-                        return "\u2245";
-                    case 0xcb:
-                        return "\u2260";
-                    case 0xcc:
-                        return "\u2261";
-                    case 0xcd:
-                        return "\u2264";
-                    case 0xce:
-                        return "\u2265";
-                    case 0xcf:
-                        return "\u2282";
-                    case 0xd0:
-                        return "\u2283";
-                    case 0xd1:
-                        return "\u2284";
-                    case 210:
-                        return "\u2286";
-                    case 0xd3:
-                        return "\u2287";
-                    case 0xd4:
-                        return "\u2295";
-                    case 0xd5:
-                        return "\u2297";
-                    case 0xd6:
-                        return "\u22a5";
-                    case 0xd7:
-                        return "\u22c5";
-                    case 0xd8:
-                        return "\u2308";
-                    case 0xd9:
-                        return "\u2309";
-                    case 0xda:
-                        return "\u230a";
-                    case 0xdb:
-                        return "\u230b";
-                    case 220:
-                        return "\u2329";
-                    case 0xdd:
-                        return "\u232a";
-                    case 0xde:
-                        return "\u25ca";
-                    case 0xdf:
-                        return "\u2660";
-                    case 0xe0:
-                        return "\u2663";
-                    case 0xe1:
-                        return "\u2665";
-                    case 0xe2:
-                        return "\u2666";
-                    case 0xe3:
-                        return "\"";
-                    case 0xe4:
-                        return "&";
-                    case 0xe5:
-                        return "<";
-                    case 230:
-                        return ">";
-                    case 0xe7:
-                        return "\u0152";
-                    case 0xe8:
-                        return "\u0153";
-                    case 0xe9:
-                        return "\u0160";
-                    case 0xea:
-                        return "\u0161";
-                    case 0xeb:
-                        return "\u0178";
-                    case 0xec:
-                        return "\u02c6";
-                    case 0xed:
-                        return "\u02dc";
-                    case 0xee:
-                        return "\u2002";
-                    case 0xef:
-                        return "\u2003";
-                    case 240:
-                        return "\u2009";
-                    case 0xf1:
-                        return "\u200c";
-                    case 0xf2:
-                        return "\u200d";
-                    case 0xf3:
-                        return "\u200e";
-                    case 0xf4:
-                        return "\u200f";
-                    case 0xf5:
-                        return "\u2013";
-                    case 0xf6:
-                        return "\x0097";
-                    case 0xf7:
-                        return "\u2018";
-                    case 0xf8:
-                        return "\u2019";
-                    case 0xf9:
-                        return "\u201a";
-                    case 250:
-                        return "\u201c";
-                    case 0xfb:
-                        return "\u201d";
-                    case 0xfc:
-                        return "\u201e";
-                    case 0xfd:
-                        return "\u2020";
-                    case 0xfe:
-                        return "\u2021";
-                    case 0xff:
-                        return "\u2030";
-                    case 0x100:
-                        return "\u2039";
-                    case 0x101:
-                        return "\u203a";
-                    case 0x102:
-                        return "\0";
-                    case 0x103:
-                        return "\x0001";
-                    case 260:
-                        return "\x0002";
-                    case 0x105:
-                        return "\x0003";
-                    case 0x106:
-                        return "\x0004";
-                    case 0x107:
-                        return "\x0005";
-                    case 0x108:
-                        return "\x0006";
-                    case 0x109:
-                        return "\a";
-                    case 0x10a:
-                        return "\b";
-                    case 0x10b:
-                        return "\t";
-                    case 0x10c:
-                        return "\n";
-                    case 0x10d:
-                        return "\v";
-                    case 270:
-                        return "\f";
-                    case 0x10f:
-                        return "\r";
-                    case 0x110:
-                        return "\x000e";
-                    case 0x111:
-                        return "\x000f";
-                    case 0x112:
-                        return "\x0010";
-                    case 0x113:
-                        return "\x0011";
-                    case 0x114:
-                        return "\x0012";
-                    case 0x115:
-                        return "\x0013";
-                    case 0x116:
-                        return "\x0014";
-                    case 0x117:
-                        return "\x0015";
-                    case 280:
-                        return "\x0016";
-                    case 0x119:
-                        return "\x0017";
-                    case 0x11a:
-                        return "\x0018";
-                    case 0x11b:
-                        return "\x0019";
-                    case 0x11c:
-                        return "\x001a";
-                    case 0x11d:
-                        return "\x001b";
-                    case 0x11e:
-                        return "\x001c";
-                    case 0x11f:
-                        return "\x001d";
-                    case 0x120:
-                        return "\x001e";
-                    case 0x121:
-                        return "\x001f";
-                    case 290:
-                        return " ";
-                    case 0x123:
-                        return "!";
-                    case 0x124:
-                        return "\"";
-                    case 0x125:
-                        return "#";
-                    case 0x126:
-                        return "$";
-                    case 0x127:
-                        return "%";
-                    case 0x128:
-                        return "&";
-                    case 0x129:
-                        return "\"";
-                    case 0x12a:
-                        return "(";
-                    case 0x12b:
-                        return ")";
-                    case 300:
-                        return "*";
-                    case 0x12d:
-                        return "+";
-                    case 0x12e:
-                        return ",";
-                    case 0x12f:
-                        return "-";
-                    case 0x130:
-                        return ".";
-                    case 0x131:
-                        return "/";
-                    case 0x132:
-                        return "0";
-                    case 0x133:
-                        return "1";
-                    case 0x134:
-                        return "2";
-                    case 0x135:
-                        return "3";
-                    case 310:
-                        return "4";
-                    case 0x137:
-                        return "5";
-                    case 0x138:
-                        return "6";
-                    case 0x139:
-                        return "7";
-                    case 0x13a:
-                        return "8";
-                    case 0x13b:
-                        return "9";
-                    case 0x13c:
-                        return ":";
-                    case 0x13d:
-                        return ";";
-                    case 0x13e:
-                        return "<";
-                    case 0x13f:
-                        return "=";
-                    case 320:
-                        return ">";
-                    case 0x141:
-                        return "?";
-                    case 0x142:
-                        return "@";
-                    case 0x143:
-                        return "A";
-                    case 0x144:
-                        return "B";
-                    case 0x145:
-                        return "C";
-                    case 0x146:
-                        return "D";
-                    case 0x147:
-                        return "E";
-                    case 0x148:
-                        return "F";
-                    case 0x149:
-                        return "G";
-                    case 330:
-                        return "H";
-                    case 0x14b:
-                        return "I";
-                    case 0x14c:
-                        return "J";
-                    case 0x14d:
-                        return "K";
-                    case 0x14e:
-                        return "L";
-                    case 0x14f:
-                        return "M";
-                    case 0x150:
-                        return "N";
-                    case 0x151:
-                        return "O";
-                    case 0x152:
-                        return "P";
-                    case 0x153:
-                        return "Q";
-                    case 340:
-                        return "R";
-                    case 0x155:
-                        return "S";
-                    case 0x156:
-                        return "T";
-                    case 0x157:
-                        return "U";
-                    case 0x158:
-                        return "V";
-                    case 0x159:
-                        return "W";
-                    case 0x15a:
-                        return "X";
-                    case 0x15b:
-                        return "Y";
-                    case 0x15c:
-                        return "Z";
-                    case 0x15d:
-                        return "[";
-                    case 350:
-                        return "\\";
-                    case 0x15f:
-                        return "]";
-                    case 0x160:
-                        return "^";
-                    case 0x161:
-                        return "_";
-                    case 0x162:
-                        return "`";
-                    case 0x163:
-                        return "a";
-                    case 0x164:
-                        return "b";
-                    case 0x165:
-                        return "c";
-                    case 0x166:
-                        return "d";
-                    case 0x167:
-                        return "e";
-                    case 360:
-                        return "f";
-                    case 0x169:
-                        return "g";
-                    case 0x16a:
-                        return "h";
-                    case 0x16b:
-                        return "i";
-                    case 0x16c:
-                        return "j";
-                    case 0x16d:
-                        return "k";
-                    case 0x16e:
-                        return "l";
-                    case 0x16f:
-                        return "m";
-                    case 0x170:
-                        return "n";
-                    case 0x171:
-                        return "o";
-                    case 370:
-                        return "p";
-                    case 0x173:
-                        return "q";
-                    case 0x174:
-                        return "r";
-                    case 0x175:
-                        return "s";
-                    case 0x176:
-                        return "t";
-                    case 0x177:
-                        return "u";
-                    case 0x178:
-                        return "v";
-                    case 0x179:
-                        return "w";
-                    case 0x17a:
-                        return "x";
-                    case 0x17b:
-                        return "y";
-                    case 380:
-                        return "z";
-                    case 0x17d:
-                        return "{";
-                    case 0x17e:
-                        return "|";
-                    case 0x17f:
-                        return "}";
-                    case 0x180:
-                        return "~";
-                    case 0x181:
-                        return "\x007f";
-                    case 0x182:
-                        return "\x0080";
-                    case 0x183:
-                        return "\x0081";
-                    case 0x184:
-                        return "\x0082";
-                    case 0x185:
-                        return "\x0083";
-                    case 390:
-                        return "\x0084";
-                    case 0x187:
-                        return "\x0085";
-                    case 0x188:
-                        return "\x0086";
-                    case 0x189:
-                        return "\x0087";
-                    case 0x18a:
-                        return "\x0088";
-                    case 0x18b:
-                        return "\x0089";
-                    case 0x18c:
-                        return "\x008a";
-                    case 0x18d:
-                        return "\x008b";
-                    case 0x18e:
-                        return "\x008c";
-                    case 0x18f:
-                        return "\x008d";
-                    case 400:
-                        return "\x008e";
-                    case 0x191:
-                        return "\x008f";
-                    case 0x192:
-                        return "\x0090";
-                    case 0x193:
-                        return "\x0091";
-                    case 0x194:
-                        return "\x0092";
-                    case 0x195:
-                        return "\x0093";
-                    case 0x196:
-                        return "\x0094";
-                    case 0x197:
-                        return "\x0095";
-                    case 0x198:
-                        return "\x0096";
-                    case 0x199:
-                        return "\x0097";
-                    case 410:
-                        return "\x0098";
-                    case 0x19b:
-                        return "\x0099";
-                    case 0x19c:
-                        return "\x009a";
-                    case 0x19d:
-                        return "\x009b";
-                    case 0x19e:
-                        return "\x009c";
-                    case 0x19f:
-                        return "\x009d";
-                    case 0x1a0:
-                        return "\x009e";
-                    case 0x1a1:
-                        return "\x009f";
-                    case 0x1a2:
-                        return "\x00a0";
-                    case 0x1a3:
-                        return "\x00a1";
-                    case 420:
-                        return "\x00a2";
-                    case 0x1a5:
-                        return "\x00a3";
-                    case 0x1a6:
-                        return "\x00a4";
-                    case 0x1a7:
-                        return "\x00a5";
-                    case 0x1a8:
-                        return "\x00a6";
-                    case 0x1a9:
-                        return "\x00a7";
-                    case 0x1aa:
-                        return "\x00a8";
-                    case 0x1ab:
-                        return "\x00a9";
-                    case 0x1ac:
-                        return "\x00aa";
-                    case 0x1ad:
-                        return "\x00ab";
-                    case 430:
-                        return "\x00ac";
-                    case 0x1af:
-                        return "\x00ad";
-                    case 0x1b0:
-                        return "\x00ae";
-                    case 0x1b1:
-                        return "\x00af";
-                    case 0x1b2:
-                        return "\x00b0";
-                    case 0x1b3:
-                        return "\x00b1";
-                    case 0x1b4:
-                        return "\x00b2";
-                    case 0x1b5:
-                        return "\x00b3";
-                    case 0x1b6:
-                        return "\x00b4";
-                    case 0x1b7:
-                        return "\x00b5";
-                    case 440:
-                        return "\x00b6";
-                    case 0x1b9:
-                        return "\x00b7";
-                    case 0x1ba:
-                        return "\x00b8";
-                    case 0x1bb:
-                        return "\x00b9";
-                    case 0x1bc:
-                        return "\x00ba";
-                    case 0x1bd:
-                        return "\x00bb";
-                    case 0x1be:
-                        return "\x00bc";
-                    case 0x1bf:
-                        return "\x00bd";
-                    case 0x1c0:
-                        return "\x00be";
-                    case 0x1c1:
-                        return "\x00bf";
-                    case 450:
-                        return "\x00c0";
-                    case 0x1c3:
-                        return "\x00c1";
-                    case 0x1c4:
-                        return "\x00c2";
-                    case 0x1c5:
-                        return "\x00c3";
-                    case 0x1c6:
-                        return "\x00c4";
-                    case 0x1c7:
-                        return "\x00c5";
-                    case 0x1c8:
-                        return "\x00c6";
-                    case 0x1c9:
-                        return "\x00c7";
-                    case 0x1ca:
-                        return "\x00c8";
-                    case 0x1cb:
-                        return "\x00c9";
-                    case 460:
-                        return "\x00ca";
-                    case 0x1cd:
-                        return "\x00cb";
-                    case 0x1ce:
-                        return "\x00cc";
-                    case 0x1cf:
-                        return "\x00cd";
-                    case 0x1d0:
-                        return "\x00ce";
-                    case 0x1d1:
-                        return "\x00cf";
-                    case 0x1d2:
-                        return "\x00d0";
-                    case 0x1d3:
-                        return "\x00d1";
-                    case 0x1d4:
-                        return "\x00d2";
-                    case 0x1d5:
-                        return "\x00d3";
-                    case 470:
-                        return "\x00d4";
-                    case 0x1d7:
-                        return "\x00d5";
-                    case 0x1d8:
-                        return "\x00d6";
-                    case 0x1d9:
-                        return "\x00d7";
-                    case 0x1da:
-                        return "\x00d8";
-                    case 0x1db:
-                        return "\x00d9";
-                    case 0x1dc:
-                        return "\x00da";
-                    case 0x1dd:
-                        return "\x00db";
-                    case 0x1de:
-                        return "\x00dc";
-                    case 0x1df:
-                        return "\x00dd";
-                    case 480:
-                        return "\x00de";
-                    case 0x1e1:
-                        return "\x00df";
-                    case 0x1e2:
-                        return "\x00e0";
-                    case 0x1e3:
-                        return "\x00e1";
-                    case 0x1e4:
-                        return "\x00e2";
-                    case 0x1e5:
-                        return "\x00e3";
-                    case 0x1e6:
-                        return "\x00e4";
-                    case 0x1e7:
-                        return "\x00e5";
-                    case 0x1e8:
-                        return "\x00e6";
-                    case 0x1e9:
-                        return "\x00e7";
-                    case 490:
-                        return "\x00e8";
-                    case 0x1eb:
-                        return "\x00e9";
-                    case 0x1ec:
-                        return "\x00ea";
-                    case 0x1ed:
-                        return "\x00eb";
-                    case 0x1ee:
-                        return "\x00ec";
-                    case 0x1ef:
-                        return "\x00ed";
-                    case 0x1f0:
-                        return "\x00ee";
-                    case 0x1f1:
-                        return "\x00ef";
-                    case 0x1f2:
-                        return "\x00f0";
-                    case 0x1f3:
-                        return "\x00f1";
-                    case 500:
-                        return "\x00f2";
-                    case 0x1f5:
-                        return "\x00f3";
-                    case 0x1f6:
-                        return "\x00f4";
-                    case 0x1f7:
-                        return "\x00f5";
-                    case 0x1f8:
-                        return "\x00f6";
-                    case 0x1f9:
-                        return "\x00f7";
-                    case 0x1fa:
-                        return "\x00f8";
-                    case 0x1fb:
-                        return "\x00f9";
-                    case 0x1fc:
-                        return "\x00fa";
-                    case 0x1fd:
-                        return "\x00fb";
-                    case 510:
-                        return "\x00fc";
-                    case 0x1ff:
-                        return "\x00fd";
-                    case 0x200:
-                        return "\x00fe";
-                    case 0x201:
-                        return "\x00ff";
+#if FORMAT
+                    case 0: return "\"";
+                    case 1: return "&";
+                    case 2: return "<";
+                    case 3: return ">";
+                    case 4: return "\x00a0";
+                    case 5: return "\x00a1";
+                    case 6: return "\x00a2";
+                    case 7: return "\x00a3";
+                    case 8: return "\x00a4";
+                    case 9: return "\x00a5";
+                    case 10: return "\x00a6";
+                    case 11: return "\x00a6";
+                    case 12: return "\x00a7";
+                    case 13: return "\x00a8";
+                    case 14: return "\x00a8";
+                    case 15: return "\x00a9";
+                    case 0x10: return "\x00aa";
+                    case 0x11: return "\x00ab";
+                    case 0x12: return "\x00ac";
+                    case 0x13: return "\x00ad";
+                    case 20: return "\x00ae";
+                    case 0x15: return "\x00af";
+                    case 0x16: return "\x00af";
+                    case 0x17: return "\x00b0";
+                    case 0x18: return "\x00b1";
+                    case 0x19: return "\x00b2";
+                    case 0x1a: return "\x00b3";
+                    case 0x1b: return "\x00b4";
+                    case 0x1c: return "\x00b5";
+                    case 0x1d: return "\x00b6";
+                    case 30: return "\x00b7";
+                    case 0x1f: return "\x00b8";
+                    case 0x20: return "\x00b9";
+                    case 0x21: return "\x00ba";
+                    case 0x22: return "\x00bb";
+                    case 0x23: return "\x00bc";
+                    case 0x24: return "\x00bd";
+                    case 0x25: return "\x00be";
+                    case 0x26: return "\x00bf";
+                    case 0x27: return "\x00c0";
+                    case 40: return "\x00c1";
+                    case 0x29: return "\x00c2";
+                    case 0x2a: return "\x00c3";
+                    case 0x2b: return "\x00c4";
+                    case 0x2c: return "\x00c5";
+                    case 0x2d: return "\x00c6";
+                    case 0x2e: return "\x00c7";
+                    case 0x2f: return "\x00c8";
+                    case 0x30: return "\x00c9";
+                    case 0x31: return "\x00ca";
+                    case 50: return "\x00cb";
+                    case 0x33: return "\x00cc";
+                    case 0x34: return "\x00cd";
+                    case 0x35: return "\x00ce";
+                    case 0x36: return "\x00cf";
+                    case 0x37: return "\x00d0";
+                    case 0x38: return "\x00d1";
+                    case 0x39: return "\x00d2";
+                    case 0x3a: return "\x00d3";
+                    case 0x3b: return "\x00d4";
+                    case 60: return "\x00d5";
+                    case 0x3d: return "\x00d6";
+                    case 0x3e: return "\x00d7";
+                    case 0x3f: return "\x00d8";
+                    case 0x40: return "\x00d9";
+                    case 0x41: return "\x00da";
+                    case 0x42: return "\x00db";
+                    case 0x43: return "\x00dc";
+                    case 0x44: return "\x00dd";
+                    case 0x45: return "\x00de";
+                    case 70: return "\x00df";
+                    case 0x47: return "\x00e0";
+                    case 0x48: return "\x00e1";
+                    case 0x49: return "\x00e2";
+                    case 0x4a: return "\x00e3";
+                    case 0x4b: return "\x00e4";
+                    case 0x4c: return "\x00e5";
+                    case 0x4d: return "\x00e6";
+                    case 0x4e: return "\x00e7";
+                    case 0x4f: return "\x00e8";
+                    case 80: return "\x00e9";
+                    case 0x51: return "\x00ea";
+                    case 0x52: return "\x00eb";
+                    case 0x53: return "\x00ec";
+                    case 0x54: return "\x00ed";
+                    case 0x55: return "\x00ee";
+                    case 0x56: return "\x00ef";
+                    case 0x57: return "\x00f0";
+                    case 0x58: return "\x00f1";
+                    case 0x59: return "\x00f2";
+                    case 90: return "\x00f3";
+                    case 0x5b: return "\x00f4";
+                    case 0x5c: return "\x00f5";
+                    case 0x5d: return "\x00f6";
+                    case 0x5e: return "\x00f7";
+                    case 0x5f: return "\x00f8";
+                    case 0x60: return "\x00f9";
+                    case 0x61: return "\x00fa";
+                    case 0x62: return "\x00fb";
+                    case 0x63: return "\x00fc";
+                    case 100: return "\x00fd";
+                    case 0x65: return "\x00fe";
+                    case 0x66: return "\x00ff";
+                    case 0x67: return "\u0192";
+                    case 0x68: return "\u0391";
+                    case 0x69: return "\u0392";
+                    case 0x6a: return "\u0393";
+                    case 0x6b: return "\u0394";
+                    case 0x6c: return "\u0395";
+                    case 0x6d: return "\u0396";
+                    case 110: return "\u0397";
+                    case 0x6f: return "\u0398";
+                    case 0x70: return "\u0399";
+                    case 0x71: return "\u039a";
+                    case 0x72: return "\u039b";
+                    case 0x73: return "\u039c";
+                    case 0x74: return "\u039d";
+                    case 0x75: return "\u039e";
+                    case 0x76: return "\u039f";
+                    case 0x77: return "\u03a0";
+                    case 120: return "\u03a1";
+                    case 0x79: return "\u03a3";
+                    case 0x7a: return "\u03a4";
+                    case 0x7b: return "\u03a5";
+                    case 0x7c: return "\u03a6";
+                    case 0x7d: return "\u03a7";
+                    case 0x7e: return "\u03a8";
+                    case 0x7f: return "\u03a9";
+                    case 0x80: return "\u03b1";
+                    case 0x81: return "\u03b2";
+                    case 130: return "\u03b3";
+                    case 0x83: return "\u03b4";
+                    case 0x84: return "\u03b5";
+                    case 0x85: return "\u03b6";
+                    case 0x86: return "\u03b7";
+                    case 0x87: return "\u03b8";
+                    case 0x88: return "\u03b9";
+                    case 0x89: return "\u03ba";
+                    case 0x8a: return "\u03bb";
+                    case 0x8b: return "\u03bc";
+                    case 140: return "\u03bd";
+                    case 0x8d: return "\u03be";
+                    case 0x8e: return "\u03bf";
+                    case 0x8f: return "\u03c0";
+                    case 0x90: return "\u03c1";
+                    case 0x91: return "\u03c2";
+                    case 0x92: return "\u03c3";
+                    case 0x93: return "\u03c4";
+                    case 0x94: return "\u03c5";
+                    case 0x95: return "\u03c6";
+                    case 150: return "\u03c7";
+                    case 0x97: return "\u03c8";
+                    case 0x98: return "\u03c9";
+                    case 0x99: return "\u03d1";
+                    case 0x9a: return "\u03d2";
+                    case 0x9b: return "\u03d6";
+                    case 0x9c: return "\u2022";
+                    case 0x9d: return "\u2026";
+                    case 0x9e: return "\u2032";
+                    case 0x9f: return "\u2033";
+                    case 160: return "\u203e";
+                    case 0xa1: return "\u2044";
+                    case 0xa2: return "\u2118";
+                    case 0xa3: return "\u2111";
+                    case 0xa4: return "\u211c";
+                    case 0xa5: return "\u2122";
+                    case 0xa6: return "\u2135";
+                    case 0xa7: return "\u2190";
+                    case 0xa8: return "\u2191";
+                    case 0xa9: return "\u2192";
+                    case 170: return "\u2193";
+                    case 0xab: return "\u2194";
+                    case 0xac: return "\u21b5";
+                    case 0xad: return "\u21d0";
+                    case 0xae: return "\u21d1";
+                    case 0xaf: return "\u21d2";
+                    case 0xb0: return "\u21d3";
+                    case 0xb1: return "\u21d4";
+                    case 0xb2: return "\u2200";
+                    case 0xb3: return "\u2202";
+                    case 180: return "\u2203";
+                    case 0xb5: return "\u2205";
+                    case 0xb6: return "\u2207";
+                    case 0xb7: return "\u2208";
+                    case 0xb8: return "\u2209";
+                    case 0xb9: return "\u220b";
+                    case 0xba: return "\u220f";
+                    case 0xbb: return "\u2212";
+                    case 0xbc: return "\u2212";
+                    case 0xbd: return "\u2217";
+                    case 190: return "\u221a";
+                    case 0xbf: return "\u221d";
+                    case 0xc0: return "\u221e";
+                    case 0xc1: return "\u2220";
+                    case 0xc2: return "\u22a5";
+                    case 0xc3: return "\u22a6";
+                    case 0xc4: return "\u2229";
+                    case 0xc5: return "\u222a";
+                    case 0xc6: return "\u222b";
+                    case 0xc7: return "\u2234";
+                    case 200: return "\u223c";
+                    case 0xc9: return "\u2245";
+                    case 0xca: return "\u2245";
+                    case 0xcb: return "\u2260";
+                    case 0xcc: return "\u2261";
+                    case 0xcd: return "\u2264";
+                    case 0xce: return "\u2265";
+                    case 0xcf: return "\u2282";
+                    case 0xd0: return "\u2283";
+                    case 0xd1: return "\u2284";
+                    case 210: return "\u2286";
+                    case 0xd3: return "\u2287";
+                    case 0xd4: return "\u2295";
+                    case 0xd5: return "\u2297";
+                    case 0xd6: return "\u22a5";
+                    case 0xd7: return "\u22c5";
+                    case 0xd8: return "\u2308";
+                    case 0xd9: return "\u2309";
+                    case 0xda: return "\u230a";
+                    case 0xdb: return "\u230b";
+                    case 220: return "\u2329";
+                    case 0xdd: return "\u232a";
+                    case 0xde: return "\u25ca";
+                    case 0xdf: return "\u2660";
+                    case 0xe0: return "\u2663";
+                    case 0xe1: return "\u2665";
+                    case 0xe2: return "\u2666";
+                    case 0xe3: return "\"";
+                    case 0xe4: return "&";
+                    case 0xe5: return "<";
+                    case 230: return ">";
+                    case 0xe7: return "\u0152";
+                    case 0xe8: return "\u0153";
+                    case 0xe9: return "\u0160";
+                    case 0xea: return "\u0161";
+                    case 0xeb: return "\u0178";
+                    case 0xec: return "\u02c6";
+                    case 0xed: return "\u02dc";
+                    case 0xee: return "\u2002";
+                    case 0xef: return "\u2003";
+                    case 240: return "\u2009";
+                    case 0xf1: return "\u200c";
+                    case 0xf2: return "\u200d";
+                    case 0xf3: return "\u200e";
+                    case 0xf4: return "\u200f";
+                    case 0xf5: return "\u2013";
+                    case 0xf6: return "\x0097";
+                    case 0xf7: return "\u2018";
+                    case 0xf8: return "\u2019";
+                    case 0xf9: return "\u201a";
+                    case 250: return "\u201c";
+                    case 0xfb: return "\u201d";
+                    case 0xfc: return "\u201e";
+                    case 0xfd: return "\u2020";
+                    case 0xfe: return "\u2021";
+                    case 0xff: return "\u2030";
+                    case 0x100: return "\u2039";
+                    case 0x101: return "\u203a";
+                    case 0x102: return "\0";
+                    case 0x103: return "\x0001";
+                    case 260: return "\x0002";
+                    case 0x105: return "\x0003";
+                    case 0x106: return "\x0004";
+                    case 0x107: return "\x0005";
+                    case 0x108: return "\x0006";
+                    case 0x109: return "\a";
+                    case 0x10a: return "\b";
+                    case 0x10b: return "\t";
+                    case 0x10c: return "\n";
+                    case 0x10d: return "\v";
+                    case 270: return "\f";
+                    case 0x10f: return "\r";
+                    case 0x110: return "\x000e";
+                    case 0x111: return "\x000f";
+                    case 0x112: return "\x0010";
+                    case 0x113: return "\x0011";
+                    case 0x114: return "\x0012";
+                    case 0x115: return "\x0013";
+                    case 0x116: return "\x0014";
+                    case 0x117: return "\x0015";
+                    case 280: return "\x0016";
+                    case 0x119: return "\x0017";
+                    case 0x11a: return "\x0018";
+                    case 0x11b: return "\x0019";
+                    case 0x11c: return "\x001a";
+                    case 0x11d: return "\x001b";
+                    case 0x11e: return "\x001c";
+                    case 0x11f: return "\x001d";
+                    case 0x120: return "\x001e";
+                    case 0x121: return "\x001f";
+                    case 290: return " ";
+                    case 0x123: return "!";
+                    case 0x124: return "\"";
+                    case 0x125: return "#";
+                    case 0x126: return "$";
+                    case 0x127: return "%";
+                    case 0x128: return "&";
+                    case 0x129: return "\"";
+                    case 0x12a: return "(";
+                    case 0x12b: return ")";
+                    case 300: return "*";
+                    case 0x12d: return "+";
+                    case 0x12e: return ",";
+                    case 0x12f: return "-";
+                    case 0x130: return ".";
+                    case 0x131: return "/";
+                    case 0x132: return "0";
+                    case 0x133: return "1";
+                    case 0x134: return "2";
+                    case 0x135: return "3";
+                    case 310: return "4";
+                    case 0x137: return "5";
+                    case 0x138: return "6";
+                    case 0x139: return "7";
+                    case 0x13a: return "8";
+                    case 0x13b: return "9";
+                    case 0x13c: return ":";
+                    case 0x13d: return ";";
+                    case 0x13e: return "<";
+                    case 0x13f: return "=";
+                    case 320: return ">";
+                    case 0x141: return "?";
+                    case 0x142: return "@";
+                    case 0x143: return "A";
+                    case 0x144: return "B";
+                    case 0x145: return "C";
+                    case 0x146: return "D";
+                    case 0x147: return "E";
+                    case 0x148: return "F";
+                    case 0x149: return "G";
+                    case 330: return "H";
+                    case 0x14b: return "I";
+                    case 0x14c: return "J";
+                    case 0x14d: return "K";
+                    case 0x14e: return "L";
+                    case 0x14f: return "M";
+                    case 0x150: return "N";
+                    case 0x151: return "O";
+                    case 0x152: return "P";
+                    case 0x153: return "Q";
+                    case 340: return "R";
+                    case 0x155: return "S";
+                    case 0x156: return "T";
+                    case 0x157: return "U";
+                    case 0x158: return "V";
+                    case 0x159: return "W";
+                    case 0x15a: return "X";
+                    case 0x15b: return "Y";
+                    case 0x15c: return "Z";
+                    case 0x15d: return "[";
+                    case 350: return "\\";
+                    case 0x15f: return "]";
+                    case 0x160: return "^";
+                    case 0x161: return "_";
+                    case 0x162: return "`";
+                    case 0x163: return "a";
+                    case 0x164: return "b";
+                    case 0x165: return "c";
+                    case 0x166: return "d";
+                    case 0x167: return "e";
+                    case 360: return "f";
+                    case 0x169: return "g";
+                    case 0x16a: return "h";
+                    case 0x16b: return "i";
+                    case 0x16c: return "j";
+                    case 0x16d: return "k";
+                    case 0x16e: return "l";
+                    case 0x16f: return "m";
+                    case 0x170: return "n";
+                    case 0x171: return "o";
+                    case 370: return "p";
+                    case 0x173: return "q";
+                    case 0x174: return "r";
+                    case 0x175: return "s";
+                    case 0x176: return "t";
+                    case 0x177: return "u";
+                    case 0x178: return "v";
+                    case 0x179: return "w";
+                    case 0x17a: return "x";
+                    case 0x17b: return "y";
+                    case 380: return "z";
+                    case 0x17d: return "{";
+                    case 0x17e: return "|";
+                    case 0x17f: return "}";
+                    case 0x180: return "~";
+                    case 0x181: return "\x007f";
+                    case 0x182: return "\x0080";
+                    case 0x183: return "\x0081";
+                    case 0x184: return "\x0082";
+                    case 0x185: return "\x0083";
+                    case 390: return "\x0084";
+                    case 0x187: return "\x0085";
+                    case 0x188: return "\x0086";
+                    case 0x189: return "\x0087";
+                    case 0x18a: return "\x0088";
+                    case 0x18b: return "\x0089";
+                    case 0x18c: return "\x008a";
+                    case 0x18d: return "\x008b";
+                    case 0x18e: return "\x008c";
+                    case 0x18f: return "\x008d";
+                    case 400: return "\x008e";
+                    case 0x191: return "\x008f";
+                    case 0x192: return "\x0090";
+                    case 0x193: return "\x0091";
+                    case 0x194: return "\x0092";
+                    case 0x195: return "\x0093";
+                    case 0x196: return "\x0094";
+                    case 0x197: return "\x0095";
+                    case 0x198: return "\x0096";
+                    case 0x199: return "\x0097";
+                    case 410: return "\x0098";
+                    case 0x19b: return "\x0099";
+                    case 0x19c: return "\x009a";
+                    case 0x19d: return "\x009b";
+                    case 0x19e: return "\x009c";
+                    case 0x19f: return "\x009d";
+                    case 0x1a0: return "\x009e";
+                    case 0x1a1: return "\x009f";
+                    case 0x1a2: return "\x00a0";
+                    case 0x1a3: return "\x00a1";
+                    case 420: return "\x00a2";
+                    case 0x1a5: return "\x00a3";
+                    case 0x1a6: return "\x00a4";
+                    case 0x1a7: return "\x00a5";
+                    case 0x1a8: return "\x00a6";
+                    case 0x1a9: return "\x00a7";
+                    case 0x1aa: return "\x00a8";
+                    case 0x1ab: return "\x00a9";
+                    case 0x1ac: return "\x00aa";
+                    case 0x1ad: return "\x00ab";
+                    case 430: return "\x00ac";
+                    case 0x1af: return "\x00ad";
+                    case 0x1b0: return "\x00ae";
+                    case 0x1b1: return "\x00af";
+                    case 0x1b2: return "\x00b0";
+                    case 0x1b3: return "\x00b1";
+                    case 0x1b4: return "\x00b2";
+                    case 0x1b5: return "\x00b3";
+                    case 0x1b6: return "\x00b4";
+                    case 0x1b7: return "\x00b5";
+                    case 440: return "\x00b6";
+                    case 0x1b9: return "\x00b7";
+                    case 0x1ba: return "\x00b8";
+                    case 0x1bb: return "\x00b9";
+                    case 0x1bc: return "\x00ba";
+                    case 0x1bd: return "\x00bb";
+                    case 0x1be: return "\x00bc";
+                    case 0x1bf: return "\x00bd";
+                    case 0x1c0: return "\x00be";
+                    case 0x1c1: return "\x00bf";
+                    case 450: return "\x00c0";
+                    case 0x1c3: return "\x00c1";
+                    case 0x1c4: return "\x00c2";
+                    case 0x1c5: return "\x00c3";
+                    case 0x1c6: return "\x00c4";
+                    case 0x1c7: return "\x00c5";
+                    case 0x1c8: return "\x00c6";
+                    case 0x1c9: return "\x00c7";
+                    case 0x1ca: return "\x00c8";
+                    case 0x1cb: return "\x00c9";
+                    case 460: return "\x00ca";
+                    case 0x1cd: return "\x00cb";
+                    case 0x1ce: return "\x00cc";
+                    case 0x1cf: return "\x00cd";
+                    case 0x1d0: return "\x00ce";
+                    case 0x1d1: return "\x00cf";
+                    case 0x1d2: return "\x00d0";
+                    case 0x1d3: return "\x00d1";
+                    case 0x1d4: return "\x00d2";
+                    case 0x1d5: return "\x00d3";
+                    case 470: return "\x00d4";
+                    case 0x1d7: return "\x00d5";
+                    case 0x1d8: return "\x00d6";
+                    case 0x1d9: return "\x00d7";
+                    case 0x1da: return "\x00d8";
+                    case 0x1db: return "\x00d9";
+                    case 0x1dc: return "\x00da";
+                    case 0x1dd: return "\x00db";
+                    case 0x1de: return "\x00dc";
+                    case 0x1df: return "\x00dd";
+                    case 480: return "\x00de";
+                    case 0x1e1: return "\x00df";
+                    case 0x1e2: return "\x00e0";
+                    case 0x1e3: return "\x00e1";
+                    case 0x1e4: return "\x00e2";
+                    case 0x1e5: return "\x00e3";
+                    case 0x1e6: return "\x00e4";
+                    case 0x1e7: return "\x00e5";
+                    case 0x1e8: return "\x00e6";
+                    case 0x1e9: return "\x00e7";
+                    case 490: return "\x00e8";
+                    case 0x1eb: return "\x00e9";
+                    case 0x1ec: return "\x00ea";
+                    case 0x1ed: return "\x00eb";
+                    case 0x1ee: return "\x00ec";
+                    case 0x1ef: return "\x00ed";
+                    case 0x1f0: return "\x00ee";
+                    case 0x1f1: return "\x00ef";
+                    case 0x1f2: return "\x00f0";
+                    case 0x1f3: return "\x00f1";
+                    case 500: return "\x00f2";
+                    case 0x1f5: return "\x00f3";
+                    case 0x1f6: return "\x00f4";
+                    case 0x1f7: return "\x00f5";
+                    case 0x1f8: return "\x00f6";
+                    case 0x1f9: return "\x00f7";
+                    case 0x1fa: return "\x00f8";
+                    case 0x1fb: return "\x00f9";
+                    case 0x1fc: return "\x00fa";
+                    case 0x1fd: return "\x00fb";
+                    case 510: return "\x00fc";
+                    case 0x1ff: return "\x00fd";
+                    case 0x200: return "\x00fe";
+                    case 0x201: return "\x00ff";
+#endif
                 }
             }
             if (str[1] != '#')
@@ -1693,10 +1095,7 @@ namespace 极简浏览器
                 char ch1 = (char) ((ushort) short.Parse(str.Substring(2, str.Length - 3)));
                 result = ch1.ToString( );
             }
-            catch
-            {
-                result = str;
-            }
+            catch { result = str; }
             return result;
         }
     }

@@ -6,10 +6,22 @@
     <meta charset="UTF-8" />
     <title></title>
     <style>
-        div { text-align: center; }
-        .info { font-family: 'Consolas'; }
-        .big { font-size: xx-large; }
-        .text { font-size: large; }
+        div {
+            text-align: center;
+        }
+
+        .info {
+            font-family: 'Consolas';
+        }
+
+        .big {
+            font-size: xx-large;
+        }
+
+        .text {
+            font-size: large;
+        }
+
         button {
             font-family: 'Consolas', 'Microsoft YaHei UI';
             text-decoration: none;
@@ -25,6 +37,7 @@
             transition: background 0.1s, color 0.1s;
             -webkit-transition: background 0.1s, color 0.1s;
         }
+
         button:hover {
             color: white;
             background: royalblue;
@@ -62,7 +75,7 @@
         }
         function dealPara(code)
         {
-            if (code == "InvalidUrl") code = "无效访问";
+            if (code == "InvalidUrl") code = "无效地址";
             if (code == "ConnectionRefused") code = "访问被拒绝";
             if (code == "FileNotFound") code = "找不到文件";
             if (code == "NameNotResolved") code = "无法解析地址";
