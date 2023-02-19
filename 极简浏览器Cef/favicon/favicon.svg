@@ -1,13 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1451.339px" height="1451.339px" viewBox="0 0 1451.339 1451.339" enable-background="new 0 0 1451.339 1451.339"
-	 xml:space="preserve">
-<circle fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="725.67" cy="725.669" r="725.669"/>
-<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M362.835,97.222C536.376-2.972,758.283,56.488,858.476,230.029
-	s40.734,395.447-132.806,495.64"/>
-<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M1451.339,725.669c0,200.387-162.447,362.834-362.834,362.834
-	c-200.389,0-362.835-162.447-362.835-362.834"/>
-<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M362.835,1354.117c-173.541-100.193-233-322.1-132.807-495.641
-	c100.194-173.542,322.101-233,495.641-132.806"/>
-</svg>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1451.339px" height="1451.339px" viewBox="0 0 1451.339 1451.339" enable-background="new 0 0 1451.339 1451.339" xml:space="preserve"><circle fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="725.67" cy="725.669" r="725.669"/><path fill="none" stroke="#000000" stroke-miterlimit="10" d="M362.835,97.222C536.376-2.972,758.283,56.488,858.476,230.029
+s40.734,395.447-132.806,495.64"/><path fill="none" stroke="#000000" stroke-miterlimit="10" d="M1451.339,725.669c0,200.387-162.447,362.834-362.834,362.834
+c-200.389,0-362.835-162.447-362.835-362.834"/><path fill="none" stroke="#000000" stroke-miterlimit="10" d="M362.835,1354.117c-173.541-100.193-233-322.1-132.807-495.641
+c100.194-173.542,322.101-233,495.641-132.806"/></svg>

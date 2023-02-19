@@ -20,19 +20,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout
 
       - name: Install .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.2
+        uses: microsoft/setup-msbuild
 
       - name: Setup NuGet
-        uses: nuget/setup-nuget@v1
+        uses: nuget/setup-nuget
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
-          nuget-version: "5.x"
+          nuget-version: "6.x"
 
       - name: Restore NuGet Packages
         run: nuget restore
@@ -46,7 +46,7 @@ jobs:
           Configuration: ${{ matrix.configuration }}
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact
         with:
           name: ${{ matrix.configuration }}
           path: ./极简浏览器Cef/bin/${{ matrix.configuration }}/*

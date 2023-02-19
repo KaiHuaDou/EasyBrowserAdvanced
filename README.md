@@ -1,7 +1,7 @@
 # 极简浏览器
 ![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
 ![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced)  ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
-![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/last-commit/kaihuadou/easybrowseradvanced)
+![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced)
 
 极简浏览器用 C# 编写的基于 Chromium 的浏览器。
 
@@ -59,6 +59,7 @@
 #### 下一个RC（RC2）
 
 + *BugFix #39 降低 `MainWindow` 的耦合度* 
++ Performance #5 更新 Visual Studio 以提升编译性能
 + BugFix #49 修复了源代码格式未完成导致崩溃的问题
 + Performance #4 移除 MaterialDesign
 + Feature #49 增加了缩放级别显示
