@@ -1,5 +1,5 @@
 # 极简浏览器
-![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
+![](https://img.shields.io/github/actions/workflow/status/kaihuadou/easystart/build.yml) ![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
 ![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced)  ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
 ![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced)
 
@@ -33,18 +33,22 @@
 
 ### IDE
 
-1. Visual Studio 2022 (x64, 17.4.4)
-    + 全选 .NET 桌面开发 工作负载。
-2. .NET Framework 4.5.2 SDK或目标包 (`Target Pack`)
+1. Visual Studio Enterprise 2022 (x64, 17.4.5)
+    + .NET 桌面开发
+        + NuGet目标和生成任务
+        + MSBuild
+
+2. .NET Framework 4.5.2 或更高版本的 SDK
+3. .NET Framework 4.5.2 目标包 (`Target Pack`)
 
 ### NuGet 包
 
-|      NuGet 包名      |   版本    |        备注        |
-| :------------------: | :-------: | :----------------: |
-|    cef.redist.x64    | v87.1.13  | 高版本不支持 Flash |
-|    cef.redist.x86    | v87.1.13  | 高版本不支持 Flash |
-|   CefSharp.Common    | v87.1.132 | 高版本不支持 Flash |
-|     CefSharp.Wpf     | v87.1.132 | 高版本不支持 Flash |
+|    NuGet 包     |   版本    |        备注        |
+| :-------------: | :-------: | :----------------: |
+| cef.redist.x64  | v87.1.13  | 高版本不支持 Flash |
+| cef.redist.x86  | v87.1.13  | 高版本不支持 Flash |
+| CefSharp.Common | v87.1.132 | 高版本不支持 Flash |
+|  CefSharp.Wpf   | v87.1.132 | 高版本不支持 Flash |
 
 ## 版本更新
 

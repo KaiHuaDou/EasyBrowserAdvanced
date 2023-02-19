@@ -1,6 +1,4 @@
-﻿//#define FORMAT
-
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -135,19 +133,28 @@ namespace 极简浏览器
         }
         private void ShortcutProcess(object o, KeyEventArgs e)
         {
-#if FORMAT
             if (e.Key == Key.F12)
                 Browser.Core[Id].ShowDevTools( );
             if (Keyboard.Modifiers != ModifierKeys.Control)
                 return;
             switch (e.Key)
             {
-                case Key.H: new History( ).Show( ); break;
-                case Key.I: new Setting( ).Show( ); break;
-                case Key.R: Browser.Refresh(Id); break;
-                case Key.N: Browser.New( ); break;
+                case Key.H:
+                    new History( ).Show( );
+                    break;
+                case Key.I:
+                    new Setting( ).Show( );
+                    break;
+                case Key.R:
+                    Browser.Refresh(Id);
+                    break;
+                case Key.N:
+                    Browser.New( );
+                    break;
+                case Key.S:
+                    Browser.ViewSource(Id);
+                    break;
             }
-#endif
         }
         private void StatusMouseEnter(object o, MouseEventArgs e)
         {

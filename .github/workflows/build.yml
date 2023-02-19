@@ -2,10 +2,10 @@ name: .NET Build
 
 on:
   push:
-    branches: ["master"]
+    branches: [master]
 
   pull_request:
-    branches: ["master"]
+    branches: [master]
 
 jobs:
   build:
@@ -20,16 +20,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout
+        uses: actions/checkout@v3
 
       - name: Install .NET Core
-        uses: actions/setup-dotnet
+        uses: actions/setup-dotnet@v3
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Setup NuGet
-        uses: nuget/setup-nuget
+        uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
           nuget-version: "6.x"
@@ -46,7 +46,7 @@ jobs:
           Configuration: ${{ matrix.configuration }}
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.configuration }}
           path: ./极简浏览器Cef/bin/${{ matrix.configuration }}/*

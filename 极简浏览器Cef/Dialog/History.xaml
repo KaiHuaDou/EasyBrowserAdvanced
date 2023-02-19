@@ -1,19 +1,17 @@
-﻿<Window x:Class="极简浏览器.History" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
+﻿<Window x:Class="极简浏览器.History" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
         xmlns:localapi="clr-namespace:极简浏览器.Api" Title="历史记录和书签" Width="600" Height="400"
         Closing="Window_Closing" Icon="/极简浏览器;component/favicon/favicon.ico">
     <Grid>
         <TabControl x:Name="tabControl" Margin="0,0,0,0" BorderThickness="0">
             <TabItem Header="历史记录">
                 <DockPanel>
-                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryNew"
-                                Content="打开(_O)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryAll"
-                                Content="全选(_A)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryClear"
-                                Content="清空(_C)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryDelete"
-                                Content="删除(_D)" />
+                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryNew" Content="打开(_O)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryAll" Content="全选(_A)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryClear" Content="清空(_C)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="HistoryDelete" Content="删除(_D)" />
                     </StackPanel>
                     <DataGrid x:Name="HistoryDataGrid" AutoGenerateColumns="False" BorderThickness="0">
                         <DataGrid.Columns>
@@ -27,15 +25,12 @@
             </TabItem>
             <TabItem Header="书签">
                 <DockPanel>
-                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkNew"
-                                Content="打开(_O)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkAll"
-                                Content="全选(_A)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkClear"
-                                Content="清空(_C)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkDelete"
-                                Content="删除(_D)" />
+                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkNew" Content="打开(_O)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkAll" Content="全选(_A)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkClear" Content="清空(_C)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="BookmarkDelete" Content="删除(_D)" />
                     </StackPanel>
                     <DataGrid x:Name="BookmarkDataGrid" AutoGenerateColumns="False" BorderThickness="0">
                         <DataGrid.Columns>
@@ -49,15 +44,14 @@
             </TabItem>
             <TabItem Header="Cookies" Visibility="Collapsed">
                 <DockPanel>
-                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesAll"
-                                Content="全选(_A)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesClear"
-                                Content="清空(_C)" />
-                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesDelete"
-                                Content="删除(_D)" />
+                    <StackPanel Margin="5,10" HorizontalAlignment="Center" DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesAll" Content="全选(_A)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesClear" Content="清空(_C)" />
+                        <Button Width="100" Height="30" Margin="5,0" Click="CookiesDelete" Content="删除(_D)" />
                     </StackPanel>
-                    <DataGrid x:Name="CookiesDataGrid" AutoGenerateColumns="False" BorderThickness="0" IsReadOnly="True">
+                    <DataGrid x:Name="CookiesDataGrid" AutoGenerateColumns="False" BorderThickness="0"
+                            IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding IsChecked}" Header="选择" />
                             <DataGridTextColumn Binding="{Binding Value.Name}" Header="名称" />

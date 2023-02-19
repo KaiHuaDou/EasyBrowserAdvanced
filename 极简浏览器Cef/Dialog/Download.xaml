@@ -1,19 +1,17 @@
-﻿<Window x:Class="极简浏览器.Download" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器"
-        Title="下载文件" Width="600" MinWidth="200" MinHeight="205"
-        MaxHeight="205" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
+﻿<Window x:Class="极简浏览器.Download" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:极简浏览器" Title="下载文件"
+        Width="600" MinWidth="200" MinHeight="205" MaxHeight="205" Closing="Window_Closing"
+        SizeChanged="Window_SizeChanged">
     <StackPanel>
-        <Label x:Name="FileName" Margin="10,5" HorizontalAlignment="Left" VerticalAlignment="Top"
-               Content="" />
+        <Label x:Name="FileName" Margin="10,5" HorizontalAlignment="Left" VerticalAlignment="Top" Content="" />
         <Label x:Name="Speed" Margin="0,-40,10,5" HorizontalAlignment="Right" VerticalAlignment="Top"
-               Content="0KB/s" />
+                Content="0KB/s" />
         <ProgressBar x:Name="Progress" Height="30" Margin="10,0,10,5" VerticalAlignment="Top"
-                     Background="{x:Null}"
-                     BorderBrush="{x:Null}"
-                     Foreground="Lime" />
+                Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Lime" />
         <Label x:Name="Percent" Margin="10,-37,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"
-               Content="0%" />
+                Content="0%" />
         <Label x:Name="FromURL" Margin="10,0,10,5" HorizontalAlignment="Left" VerticalAlignment="Top"
-               Content="about:blank" />
+                Content="about:blank" />
         <Button x:Name="OpenButton" Width="87" Margin="10,0,10,5" HorizontalAlignment="Right"
                 VerticalAlignment="Top" Click="OpenButton_Click" Content="打开" IsEnabled="False" />
     </StackPanel>

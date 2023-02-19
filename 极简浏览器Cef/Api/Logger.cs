@@ -1,6 +1,4 @@
-﻿//#define FORMAT
-
-using System;
+﻿using System;
 using System.IO;
 
 namespace 极简浏览器.Api
@@ -33,11 +31,12 @@ namespace 极简浏览器.Api
         {
             switch (logType)
             {
-#if FORMAT
-                case LogType.Debug: return FilePath.Logs + "\\debug.log";
-                case LogType.Error: return FilePath.Logs + "\\error.log";
-                case LogType.Other: return FilePath.Logs + "\\other.log";
-#endif
+                case LogType.Debug:
+                    return FilePath.Logs + "\\debug.log";
+                case LogType.Error:
+                    return FilePath.Logs + "\\error.log";
+                case LogType.Other:
+                    return FilePath.Logs + "\\other.log";
             }
             return null;
         }

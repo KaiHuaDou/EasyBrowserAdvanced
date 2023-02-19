@@ -1,6 +1,4 @@
-﻿//#define FORMAT
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using CefSharp;
 using CefSharp.Wpf;
@@ -57,16 +55,29 @@ namespace 极简浏览器.Api
         {
             switch (url.ToLower( ).Replace("easy://", ""))
             {
-#if FORMAT
-                case "about": new About( ).Show( ); break;
-                case "help": new Help( ).Show( ); break;
-                case "history": new History( ).Show( ); break;
-                case "bookmark": new History( ).Show( ); break;
-                case "setting": new Setting( ).Show( ); break;
-                case "websource": ViewSource(id); break;
-                case "newtab": New( ); break;
-                default: return false;
-#endif
+                case "about":
+                    new About( ).Show( );
+                    break;
+                case "help":
+                    new Help( ).Show( );
+                    break;
+                case "history":
+                    new History( ).Show( );
+                    break;
+                case "bookmark":
+                    new History( ).Show( );
+                    break;
+                case "setting":
+                    new Setting( ).Show( );
+                    break;
+                case "websource":
+                    ViewSource(id);
+                    break;
+                case "newtab":
+                    New( );
+                    break;
+                default:
+                    return false;
             }
             return true;
         }
