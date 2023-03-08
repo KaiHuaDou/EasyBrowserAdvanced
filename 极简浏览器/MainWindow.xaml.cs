@@ -53,7 +53,7 @@ namespace 极简浏览器
             Browser.Core[Id].MenuHandler = new MenuHandler(Id);
             Browser.Core[Id].DownloadHandler = new DownloadHandler( );
             CWBGrid.Children.Add(Browser.Core[Id]);
-            Dispatcher.BeginInvoke(( ) =>
+            Dispatcher.BeginInvoke((Action)(( ) =>
             {
                 try
                 {
@@ -63,7 +63,7 @@ namespace 极简浏览器
                 {
                     Logger.Log(ex, LogType.Debug, true);
                 }
-            });
+            }));
         }
         private void Nav_KeyDown(object o, KeyEventArgs e)
         {
@@ -92,7 +92,7 @@ namespace 极简浏览器
         }
         private void Nav_Loaded(object o, FrameLoadEndEventArgs e)
         {
-            Dispatcher.BeginInvoke(( ) =>
+            Dispatcher.BeginInvoke((Action)(( ) =>
             {
                 IsSuccess = true;
                 LoadProgress.Visibility = Visibility.Collapsed;
@@ -102,7 +102,7 @@ namespace 极简浏览器
                     Configer<Config>.Add(new Config(false, Browser.Core[Id].Title, Browser.Core[Id].Address, StdApi.LocalTime), FilePath.History);
                 if (Civilized.CheckCivilized(Browser.PageText(Id)))
                     civiLabel.Visibility = Visibility.Visible;
-            });
+            }));
         }
         private void Cwb_TitleChanged(object o, DependencyPropertyChangedEventArgs e)
         {
@@ -110,11 +110,11 @@ namespace 极简浏览器
         }
         private void Cwb_LoadError(object o, LoadErrorEventArgs e)
         {
-            Dispatcher.BeginInvoke(( ) =>
+            Dispatcher.BeginInvoke((Action)(( ) =>
             {
                 if (IsSuccess != true && e.ErrorCode.ToString( ) != "Aborted")
                     Browser.Navigate(Id, FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
-            });
+            }));
         }
         private void Cwb_MouseWheel(object o, MouseWheelEventArgs e)
         {
