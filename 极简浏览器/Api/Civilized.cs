@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器.Api
 {
@@ -12,13 +13,13 @@ namespace 极简浏览器.Api
         public static string[] nudeWord = { "fuck", "bitch", "die", "去死", "脑残", "有病", "骚货", "狗屁", "TMD", "NMD", "我草", "我操", "卧槽", "我擦", "他妈的", "你妈的", "操你妈", "草泥马" };
         public static void DeniedMsg( )
         {
-            MessageBox.Show(Properties.Resources.civiShutdown, Properties.Resources.civiTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(GuiText.civiShutdown, GuiText.civiTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             try
             {
                 File.Create(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin");
             }
             catch (Exception) { }
-            App.Current.Shutdown( );
+            Application.Current.Shutdown( );
         }
         public static bool CheckCivilized(string text)
         {

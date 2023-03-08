@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace 极简浏览器.Properties {
+namespace 极简浏览器.Resources {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

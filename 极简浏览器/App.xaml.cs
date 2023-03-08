@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Markup;
 using CefSharp;
 using 极简浏览器.Api;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器
 {
@@ -26,20 +27,20 @@ namespace 极简浏览器
         /// </summary>
         public static class Program
         {
-            public static string inputUrl = "";
+            public static string startUrl = "";
             public static Argus Args = new Argus(0);
             [STAThread]
             public static void Main(string[] args)
             {
                 if (args.Length >= 1)
                 {
-                    inputUrl = args[0];
+                    startUrl = args[0];
                     Args.IsPrivate = Convert.ToBoolean(args[1]);
                     Args.IsTopmost = Convert.ToBoolean(args[2]);
                 }
                 try
                 {
-                    //RuntimeFix( );
+                    RuntimeFix( );
                     Browser.Init( );
                     App app = new App( );
                     app.InitializeComponent( );
@@ -50,7 +51,7 @@ namespace 极简浏览器
                 {
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
                     System.Windows.MessageBox.Show(
-                        e.Message, 极简浏览器.Properties.Resources.browserName,
+                        e.Message, GuiText.browserName,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Error);
                 }
@@ -88,7 +89,7 @@ namespace 极简浏览器
         }
         static void showNoAccsses( )
         {
-            MessageBox.Show(极简浏览器.Properties.Resources.civiRefuse);
+            MessageBox.Show(GuiText.civiRefuse);
             Current.Shutdown( );
         }
         private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

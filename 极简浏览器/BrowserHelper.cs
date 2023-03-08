@@ -107,18 +107,12 @@ namespace 极简浏览器
             SaveFileDialog sfd = new SaveFileDialog( );
             sfd.FileName = item.SuggestedFileName;
             sfd.Title = "下载文件 - 极简浏览器";
-            bool? dr = sfd.ShowDialog( );
-            if (dr == true)
-                return sfd.FileName;
-            return null;
+            return sfd.ShowDialog( ) == true ? sfd.FileName : null;
         }
     }
     public class MenuHandler : IContextMenuHandler
     {
-        public MenuHandler(int id)
-        {
-            Id = id;
-        }
+        public MenuHandler(int id) => Id = id;
 
         public static Window mainWindow { get; set; }
         public static int Id;
@@ -135,8 +129,7 @@ namespace 极简浏览器
             IFrame frame,
             IContextMenuParams paras,
             CefMenuCommand command,
-            CefEventFlags eventFlags)
-        { return true; }
+            CefEventFlags eventFlags) => true;
 
         void IContextMenuHandler.OnContextMenuDismissed(
             IWebBrowser webBrowser,
@@ -192,25 +185,15 @@ namespace 极简浏览器
         public event EventHandler CanExecuteChanged = delegate { };
 
         public CustomCommand(Action executeMethod)
-        {
-            _TargetExecuteMethod = executeMethod;
-        }
+            => _TargetExecuteMethod = executeMethod;
 
         bool ICommand.CanExecute(object o)
-        {
-            if (_TargetCanExecuteMethod != null)
-                return _TargetCanExecuteMethod( );
-            return _TargetExecuteMethod != null;
-        }
+            => _TargetCanExecuteMethod != null ? _TargetCanExecuteMethod( ) : false;
 
         public void RaiseCanExecuteChanged( )
-        {
-            CanExecuteChanged(this, EventArgs.Empty);
-        }
+            => CanExecuteChanged(this, EventArgs.Empty);
 
         void ICommand.Execute(object parameter)
-        {
-            _TargetExecuteMethod?.Invoke( );
-        }
+            => _TargetExecuteMethod?.Invoke( );
     }
 }

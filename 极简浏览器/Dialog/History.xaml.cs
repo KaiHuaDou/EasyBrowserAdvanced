@@ -15,9 +15,9 @@ namespace 极简浏览器
         public History( )
         {
             InitializeComponent( );
-            HistoryData = Configer<Config>.Get(FilePath.History);
-            BookmarkData = Configer<Config>.Get(FilePath.BookMark);
-            CookiesData = Configer<CookieData>.Get(FilePath.Cookies);
+            HistoryData = DataMgr<Config>.Get(FilePath.History);
+            BookmarkData = DataMgr<Config>.Get(FilePath.BookMark);
+            CookiesData = DataMgr<CookieData>.Get(FilePath.Cookies);
             HistoryDataGrid.ItemsSource = HistoryData;
             BookmarkDataGrid.ItemsSource = BookmarkData;
             CookiesDataGrid.ItemsSource = CookiesData;
@@ -33,7 +33,7 @@ namespace 极简浏览器
         {
             foreach (Config item in HistoryData)
             {
-                item.IsChecked = !item.IsChecked;
+                item.Check = !item.Check;
             }
             InitHistory( );
         }
@@ -43,7 +43,7 @@ namespace 极简浏览器
             HashSet<Config> temp = new HashSet<Config>( );
             foreach (Config item in HistoryData)
             {
-                if (item.IsChecked == true)
+                if (item.Check == true)
                 {
                     temp.Add(item);
                 }
@@ -63,9 +63,9 @@ namespace 极简浏览器
         {
             foreach (Config item in HistoryData)
             {
-                if (item.IsChecked == true)
+                if (item.Check == true)
                 {
-                    Browser.New(item.SiteAddress);
+                    Browser.New(item.Url);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace 极简浏览器
         {
             foreach (Config item in BookmarkData)
             {
-                item.IsChecked = !item.IsChecked;
+                item.Check = !item.Check;
             }
             InitBookmark( );
         }
@@ -90,7 +90,7 @@ namespace 极简浏览器
             HashSet<Config> temp = new HashSet<Config>( );
             foreach (Config item in BookmarkData)
             {
-                if (item.IsChecked == true)
+                if (item.Check == true)
                 {
                     temp.Add(item);
                 }
@@ -110,9 +110,9 @@ namespace 极简浏览器
         {
             foreach (Config item in BookmarkData)
             {
-                if (item.IsChecked == true)
+                if (item.Check == true)
                 {
-                    Browser.New(item.SiteAddress);
+                    Browser.New(item.Url);
                 }
             }
         }
@@ -157,9 +157,9 @@ namespace 极简浏览器
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Configer<Config>.Save(HistoryData, FilePath.History);
-            Configer<Config>.Save(BookmarkData, FilePath.BookMark);
-            Configer<CookieData>.Save(CookiesData, FilePath.Cookies);
+            DataMgr<Config>.Save(HistoryData, FilePath.History);
+            DataMgr<Config>.Save(BookmarkData, FilePath.BookMark);
+            DataMgr<CookieData>.Save(CookiesData, FilePath.Cookies);
         }
     }
 }

@@ -14,46 +14,47 @@ namespace 极简浏览器
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int Id;
+        private readonly int Id;
         private bool IsSuccess;
 
-        public MainWindow( )
-        {
-            this.Close( );
-        }
+        public MainWindow( ) => Close( );
+
         public MainWindow(int id)
         {
             InitializeComponent( );
             IsSuccess = false;
             Id = id;
         }
+
         private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
         {
             try
             {
                 Cef.UIThreadTaskFactory.StartNew(( ) =>
                 {
-                    string error = "";
                     var requestContext = Browser.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
-                    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+                    requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
                 });
             }
             catch (NullReferenceException) { }
         }
+
         private void WindowLoaded(object o, RoutedEventArgs e)
         {
-            Browser.Core[Id] = new ExtChromiumBrowser(Id);
-            Browser.Core[Id].Margin = new Thickness(0);
+            Browser.Core[Id] = new ExtChromiumBrowser(Id)
+            {
+                Margin = new Thickness(0),
+                MenuHandler = new MenuHandler(Id),
+                DownloadHandler = new DownloadHandler( )
+            };
             Browser.Core[Id].AddressChanged += Nav_Loading;
             Browser.Core[Id].FrameLoadEnd += Nav_Loaded;
             Browser.Core[Id].TitleChanged += Cwb_TitleChanged;
             Browser.Core[Id].IsBrowserInitializedChanged += BrowserLoaded;
             Browser.Core[Id].LoadError += Cwb_LoadError;
             MenuHandler.mainWindow = this;
-            Browser.Core[Id].MenuHandler = new MenuHandler(Id);
-            Browser.Core[Id].DownloadHandler = new DownloadHandler( );
             CWBGrid.Children.Add(Browser.Core[Id]);
-            Dispatcher.BeginInvoke((Action)(( ) =>
+            Dispatcher.BeginInvoke((Action) (( ) =>
             {
                 try
                 {
@@ -92,14 +93,22 @@ namespace 极简浏览器
         }
         private void Nav_Loaded(object o, FrameLoadEndEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action)(( ) =>
+            Dispatcher.BeginInvoke((Action) (( ) =>
             {
                 IsSuccess = true;
                 LoadProgress.Visibility = Visibility.Collapsed;
                 loadLabel.Visibility = Visibility.Collapsed;
                 CookieMgr.Set(Id);
                 if (!App.Program.Args.IsPrivate)
-                    Configer<Config>.Add(new Config(false, Browser.Core[Id].Title, Browser.Core[Id].Address, StdApi.LocalTime), FilePath.History);
+                {
+                    DataMgr<Config>.Add(new Config
+                    {
+                        Check = false,
+                        Title = Browser.Core[Id].Title,
+                        Url = Browser.Core[Id].Address,
+                        Time = StdApi.LocalTime
+                    }, FilePath.History);
+                }
                 if (Civilized.CheckCivilized(Browser.PageText(Id)))
                     civiLabel.Visibility = Visibility.Visible;
             }));
@@ -110,7 +119,7 @@ namespace 极简浏览器
         }
         private void Cwb_LoadError(object o, LoadErrorEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action)(( ) =>
+            Dispatcher.BeginInvoke((Action) (( ) =>
             {
                 if (IsSuccess != true && e.ErrorCode.ToString( ) != "Aborted")
                     Browser.Navigate(Id, FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
@@ -139,21 +148,11 @@ namespace 极简浏览器
                 return;
             switch (e.Key)
             {
-                case Key.H:
-                    new History( ).Show( );
-                    break;
-                case Key.I:
-                    new Setting( ).Show( );
-                    break;
-                case Key.R:
-                    Browser.Refresh(Id);
-                    break;
-                case Key.N:
-                    Browser.New( );
-                    break;
-                case Key.S:
-                    Browser.ViewSource(Id);
-                    break;
+                case Key.H: new History( ).Show( ); break;
+                case Key.I: new Setting( ).Show( ); break;
+                case Key.R: Browser.Refresh(Id); break;
+                case Key.N: Browser.New( ); break;
+                case Key.S: Browser.ViewSource(Id); break;
             }
         }
         private void StatusMouseEnter(object o, MouseEventArgs e)

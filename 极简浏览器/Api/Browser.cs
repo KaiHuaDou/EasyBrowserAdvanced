@@ -47,7 +47,7 @@ namespace 极简浏览器.Api
         public static void New(string url = "about:blank")
         {
             MaxCnt++;
-            App.Program.inputUrl = url;
+            App.Program.startUrl = url;
             Host[MaxCnt] = new MainWindow(MaxCnt);
             Host[MaxCnt].Show( );
         }

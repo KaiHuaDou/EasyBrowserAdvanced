@@ -36,28 +36,24 @@
     </ItemGroup>
     <ItemGroup>
         <AppDesigner Include="Properties\" />
-        <None Include="..\LICENSE">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-        </None>
-        <None Include="..\README.md">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-        </None>
         <None Update="favicon\favicon.png">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>
-        <None Update="Resource\pepflashplayer.dll">
+        <None Update="Resources\Settings.settings">
+          <Generator>SettingsSingleFileGenerator</Generator>
+          <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <None Update="Tools\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Resource\rm.exe">
+        <None Update="Tools\rm.exe">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Resource\清理垃圾.bat">
+        <None Update="Tools\清理垃圾.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Resource\清除足迹.bat">
+        <None Update="Tools\清除足迹.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Ruleset.ruleset">
@@ -80,6 +76,27 @@
         <PackageReference Include="CefSharp.Wpf">
             <Version>87.1.132</Version>
         </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Resources\GuiText.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GuiText.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Settings.Designer.cs">
+        <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Settings.settings</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\GuiText.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Properties\" />
     </ItemGroup>
     <PropertyGroup>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>

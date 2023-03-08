@@ -12,7 +12,7 @@ namespace 极简浏览器.Api
             try
             {
                 HashSet<CookieData> cookies;
-                cookies = Configer<CookieData>.Get(FilePath.Cookies);
+                cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
                 var manager = Cef.GetGlobalCookieManager( );
                 foreach (CookieData item in cookies)
                     manager.SetCookieAsync(item.Key, item.Value);
@@ -32,7 +32,7 @@ namespace 极简浏览器.Api
         private static void visitor_SendCookie(Cookie obj)
         {
             HashSet<CookieData> cookies;
-            cookies = Configer<CookieData>.Get(FilePath.Cookies);
+            cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
             try
             {
                 foreach (CookieData item in cookies)
@@ -40,13 +40,13 @@ namespace 极简浏览器.Api
                     if (item.Value.Name == obj.Name && item.Value.Domain == obj.Domain)
                     {
                         item.Value = obj;
-                        Configer<CookieData>.Save(cookies, FilePath.Cookies);
+                        DataMgr<CookieData>.Save(cookies, FilePath.Cookies);
                         return;
                     }
                 }
             }
             catch (NullReferenceException) { }
-            Configer<CookieData>.Add(new CookieData(curUrl, obj), FilePath.Cookies);
+            DataMgr<CookieData>.Add(new CookieData(curUrl, obj), FilePath.Cookies);
         }
     }
     public class CookieData

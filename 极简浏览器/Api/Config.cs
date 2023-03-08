@@ -4,17 +4,12 @@ using System.IO;
 using System.Xml.Serialization;
 namespace 极简浏览器.Api
 {
-    public static class Configer<T>
+    public static class DataMgr<T>
     {
         private static XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
-        private static FileStream genGetStream(string fileName)
+        private static FileStream genStream(string fileName, FileMode mode)
         {
-            FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            return stream;
-        }
-        private static FileStream genSetStream(string fileName)
-        {
-            FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+            FileStream stream = new FileStream(fileName, mode, FileAccess.ReadWrite);
             return stream;
         }
         public static void Add(T data, string fileName)
@@ -31,13 +26,13 @@ namespace 极简浏览器.Api
         }
         public static void Save(HashSet<T> data, string fileName)
         {
-            FileStream fs = genSetStream(fileName);
+            FileStream fs = genStream(fileName, FileMode.Create);
             serializer.Serialize(fs, data);
             fs.Close( );
         }
         public static HashSet<T> Get(string fileName)
         {
-            FileStream fs = genGetStream(fileName);
+            FileStream fs = genStream(fileName, FileMode.OpenOrCreate);
             HashSet<T> config = new HashSet<T>( );
             try
             {
@@ -61,14 +56,14 @@ namespace 极简浏览器.Api
         public Config( ) { }
         public Config(bool c, string n, string a, string t)
         {
-            IsChecked = c;
-            SiteName = n;
-            SiteAddress = a;
-            VisitTime = t;
+            Check = c;
+            Title = n;
+            Url = a;
+            Time = t;
         }
-        public bool IsChecked { get; set; }
-        public string SiteName { get; set; }
-        public string SiteAddress { get; set; }
-        public string VisitTime { get; set; }
+        public bool Check { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
+        public string Time { get; set; }
     }
 }

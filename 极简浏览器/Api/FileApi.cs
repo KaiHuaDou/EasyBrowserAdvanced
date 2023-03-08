@@ -8,8 +8,8 @@ namespace 极简浏览器.Api
         {
             get
             {
-                if (!string.IsNullOrEmpty(App.Program.inputUrl))
-                    return App.Program.inputUrl;
+                if (!string.IsNullOrEmpty(App.Program.startUrl))
+                    return App.Program.startUrl;
                 string path = File.ReadAllText(FilePath.Config);
                 if (string.IsNullOrEmpty(path))
                 {

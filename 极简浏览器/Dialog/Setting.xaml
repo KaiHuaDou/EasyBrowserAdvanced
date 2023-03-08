@@ -1,41 +1,24 @@
-﻿<Window x:Class="极简浏览器.Setting"
+﻿<Window Width="420" Height="150"
+        x:Class="极简浏览器.Setting"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="设置"
-        Width="420"
-        Height="150"
         ResizeMode="NoResize">
     <Grid>
-        <Label Height="34"
-               Margin="10,10,0,0"
+        <Label Height="34" Margin="10,10,0,0" Content="主页："
                HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Content="主页：" />
-        <TextBox x:Name="MainPageBox"
-                 Height="35"
-                 Margin="80,11,10,0"
+               VerticalAlignment="Top" />
+        <TextBox x:Name="MainPageBox" Height="35" Margin="80,11,10,0"
                  VerticalAlignment="Top"
                  TextWrapping="NoWrap" />
-        <Button x:Name="OKButton"
-                Width="100"
-                Margin="0,0,10,10"
+        <Button x:Name="OKButton" Width="100" Margin="0,0,10,10" Click="OKButton_Click" Content="确定"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="OKButton_Click"
-                Content="确定" />
-        <Button x:Name="CacheButton"
-                Width="100"
-                Margin="0,0,125,10"
+                VerticalAlignment="Bottom" />
+        <Button x:Name="CacheButton" Width="100" Margin="0,0,125,10" Click="CacheButton_Click" Content="清除缓存"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="CacheButton_Click"
-                Content="清除缓存" />
-        <Button x:Name="LogButton"
-                Width="100"
-                Margin="0,0,240,10"
+                VerticalAlignment="Bottom" />
+        <Button x:Name="LogButton" Width="100" Margin="0,0,240,10" Click="LogButton_Click" Content="清除日志"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="LogButton_Click"
-                Content="清除日志" />
+                VerticalAlignment="Bottom" />
     </Grid>
 </Window>

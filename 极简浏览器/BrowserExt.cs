@@ -16,9 +16,14 @@ namespace 极简浏览器
         private void Refresh_Click(object o, RoutedEventArgs e) => Browser.Refresh(Id);
         private void SetBookMark_Click(object o, RoutedEventArgs e)
         {
-            Configer<Config>.Add(
-                new Config(false, Browser.Title(Id), Browser.Address(Id), StdApi.LocalTime),
-                FilePath.BookMark);
+            DataMgr<Config>.Add(
+                new Config
+                {
+                    Check = false,
+                    Title = Browser.Title(Id),
+                    Url = Browser.Address(Id),
+                    Time = StdApi.LocalTime
+                }, FilePath.BookMark);
         }
         private void Setting_Click(object o, RoutedEventArgs e) => new Setting( ).Show( );
         private void ViewSource_Click(object o, RoutedEventArgs e) => Browser.ViewSource(Id);

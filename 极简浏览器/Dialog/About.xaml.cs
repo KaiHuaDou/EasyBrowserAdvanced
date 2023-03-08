@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using 极简浏览器.Properties;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器
 {
@@ -17,7 +17,7 @@ namespace 极简浏览器
             InitializeComponent( );
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => this.Close( );
+        private void Button_Click(object sender, RoutedEventArgs e) => Close( );
 
         private void Circle(object sender, MouseButtonEventArgs e)
         {
