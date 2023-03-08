@@ -12,10 +12,11 @@
         <ApplicationVersion>3.4.7.2</ApplicationVersion>
         <UseApplicationTrust>false</UseApplicationTrust>
         <BootstrapperEnabled>false</BootstrapperEnabled>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
         <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationIcon>favicon\favicon.ico</ApplicationIcon>
@@ -35,6 +36,18 @@
     </ItemGroup>
     <ItemGroup>
         <AppDesigner Include="Properties\" />
+        <None Include="..\LICENSE">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\README.md">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+        <None Update="favicon\favicon.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
         <None Update="Resource\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -68,12 +81,26 @@
             <Version>87.1.132</Version>
         </PackageReference>
     </ItemGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PropertyGroup>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
         <CodeAnalysisRuleSet>Ruleset.ruleset</CodeAnalysisRuleSet>
+        <Title>极简浏览器</Title>
+        <Authors>KaiHuaDou</Authors>
+        <Company>KaiHuaDou Studio</Company>
+        <Copyright>Copyright 2023 (c) KaiHuaDou Studio</Copyright>
+        <PackageIcon>favicon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AssemblyVersion>3.4.7.2</AssemblyVersion>
+        <FileVersion>3.4.7.2</FileVersion>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DebugType>full</DebugType>
+      <WarningLevel>3</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-        <CodeAnalysisRuleSet>Ruleset.ruleset</CodeAnalysisRuleSet>
+      <DebugType>full</DebugType>
+      <WarningLevel>3</WarningLevel>
     </PropertyGroup>
 </Project>

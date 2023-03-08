@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [2.0D, Release3]
+        configuration: [Debug, Release]
 
     runs-on: windows-latest
 
@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.configuration }}
-          path: ./极简浏览器Cef/bin/${{ matrix.configuration }}/*
+          path: ./极简浏览器/bin/${{ matrix.configuration }}/net452/*

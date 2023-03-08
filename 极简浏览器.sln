@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "极简浏览器", "极简浏览器\极简浏览器.csproj", "{42E299F0-DF88-406B-9E7E-C9FA72DF8064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "极简浏览器", "极简浏览器\极简浏览器.csproj", "{42E299F0-DF88-406B-9E7E-C9FA72DF8064}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B586149-A468-46FC-9EC3-7D08428F07E4}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,27 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.github\workflows\build.yml = .github\workflows\build.yml
-		EasyBrowser.dgml = EasyBrowser.dgml
 		LICENSE = LICENSE
+		diagram.dgml = diagram.dgml
 		README.md = README.md
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Debug|x86.Build.0 = Debug|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.ActiveCfg = Debug|Any CPU
-		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.Build.0 = Debug|Any CPU
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.ActiveCfg = Release|Any CPU
+		{42E299F0-DF88-406B-9E7E-C9FA72DF8064}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
