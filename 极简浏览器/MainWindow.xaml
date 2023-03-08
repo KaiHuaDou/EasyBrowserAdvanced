@@ -1,6 +1,12 @@
-﻿<Window x:Class="极简浏览器.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="极简浏览器" Width="800" Height="600"
-        FontFamily="Microsoft YaHei UI" Icon="favicon/favicon.ico" KeyDown="ShortcutProcess"
+﻿<Window x:Class="极简浏览器.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="极简浏览器"
+        Width="800"
+        Height="600"
+        FontFamily="Microsoft YaHei UI"
+        Icon="favicon/favicon.ico"
+        KeyDown="ShortcutProcess"
         Loaded="WindowLoaded">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
@@ -9,49 +15,126 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Button x:Name="GoBackButton" Click="GoBack_Click" Style="{StaticResource RoundButton}">←</Button>
-            <Button x:Name="GoForwardButton" Click="GoForward_Click" Style="{StaticResource RoundButton}">→</Button>
-            <Menu Width="35" Height="35" DockPanel.Dock="Right">
-                <MenuItem Width="35" Height="35" Header="..." Style="{StaticResource TopMenuItem}">
-                    <MenuItem Click="GoForward_Click" Header="后退" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="GoBack_Click" Header="前进" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Refresh_Click" Header="刷新" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="NewPage_Click" Header="新窗口" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="ViewSource_Click" Header="网页源代码" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="SetBookMark_Click" Header="设为书签" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="History_Click" Header="历史记录/书签" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Setting_Click" Header="设置" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Help_Click" Header="帮助" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="About_Click" Header="关于" Style="{StaticResource WhiteMenu}" />
-                    <MenuItem x:Name="DevToolsButton" Header="开发者工具" Style="{StaticResource WhiteMenu}"
-                            Click="DevTool_Click" />
-                    <MenuItem Click="Topmost_Checked" Header="置顶" Style="{StaticResource WhiteMenu}"
-                            IsCheckable="True" />
-                    <MenuItem x:Name="singleBox" Header="本窗口打开" Style="{StaticResource WhiteMenu}"
-                            IsCheckable="True" />
-                    <MenuItem x:Name="privateBox" Header="无痕模式" Style="{StaticResource WhiteMenu}"
-                            IsCheckable="True" Click="PrivateMode_Checked" />
+            <Button x:Name="GoBackButton"
+                    Click="GoBack_Click"
+                    Style="{StaticResource RoundButton}">
+                ←
+            </Button>
+            <Button x:Name="GoForwardButton"
+                    Click="GoForward_Click"
+                    Style="{StaticResource RoundButton}">
+                →
+            </Button>
+            <Menu Width="35"
+                  Height="35"
+                  DockPanel.Dock="Right">
+                <MenuItem Width="35"
+                          Height="35"
+                          Header="..."
+                          Style="{StaticResource TopMenuItem}">
+                    <MenuItem Click="GoForward_Click"
+                              Header="后退"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="GoBack_Click"
+                              Header="前进"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="Refresh_Click"
+                              Header="刷新"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="NewPage_Click"
+                              Header="新窗口"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="ViewSource_Click"
+                              Header="网页源代码"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="SetBookMark_Click"
+                              Header="设为书签"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="History_Click"
+                              Header="历史记录/书签"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="Setting_Click"
+                              Header="设置"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="Help_Click"
+                              Header="帮助"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem Click="About_Click"
+                              Header="关于"
+                              Style="{StaticResource WhiteMenu}" />
+                    <MenuItem x:Name="DevToolsButton"
+                              Header="开发者工具"
+                              Style="{StaticResource WhiteMenu}"
+                              Click="DevTool_Click" />
+                    <MenuItem Click="Topmost_Checked"
+                              Header="置顶"
+                              Style="{StaticResource WhiteMenu}"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="singleBox"
+                              Header="本窗口打开"
+                              Style="{StaticResource WhiteMenu}"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="privateBox"
+                              Header="无痕模式"
+                              Style="{StaticResource WhiteMenu}"
+                              IsCheckable="True"
+                              Click="PrivateMode_Checked" />
                 </MenuItem>
             </Menu>
-            <Button x:Name="NewPageButton" Click="NewPage_Click" DockPanel.Dock="Right"
-                    Style="{StaticResource RoundButton}">+</Button>
-            <Button x:Name="RefershButton" Click="Refresh_Click" Content="@" DockPanel.Dock="Right"
+            <Button x:Name="NewPageButton"
+                    Click="NewPage_Click"
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource RoundButton}">
+                +
+            </Button>
+            <Button x:Name="RefershButton"
+                    Click="Refresh_Click"
+                    Content="@"
+                    DockPanel.Dock="Right"
                     Style="{StaticResource RoundButton}" />
-            <TextBox x:Name="UrlTextBox" Height="30" Margin="0,2,0,0" VerticalAlignment="Center" FontSize="20"
-                    KeyDown="Nav_KeyDown" Style="{StaticResource TextboxStyle}" Text="" TextWrapping="NoWrap" />
+            <TextBox x:Name="UrlTextBox"
+                     Height="30"
+                     Margin="0,2,0,0"
+                     VerticalAlignment="Center"
+                     FontSize="20"
+                     KeyDown="Nav_KeyDown"
+                     Style="{StaticResource TextboxStyle}"
+                     Text=""
+                     TextWrapping="NoWrap" />
         </DockPanel>
-        <ProgressBar x:Name="LoadProgress" Grid.Row="1" Height="3" Background="{x:Null}" BorderThickness="0"
-                Foreground="#FF007ACC" IsIndeterminate="True" Maximum="100" />
-        <Grid x:Name="CWBGrid" Grid.Row="2" Margin="0" PreviewMouseWheel="Cwb_MouseWheel" />
-        <StackPanel x:Name="statusBar" Grid.Row="2" Height="33" HorizontalAlignment="Left"
-                VerticalAlignment="Bottom" Background="#FFF1F3F4" MouseEnter="StatusMouseEnter"
-                Orientation="Horizontal">
+        <ProgressBar x:Name="LoadProgress"
+                     Grid.Row="1"
+                     Height="3"
+                     Background="{x:Null}"
+                     BorderThickness="0"
+                     Foreground="#FF007ACC"
+                     IsIndeterminate="True"
+                     Maximum="100" />
+        <Grid x:Name="CWBGrid"
+              Grid.Row="2"
+              Margin="0"
+              PreviewMouseWheel="Cwb_MouseWheel" />
+        <StackPanel x:Name="statusBar"
+                    Grid.Row="2"
+                    Height="33"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="#FFF1F3F4"
+                    MouseEnter="StatusMouseEnter"
+                    Orientation="Horizontal">
             <StackPanel.Effect>
-                <DropShadowEffect x:Name="barShadow" Direction="45" Opacity="0.2" />
+                <DropShadowEffect x:Name="barShadow"
+                                  Direction="45"
+                                  Opacity="0.2" />
             </StackPanel.Effect>
-            <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
+            <Label x:Name="zoomLabel"
+                   Content="100%"
+                   Visibility="Collapsed" />
             <Label x:Name="loadLabel" Content="正在加载中……" />
-            <Label x:Name="civiLabel" Content="此网页不文明!" Foreground="Red" Visibility="Collapsed" />
+            <Label x:Name="civiLabel"
+                   Content="此网页不文明!"
+                   Foreground="Red"
+                   Visibility="Collapsed" />
         </StackPanel>
     </Grid>
 </Window>
