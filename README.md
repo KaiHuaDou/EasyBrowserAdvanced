@@ -33,7 +33,7 @@
 
 ### IDE
 
-1. Visual Studio Enterprise 2022 (x64, 17.4.5)
+1. Visual Studio Enterprise 2022 (x64, 17.5.1)
     + .NET 桌面开发
         + NuGet目标和生成任务
         + MSBuild
@@ -62,7 +62,8 @@
 
 #### 下一个RC（RC2）
 
-+ *BugFix #39 降低 `MainWindow` 的耦合度* 
++ *BugFix #39 降低 `MainWindow` 的耦合度*
++ Feauture #50 采用了更好的关于窗口
 + Performance #5 更新 Visual Studio 以提升编译性能
 + BugFix #49 修复了源代码格式未完成导致崩溃的问题
 + Performance #4 移除 MaterialDesign

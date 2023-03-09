@@ -6,8 +6,8 @@ namespace 极简浏览器.Api
 {
     public static class DataMgr<T>
     {
-        private static XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
-        private static FileStream genStream(string fileName, FileMode mode)
+        private static readonly XmlSerializer serializer = new XmlSerializer(typeof(HashSet<T>));
+        private static FileStream GenStream(string fileName, FileMode mode)
         {
             FileStream stream = new FileStream(fileName, mode, FileAccess.ReadWrite);
             return stream;
@@ -26,13 +26,13 @@ namespace 极简浏览器.Api
         }
         public static void Save(HashSet<T> data, string fileName)
         {
-            FileStream fs = genStream(fileName, FileMode.Create);
+            FileStream fs = GenStream(fileName, FileMode.Create);
             serializer.Serialize(fs, data);
             fs.Close( );
         }
         public static HashSet<T> Get(string fileName)
         {
-            FileStream fs = genStream(fileName, FileMode.OpenOrCreate);
+            FileStream fs = GenStream(fileName, FileMode.OpenOrCreate);
             HashSet<T> config = new HashSet<T>( );
             try
             {

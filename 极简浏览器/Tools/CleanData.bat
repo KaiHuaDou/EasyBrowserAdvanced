@@ -53,7 +53,7 @@ del /f /q ..\locales\uk.pak
 del /f /q ..\locales\vi.pak
 del /f /q ..\locales\zh-TW.pak
 del /f /q ..\*.pdb
+del /f /q ..\*.vshost.exe
+del /f /q ..\*.vshost.exe.config
 del /f /q ..\README.txt
 del /f /q ..\debug.log
-exit
-

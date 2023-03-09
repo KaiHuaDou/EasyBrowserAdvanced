@@ -7,9 +7,6 @@ using 极简浏览器.Resources;
 
 namespace 极简浏览器
 {
-    /// <summary>
-    /// About.xaml 的交互逻辑
-    /// </summary>
     public partial class About : Window
     {
         public About( )
@@ -17,25 +14,25 @@ namespace 极简浏览器
             InitializeComponent( );
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => Close( );
+        private void CloseClick(object o, RoutedEventArgs e) => Close( );
 
-        private void Circle(object sender, MouseButtonEventArgs e)
+        private void Circle(object o, MouseButtonEventArgs e)
         {
             RotateTransform rotate = new RotateTransform( );
-            image.RenderTransform = rotate;
-            image.RenderTransformOrigin = new Point(0.5, 0.5);
+            img.RenderTransform = rotate;
+            img.RenderTransformOrigin = new Point(0.5, 0.5);
             Storyboard story = new Storyboard( );
-            DoubleAnimation da = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(0.5)));
-            Storyboard.SetTarget(da, image);
-            Storyboard.SetTargetProperty(da, new PropertyPath("RenderTransform.Angle"));
-            da.RepeatBehavior = new RepeatBehavior(10);
-            story.Children.Add(da);
+            DoubleAnimation ani = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(0.5)));
+            Storyboard.SetTarget(ani, img);
+            Storyboard.SetTargetProperty(ani, new PropertyPath("RenderTransform.Angle"));
+            ani.RepeatBehavior = new RepeatBehavior(10);
+            story.Children.Add(ani);
             story.Begin( );
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void SetVersion(object o, RoutedEventArgs e)
         {
-            label3.Content = Settings.Default.Attach + " "
+            verLabel.Content = Settings.Default.Attach + " "
                 + Settings.Default.Version + " "
                 + Settings.Default.Type;
         }

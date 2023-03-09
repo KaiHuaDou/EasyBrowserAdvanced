@@ -39,6 +39,7 @@
         <None Update="favicon\favicon.png">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Resources\Settings.settings">
           <Generator>SettingsSingleFileGenerator</Generator>
@@ -50,10 +51,10 @@
         <None Update="Tools\rm.exe">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Tools\清理垃圾.bat">
+        <None Update="Tools\CleanData.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Tools\清除足迹.bat">
+        <None Update="Tools\ClearBadRecord.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Ruleset.ruleset">
