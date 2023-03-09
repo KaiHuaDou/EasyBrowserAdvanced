@@ -6,16 +6,16 @@
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight">
     <StackPanel>
-        <TreeView x:Name="treeView" Margin="0"
+        <TreeView Margin="10"
                   Background="White"
-                  FocusVisualStyle="{x:Null}"
-                  FontSize="20">
+                  BorderThickness="0"
+                  FocusVisualStyle="{x:Null}">
             <TreeViewItem Header="无法播放视频" IsExpanded="True">
                 <TreeViewItem>
                     <TreeViewItem.Header>
                         <TextBlock Width="370" Margin="0"
                                    TextWrapping="Wrap">
-                            对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3上反馈
+                            对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到 https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3 上反馈
                         </TextBlock>
                     </TreeViewItem.Header>
                 </TreeViewItem>
@@ -45,7 +45,7 @@
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
-        <Button x:Name="button" Width="100" Margin="10" Click="button_Click" Content="确定"
+        <Button Margin="10" Padding="30,3" Click="button_Click" Content="确定"
                 HorizontalAlignment="Right"
                 IsDefault="True" />
     </StackPanel>
