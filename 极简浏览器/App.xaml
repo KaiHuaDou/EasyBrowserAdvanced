@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:极简浏览器"
              DispatcherUnhandledException="ExpetionOpen"
-             Exit="Application_Exit"
+             Exit="AppExit"
              ShutdownMode="OnLastWindowClose"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -83,8 +83,8 @@
                         <Border x:Name="_border"
                                 Background="White"
                                 BorderBrush="Black"
-                                BorderThickness="1"
-                                CornerRadius="12">
+                                BorderThickness="1.5"
+                                CornerRadius="8">
                             <ScrollViewer x:Name="PART_ContentHost" />
                         </Border>
                         <ControlTemplate.Triggers>

@@ -37,7 +37,7 @@ namespace 极简浏览器.Resources {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Release")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Stable")]
         public string Type {
             get {
                 return ((string)(this["Type"]));

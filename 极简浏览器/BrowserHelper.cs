@@ -19,9 +19,7 @@ namespace 极简浏览器
         public CefLifeSpanHandler( ) { }
 
         public bool DoClose(IWebBrowser webBrowser, IBrowser browser)
-        {
-            return !(browser.IsDisposed || browser.IsPopup);
-        }
+            => !(browser.IsDisposed || browser.IsPopup);
 
         public void OnAfterCreated(IWebBrowser webBrowser, IBrowser browser) { }
         public void OnBeforeClose(IWebBrowser webBrowser, IBrowser browser) { }
@@ -33,7 +31,7 @@ namespace 极简浏览器
             IWindowInfo info, IBrowserSettings settings,
             ref bool noJs, out IWebBrowser newBrowser)
         {
-            ExtChromiumBrowser _browser = (ExtChromiumBrowser) webBrowser;
+            EasyBrowserCore _browser = (EasyBrowserCore) webBrowser;
             _browser.Dispatcher.Invoke(new Action(( ) =>
             {
                 NewWindowEventArgs e = new NewWindowEventArgs(info, url);
@@ -43,18 +41,18 @@ namespace 极简浏览器
             return true;
         }
     }
-    public class ExtChromiumBrowser : ChromiumWebBrowser
+    public class EasyBrowserCore : ChromiumWebBrowser
     {
-        public static int Id;
+        private readonly int Id;
 
-        public ExtChromiumBrowser(int id) : base(null)
+        public EasyBrowserCore(int id) : base(null)
         {
             this.LifeSpanHandler = new CefLifeSpanHandler( );
             this.DownloadHandler = new DownloadHandler( );
             Id = id;
         }
 
-        public ExtChromiumBrowser(int id, string url) : base(url)
+        public EasyBrowserCore(int id, string url) : base(url)
         {
             this.LifeSpanHandler = new CefLifeSpanHandler( );
             this.DownloadHandler = new DownloadHandler( );
@@ -64,8 +62,7 @@ namespace 极简浏览器
         {
             if (Browser.Host[Id].singleBox.IsChecked != true)
                 Browser.New(e.Url);
-            else
-                Browser.Navigate(Id, e.Url);
+            else Browser.Navigate(Id, e.Url);
         }
     }
     public class NewWindowEventArgs : EventArgs
@@ -96,17 +93,19 @@ namespace 极简浏览器
             }
         }
 
-        public void OnDownloadUpdated(IWebBrowser webBrowser, IBrowser browser,
-            DownloadItem item, IDownloadItemCallback callback)
-        {
-            _downloadCallBackEvent?.Invoke(true, item);
-        }
+        public void OnDownloadUpdated(
+            IWebBrowser webBrowser,
+            IBrowser browser, DownloadItem item,
+            IDownloadItemCallback callback)
+            => _downloadCallBackEvent?.Invoke(true, item);
 
         private static string AskDownloadPath(DownloadItem item)
         {
-            SaveFileDialog sfd = new SaveFileDialog( );
-            sfd.FileName = item.SuggestedFileName;
-            sfd.Title = "下载文件 - 极简浏览器";
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                FileName = item.SuggestedFileName,
+                Title = "下载文件 - 极简浏览器",
+            };
             return sfd.ShowDialog( ) == true ? sfd.FileName : null;
         }
     }
@@ -114,30 +113,23 @@ namespace 极简浏览器
     {
         public MenuHandler(int id) => Id = id;
 
-        public static Window mainWindow { get; set; }
-        public static int Id;
+        public static Window MainWindow { get; set; }
+        private readonly int Id;
         void IContextMenuHandler.OnBeforeContextMenu(
-            IWebBrowser webBrowser,
-            IBrowser browser, IFrame frame,
-            IContextMenuParams paras,
-            IMenuModel model)
+            IWebBrowser w, IBrowser b, IFrame f, IContextMenuParams p, IMenuModel m)
         { }
 
         bool IContextMenuHandler.OnContextMenuCommand(
-            IWebBrowser webBrowser,
-            IBrowser browser,
-            IFrame frame,
-            IContextMenuParams paras,
-            CefMenuCommand command,
-            CefEventFlags eventFlags) => true;
+            IWebBrowser w, IBrowser b, IFrame f, IContextMenuParams p,
+            CefMenuCommand c, CefEventFlags e) => true;
 
         void IContextMenuHandler.OnContextMenuDismissed(
             IWebBrowser webBrowser,
             IBrowser browser,
             IFrame frame)
         {
-            var cwb = (ChromiumWebBrowser) webBrowser;
-            cwb.Dispatcher.Invoke(( ) => { cwb.ContextMenu = null; });
+            var core = (ChromiumWebBrowser) webBrowser;
+            core.Dispatcher.Invoke(( ) => core.ContextMenu = null);
         }
 
         bool IContextMenuHandler.RunContextMenu(
@@ -152,13 +144,11 @@ namespace 极简浏览器
             _browser.Dispatcher.Invoke(( ) =>
             {
                 var menu = new ContextMenu { IsOpen = true };
-                RoutedEventHandler handler = null;
-                handler = (s, e) =>
+                void handler(object o, RoutedEventArgs e)
                 {
                     menu.Closed -= handler;
-                    if (!callback.IsDisposed)
-                        callback.Cancel( );
-                };
+                    if (!callback.IsDisposed) callback.Cancel( );
+                }
                 menu.Closed += handler;
                 menu.Items.Add(new MenuItem { Header = "前进", Command = new CustomCommand(( ) => { Browser.GoForward(Id); }) });
                 menu.Items.Add(new MenuItem { Header = "后退", Command = new CustomCommand(( ) => { Browser.GoBack(Id); }) });
@@ -180,20 +170,18 @@ namespace 极简浏览器
     }
     public class CustomCommand : ICommand
     {
-        Action _TargetExecuteMethod;
-        Func<bool> _TargetCanExecuteMethod;
+        private readonly Action _TargetExecuteMethod;
+        private readonly Func<bool> _TargetCanExecuteMethod;
         public event EventHandler CanExecuteChanged = delegate { };
 
         public CustomCommand(Action executeMethod)
             => _TargetExecuteMethod = executeMethod;
 
         bool ICommand.CanExecute(object o)
-            => _TargetCanExecuteMethod != null ? _TargetCanExecuteMethod( ) : false;
+            => _TargetCanExecuteMethod != null && _TargetCanExecuteMethod( );
 
-        public void RaiseCanExecuteChanged( )
-            => CanExecuteChanged(this, EventArgs.Empty);
+        public void RaiseCanExecuteChanged( ) => CanExecuteChanged(this, EventArgs.Empty);
 
-        void ICommand.Execute(object parameter)
-            => _TargetExecuteMethod?.Invoke( );
+        void ICommand.Execute(object o) => _TargetExecuteMethod?.Invoke( );
     }
 }

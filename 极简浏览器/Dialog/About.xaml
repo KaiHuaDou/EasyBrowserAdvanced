@@ -25,7 +25,7 @@
         <Label Margin="10,10,10,0" Content="由 KaiHuaDou 开发"
                HorizontalAlignment="Center"
                FontSize="22" />
-        <Label x:Name="verLabel" Margin="10,0,10,0" Content="3.4.7.2 Release"
+        <Label x:Name="verLabel" Margin="10,0,10,0" Content="[版本指示文字]"
                HorizontalAlignment="Center" />
         <Label Margin="0,0,0,10" HorizontalAlignment="Center">
             <Hyperlink NavigateUri="https://github.com/KaiHuaDou/EasyBrowserAdvanced">参见 Github 仓库</Hyperlink>

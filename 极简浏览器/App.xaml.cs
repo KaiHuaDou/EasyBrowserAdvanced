@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
 using 极简浏览器.Resources;
@@ -20,7 +21,7 @@ namespace 极简浏览器
         public bool IsPrivate { get; set; }
     }
 
-    public partial class App : System.Windows.Application
+    public partial class App : Application
     {
         /// <summary>
         /// 应用程序的入口点、参数的处理与传递、运行时错误的处理
@@ -50,10 +51,9 @@ namespace 极简浏览器
                 catch (XamlParseException e)
                 {
                     Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
-                    System.Windows.MessageBox.Show(
-                        e.Message, GuiText.browserName,
-                        System.Windows.MessageBoxButton.OK,
-                        System.Windows.MessageBoxImage.Error);
+                    MessageBox.Show(
+                        e.Message, GuiText.browserName, 
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -83,23 +83,22 @@ namespace 极简浏览器
             try
             {
                 if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)
-                    new Thread(showNoAccsses).Start( );
+                    new Thread(ShowNoAccsses).Start( );
             }
             catch (Exception) { }
         }
-        static void showNoAccsses( )
+        private static void ShowNoAccsses( )
         {
             MessageBox.Show(GuiText.civiRefuse);
             Current.Shutdown( );
         }
-        private void ExpetionOpen(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+
+        private void ExpetionOpen(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
             new Report(e.Exception.Message).ShowDialog( );
         }
-        private void Application_Exit(object sender, System.Windows.ExitEventArgs e)
-        {
-            Cef.Shutdown( );
-        }
+
+        private void AppExit(object sender, ExitEventArgs e) => Cef.Shutdown( );
     }
 }

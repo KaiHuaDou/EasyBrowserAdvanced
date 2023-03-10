@@ -7,8 +7,8 @@
     "SeparateByGroups": true,
     "AttributeIndentation": 0,
     "AttributeIndentationStyle": 1,
-    "RemoveDesignTimeReferences": false,
-    "IgnoreDesignTimeReferencePrefix": false,
+    "RemoveDesignTimeReferences": true,
+    "IgnoreDesignTimeReferencePrefix": true,
     "EnableAttributeReordering": true,
     "AttributeOrderingRuleGroups": [
         "x:Class",
@@ -23,7 +23,7 @@
         "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
         "Storyboard.*, From, To, Duration"
     ],
-    "FirstLineAttributes": "x:Name,Width,Height,Margin,Padding,Content,Click,DockPanel.Dock",
+    "FirstLineAttributes": "x:Name,Width,Height,Margin,Padding,Content,Click,DockPanel.Dock,Direction,Opacity,Header,Grid.Row,Grid.Column",
     "OrderAttributesByName": false,
     "PutEndingBracketOnNewLine": false,
     "RemoveEndingTagOfEmptyElement": true,

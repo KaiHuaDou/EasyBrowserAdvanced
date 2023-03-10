@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: 极简浏览器Cef.sln
+      Solution_Name: 极简浏览器.sln
 
     steps:
       - name: Checkout

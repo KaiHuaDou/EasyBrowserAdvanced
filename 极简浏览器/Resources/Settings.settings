@@ -1,12 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="极简浏览器.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="极简浏览器.Resources" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)">3.4.7.2</Value>
     </Setting>
     <Setting Name="Type" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Release</Value>
+      <Value Profile="(Default)">Stable</Value>
     </Setting>
     <Setting Name="Attach" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
