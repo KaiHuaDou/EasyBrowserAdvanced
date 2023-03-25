@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
@@ -7,48 +6,43 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    /// <summary>
-    /// WebSource.xaml 的交互逻辑
-    /// </summary>
     public partial class WebSource : Window
     {
+        public int Id;
+
         public WebSource(int id, string text)
         {
             InitializeComponent( );
             textBox.Text = text;
             Id = id;
         }
-        public int Id;
-        private void refreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            textBox.Text = Browser.PageSource(Id);
-        }
 
-        private void formatButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshSource(object o, RoutedEventArgs e)
+            => textBox.Text = Browser.PageSource(Id);
+
+        private void FormatSource(object o, RoutedEventArgs e)
         {
             new Thread((html) =>
             {
                 string result = Formatter.FormartHtml((string) html, true);
                 Dispatcher.Invoke(( ) =>
                 {
-                    try
-                    { textBox.Text = result; }
-                    catch (Exception) { }
+                    try { textBox.Text = result; } catch { }
                 });
             }).Start(textBox.Text);
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveSource(object o, RoutedEventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog
+            SaveFileDialog dialog = new SaveFileDialog
             {
                 DefaultExt = ".html",
                 FileName = Browser.Title(Id),
                 AddExtension = true,
                 Filter = "HTML 文件|.html"
             };
-            if (sfd.ShowDialog( ) == true)
-                File.WriteAllText(sfd.FileName, textBox.Text);
+            if (dialog.ShowDialog( ) == true)
+                File.WriteAllText(dialog.FileName, textBox.Text);
         }
     }
 }

@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CefSharp;
 
 namespace 极简浏览器.Api
 {
     public static class CookieMgr
     {
-        private static string curUrl;
+        private static string address;
         public static void Get( )
         {
             try
             {
-                HashSet<CookieData> cookies;
+                ObservableCollection<CookieData> cookies;
                 cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
-                var manager = Cef.GetGlobalCookieManager( );
-                foreach (CookieData item in cookies)
-                    manager.SetCookieAsync(item.Key, item.Value);
+                using (ICookieManager manager = Cef.GetGlobalCookieManager( ))
+                {
+                    foreach (CookieData item in cookies)
+                        manager.SetCookieAsync(item.Key, item.Value);
+                }
             }
             catch (NullReferenceException) { }
         }
@@ -23,44 +25,42 @@ namespace 极简浏览器.Api
         public static void Set(int id)
         {
             CookieVisitor visitor = new CookieVisitor( );
-            visitor.SendCookie += visitor_SendCookie;
+            visitor.SendCookie += AddCookie;
             ICookieManager cookieManager = Browser.Core[id].GetCookieManager( );
-            curUrl = Browser.Address(id);
+            address = Browser.Address(id);
             cookieManager.VisitAllCookies(visitor);
         }
 
-        private static void visitor_SendCookie(Cookie obj)
+        private static void AddCookie(Cookie cookie)
         {
-            HashSet<CookieData> cookies;
+            ObservableCollection<CookieData> cookies;
             cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
             try
             {
                 foreach (CookieData item in cookies)
                 {
-                    if (item.Value.Name == obj.Name && item.Value.Domain == obj.Domain)
+                    if (item.Value.Name == cookie.Name && item.Value.Domain == cookie.Domain)
                     {
-                        item.Value = obj;
+                        item.Value = cookie;
                         DataMgr<CookieData>.Save(cookies, FilePath.Cookies);
                         return;
                     }
                 }
             }
             catch (NullReferenceException) { }
-            DataMgr<CookieData>.Add(new CookieData(curUrl, obj), FilePath.Cookies);
+            DataMgr<CookieData>.Add(new CookieData { Key = address, Value = cookie }, FilePath.Cookies);
         }
     }
+
+    [Serializable]
     public class CookieData
     {
         public CookieData( ) { }
-        public CookieData(string k, Cookie v)
-        {
-            Key = k;
-            Value = v;
-        }
-        public bool IsChecked;
+        public bool Check;
         public string Key;
         public Cookie Value;
     }
+
     public class CookieVisitor : ICookieVisitor
     {
         public event Action<Cookie> SendCookie;

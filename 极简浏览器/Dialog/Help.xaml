@@ -45,7 +45,7 @@
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
-        <Button Margin="10" Padding="30,3" Click="button_Click" Content="确定"
+        <Button Margin="10" Padding="30,3" Click="CloseWindow" Content="确定"
                 HorizontalAlignment="Right"
                 IsDefault="True" />
     </StackPanel>

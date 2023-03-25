@@ -6,9 +6,9 @@
     <DockPanel Margin="10,10,10,10">
         <StackPanel Margin="0,0,5,0" DockPanel.Dock="Left"
                     HorizontalAlignment="Center">
-            <Button x:Name="refreshButton" Margin="5" Padding="30,3" Click="refreshButton_Click" Content="刷新" />
-            <Button x:Name="formatButton" Margin="5" Padding="30,3" Click="formatButton_Click" Content="格式化" />
-            <Button x:Name="saveButton" Margin="5" Padding="30,3" Click="saveButton_Click" Content="保存" />
+            <Button x:Name="refreshButton" Margin="5" Padding="30,3" Click="RefreshSource" Content="刷新" />
+            <Button x:Name="formatButton" Margin="5" Padding="30,3" Click="FormatSource" Content="格式化" />
+            <Button x:Name="saveButton" Margin="5" Padding="30,3" Click="SaveSource" Content="保存" />
         </StackPanel>
         <TextBox x:Name="textBox" DockPanel.Dock="Top"
                  AcceptsReturn="True"

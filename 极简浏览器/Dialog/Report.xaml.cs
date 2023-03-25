@@ -2,17 +2,15 @@
 
 namespace 极简浏览器
 {
-    /// <summary>
-    /// 报错的模块
-    /// </summary>
     public partial class Report : Window
     {
-        public Report(string msg)
+        public Report(string message)
         {
             InitializeComponent( );
-            textBox.Text = msg;
+            msgBox.Text = message;
         }
 
-        private void ShutdownClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown( );
+        private void ShutdownClick(object o, RoutedEventArgs e)
+            => Application.Current.Shutdown( );
     }
 }

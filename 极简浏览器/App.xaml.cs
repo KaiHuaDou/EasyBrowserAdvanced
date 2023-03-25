@@ -50,14 +50,15 @@ namespace 极简浏览器
                 }
                 catch (XamlParseException e)
                 {
-                    Logger.Log(e, logType: LogType.Error, shutWhenFail: true);
+                    Logger.Log(e, type: LogType.Error, shutWhenFail: true);
                     MessageBox.Show(
-                        e.Message, GuiText.browserName, 
+                        e.Message, GuiText.browserName,
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
-        static void RuntimeFix( )
+
+        private static void RuntimeFix( )
         {
             new Thread(( ) =>
             {
@@ -82,7 +83,7 @@ namespace 极简浏览器
             }).Start( );
             try
             {
-                if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin") == true)
+                if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"))
                     new Thread(ShowNoAccsses).Start( );
             }
             catch (Exception) { }
@@ -95,7 +96,7 @@ namespace 极简浏览器
 
         private void ExpetionOpen(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.Log(e.Exception, logType: LogType.Error, shutWhenFail: true);
+            Logger.Log(e.Exception, type: LogType.Error, shutWhenFail: true);
             new Report(e.Exception.Message).ShowDialog( );
         }
 

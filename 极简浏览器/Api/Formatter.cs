@@ -50,11 +50,7 @@ namespace 极简浏览器
             int num1 = gNum2;
             builder1.Append(e( ));
             gNum2 = num1;
-            if (builder1.Length == 0)
-            {
-                return null;
-            }
-            return builder1.ToString( );
+            return builder1.Length == 0 ? null : builder1.ToString( );
         }
         private string a(char ch)
         {

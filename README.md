@@ -21,8 +21,8 @@
 
 ## 运行依赖
 
-1. [.NET Framework 4.5.2 运行时](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net452-offline-installer)
-2. [Visual C++ 2015-2022 运行时](https://aka.ms/vs/17/release/vc_redist.x64.exe)
+1. [.NET Framework 4.6.2 运行时](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net462-offline-installer)
+2. [Visual C++ 2022 运行时](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 ## 测试环境
 

@@ -32,8 +32,8 @@ namespace 极简浏览器
         private void PrivateMode_Checked(object o, RoutedEventArgs e) => App.Program.Args.IsPrivate = privateBox.IsChecked;
         private void Topmost_Checked(object o, RoutedEventArgs e)
         {
-            this.Topmost = !this.Topmost;
-            App.Program.Args.IsTopmost = this.Topmost;
+            Topmost = !Topmost;
+            App.Program.Args.IsTopmost = Topmost;
         }
     }
 }

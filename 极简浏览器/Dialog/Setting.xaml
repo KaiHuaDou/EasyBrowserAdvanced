@@ -8,8 +8,8 @@
         <StackPanel Margin="0,10,0,0" DockPanel.Dock="Bottom"
                     Orientation="Horizontal">
             <Button x:Name="OKButton" Margin="5,0,5,0" Padding="30,3" Click="OKButton_Click" Content="确定" />
-            <Button x:Name="CacheButton" Margin="5,0,5,0" Padding="30,3" Click="CacheButton_Click" Content="清除缓存" />
-            <Button x:Name="LogButton" Margin="5,0,5,0" Padding="30,3" Click="LogButton_Click" Content="清除日志" />
+            <Button x:Name="CacheButton" Margin="5,0,5,0" Padding="30,3" Click="ClearCache" Content="清除缓存" />
+            <Button x:Name="LogButton" Margin="5,0,5,0" Padding="30,3" Click="ClearLog" Content="清除日志" />
         </StackPanel>
         <Label Height="34" Content="主页：" />
         <TextBox x:Name="MainPageBox" Height="35"

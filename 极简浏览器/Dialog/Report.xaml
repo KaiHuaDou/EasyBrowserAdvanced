@@ -11,7 +11,7 @@
         </Label>
         <Button Margin="0,10,0,0" Padding="30,3" Click="ShutdownClick" Content="确定" DockPanel.Dock="Bottom"
                 HorizontalAlignment="Right" />
-        <TextBox x:Name="textBox" Margin="0,10,0,0"
+        <TextBox x:Name="msgBox" Margin="0,10,0,0"
                  IsReadOnly="True"
                  TextWrapping="Wrap" />
     </DockPanel>

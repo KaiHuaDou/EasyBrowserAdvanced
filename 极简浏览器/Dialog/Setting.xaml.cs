@@ -5,9 +5,6 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器
 {
-    /// <summary>
-    /// Setting.xaml 的交互逻辑
-    /// </summary>
     public partial class Setting : Window
     {
         public Setting( )
@@ -21,37 +18,27 @@ namespace 极简浏览器
             try
             {
                 File.WriteAllText(FilePath.Config, MainPageBox.Text);
-                this.Close( );
+                Close( );
             }
             catch (Exception ex)
             {
-                Logger.Log(ex, logType: LogType.Debug, shutWhenFail: false);
+                Logger.Log(ex, type: LogType.Debug, shutWhenFail: false);
             }
         }
 
-        private void CacheButton_Click(object sender, RoutedEventArgs e)
+        private void ClearCache(object sender, RoutedEventArgs e)
         {
-            string[] files = Directory.GetFiles(FilePath.Caches);
-            foreach (string x in files)
+            foreach (string file in Directory.GetFiles(FilePath.Caches))
             {
-                try
-                {
-                    File.Delete(x);
-                }
-                catch (Exception) { }
+                try { File.Delete(file); } catch { }
             }
         }
 
-        private void LogButton_Click(object sender, RoutedEventArgs e)
+        private void ClearLog(object sender, RoutedEventArgs e)
         {
-            string[] files = Directory.GetFiles(FilePath.Logs);
-            foreach (string x in files)
+            foreach (string file in Directory.GetFiles(FilePath.Logs))
             {
-                try
-                {
-                    File.Delete(x);
-                }
-                catch (Exception) { }
+                try { File.Delete(file); } catch { }
             }
         }
     }

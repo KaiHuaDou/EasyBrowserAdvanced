@@ -31,7 +31,7 @@ namespace 极简浏览器
             {
                 Cef.UIThreadTaskFactory.StartNew(( ) =>
                 {
-                    var requestContext = Browser.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
+                    IRequestContext requestContext = Browser.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
                     requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
                 });
             }
@@ -68,7 +68,8 @@ namespace 极简浏览器
                 Browser.PraseEasy(Id, UrlTextBox.Text);
             else if (Regex.IsMatch(UrlTextBox.Text, @"\.[A-Za-z]{1,4}|(://)|^[A-Za-z]:\\|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,4})?|^about:"))
                 Browser.Navigate(Id, UrlTextBox.Text);
-            else Browser.Navigate(Id, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
+            else
+                Browser.Navigate(Id, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
             IsPageOk = false;
         }
         private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
@@ -81,7 +82,7 @@ namespace 极简浏览器
         }
         private void PageLoaded(object o, FrameLoadEndEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action) (( ) =>
+            void Loaded( )
             {
                 IsPageOk = true;
                 LoadProgress.Visibility = Visibility.Collapsed;
@@ -99,27 +100,33 @@ namespace 极简浏览器
                 }
                 if (Civilized.CheckCivilized(Browser.PageText(Id)))
                     civiLabel.Visibility = Visibility.Visible;
-            }));
+            }
+            Dispatcher.BeginInvoke((Action) Loaded);
         }
         private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
-            => this.Title = Browser.Title(Id) + " - 极简浏览器";
+            => Title = Browser.Title(Id) + " - 极简浏览器";
         private void BrowserLoadError(object o, LoadErrorEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action) (( ) =>
+            void LoadError( )
             {
-                if (IsPageOk != true && e.ErrorCode.ToString( ) != "Aborted")
-                    Browser.Navigate(Id, FilePath.Runtime + @"\resource\Error.html?errorCode=" + e.ErrorCode + "&errorText=" + e.ErrorText + "&url=" + UrlTextBox.Text);
-            }));
+                if (IsPageOk || e.ErrorCode.ToString( ) == "Aborted")
+                    return;
+                Browser.Navigate(Id, FilePath.Runtime
+                    + @"\Resources\Error.html?errorCode=" + e.ErrorCode
+                    + "&errorText=" + e.ErrorText
+                    + "&url=" + UrlTextBox.Text);
+            }
+            Dispatcher.BeginInvoke((Action) LoadError);
         }
         private void BrowserZooming(object o, MouseWheelEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
-            if (e.Delta > 0) Browser.Core[Id].ZoomInCommand.Execute(null);
-            else if (e.Delta < 0) Browser.Core[Id].ZoomOutCommand.Execute(null);
+            if (e.Delta > 0)
+                Browser.Core[Id].ZoomInCommand.Execute(null);
+            else if (e.Delta < 0)
+                Browser.Core[Id].ZoomOutCommand.Execute(null);
             zoomLabel.Content = ((int) (Browser.Core[Id].ZoomLevel * 100) + 100).ToString( ) + "%";
-            if (zoomLabel.Content.ToString( ) != "100%")
-                zoomLabel.Visibility = Visibility.Visible;
-            else zoomLabel.Visibility = Visibility.Collapsed;
+            zoomLabel.Visibility = zoomLabel.Content.ToString( ) == "100%" ? Visibility.Collapsed : Visibility.Visible;
             e.Handled = true;
         }
         private void ShortcutProcess(object o, KeyEventArgs e)

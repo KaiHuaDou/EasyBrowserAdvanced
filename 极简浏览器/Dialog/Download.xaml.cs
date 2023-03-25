@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Timers;
 using System.Windows;
 using System.Windows.Threading;
 using CefSharp;
@@ -15,34 +17,35 @@ namespace 极简浏览器
     /// </summary>
     public partial class Download : Window
     {
-        private static DownloadItem basicInfo = new DownloadItem( );
-        private string dlPath;
-        private WebRequest httpReq;
-        private WebResponse httpRes;
+        private static DownloadItem task = new DownloadItem( );
+        private readonly string filePath;
+        private WebRequest request;
+        private WebResponse response;
         private byte[] buf = new byte[short.MaxValue];
-        private Thread dlThread;
-        private Stream dlStream;
-        private FileStream dlFS;
-        private long length = 0, dlLen = 0, lastLen = 0;
+        private Thread thread;
+        private Stream webStream;
+        private FileStream fileStream;
+        private long totalSize = 0, size = 0, lastSize = 0;
         private double totalSec = 0;
-        private delegate void updateData(string value);
+        private delegate void UpdateValue(int value);
         private System.Timers.Timer timer = new System.Timers.Timer(500);
-        public Download(DownloadItem item, string savePath)
+
+        public Download(DownloadItem item, string path)
         {
             InitializeComponent( );
-            basicInfo = item;
-            dlPath = savePath;
-            FileName.Content = basicInfo.SuggestedFileName;
+            task = item;
+            filePath = path;
+            FileName.Content = task.SuggestedFileName;
             timer.Elapsed += Timer_Elapsed;
             DownloadInit( );
         }
 
-        void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void Timer_Elapsed(object o, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(( ) =>
             {
-                Speed.Content = Convert.ToUInt32((dlLen - lastLen) / 1024) + "KB/s";
-                lastLen = dlLen;
+                Speed.Content = Convert.ToUInt32((size - lastSize) / 1024) + "KB/s";
+                lastSize = size;
                 totalSec += 0.5;
             });
         }
@@ -51,33 +54,32 @@ namespace 极简浏览器
         {
             try
             {
-                httpReq = WebRequest.Create(basicInfo.Url);
-                httpRes = httpReq.GetResponse( );
-                length = httpRes.ContentLength;
-                Progress.Maximum = length;
-                dlThread = new Thread(new ThreadStart(HttpDownloadFile));
-                dlFS = new FileStream(dlPath, FileMode.Create, FileAccess.ReadWrite);
+                request = WebRequest.Create(task.Url);
+                response = request.GetResponse( );
+                totalSize = response.ContentLength;
+                Progress.Maximum = totalSize;
+                thread = new Thread(new ThreadStart(HttpDownloadFile));
+                fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
                 timer.Enabled = true;
-                dlThread.Start( );
+                thread.Start( );
             }
             catch (WebException e)
             {
-                MessageBox.Show("无法下载，原因:" + e.Status.ToString( ));
-                this.Close( );
+                MessageBox.Show("无法下载\n" + e.Status.ToString( ));
+                Close( );
             }
         }
 
         public void HttpDownloadFile( )
         {
-            dlStream = httpRes.GetResponseStream( );
-            int i;
-            while ((i = dlStream.Read(buf, 0, buf.Length)) > 0)
+            webStream = response.GetResponseStream( );
+            for (int i = 0; (i = webStream.Read(buf, 0, buf.Length)) > 0;)
             {
                 try
                 {
-                    dlLen += i;
-                    Dispatcher.Invoke(new updateData(updateUI), dlLen.ToString( ));
-                    dlFS.Write(buf, 0, i);
+                    size += i;
+                    Dispatcher.Invoke(new UpdateValue(UpdateUI), size);
+                    fileStream.Write(buf, 0, i);
                 }
                 catch (IOException ex)
                 {
@@ -85,30 +87,25 @@ namespace 极简浏览器
                 }
             }
             timer.Enabled = false;
-            dlFS.Close( );
-            dlStream.Close( );
-            Dispatcher.Invoke(( ) => { OpenButton.IsEnabled = true; });
+            fileStream.Close( );
+            webStream.Close( );
+            Dispatcher.Invoke(( ) => OpenButton.IsEnabled = true);
         }
-        void updateUI(string value)
+
+        private void UpdateUI(int value)
         {
-            Progress.Value = int.Parse(value);
-            double percent = Progress.Value / Progress.Maximum * 100.0;
+            Progress.Value = value;
+            double percent = value / Progress.Maximum * 100.0;
             Percent.Content = decimal.Round((decimal) percent, 2) + "%";
         }
 
-        private void OpenButton_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(dlPath);
-        }
+        private void OpenClick(object o, RoutedEventArgs e)
+            => Process.Start(filePath);
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            dlThread.Abort( );
-        }
+        private void WindowClosing(object o, CancelEventArgs e)
+            => thread.Abort( );
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            FromURL.Content = StdApi.ZipStr(basicInfo.Url, (int) (this.ActualWidth / 15));
-        }
+        private void WindowSizeChanged(object o, SizeChangedEventArgs e)
+            => FromURL.Content = StdApi.ZipStr(task.Url, (int) (ActualWidth / 15));
     }
 }

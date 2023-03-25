@@ -69,11 +69,11 @@
             for (var i = 0; i < vars.length; i++)
             {
                 var pair = vars[i].split("=");
-                if (pair[0] == variable) { return pair[1]; }
+                if (pair[0] == variable) return pair[1];
             }
             return (false);
         }
-        function dealPara(code)
+        function translateError(code)
         {
             if (code == "InvalidUrl") code = "无效地址";
             if (code == "ConnectionRefused") code = "访问被拒绝";
@@ -83,8 +83,8 @@
             if (code == "ConnectionTimedOut") code = "响应时间过长";
             return code;
         }
-        document.title = dealPara(getPara("errorCode"));
-        document.getElementById("infobig").innerHTML = dealPara(getPara("errorCode"));
+        document.title = translateError(getPara("errorCode"));
+        document.getElementById("infobig").innerHTML = translateError(getPara("errorCode"));
         document.getElementById("infotext").innerHTML = getPara("errorText");
     </script>
 </body>

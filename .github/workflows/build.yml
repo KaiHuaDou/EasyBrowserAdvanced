@@ -15,33 +15,15 @@ jobs:
 
     runs-on: windows-latest
 
-    env:
-      Solution_Name: 极简浏览器.sln
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install .NET Core
+      - name: Install .NET
         uses: actions/setup-dotnet@v3
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-api-key: ${{ secrets.NuGetAPIKey }}
-          nuget-version: "6.x"
-
-      - name: Restore NuGet Packages
-        run: nuget restore
-
-      - name: Navigate to Workspace
-        run: cd $GITHUB_WORKSPACE
-
       - name: Build Solution
-        run: MSBuild.exe /p:Configuration=$env:Configuration
+        run: dotnet build --configuration $env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
 
@@ -49,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.configuration }}
-          path: ./极简浏览器/bin/${{ matrix.configuration }}/net452/*
+          path: ./极简浏览器/bin/${{ matrix.configuration }}/net462/*

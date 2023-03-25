@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net452</TargetFramework>
+        <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
         <IsWebBootstrapper>false</IsWebBootstrapper>
         <MapFileExtensions>true</MapFileExtensions>
@@ -37,15 +37,15 @@
     <ItemGroup>
         <AppDesigner Include="Properties\" />
         <None Update="favicon\favicon.png">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Resources\Settings.settings">
-          <Generator>SettingsSingleFileGenerator</Generator>
-          <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <None Update="Tools\pepflashplayer.dll">
+        <None Update="Resources\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Tools\rm.exe">
@@ -56,9 +56,6 @@
         </None>
         <None Update="Tools\ClearBadRecord.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Ruleset.ruleset">
-            <SubType>Designer</SubType>
         </None>
         <None Update="极简浏览器.VisualElementsManifest.xml">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -79,29 +76,29 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Resources\GuiText.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>GuiText.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Settings.Designer.cs">
-        <DesignTimeSharedInput>True</DesignTimeSharedInput>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Settings.settings</DependentUpon>
-      </Compile>
+        <Compile Update="Resources\GuiText.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>GuiText.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Update="Resources\GuiText.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Resources\GuiText.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Properties\" />
+        <Folder Include="Properties\" />
     </ItemGroup>
     <PropertyGroup>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-        <CodeAnalysisRuleSet>Ruleset.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
         <Title>极简浏览器</Title>
         <Authors>KaiHuaDou</Authors>
         <Company>KaiHuaDou Studio</Company>
@@ -114,11 +111,11 @@
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <DebugType>full</DebugType>
-      <WarningLevel>3</WarningLevel>
+        <DebugType>none</DebugType>
+        <WarningLevel>3</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <DebugType>full</DebugType>
-      <WarningLevel>3</WarningLevel>
+        <DebugType>none</DebugType>
+        <WarningLevel>3</WarningLevel>
     </PropertyGroup>
 </Project>
