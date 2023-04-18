@@ -10,102 +10,101 @@ using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
 
-namespace 极简浏览器
+namespace 极简浏览器;
+
+/// <summary>
+/// 下载文件的模块
+/// </summary>
+public partial class Download : Window
 {
-    /// <summary>
-    /// 下载文件的模块
-    /// </summary>
-    public partial class Download : Window
+    private static DownloadItem task = new( );
+    private readonly string filePath;
+    private WebRequest request;
+    private WebResponse response;
+    private byte[] buf = new byte[short.MaxValue];
+    private Thread thread;
+    private Stream webStream;
+    private FileStream fileStream;
+    private long totalSize = 0, size = 0, lastSize = 0;
+    private double totalSec = 0;
+    private delegate void UpdateValue(int value);
+    private System.Timers.Timer timer = new(500);
+
+    public Download(DownloadItem item, string path)
     {
-        private static DownloadItem task = new DownloadItem( );
-        private readonly string filePath;
-        private WebRequest request;
-        private WebResponse response;
-        private byte[] buf = new byte[short.MaxValue];
-        private Thread thread;
-        private Stream webStream;
-        private FileStream fileStream;
-        private long totalSize = 0, size = 0, lastSize = 0;
-        private double totalSec = 0;
-        private delegate void UpdateValue(int value);
-        private System.Timers.Timer timer = new System.Timers.Timer(500);
+        InitializeComponent( );
+        task = item;
+        filePath = path;
+        FileName.Content = task.SuggestedFileName;
+        timer.Elapsed += Timer_Elapsed;
+        DownloadInit( );
+    }
 
-        public Download(DownloadItem item, string path)
+    private void Timer_Elapsed(object o, ElapsedEventArgs e)
+    {
+        Dispatcher.Invoke(( ) =>
         {
-            InitializeComponent( );
-            task = item;
-            filePath = path;
-            FileName.Content = task.SuggestedFileName;
-            timer.Elapsed += Timer_Elapsed;
-            DownloadInit( );
-        }
+            Speed.Content = Convert.ToUInt32((size - lastSize) / 1024) + "KB/s";
+            lastSize = size;
+            totalSec += 0.5;
+        });
+    }
 
-        private void Timer_Elapsed(object o, ElapsedEventArgs e)
+    public void DownloadInit( )
+    {
+        try
         {
-            Dispatcher.Invoke(( ) =>
-            {
-                Speed.Content = Convert.ToUInt32((size - lastSize) / 1024) + "KB/s";
-                lastSize = size;
-                totalSec += 0.5;
-            });
+            request = WebRequest.Create(task.Url);
+            response = request.GetResponse( );
+            totalSize = response.ContentLength;
+            Progress.Maximum = totalSize;
+            thread = new Thread(new ThreadStart(HttpDownloadFile));
+            fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            timer.Enabled = true;
+            thread.Start( );
         }
+        catch (WebException e)
+        {
+            MessageBox.Show("无法下载\n" + e.Status.ToString( ));
+            Close( );
+        }
+    }
 
-        public void DownloadInit( )
+    public void HttpDownloadFile( )
+    {
+        webStream = response.GetResponseStream( );
+        for (int i = 0; (i = webStream.Read(buf, 0, buf.Length)) > 0;)
         {
             try
             {
-                request = WebRequest.Create(task.Url);
-                response = request.GetResponse( );
-                totalSize = response.ContentLength;
-                Progress.Maximum = totalSize;
-                thread = new Thread(new ThreadStart(HttpDownloadFile));
-                fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-                timer.Enabled = true;
-                thread.Start( );
+                size += i;
+                Dispatcher.Invoke(new UpdateValue(UpdateUI), size);
+                fileStream.Write(buf, 0, i);
             }
-            catch (WebException e)
+            catch (IOException ex)
             {
-                MessageBox.Show("无法下载\n" + e.Status.ToString( ));
-                Close( );
+                Logger.Log(ex, LogType.Debug);
             }
         }
-
-        public void HttpDownloadFile( )
-        {
-            webStream = response.GetResponseStream( );
-            for (int i = 0; (i = webStream.Read(buf, 0, buf.Length)) > 0;)
-            {
-                try
-                {
-                    size += i;
-                    Dispatcher.Invoke(new UpdateValue(UpdateUI), size);
-                    fileStream.Write(buf, 0, i);
-                }
-                catch (IOException ex)
-                {
-                    Logger.Log(ex, LogType.Debug);
-                }
-            }
-            timer.Enabled = false;
-            fileStream.Close( );
-            webStream.Close( );
-            Dispatcher.Invoke(( ) => OpenButton.IsEnabled = true);
-        }
-
-        private void UpdateUI(int value)
-        {
-            Progress.Value = value;
-            double percent = value / Progress.Maximum * 100.0;
-            Percent.Content = decimal.Round((decimal) percent, 2) + "%";
-        }
-
-        private void OpenClick(object o, RoutedEventArgs e)
-            => Process.Start(filePath);
-
-        private void WindowClosing(object o, CancelEventArgs e)
-            => thread.Abort( );
-
-        private void WindowSizeChanged(object o, SizeChangedEventArgs e)
-            => FromURL.Content = StdApi.ZipStr(task.Url, (int) (ActualWidth / 15));
+        timer.Enabled = false;
+        fileStream.Close( );
+        webStream.Close( );
+        Dispatcher.Invoke(( ) => OpenButton.IsEnabled = true);
     }
+
+    private void UpdateUI(int value)
+    {
+        Progress.Value = value;
+        double percent = value / Progress.Maximum * 100.0;
+        Percent.Content = decimal.Round((decimal) percent, 2) + "%";
+    }
+
+    private void OpenClick(object o, RoutedEventArgs e)
+        => Process.Start(filePath);
+
+    private void WindowClosing(object o, CancelEventArgs e)
+        => thread.Abort( );
+
+    private void WindowSizeChanged(object o, SizeChangedEventArgs e)
+        => FromURL.Content = StdApi.ZipStr(task.Url, (int) (ActualWidth / 15));
 }

@@ -1,23 +1,25 @@
 # 极简浏览器
-![](https://img.shields.io/github/actions/workflow/status/kaihuadou/easystart/build.yml) ![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
-![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced)  ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
+
+![](https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml) ![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
+![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
 ![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced)
 
 极简浏览器用 C# 编写的基于 Chromium 的浏览器。
 
 适用与性能一般的电脑或者需要 Flash 的场景。
 
-[GitHub 储存库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)更新快，[Azure 储存库](https://dev.azure.com/qpsh/%E6%9E%81%E7%AE%80%E6%B5%8F%E8%A7%88%E5%99%A8)更新慢，建议访问 [GitHub 储存库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)。
+建议访问更新更快的 [GitHub 仓库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)。
 
 > 特别鸣谢 StrollStars 对运行依赖的改进建议
 
 ## 特点
+
 1. 体积小巧，仅有 Chrome 的 29%，Firefox 的 63%。
 2. 界面干净，无广告，无插件
-3. 便于携带，无需安装，数据与应用程序储存在同样位置
+3. 便携版，无需安装，数据与应用程序储存在同样位置
 4. 启动速度快
 5. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
-6. 开源代码，全部源代码都在 Github 和 Azure 上公开。
+6. 开源代码，全部源代码都在 GitHub 和 Azure DevOps 上公开。
 
 ## 运行依赖
 
@@ -41,23 +43,12 @@
 
 ## 开发环境
 
-### IDE
-
-1. Visual Studio Enterprise 2022 (x64, 17.5.1)
+1. Visual Studio 2022 Enterprise (17.5.4, 64-bit)
     + .NET 桌面开发
-        + NuGet目标和生成任务
+        + NuGet 目标和生成任务
         + MSBuild
 
-2. .NET Framework 4.5.2 或更高版本的 SDK
-3. .NET Framework 4.5.2 目标包 (`Target Pack`)
+2. .NET Framework 4.6.2 或更高版本的 SDK
+3. .NET Framework 4.6.2 目标包 (`Target Pack`)
 
-### NuGet 包
-
-|    NuGet 包     |   版本    |
-| :-------------: | :-------: |
-| cef.redist.x64  | v87.1.13  |
-| cef.redist.x86  | v87.1.13  |
-| CefSharp.Common | v87.1.132 |
-|  CefSharp.Wpf   | v87.1.132 |
-
->   注：高版本不支持 Flash
+使用 `dotnet build` 以自主构建

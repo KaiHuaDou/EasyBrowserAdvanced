@@ -16,10 +16,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid Width="35" Height="35">
-                            <Border x:Name="_border"
+                            <Border x:Name="_border" Opacity="0"
                                     Background="#FFE6E6E6"
-                                    CornerRadius="18"
-                                    Opacity="0" />
+                                    CornerRadius="18" />
                             <Label Content="{TemplateBinding Content}" />
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -46,10 +45,9 @@
                     <ControlTemplate TargetType="MenuItem">
                         <Grid Width="35" Height="35"
                               Background="White">
-                            <Border x:Name="_border"
+                            <Border x:Name="_border" Opacity="0"
                                     Background="#FFE6E6E6"
-                                    CornerRadius="18"
-                                    Opacity="0" />
+                                    CornerRadius="18" />
                             <Label x:Name="_txt" Margin="0" Content="..."
                                    VerticalAlignment="Center"
                                    Foreground="Black" />

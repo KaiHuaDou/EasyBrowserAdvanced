@@ -13,55 +13,55 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Button x:Name="GoBackButton" Click="GoBack_Click"
+            <Button x:Name="GoBackButton" Click="GoBackClick"
                     Style="{StaticResource RoundButton}">
                 ←
             </Button>
-            <Button x:Name="GoForwardButton" Click="GoForward_Click"
+            <Button x:Name="GoForwardButton" Click="GoForwardClick"
                     Style="{StaticResource RoundButton}">
                 →
             </Button>
             <Menu Width="35" Height="35" DockPanel.Dock="Right">
                 <MenuItem Width="35" Height="35" Header="..."
                           Style="{StaticResource TopMenuItem}">
-                    <MenuItem Click="GoForward_Click" Header="后退"
+                    <MenuItem Click="GoForwardClick" Header="后退"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="GoBack_Click" Header="前进"
+                    <MenuItem Click="GoBackClick" Header="前进"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Refresh_Click" Header="刷新"
+                    <MenuItem Click="RefreshClick" Header="刷新"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="NewPage_Click" Header="新窗口"
+                    <MenuItem Click="NewPageClick" Header="新窗口"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="ViewSource_Click" Header="网页源代码"
+                    <MenuItem Click="ViewSourceClick" Header="网页源代码"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="SetBookMark_Click" Header="设为书签"
+                    <MenuItem Click="SetBookMarkClick" Header="设为书签"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="History_Click" Header="历史记录/书签"
+                    <MenuItem Click="HistoryClick" Header="历史记录/书签"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Setting_Click" Header="设置"
+                    <MenuItem Click="SettingClick" Header="设置"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Help_Click" Header="帮助"
+                    <MenuItem Click="HelpClick" Header="帮助"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="About_Click" Header="关于"
+                    <MenuItem Click="AboutClick" Header="关于"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem x:Name="DevToolsButton" Click="DevTool_Click" Header="开发者工具"
+                    <MenuItem x:Name="DevToolsButton" Click="DevToolClick" Header="开发者工具"
                               Style="{StaticResource WhiteMenu}" />
-                    <MenuItem Click="Topmost_Checked" Header="置顶"
+                    <MenuItem Click="TopmostChecked" Header="置顶"
                               Style="{StaticResource WhiteMenu}"
                               IsCheckable="True" />
                     <MenuItem x:Name="singleBox" Header="本窗口打开"
                               Style="{StaticResource WhiteMenu}"
                               IsCheckable="True" />
-                    <MenuItem x:Name="privateBox" Click="PrivateMode_Checked" Header="无痕模式"
+                    <MenuItem x:Name="privateBox" Click="PrivateModeChecked" Header="无痕模式"
                               Style="{StaticResource WhiteMenu}"
                               IsCheckable="True" />
                 </MenuItem>
             </Menu>
-            <Button x:Name="NewPageButton" Click="NewPage_Click" DockPanel.Dock="Right"
+            <Button x:Name="NewPageButton" Click="NewPageClick" DockPanel.Dock="Right"
                     Style="{StaticResource RoundButton}">
                 +
             </Button>
-            <Button x:Name="RefershButton" Click="Refresh_Click" Content="@" DockPanel.Dock="Right"
+            <Button x:Name="RefershButton" Click="RefreshClick" Content="@" DockPanel.Dock="Right"
                     Style="{StaticResource RoundButton}" />
             <TextBox x:Name="UrlTextBox" Height="30" Margin="0,2,0,0"
                      VerticalAlignment="Center"

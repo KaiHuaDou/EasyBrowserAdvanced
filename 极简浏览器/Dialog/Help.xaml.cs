@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 
-namespace 极简浏览器
-{
-    public partial class Help : Window
-    {
-        public Help( )
-        {
-            InitializeComponent( );
-        }
+namespace 极简浏览器;
 
-        private void CloseWindow(object sender, RoutedEventArgs e) => Close( );
+public partial class Help : Window
+{
+    public Help( )
+    {
+        InitializeComponent( );
     }
+
+    private void CloseWindow(object sender, RoutedEventArgs e)
+        => Close( );
 }

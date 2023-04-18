@@ -2,27 +2,20 @@
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
-        <IsWebBootstrapper>false</IsWebBootstrapper>
-        <MapFileExtensions>true</MapFileExtensions>
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+        <UseWindowsForms>true</UseWindowsForms>
+        <UseWPF>true</UseWPF>
+        <LangVersion>11.0</LangVersion>
+        <StartupObject>极简浏览器.App.Program</StartupObject>
+    </PropertyGroup>
+    <PropertyGroup>
+        <Platforms>AnyCPU</Platforms>
         <TargetCulture>zh-Hans</TargetCulture>
         <ProductName>极简浏览器</ProductName>
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
-        <ApplicationRevision>2</ApplicationRevision>
         <ApplicationVersion>3.4.7.2</ApplicationVersion>
-        <UseApplicationTrust>false</UseApplicationTrust>
-        <BootstrapperEnabled>false</BootstrapperEnabled>
-        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-        <UseWindowsForms>true</UseWindowsForms>
-        <UseWPF>true</UseWPF>
-        <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-        <Platforms>AnyCPU</Platforms>
-    </PropertyGroup>
-    <PropertyGroup>
         <ApplicationIcon>favicon\favicon.ico</ApplicationIcon>
-    </PropertyGroup>
-    <PropertyGroup>
-        <StartupObject>极简浏览器.App.Program</StartupObject>
     </PropertyGroup>
     <PropertyGroup>
         <NoWin32Manifest>true</NoWin32Manifest>
@@ -86,8 +79,6 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
-    </ItemGroup>
-    <ItemGroup>
         <EmbeddedResource Update="Resources\GuiText.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
@@ -96,20 +87,6 @@
     <ItemGroup>
         <Folder Include="Properties\" />
     </ItemGroup>
-    <PropertyGroup>
-        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-        <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
-        <Title>极简浏览器</Title>
-        <Authors>KaiHuaDou</Authors>
-        <Company>KaiHuaDou Studio</Company>
-        <Copyright>Copyright 2023 (c) KaiHuaDou Studio</Copyright>
-        <PackageIcon>favicon.png</PackageIcon>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <AssemblyVersion>3.4.7.2</AssemblyVersion>
-        <FileVersion>3.4.7.2</FileVersion>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>none</DebugType>
         <WarningLevel>3</WarningLevel>

@@ -8,98 +8,98 @@ using CefSharp;
 using 极简浏览器.Api;
 using 极简浏览器.Resources;
 
-namespace 极简浏览器
+namespace 极简浏览器;
+
+public struct Argus
 {
-    public struct Argus
+    public Argus( )
     {
-        public Argus(int _)
-        {
-            IsTopmost = false;
-            IsPrivate = false;
-        }
-        public bool IsTopmost { get; set; }
-        public bool IsPrivate { get; set; }
+        IsTopmost = false;
+        IsPrivate = false;
     }
+    public bool IsTopmost { get; set; }
+    public bool IsPrivate { get; set; }
+}
 
-    public partial class App : Application
+public partial class App : Application
+{
+    /// <summary>
+    /// 应用程序的入口点; 参数的处理与传递; 运行时错误的处理
+    /// </summary>
+    public static class Program
     {
-        /// <summary>
-        /// 应用程序的入口点、参数的处理与传递、运行时错误的处理
-        /// </summary>
-        public static class Program
+        public static string startUrl = "";
+        public static Argus Args = new( );
+        [STAThread]
+        public static void Main(string[] args)
         {
-            public static string startUrl = "";
-            public static Argus Args = new Argus(0);
-            [STAThread]
-            public static void Main(string[] args)
+            if (args.Length >= 1)
             {
-                if (args.Length >= 1)
-                {
-                    startUrl = args[0];
-                    Args.IsPrivate = Convert.ToBoolean(args[1]);
-                    Args.IsTopmost = Convert.ToBoolean(args[2]);
-                }
-                try
-                {
-                    RuntimeFix( );
-                    Browser.Init( );
-                    App app = new App( );
-                    app.InitializeComponent( );
-                    Browser.Host[0] = new MainWindow(0);
-                    app.Run(Browser.Host[0]);
-                }
-                catch (XamlParseException e)
-                {
-                    Logger.Log(e, type: LogType.Error, shutWhenFail: true);
-                    MessageBox.Show(
-                        e.Message, GuiText.browserName,
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                startUrl = args[0];
+                Args.IsPrivate = Convert.ToBoolean(args[1]);
+                Args.IsTopmost = Convert.ToBoolean(args[2]);
             }
-        }
-
-        private static void RuntimeFix( )
-        {
-            new Thread(( ) =>
-            {
-                if (!Directory.Exists(FilePath.Datas))
-                    Directory.CreateDirectory(FilePath.Datas);
-                if (!File.Exists(FilePath.History))
-                    File.Create(FilePath.History);
-                if (!File.Exists(FilePath.BookMark))
-                    File.Create(FilePath.BookMark);
-                if (!File.Exists(FilePath.Cookies))
-                    File.Create(FilePath.Cookies);
-                if (!File.Exists(FilePath.Config))
-                    File.Create(FilePath.Config);
-                if (!Directory.Exists(FilePath.Logs))
-                    Directory.CreateDirectory(FilePath.Logs);
-                if (!File.Exists(FilePath.Logs + "\\log.log"))
-                    File.Create(FilePath.Logs + "\\log.log");
-                if (!File.Exists(FilePath.Logs + "\\error.log"))
-                    File.Create(FilePath.Logs + "\\error.log");
-                if (!File.Exists(FilePath.Logs + "\\debug.log"))
-                    File.Create(FilePath.Logs + "\\debug.log");
-            }).Start( );
             try
             {
-                if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"))
-                    new Thread(ShowNoAccsses).Start( );
+                RuntimeFix( );
+                Browser.Init( );
+                App app = new( );
+                app.InitializeComponent( );
+                Browser.Host[0] = new MainWindow(0);
+                app.Run(Browser.Host[0]);
             }
-            catch (Exception) { }
+            catch (XamlParseException e)
+            {
+                Logger.Log(e, type: LogType.Error, shutWhenFail: true);
+                MessageBox.Show(
+                    e.Message, GuiText.browserName,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        private static void ShowNoAccsses( )
-        {
-            MessageBox.Show(GuiText.civiRefuse);
-            Current.Shutdown( );
-        }
-
-        private void ExpetionOpen(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            Logger.Log(e.Exception, type: LogType.Error, shutWhenFail: true);
-            new Report(e.Exception.Message).ShowDialog( );
-        }
-
-        private void AppExit(object sender, ExitEventArgs e) => Cef.Shutdown( );
     }
+
+    private static void RuntimeFix( )
+    {
+        new Thread(( ) =>
+        {
+            if (!Directory.Exists(FilePath.Datas))
+                Directory.CreateDirectory(FilePath.Datas);
+            if (!File.Exists(FilePath.History))
+                File.Create(FilePath.History);
+            if (!File.Exists(FilePath.BookMark))
+                File.Create(FilePath.BookMark);
+            if (!File.Exists(FilePath.Cookies))
+                File.Create(FilePath.Cookies);
+            if (!File.Exists(FilePath.Config))
+                File.Create(FilePath.Config);
+            if (!Directory.Exists(FilePath.Logs))
+                Directory.CreateDirectory(FilePath.Logs);
+            if (!File.Exists(FilePath.Logs + "\\log.log"))
+                File.Create(FilePath.Logs + "\\log.log");
+            if (!File.Exists(FilePath.Logs + "\\error.log"))
+                File.Create(FilePath.Logs + "\\error.log");
+            if (!File.Exists(FilePath.Logs + "\\debug.log"))
+                File.Create(FilePath.Logs + "\\debug.log");
+        }).Start( );
+        try
+        {
+            if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"))
+                new Thread(ShowNoAccsses).Start( );
+        }
+        catch (Exception) { }
+    }
+    private static void ShowNoAccsses( )
+    {
+        MessageBox.Show(GuiText.civiRefuse);
+        Current.Shutdown( );
+    }
+
+    private void ExpetionOpen(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Logger.Log(e.Exception, type: LogType.Error, shutWhenFail: true);
+        new Report(e.Exception.Message).ShowDialog( );
+    }
+
+    private void AppExit(object sender, ExitEventArgs e)
+        => Cef.Shutdown( );
 }
