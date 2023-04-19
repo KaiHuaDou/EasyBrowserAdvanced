@@ -17,22 +17,22 @@ public class CefLifeSpanHandler : ILifeSpanHandler
 {
     public CefLifeSpanHandler( ) { }
 
-    public bool DoClose(IWebBrowser webBrowser, IBrowser browser) => !(browser.IsDisposed || browser.IsPopup);
+    public bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser) => !(browser.IsDisposed || browser.IsPopup);
 
-    public void OnAfterCreated(IWebBrowser webBrowser, IBrowser browser) { }
-    public void OnBeforeClose(IWebBrowser webBrowser, IBrowser browser) { }
-    public bool OnBeforePopup(IWebBrowser webBrowser,
+    public void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
+    public void OnBeforeClose(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
+    public bool OnBeforePopup(IWebBrowser chromiumWebBrowser,
         IBrowser browser, IFrame frame,
-        string url, string frameName,
-        WindowOpenDisposition disposition,
-        bool gesture, IPopupFeatures features,
-        IWindowInfo info, IBrowserSettings settings,
-        ref bool noJs, out IWebBrowser newBrowser)
+        string targetUrl, string targetFrameName,
+        WindowOpenDisposition targetDisposition,
+        bool userGesture, IPopupFeatures popupFeatures,
+        IWindowInfo windowInfo, IBrowserSettings browserSettings,
+        ref bool noJavascriptAccess, out IWebBrowser newBrowser)
     {
-        EasyBrowserCore _browser = (EasyBrowserCore) webBrowser;
+        EasyBrowserCore _browser = (EasyBrowserCore) chromiumWebBrowser;
         _browser.Dispatcher.Invoke(new Action(( ) =>
         {
-            NewWindowEventArgs e = new(info, url);
+            NewWindowEventArgs e = new(windowInfo, targetUrl);
             _browser.OnNewWindow(e);
         }));
         newBrowser = null;
@@ -56,11 +56,12 @@ public class EasyBrowserCore : ChromiumWebBrowser
         DownloadHandler = new DownloadHandler( );
         Id = id;
     }
+
     public void OnNewWindow(NewWindowEventArgs e)
     {
-        if (Browser.Host[Id].singleBox.IsChecked != true)
-            Browser.New(e.Url);
-        else Browser.Navigate(Id, e.Url);
+        if (Instance.Host[Id].singleBox.IsChecked)
+            Instance.Navigate(Id, e.Url);
+        else Instance.New(e.Url);
     }
 }
 public class NewWindowEventArgs : EventArgs
@@ -73,7 +74,7 @@ public class NewWindowEventArgs : EventArgs
         Url = url;
     }
 }
-internal class DownloadHandler : IDownloadHandler
+internal sealed class DownloadHandler : IDownloadHandler
 {
     private readonly Action<bool, DownloadItem> _downloadCallBackEvent;
 
@@ -84,17 +85,16 @@ internal class DownloadHandler : IDownloadHandler
             return;
         _downloadCallBackEvent?.Invoke(false, item);
         string path = AskDownloadPath(item);
-        if (path != null)
-        {
-            new Download(item, path).Show( );
-            item.IsInProgress = true;
-        }
+        if (path is null)
+            return;
+        new Download(item, path).Show( );
+        item.IsInProgress = true;
     }
 
     public void OnDownloadUpdated(
-        IWebBrowser webBrowser,
-        IBrowser browser, DownloadItem item,
-        IDownloadItemCallback callback) => _downloadCallBackEvent?.Invoke(true, item);
+        IWebBrowser webBrowser, IBrowser browser, DownloadItem item,
+        IDownloadItemCallback callback)
+        => _downloadCallBackEvent?.Invoke(true, item);
 
     private static string AskDownloadPath(DownloadItem item)
     {
@@ -106,6 +106,7 @@ internal class DownloadHandler : IDownloadHandler
         return sfd.ShowDialog( ) == true ? sfd.FileName : null;
     }
 }
+
 public class MenuHandler : IContextMenuHandler
 {
     public MenuHandler(int id) => Id = id;
@@ -113,7 +114,11 @@ public class MenuHandler : IContextMenuHandler
     public static Window MainWindow { get; set; }
     private readonly int Id;
     void IContextMenuHandler.OnBeforeContextMenu(
-        IWebBrowser w, IBrowser b, IFrame f, IContextMenuParams p, IMenuModel m)
+        IWebBrowser w,
+        IBrowser b,
+        IFrame f,
+        IContextMenuParams p,
+        IMenuModel m)
     { }
 
     bool IContextMenuHandler.OnContextMenuCommand(
@@ -140,18 +145,24 @@ public class MenuHandler : IContextMenuHandler
         ChromiumWebBrowser _browser = (ChromiumWebBrowser) webBrowser;
         _browser.Dispatcher.Invoke(( ) =>
         {
-            ContextMenu menu = new( ) { IsOpen = true };
+            ContextMenu menu = new( )
+            {
+                IsOpen = true,
+                ItemsSource = new MenuItem[]
+                {
+                    new MenuItem { Header = "前进", Command = new CustomCommand(( ) => Instance.GoForward(Id)) },
+                    new MenuItem { Header = "后退", Command = new CustomCommand(( ) => Instance.GoBack(Id)) },
+                    new MenuItem { Header = "刷新", Command = new CustomCommand(( ) => Instance.Refresh(Id)) },
+                    new MenuItem { Header = "新窗口", Command = new CustomCommand(( ) => Instance.New( )) },
+                    new MenuItem { Header = "网页源代码", Command = new CustomCommand(( ) => Instance.ViewSource(Id)) },
+                }
+            };
             void handler(object o, RoutedEventArgs e)
             {
                 menu.Closed -= handler;
                 if (!callback.IsDisposed) callback.Cancel( );
             }
             menu.Closed += handler;
-            menu.Items.Add(new MenuItem { Header = "前进", Command = new CustomCommand(( ) => Browser.GoForward(Id)) });
-            menu.Items.Add(new MenuItem { Header = "后退", Command = new CustomCommand(( ) => Browser.GoBack(Id)) });
-            menu.Items.Add(new MenuItem { Header = "刷新", Command = new CustomCommand(( ) => Browser.Refresh(Id)) });
-            menu.Items.Add(new MenuItem { Header = "新窗口", Command = new CustomCommand(( ) => Browser.New( )) });
-            menu.Items.Add(new MenuItem { Header = "网页源代码", Command = new CustomCommand(( ) => Browser.ViewSource(Id)) });
             _browser.ContextMenu = menu;
         });
         return true;
@@ -166,12 +177,12 @@ public class CustomCommand : ICommand
     public CustomCommand(Action executeMethod)
         => _TargetExecuteMethod = executeMethod;
 
-    bool ICommand.CanExecute(object o) 
+    bool ICommand.CanExecute(object o)
         => _TargetCanExecuteMethod != null && _TargetCanExecuteMethod( );
 
     public void RaiseCanExecuteChanged( )
         => CanExecuteChanged(this, EventArgs.Empty);
 
-    void ICommand.Execute(object o) 
+    void ICommand.Execute(object o)
         => _TargetExecuteMethod?.Invoke( );
 }

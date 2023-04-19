@@ -12,19 +12,19 @@ public partial class MainWindow : Window
         => new About( ).Show( );
 
     private void NewPageClick(object o, RoutedEventArgs e)
-        => Browser.New( );
+        => Instance.New( );
 
     private void GoBackClick(object o, RoutedEventArgs e)
-        => Browser.GoBack(Id);
+        => Instance.GoBack(Id);
 
     private void GoForwardClick(object o, RoutedEventArgs e)
-        => Browser.GoForward(Id);
+        => Instance.GoForward(Id);
 
     private void HelpClick(object o, RoutedEventArgs e)
         => new Help( ).Show( );
 
     private void RefreshClick(object o, RoutedEventArgs e)
-        => Browser.Refresh(Id);
+        => Instance.Refresh(Id);
 
     private void SetBookMarkClick(object o, RoutedEventArgs e)
     {
@@ -32,8 +32,8 @@ public partial class MainWindow : Window
             new Config
             {
                 Check = false,
-                Title = Browser.Title(Id),
-                Url = Browser.Address(Id),
+                Title = Instance.Title(Id),
+                Url = Instance.Address(Id),
                 Time = StdApi.LocalTime
             }, FilePath.BookMark
         );
@@ -43,13 +43,13 @@ public partial class MainWindow : Window
         => new Setting( ).Show( );
 
     private void ViewSourceClick(object o, RoutedEventArgs e)
-        => Browser.ViewSource(Id);
+        => Instance.ViewSource(Id);
 
     private void HistoryClick(object o, RoutedEventArgs e)
         => new History( ).Show( );
 
     private void DevToolClick(object o, RoutedEventArgs e)
-        => Browser.ShowDevTools(Id);
+        => Instance.ShowDevTools(Id);
 
     private void PrivateModeChecked(object o, RoutedEventArgs e)
         => App.Program.Args.IsPrivate = privateBox.IsChecked;

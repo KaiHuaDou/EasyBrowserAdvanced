@@ -56,7 +56,7 @@ public partial class History : Window
     private void HistoryNew(object o, RoutedEventArgs e)
     {
         foreach (Config item in HistoryData.Where(item => item.Check))
-            Browser.New(item.Url);
+            Instance.New(item.Url);
     }
     #endregion
 
@@ -93,7 +93,7 @@ public partial class History : Window
     private void BookmarkNew(object o, RoutedEventArgs e)
     {
         foreach (Config item in BookmarkData.Where(item => item.Check))
-            Browser.New(item.Url);
+            Instance.New(item.Url);
     }
     #endregion
 

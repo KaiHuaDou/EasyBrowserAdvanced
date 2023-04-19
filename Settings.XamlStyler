@@ -34,7 +34,7 @@
     "ReorderCanvasChildren": false,
     "ReorderSetters": 2,
     "FormatMarkupExtension": true,
-    "NoNewLineMarkupExtensions": "x:Bind, Binding",
+    "NoNewLineMarkupExtensions": "x:Bind, Binding, StaticResource, DymanicResource, x:Static",
     "ThicknessSeparator": 2,
     "ThicknessAttributes": "Margin, Padding, CornerRadius, BorderThickness, ThumbnailClipMargin",
     "FormatOnSave": false,

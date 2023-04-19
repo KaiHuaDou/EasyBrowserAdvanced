@@ -42,11 +42,11 @@ public partial class App : Application
             try
             {
                 RuntimeFix( );
-                Browser.Init( );
+                Instance.Init( );
                 App app = new( );
                 app.InitializeComponent( );
-                Browser.Host[0] = new MainWindow(0);
-                app.Run(Browser.Host[0]);
+                Instance.Host[0] = new MainWindow(0);
+                app.Run(Instance.Host[0]);
             }
             catch (XamlParseException e)
             {
@@ -94,12 +94,12 @@ public partial class App : Application
         Current.Shutdown( );
     }
 
-    private void ExpetionOpen(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void ExpetionOpen(object o, DispatcherUnhandledExceptionEventArgs e)
     {
         Logger.Log(e.Exception, type: LogType.Error, shutWhenFail: true);
         new Report(e.Exception.Message).ShowDialog( );
     }
 
-    private void AppExit(object sender, ExitEventArgs e)
+    private void AppExit(object o, ExitEventArgs e)
         => Cef.Shutdown( );
 }

@@ -1,8 +1,8 @@
 # 极简浏览器
 
-![](https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml) ![](https://img.shields.io/github/license/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total)
-![](https://img.shields.io/github/repo-size/kaihuadou/easybrowseradvanced) ![](https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced)
-![](https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced)
+![][Shields CI] ![][Shields License]
+![][Shields Release] ![][Shields Downloads]
+![][Shields Lines] ![][Shields Commit]
 
 极简浏览器用 C# 编写的基于 Chromium 的浏览器。
 
@@ -52,3 +52,10 @@
 3. .NET Framework 4.6.2 目标包 (`Target Pack`)
 
 使用 `dotnet build` 以自主构建
+
+[Shields CI]: https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml
+[Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
+[Shields Release]: https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced
+[Shields Downloads]: https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total
+[Shields Lines]: https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced
+[Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced

@@ -2,42 +2,39 @@
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
-        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
         <LangVersion>11.0</LangVersion>
         <StartupObject>极简浏览器.App.Program</StartupObject>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+        <NoWin32Manifest>true</NoWin32Manifest>
+        <PlatformTarget>x86</PlatformTarget>
+        <DebugType>full</DebugType>
+        <WarningLevel>3</WarningLevel>
     </PropertyGroup>
     <PropertyGroup>
         <Platforms>AnyCPU</Platforms>
-        <TargetCulture>zh-Hans</TargetCulture>
         <ProductName>极简浏览器</ProductName>
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
         <ApplicationVersion>3.4.7.2</ApplicationVersion>
         <ApplicationIcon>favicon\favicon.ico</ApplicationIcon>
-    </PropertyGroup>
-    <PropertyGroup>
-        <NoWin32Manifest>true</NoWin32Manifest>
-        <PlatformTarget>x86</PlatformTarget>
+        <NeutralLanguage>zh-CN</NeutralLanguage>
     </PropertyGroup>
     <ItemGroup>
-        <Resource Include="favicon\favicon.ico">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="favicon\favicon.old.ico" />
-    </ItemGroup>
-    <ItemGroup>
-        <AppDesigner Include="Properties\" />
+        <Folder Include="Properties" />
         <None Update="favicon\favicon.png">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Resources\Settings.settings">
-            <Generator>SettingsSingleFileGenerator</Generator>
-            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-        </None>
+        <Resource Include="favicon\favicon.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="favicon\favicon.old.ico" />
         <None Update="Resources\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -55,20 +52,10 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="cef.redist.x64">
-            <Version>87.1.13</Version>
-        </PackageReference>
-        <PackageReference Include="cef.redist.x86">
-            <Version>87.1.13</Version>
-        </PackageReference>
-        <PackageReference Include="CefSharp.Common">
-            <Version>87.1.132</Version>
-        </PackageReference>
-        <PackageReference Include="CefSharp.Wpf">
-            <Version>87.1.132</Version>
-        </PackageReference>
-    </ItemGroup>
-    <ItemGroup>
+        <None Update="Resources\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
         <Compile Update="Resources\GuiText.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -85,14 +72,17 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Properties\" />
+        <PackageReference Include="cef.redist.x64">
+            <Version>87.1.13</Version>
+        </PackageReference>
+        <PackageReference Include="cef.redist.x86">
+            <Version>87.1.13</Version>
+        </PackageReference>
+        <PackageReference Include="CefSharp.Common">
+            <Version>87.1.132</Version>
+        </PackageReference>
+        <PackageReference Include="CefSharp.Wpf">
+            <Version>87.1.132</Version>
+        </PackageReference>
     </ItemGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DebugType>none</DebugType>
-        <WarningLevel>3</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DebugType>none</DebugType>
-        <WarningLevel>3</WarningLevel>
-    </PropertyGroup>
 </Project>

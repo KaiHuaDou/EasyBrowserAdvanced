@@ -1,19 +1,17 @@
 # 版本更新日志
 
-注：
-1. 详细信息请参照 Commit
-2. 现在此文件是 UTF-8 了
-3. 用斜体显示的是正在开发的
+> 1. 详细信息请参照 [Commit]
+> 2. 用斜体显示的是正在开发的
 
-## 规划的更新 (3.7.2)
+## 3.7.2 (规划内)
 
 ### Beta 1
 
 + *Feature #51 全新的配置储存管理系统*
 
-## 下一个更新（3.4.7.2)
+## 3.4.7.2 (开发中...)
 
-### 下一个 RC（RC2）
+### RC2 (开发中...)
 
 + BugFix #39 降低 `MainWindow` 的耦合度
 + Performance #6 删去了历史遗留的代码
@@ -60,7 +58,7 @@
 + Framework #3 升级到了 MaterialDesignThemes 4.6.1
 + Framework #2 升级到了 .NET Framework 4.6.2
 
-### Beta 2
+### Beta2
 
 + BugFix #34 更新了应用程序的颜色
 + Framework #1 更新了 MaterialDesign 的版本
@@ -73,7 +71,7 @@
 + BugFix #28 修复了无法自动播放 Flash 的 Bug
 + BugFix #27 修复了加载完成后跳转到错误页面的 Bug
 
-### Beta 1
+### Beta1
 
 + BugFix #26 更改了状态栏的样式
 + BugFix #25 更改了菜单的样式
@@ -97,7 +95,7 @@
 + BugFix #20 解决了下载时闪退的问题
 + BugFix #19 删除了设置窗口的空白区域
 
-## V 3.3.1.11更新
+## V3.3.1.11
 
 + Feature #17 更好的反馈窗口
 + BugFix #18 权限不足导致的无法启动
@@ -122,7 +120,7 @@
 + Feature #9 增加了无痕模式(由`@要饭的肥喵`提出建议)
 + Feature #8 增加了在单窗口打开的功能
 
-## V 3.2.1.11更新
+## V3.2.1.11
 
 + Quality #8 整合`Api/StandardApi.cs`
 + Feature #7 格式化网页源代码时支持 CSS
@@ -147,8 +145,10 @@
 + Quality #2 修复了`History.xaml.cs`的函数名不规范
 + Quality #1 修复了`FileApi.cs`的Quality问题
 
-## V 3.0.0.0更新
+## V3.0.0.0
 
 + BugFix #3 修复了写入日志错误
 + BugFix #2 修复了无法删除历史记录&书签的错误
 + BugFix #1 修复了无法清除历史记录&书签的错误
+
+[Commit]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/commits/master/

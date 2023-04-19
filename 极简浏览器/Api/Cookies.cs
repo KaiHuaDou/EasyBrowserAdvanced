@@ -24,8 +24,8 @@ public static class CookieMgr
     {
         CookieVisitor visitor = new( );
         visitor.SendCookie += AddCookie;
-        ICookieManager cookieManager = Browser.Core[id].GetCookieManager( );
-        address = Browser.Address(id);
+        ICookieManager cookieManager = Instance.Core[id].GetCookieManager( );
+        address = Instance.Address(id);
         cookieManager.VisitAllCookies(visitor);
     }
 
@@ -54,15 +54,16 @@ public static class CookieMgr
 public class CookieData
 {
     public CookieData( ) { }
-    public bool Check;
-    public string Key;
-    public Cookie Value;
+    public bool Check { get; set; }
+    public string Key { get; set; }
+    public Cookie Value { get; set; }
 }
 
 public class CookieVisitor : ICookieVisitor
 {
     public event Action<Cookie> SendCookie;
-    public void Dispose( ) { }
+    public void Dispose( ) => GC.SuppressFinalize(this);
+
     public bool Visit(Cookie cookie, int count, int total, ref bool deleteCookie)
     {
         deleteCookie = false;

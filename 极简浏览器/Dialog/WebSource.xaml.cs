@@ -8,16 +8,17 @@ namespace 极简浏览器;
 
 public partial class WebSource : Window
 {
-    public int Id;
+    private int Id;
 
-    public WebSource(int id, string text)
+    public WebSource(int id)
     {
         InitializeComponent( );
-        textBox.Text = text;
         Id = id;
+        RefreshSource(null, null);
     }
 
-    private void RefreshSource(object o, RoutedEventArgs e) => textBox.Text = Browser.PageSource(Id);
+    private async void RefreshSource(object o, RoutedEventArgs e)
+        => sourceBox.Text = await Instance.PageSourceAsync(Id);
 
     private void FormatSource(object o, RoutedEventArgs e)
     {
@@ -26,9 +27,9 @@ public partial class WebSource : Window
             string result = Formatter.FormartHtml((string) html, true);
             Dispatcher.Invoke(( ) =>
             {
-                try { textBox.Text = result; } catch { }
+                try { sourceBox.Text = result; } catch { }
             });
-        }).Start(textBox.Text);
+        }).Start(sourceBox.Text);
     }
 
     private void SaveSource(object o, RoutedEventArgs e)
@@ -36,11 +37,11 @@ public partial class WebSource : Window
         SaveFileDialog dialog = new( )
         {
             DefaultExt = ".html",
-            FileName = Browser.Title(Id),
+            FileName = Instance.Title(Id),
             AddExtension = true,
             Filter = "HTML 文件|.html"
         };
         if (dialog.ShowDialog( ) == true)
-            File.WriteAllText(dialog.FileName, textBox.Text);
+            File.WriteAllText(dialog.FileName, sourceBox.Text);
     }
 }

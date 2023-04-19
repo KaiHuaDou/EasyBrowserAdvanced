@@ -15,7 +15,7 @@ namespace 极简浏览器;
 public partial class MainWindow : Window
 {
     private readonly int Id;
-    private bool IsPageOk = false;
+    private bool IsPageOk;
 
     public MainWindow( ) => Close( );
 
@@ -31,7 +31,7 @@ public partial class MainWindow : Window
         {
             Cef.UIThreadTaskFactory.StartNew(( ) =>
             {
-                IRequestContext requestContext = Browser.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
+                IRequestContext requestContext = Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
                 requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
             });
         }
@@ -40,20 +40,20 @@ public partial class MainWindow : Window
 
     private void WindowLoaded(object o, RoutedEventArgs e)
     {
-        Browser.Core[Id] = new EasyBrowserCore(Id)
+        Instance.Core[Id] = new EasyBrowserCore(Id)
         {
             Margin = new Thickness(0),
             MenuHandler = new MenuHandler(Id),
             DownloadHandler = new DownloadHandler( )
         };
-        Browser.Core[Id].AddressChanged += PageLoading;
-        Browser.Core[Id].FrameLoadEnd += PageLoaded;
-        Browser.Core[Id].TitleChanged += BrowserTitleChanged;
-        Browser.Core[Id].IsBrowserInitializedChanged += BrowserLoaded;
-        Browser.Core[Id].LoadError += BrowserLoadError;
+        Instance.Core[Id].AddressChanged += PageLoading;
+        Instance.Core[Id].FrameLoadEnd += PageLoaded;
+        Instance.Core[Id].TitleChanged += BrowserTitleChanged;
+        Instance.Core[Id].IsBrowserInitializedChanged += BrowserLoaded;
+        Instance.Core[Id].LoadError += BrowserLoadError;
         MenuHandler.MainWindow = this;
-        CWBGrid.Children.Add(Browser.Core[Id]);
-        Dispatcher.BeginInvoke(( ) => Browser.Navigate(Id, FileApi.StartupPath));
+        CWBGrid.Children.Add(Instance.Core[Id]);
+        Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, FileApi.StartupPath));
     }
     private void PageCheckUrl(object o, KeyEventArgs e)
     {
@@ -64,12 +64,12 @@ public partial class MainWindow : Window
     }
     private void PagePreload(object o, RoutedEventArgs e)
     {
-        if (UrlTextBox.Text.ToLower( ).Contains("easy://"))
-            Browser.PraseEasy(Id, UrlTextBox.Text);
+        if (UrlTextBox.Text.ToUpperInvariant( ).Contains("EASY://"))
+            Instance.PraseEasy(Id, UrlTextBox.Text);
         else if (Regex.IsMatch(UrlTextBox.Text, @"\.[A-Za-z]{1,4}|(://)|^[A-Za-z]:\\|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,4})?|^about:"))
-            Browser.Navigate(Id, UrlTextBox.Text);
+            Instance.Navigate(Id, UrlTextBox.Text);
         else
-            Browser.Navigate(Id, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
+            Instance.Navigate(Id, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
         IsPageOk = false;
     }
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
@@ -77,12 +77,12 @@ public partial class MainWindow : Window
         loadLabel.Visibility = Visibility.Visible;
         civiLabel.Visibility = Visibility.Collapsed;
         LoadProgress.Visibility = Visibility.Visible;
-        if (!Browser.Address(Id).Contains("Error.html?errorCode="))
-            UrlTextBox.Text = Browser.Address(Id);
+        if (!Instance.Address(Id).Contains("Error.html?errorCode="))
+            UrlTextBox.Text = Instance.Address(Id);
     }
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
     {
-        void Loaded( )
+        async void Loaded( )
         {
             IsPageOk = true;
             LoadProgress.Visibility = Visibility.Collapsed;
@@ -93,17 +93,18 @@ public partial class MainWindow : Window
                 DataMgr<Config>.Add(new Config
                 {
                     Check = false,
-                    Title = Browser.Core[Id].Title,
-                    Url = Browser.Core[Id].Address,
+                    Title = Instance.Core[Id].Title,
+                    Url = Instance.Core[Id].Address,
                     Time = StdApi.LocalTime
                 }, FilePath.History);
             }
-            if (Civilized.CheckCivilized(Browser.PageText(Id)))
+            if (Civilized.CheckCivilized(await Instance.PageTextAsync(Id)))
                 civiLabel.Visibility = Visibility.Visible;
         }
         Dispatcher.BeginInvoke(Loaded);
     }
-    private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e) => Title = Browser.Title(Id) + " - 极简浏览器";
+    private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
+        => Title = Instance.Title(Id) + " - 极简浏览器";
 
     private void BrowserLoadError(object o, LoadErrorEventArgs e)
     {
@@ -111,7 +112,7 @@ public partial class MainWindow : Window
         {
             if (IsPageOk || e.ErrorCode.ToString( ) == "Aborted")
                 return;
-            Browser.Navigate(Id, 
+            Instance.Navigate(Id,
                 $@"{FilePath.Runtime}\Resources\Error.html?errorCode={e.ErrorCode}&errorText={e.ErrorText}&url={UrlTextBox.Text}");
         }
         Dispatcher.BeginInvoke(LoadError);
@@ -120,24 +121,24 @@ public partial class MainWindow : Window
     {
         if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
         if (e.Delta > 0)
-            Browser.Core[Id].ZoomInCommand.Execute(null);
+            Instance.Core[Id].ZoomInCommand.Execute(null);
         else if (e.Delta < 0)
-            Browser.Core[Id].ZoomOutCommand.Execute(null);
-        zoomLabel.Content = ((int) (Browser.Core[Id].ZoomLevel * 100) + 100).ToString( ) + "%";
+            Instance.Core[Id].ZoomOutCommand.Execute(null);
+        zoomLabel.Content = ((int) (Instance.Core[Id].ZoomLevel * 100) + 100).ToString( ) + "%";
         zoomLabel.Visibility = zoomLabel.Content.ToString( ) == "100%" ? Visibility.Collapsed : Visibility.Visible;
         e.Handled = true;
     }
     private void ShortcutProcess(object o, KeyEventArgs e)
     {
-        if (e.Key == Key.F12) Browser.Core[Id].ShowDevTools( );
+        if (e.Key == Key.F12) Instance.Core[Id].ShowDevTools( );
         if (Keyboard.Modifiers != ModifierKeys.Control) return;
         switch (e.Key)
         {
             case Key.H: new History( ).Show( ); break;
             case Key.I: new Setting( ).Show( ); break;
-            case Key.R: Browser.Refresh(Id); break;
-            case Key.N: Browser.New( ); break;
-            case Key.S: Browser.ViewSource(Id); break;
+            case Key.R: Instance.Refresh(Id); break;
+            case Key.N: Instance.New( ); break;
+            case Key.S: Instance.ViewSource(Id); break;
         }
     }
 }

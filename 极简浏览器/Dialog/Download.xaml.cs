@@ -15,7 +15,7 @@ namespace 极简浏览器;
 /// <summary>
 /// 下载文件的模块
 /// </summary>
-public partial class Download : Window
+public partial class Download : Window, IDisposable
 {
     private static DownloadItem task = new( );
     private readonly string filePath;
@@ -25,8 +25,8 @@ public partial class Download : Window
     private Thread thread;
     private Stream webStream;
     private FileStream fileStream;
-    private long totalSize = 0, size = 0, lastSize = 0;
-    private double totalSec = 0;
+    private long totalSize, size, lastSize;
+    private double totalSec;
     private delegate void UpdateValue(int value);
     private System.Timers.Timer timer = new(500);
 
@@ -107,4 +107,12 @@ public partial class Download : Window
 
     private void WindowSizeChanged(object o, SizeChangedEventArgs e)
         => FromURL.Content = StdApi.ZipStr(task.Url, (int) (ActualWidth / 15));
+    public void Dispose( )
+    {
+        timer.Dispose( );
+        fileStream.Dispose( );
+        webStream.Dispose( );
+        response.Dispose( );
+        GC.SuppressFinalize(this);
+    }
 }

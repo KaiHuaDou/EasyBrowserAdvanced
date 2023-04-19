@@ -9,6 +9,6 @@ public partial class Help : Window
         InitializeComponent( );
     }
 
-    private void CloseWindow(object sender, RoutedEventArgs e)
+    private void CloseWindow(object o, RoutedEventArgs e)
         => Close( );
 }

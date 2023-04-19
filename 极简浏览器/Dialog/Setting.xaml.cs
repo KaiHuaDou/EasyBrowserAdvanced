@@ -13,7 +13,7 @@ public partial class Setting : Window
         MainPageBox.Text = File.ReadAllText(FilePath.Config);
     }
 
-    private void OKButton_Click(object sender, RoutedEventArgs e)
+    private void OKButton_Click(object o, RoutedEventArgs e)
     {
         try
         {
@@ -26,7 +26,7 @@ public partial class Setting : Window
         }
     }
 
-    private void ClearCache(object sender, RoutedEventArgs e)
+    private void ClearCache(object o, RoutedEventArgs e)
     {
         foreach (string file in Directory.GetFiles(FilePath.Caches))
         {
@@ -34,7 +34,7 @@ public partial class Setting : Window
         }
     }
 
-    private void ClearLog(object sender, RoutedEventArgs e)
+    private void ClearLog(object o, RoutedEventArgs e)
     {
         foreach (string file in Directory.GetFiles(FilePath.Logs))
         {

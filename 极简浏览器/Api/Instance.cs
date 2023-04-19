@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
 
@@ -8,7 +9,7 @@ namespace 极简浏览器.Api;
 /// <summary>
 /// 访问浏览器与主窗口集合的唯一入口
 /// </summary>
-public static class Browser
+public static class Instance
 {
     public static Dictionary<int, MainWindow> Host = new( );
     public static Dictionary<int, EasyBrowserCore> Core = new( );
@@ -16,10 +17,10 @@ public static class Browser
     public static string Address(int id) => Core[id].Address;
     public static string Title(int id) => Core[id].Title;
     public static void Navigate(int id, string url) => Core[id].Address = url;
-
     public static void GoBack(int id) { if (Core[id].CanGoBack) Core[id].Back( ); }
     public static void GoForward(int id) { if (Core[id].CanGoForward) Core[id].Forward( ); }
     public static void ShowDevTools(int id) => Core[id].ShowDevTools( );
+    public static void ViewSource(int id) => new WebSource(id).Show( );
 
     public static void Refresh(int id)
     {
@@ -56,7 +57,7 @@ public static class Browser
 
     public static void PraseEasy(int id, string url)
     {
-        switch (url.ToLower( ).Replace("easy://", ""))
+        switch (url.ToUpperInvariant( ).Replace("EASY://", ""))
         {
             case "about": new About( ).Show( ); break;
             case "help": new Help( ).Show( ); break;
@@ -68,21 +69,10 @@ public static class Browser
             default: Navigate(id, "about:blank"); break;
         }
     }
-    public static void ViewSource(int id) => new WebSource(id, PageSource(id)).Show( );
 
-    public static string PageText(int id)
-    {
-        TaskStringVisitor task = new( );
-        Core[id].GetMainFrame( ).GetText(task);
-        while (task.Task.IsCompleted) ;
-        return task.Task.Result;
-    }
+    public static async Task<string> PageTextAsync(int id)
+        => await Core[id].GetMainFrame( ).GetTextAsync( );
 
-    public static string PageSource(int id)
-    {
-        TaskStringVisitor task = new( );
-        Core[id].GetMainFrame( ).GetSource(task);
-        while (task.Task.IsCompleted) ;
-        return task.Task.Result;
-    }
+    public static async Task<string> PageSourceAsync(int id)
+        => await Core[id].GetMainFrame( ).GetSourceAsync( );
 }
