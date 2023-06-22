@@ -23,17 +23,19 @@ public struct Argus
 
 public partial class App : Application
 {
-    public static Configuration<Record> History { get; set; } = new(FilePath.History);
-    public static Configuration<Record> Bookmark { get; set; } = new(FilePath.BookMark);
-    public static Configuration<Config> Setting { get; set; } = new(FilePath.Setting, true);
-    public static Configuration<CookieData> Cookies { get; set; } = new(FilePath.Cookies);
+    public const string DEFAULT = "DEFAULT";
+
+    public static DataStore<Record> History { get; set; } = new(FilePath.History);
+    public static DataStore<Record> Bookmark { get; set; } = new(FilePath.BookMark);
+    public static DataStore<Config> Setting { get; set; } = new(FilePath.Setting, true);
+    public static DataStore<CookieData> Cookies { get; set; } = new(FilePath.Cookies);
 
     public static class Program
     {
         private static string startupUri;
         public static string StartupUri
         {
-            get => string.IsNullOrEmpty(startupUri) ? Setting.Content[0].MainPage : StartupUri;
+            get => string.IsNullOrEmpty(startupUri) ? Setting.Content[0].MainPage : startupUri;
             set => startupUri = value;
         }
 

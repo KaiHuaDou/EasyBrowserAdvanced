@@ -1,72 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
+﻿using System.ComponentModel;
 
 namespace 极简浏览器.Api;
 
-public class Record
-{
-    public bool Check { get; set; }
-    public string Title { get; set; }
-    public string Url { get; set; }
-    public string Time { get; set; }
-}
-
 public class Config
 {
-    [DefaultValue("about:blank")]
-    public string MainPage { get; set; }
-    [DefaultValue("https://cn.bing.com/search?q=")]
-    public string SearchEngine { get; set; }
-}
+    public const string mainPageDefault = "about:blank";
+    public const string searchEngineDefault = "https://cn.bing.com/search?q=";
+    public const string UaCheated = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Easy/3.4.7.2 Chrome/87.0.4280.141 Safari/537.36";
 
-public class Configuration<T> : IDisposable where T : new()
-{
-    public List<T> Content { get; private set; }
-    public FileInfo XmlFile { get; set; }
+    private string mainPage = mainPageDefault;
+    private string searchEngine = searchEngineDefault;
 
-    public bool InitDefault { get; set; }
-
-    private FileStream XmlStream;
-
-    public Configuration(string xmlFile, bool initDefault = false)
+    [DefaultValue(mainPageDefault)]
+    public string MainPage
     {
-        XmlFile = new FileInfo(xmlFile);
-        InitDefault = initDefault;
-        XmlStream = new(XmlFile.FullName, FileMode.OpenOrCreate);
-        Read( );
+        get => mainPage;
+        set => mainPage = string.IsNullOrWhiteSpace(value) ? mainPage : value;
     }
 
-    public void Read( )
+    [DefaultValue(searchEngineDefault)]
+    public string SearchEngine
     {
-        XmlReader reader = XmlReader.Create(XmlStream);
-        try
-        {
-            Content = reader.ReadContentAs(typeof(List<T>), null) as List<T>;
-            if (Content.Count == 0 && InitDefault)
-                Content.Add(new T( ));
-        }
-        catch
-        {
-            Content = new List<T>( );
-            if (InitDefault)
-                Content.Add(new T( ));
-        }
+        get => searchEngine;
+        set => searchEngine = string.IsNullOrWhiteSpace(value) ? searchEngine : value;
     }
 
-    public void Save( )
-    {
-        XmlStream.Seek(0, SeekOrigin.Begin);
-        XmlSerializer serializer = new(typeof(List<T>));
-        serializer.Serialize(XmlStream, Content);
-    }
-
-    public void Dispose( )
-    {
-        XmlStream.Dispose( );
-        GC.SuppressFinalize(this);
-    }
+    [DefaultValue(false)]
+    public bool CheatUA { get; set; }
 }

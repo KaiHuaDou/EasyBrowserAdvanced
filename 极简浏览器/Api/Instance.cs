@@ -40,25 +40,26 @@ public static class Instance
         Cef.EnableHighDPISupport( );
         CefSettings settings = new( )
         {
-            UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Easy/3.4.7.2 Chrome/87.0.4280.141 Safari/537.36",
             Locale = CultureInfo.CurrentCulture.Name,
-            LogSeverity = LogSeverity.Fatal,
+            LogSeverity = LogSeverity.Disable,
             CachePath = $@"{FilePath.Runtime}\Cache",
             UserDataPath = $@"{FilePath.Runtime}\Profile"
         };
-        settings.CefCommandLineArgs["lang"] = settings.Locale;
+        if (App.Setting.Content[0].CheatUA)
+            settings.UserAgent = Config.UaCheated;
         settings.CefCommandLineArgs["enable-media-stream"] = "1";
         settings.CefCommandLineArgs["enable-system-flash"] = "1";
-        settings.CefCommandLineArgs["log_severity"] = "disabled";
         settings.CefCommandLineArgs["ppapi-flash-path"] = "Resources/pepflashplayer.dll";
-        settings.CefCommandLineArgs["ppapi-flash-version"] = "99.0.0.999";
+        settings.CefCommandLineArgs["ppapi-flash-version"] = "99.9.9.999";
         Cef.Initialize(settings);
         CookieMgr.Get( );
     }
 
-    public static void New(string url = "about:blank")
+    public static void New(string url = App.DEFAULT)
     {
-        App.Program.StartupUri = url;
+        App.Program.StartupUri =
+            url == App.DEFAULT || string.IsNullOrWhiteSpace(url) ?
+            App.Setting.Content[0].MainPage : url;
         int id = Host.Count;
         Host[id] = new MainWindow(id);
         Host[id].Show( );

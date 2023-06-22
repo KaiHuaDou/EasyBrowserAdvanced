@@ -12,6 +12,7 @@ public partial class Setting : Window
         InitializeComponent( );
         MainPageBox.Text = App.Setting.Content[0].MainPage;
         SearchEngineBox.Text = App.Setting.Content[0].SearchEngine;
+        CheckUaBox.IsChecked = App.Setting.Content[0].CheatUA;
     }
 
     private void OKClick(object o, RoutedEventArgs e)
@@ -21,7 +22,8 @@ public partial class Setting : Window
         App.Setting.Content.Add(new Config
         {
             MainPage = MainPageBox.Text,
-            SearchEngine = SearchEngineBox.Text
+            SearchEngine = SearchEngineBox.Text,
+            CheatUA = (bool) CheckUaBox.IsChecked
         });
         Close( );
     }

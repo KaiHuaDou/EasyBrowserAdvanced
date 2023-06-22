@@ -113,16 +113,14 @@ public class MenuHandler : IContextMenuHandler
     public static Window MainWindow { get; set; }
     private readonly int Id;
     void IContextMenuHandler.OnBeforeContextMenu(
-        IWebBrowser w,
-        IBrowser b,
-        IFrame f,
-        IContextMenuParams p,
-        IMenuModel m)
+        IWebBrowser _1, IBrowser _2, IFrame _3,
+        IContextMenuParams _4, IMenuModel _5)
     { }
 
     bool IContextMenuHandler.OnContextMenuCommand(
-        IWebBrowser w, IBrowser b, IFrame f, IContextMenuParams p,
-        CefMenuCommand c, CefEventFlags e) => true;
+        IWebBrowser _0, IBrowser _1, IFrame _2,
+        IContextMenuParams _3,
+        CefMenuCommand _4, CefEventFlags _5) => true;
 
     void IContextMenuHandler.OnContextMenuDismissed(
         IWebBrowser webBrowser,
