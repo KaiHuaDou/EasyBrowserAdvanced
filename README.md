@@ -43,7 +43,7 @@
 
 ## 开发环境
 
-1. Visual Studio 2022 Enterprise (17.5.4, 64-bit)
+1. Visual Studio 2022 (Community 即可, 64-bit)
     + .NET 桌面开发
         + NuGet 目标和生成任务
         + MSBuild

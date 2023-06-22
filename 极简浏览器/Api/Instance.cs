@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
@@ -37,7 +38,15 @@ public static class Instance
     public static void Init( )
     {
         Cef.EnableHighDPISupport( );
-        CefSettings settings = new( );
+        CefSettings settings = new( )
+        {
+            UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Easy/3.4.7.2 Chrome/87.0.4280.141 Safari/537.36",
+            Locale = CultureInfo.CurrentCulture.Name,
+            LogSeverity = LogSeverity.Fatal,
+            CachePath = $@"{FilePath.Runtime}\Cache",
+            UserDataPath = $@"{FilePath.Runtime}\Profile"
+        };
+        settings.CefCommandLineArgs["lang"] = settings.Locale;
         settings.CefCommandLineArgs["enable-media-stream"] = "1";
         settings.CefCommandLineArgs["enable-system-flash"] = "1";
         settings.CefCommandLineArgs["log_severity"] = "disabled";
@@ -49,7 +58,7 @@ public static class Instance
 
     public static void New(string url = "about:blank")
     {
-        App.Program.startUrl = url;
+        App.Program.StartupUri = url;
         int id = Host.Count;
         Host[id] = new MainWindow(id);
         Host[id].Show( );

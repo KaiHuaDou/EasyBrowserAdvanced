@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using CefSharp;
 
 namespace 极简浏览器.Api;
@@ -11,11 +10,9 @@ public static class CookieMgr
     {
         try
         {
-            ObservableCollection<CookieData> cookies;
-            cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
             using ICookieManager manager = Cef.GetGlobalCookieManager( );
-            foreach (CookieData item in cookies)
-                manager.SetCookieAsync(item.Key, item.Value);
+            foreach (CookieData item in App.Cookies.Content)
+                manager.SetCookieAsync(item.Url, item.Value);
         }
         catch (NullReferenceException) { }
     }
@@ -31,37 +28,33 @@ public static class CookieMgr
 
     private static void AddCookie(Cookie cookie)
     {
-        ObservableCollection<CookieData> cookies;
-        cookies = DataMgr<CookieData>.Get(FilePath.Cookies);
         try
         {
-            foreach (CookieData item in cookies)
+            foreach (CookieData item in App.Cookies.Content)
             {
                 if (item.Value.Name == cookie.Name && item.Value.Domain == cookie.Domain)
                 {
-                    item.Value = cookie;
-                    DataMgr<CookieData>.Save(cookies, FilePath.Cookies);
+                    App.Cookies.Content.Add(item);
                     return;
                 }
             }
         }
         catch (NullReferenceException) { }
-        DataMgr<CookieData>.Add(new CookieData { Key = address, Value = cookie }, FilePath.Cookies);
+        App.Cookies.Content.Add(new CookieData { Url = address, Value = cookie });
     }
 }
 
-[Serializable]
 public class CookieData
 {
-    public CookieData( ) { }
     public bool Check { get; set; }
-    public string Key { get; set; }
+    public string Url { get; set; }
     public Cookie Value { get; set; }
 }
 
 public class CookieVisitor : ICookieVisitor
 {
     public event Action<Cookie> SendCookie;
+
     public void Dispose( ) => GC.SuppressFinalize(this);
 
     public bool Visit(Cookie cookie, int count, int total, ref bool deleteCookie)

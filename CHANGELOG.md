@@ -7,12 +7,13 @@
 
 ### Beta 1
 
-+ *Feature #51 全新的配置储存管理系统*
 
-## 3.4.7.2 (开发中...)
+## 3.4.7.2 (开发中)
 
-### RC2 (开发中...)
+### RC2 (开发中)
 
++ Feature #51 全新的配置储存管理系统
++ Performance #7 删除了重复的初始化代码
 + BugFix #39 降低 `MainWindow` 的耦合度
 + Performance #6 删去了历史遗留的代码
 + BugFix #50 修复了多窗口导致崩溃的问题
@@ -151,4 +152,4 @@
 + BugFix #2 修复了无法删除历史记录&书签的错误
 + BugFix #1 修复了无法清除历史记录&书签的错误
 
-[Commit]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/commits/master/
+[Commit]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/commits/main/

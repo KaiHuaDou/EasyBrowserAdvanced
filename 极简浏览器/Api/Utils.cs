@@ -1,13 +1,17 @@
 ﻿using System;
+using System.IO;
 
 namespace 极简浏览器.Api;
 
 /// <summary>
 /// 标准（杂项）Api
 /// </summary>
-public static class StdApi
+public static class Utils
 {
     public static string LocalTime => DateTime.Now.ToLocalTime( ).ToString( );
+
+    public static void CreatIfNotExists(string filename)
+        => new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite).Close( );
 
     public static string ZipStr(string str, int len)
     {

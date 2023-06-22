@@ -106,7 +106,8 @@ public partial class Download : Window, IDisposable
         => thread.Abort( );
 
     private void WindowSizeChanged(object o, SizeChangedEventArgs e)
-        => FromURL.Content = StdApi.ZipStr(task.Url, (int) (ActualWidth / 15));
+        => FromURL.Content = Utils.ZipStr(task.Url, (int) (ActualWidth / 15));
+
     public void Dispose( )
     {
         timer.Dispose( );

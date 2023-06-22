@@ -28,14 +28,14 @@ public partial class MainWindow : Window
 
     private void SetBookMarkClick(object o, RoutedEventArgs e)
     {
-        DataMgr<Config>.Add(
-            new Config
+        App.Bookmark.Content.Add(
+            new Record
             {
                 Check = false,
                 Title = Instance.Title(Id),
                 Url = Instance.Address(Id),
-                Time = StdApi.LocalTime
-            }, FilePath.BookMark
+                Time = Utils.LocalTime
+            }
         );
     }
 

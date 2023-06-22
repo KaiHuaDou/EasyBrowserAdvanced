@@ -28,5 +28,5 @@ public static class Logger
         }
     }
 
-    private static string GenLogPath(LogType type) => $@"{FilePath.Logs}\{type}.log";
+    private static string GenLogPath(LogType type) => $@"{FilePath.Log}\{type}.log";
 }

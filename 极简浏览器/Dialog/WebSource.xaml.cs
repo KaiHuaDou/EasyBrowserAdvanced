@@ -24,7 +24,7 @@ public partial class WebSource : Window
     {
         new Thread((html) =>
         {
-            string result = Formatter.FormartHtml((string) html, true);
+            string result = Formatter.FormartHtml((string) html);
             Dispatcher.Invoke(( ) =>
             {
                 try { sourceBox.Text = result; } catch { }

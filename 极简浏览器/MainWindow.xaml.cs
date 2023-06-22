@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -27,15 +28,17 @@ public partial class MainWindow : Window
 
     private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
     {
-        try
+        Cef.UIThreadTaskFactory.StartNew(( ) =>
         {
-            Cef.UIThreadTaskFactory.StartNew(( ) =>
+            try
             {
+
                 IRequestContext requestContext = Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
                 requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
-            });
-        }
-        catch (NullReferenceException) { }
+            }
+            catch (NullReferenceException) { }
+            catch (ObjectDisposedException) { }
+        });
     }
 
     private void WindowLoaded(object o, RoutedEventArgs e)
@@ -52,8 +55,8 @@ public partial class MainWindow : Window
         Instance.Core[Id].IsBrowserInitializedChanged += BrowserLoaded;
         Instance.Core[Id].LoadError += BrowserLoadError;
         MenuHandler.MainWindow = this;
-        CWBGrid.Children.Add(Instance.Core[Id]);
-        Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, FileApi.StartupPath));
+        BrowserGrid.Children.Add(Instance.Core[Id]);
+        Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, App.Program.StartupUri));
     }
     private void PageCheckUrl(object o, KeyEventArgs e)
     {
@@ -69,7 +72,7 @@ public partial class MainWindow : Window
         else if (Regex.IsMatch(UrlTextBox.Text, @"\.[A-Za-z]{1,4}|(://)|^[A-Za-z]:\\|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,4})?|^about:"))
             Instance.Navigate(Id, UrlTextBox.Text);
         else
-            Instance.Navigate(Id, "https://cn.bing.com/search?q=" + UrlTextBox.Text);
+            Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + UrlTextBox.Text);
         IsPageOk = false;
     }
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
@@ -90,13 +93,15 @@ public partial class MainWindow : Window
             CookieMgr.Set(Id);
             if (!App.Program.Args.IsPrivate)
             {
-                DataMgr<Config>.Add(new Config
-                {
-                    Check = false,
-                    Title = Instance.Core[Id].Title,
-                    Url = Instance.Core[Id].Address,
-                    Time = StdApi.LocalTime
-                }, FilePath.History);
+                App.History.Content.Add(
+                    new Record
+                    {
+                        Check = false,
+                        Title = Instance.Core[Id].Title,
+                        Url = Instance.Core[Id].Address,
+                        Time = Utils.LocalTime
+                    }
+                );
             }
             if (Civilized.CheckCivilized(await Instance.PageTextAsync(Id)))
                 civiLabel.Visibility = Visibility.Visible;
@@ -140,5 +145,16 @@ public partial class MainWindow : Window
             case Key.N: Instance.New( ); break;
             case Key.S: Instance.ViewSource(Id); break;
         }
+    }
+
+    private void WindowClosing(object o, CancelEventArgs e)
+    {
+        App.History.Save( );
+        App.Bookmark.Save( );
+        App.Cookies.Save( );
+        App.Setting.Save( );
+        Instance.Core[Id].CloseDevTools( );
+        Instance.Core[Id].GetBrowser( ).CloseBrowser(true);
+        Instance.Core[Id].Dispose( );
     }
 }

@@ -5,7 +5,8 @@
         Title="极简浏览器"
         Icon="favicon/favicon.ico"
         KeyDown="ShortcutProcess"
-        Loaded="WindowLoaded">
+        Loaded="WindowLoaded"
+        Closing="WindowClosing">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -75,7 +76,7 @@
                      BorderThickness="0"
                      Foreground="#FF007ACC"
                      IsIndeterminate="True" />
-        <Grid x:Name="CWBGrid" Grid.Row="2" Margin="0"
+        <Grid x:Name="BrowserGrid" Grid.Row="2" Margin="0"
               PreviewMouseWheel="BrowserZooming" />
         <StackPanel Grid.Row="2" Height="33"
                     HorizontalAlignment="Left"

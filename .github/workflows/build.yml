@@ -2,16 +2,16 @@ name: .NET Build
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
 
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
 
 jobs:
   build:
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
 
     runs-on: windows-latest
 
