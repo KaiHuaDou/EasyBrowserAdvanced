@@ -27,7 +27,8 @@ public partial class Download : Window, IDisposable
     private FileStream fileStream;
     private long totalSize, size, lastSize;
     private double totalSec;
-    private delegate void UpdateValue(int value);
+    private delegate void UpdateValue(long value);
+    private bool finished;
     private System.Timers.Timer timer = new(500);
 
     public Download(DownloadItem item, string path)
@@ -36,15 +37,15 @@ public partial class Download : Window, IDisposable
         task = item;
         filePath = path;
         FileName.Content = task.SuggestedFileName;
-        timer.Elapsed += Timer_Elapsed;
+        timer.Elapsed += TimerElapsed;
         DownloadInit( );
     }
 
-    private void Timer_Elapsed(object o, ElapsedEventArgs e)
+    private void TimerElapsed(object o, ElapsedEventArgs e)
     {
         Dispatcher.Invoke(( ) =>
         {
-            Speed.Content = Convert.ToUInt32((size - lastSize) / 1024) + "KB/s";
+            Speed.Content = (size - lastSize) / 1024 + "KB/s";
             lastSize = size;
             totalSec += 0.5;
         });
@@ -57,10 +58,9 @@ public partial class Download : Window, IDisposable
             request = WebRequest.Create(task.Url);
             response = request.GetResponse( );
             totalSize = response.ContentLength;
-            Progress.Maximum = totalSize;
-            thread = new Thread(new ThreadStart(HttpDownloadFile));
             fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
             timer.Enabled = true;
+            thread = new Thread(HttpDownloadFile);
             thread.Start( );
         }
         catch (WebException e)
@@ -87,23 +87,41 @@ public partial class Download : Window, IDisposable
             }
         }
         timer.Enabled = false;
+        finished = true;
         fileStream.Close( );
         webStream.Close( );
         Dispatcher.Invoke(( ) => OpenButton.IsEnabled = true);
     }
 
-    private void UpdateUI(int value)
+    private void UpdateUI(long value)
     {
-        Progress.Value = value;
-        double percent = value / Progress.Maximum * 100.0;
+        double percent = value * 100 / totalSize;
+        Progress.Value = percent;
         Percent.Content = decimal.Round((decimal) percent, 2) + "%";
     }
 
     private void OpenClick(object o, RoutedEventArgs e)
         => Process.Start(filePath);
 
+    private void OpenFolderClick(object o, RoutedEventArgs e)
+        => Process.Start(Directory.GetParent(filePath).FullName);
+
+    private void CancelTask( )
+    {
+        thread.Abort( );
+        File.Delete(filePath);
+    }
+
+    private void CancelClick(object o, RoutedEventArgs e)
+    {
+        CancelTask( );
+        CancelButton.IsEnabled = false;
+    }
+
     private void WindowClosing(object o, CancelEventArgs e)
-        => thread.Abort( );
+    {
+        if (!finished) CancelTask( );
+    }
 
     private void WindowSizeChanged(object o, SizeChangedEventArgs e)
         => FromURL.Content = Utils.ZipStr(task.Url, (int) (ActualWidth / 15));

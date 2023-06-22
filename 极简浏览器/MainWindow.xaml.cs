@@ -115,8 +115,7 @@ public partial class MainWindow : Window
     {
         void LoadError( )
         {
-            if (IsPageOk || e.ErrorCode.ToString( ) == "Aborted")
-                return;
+            if (IsPageOk || e.ErrorCode.ToString( ) == "Aborted") return;
             Instance.Navigate(Id,
                 $@"{FilePath.Runtime}\Resources\Error.html?errorCode={e.ErrorCode}&errorText={e.ErrorText}&url={UrlTextBox.Text}");
         }
@@ -129,7 +128,7 @@ public partial class MainWindow : Window
             Instance.Core[Id].ZoomInCommand.Execute(null);
         else if (e.Delta < 0)
             Instance.Core[Id].ZoomOutCommand.Execute(null);
-        zoomLabel.Content = ((int) (Instance.Core[Id].ZoomLevel * 100) + 100).ToString( ) + "%";
+        zoomLabel.Content = Instance.Core[Id].GetBrowserHost( ).GetZoomLevel( ).ToString( ) + "%";
         zoomLabel.Visibility = zoomLabel.Content.ToString( ) == "100%" ? Visibility.Collapsed : Visibility.Visible;
         e.Handled = true;
     }

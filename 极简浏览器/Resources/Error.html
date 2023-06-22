@@ -58,10 +58,12 @@
         {
             document.location = "https://cn.bing.com/search?q=" + getPara("url");
         }
+
         function searchCode()
         {
             document.location = "https://cn.bing.com/search?q=" + getPara("errorText");
         }
+
         function getPara(variable)
         {
             var query = window.location.search.substring(1);
@@ -73,6 +75,7 @@
             }
             return (false);
         }
+
         function translateError(code)
         {
             if (code == "InvalidUrl") code = "无效地址";

@@ -5,8 +5,5 @@
 /// </summary>
 public static class Formatter
 {
-    public static string FormartHtml(string str)
-    {
-        return str;
-    }
+    public static string FormartHtml(string str) => str;
 }

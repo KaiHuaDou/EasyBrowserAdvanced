@@ -78,15 +78,14 @@ internal sealed class DownloadHandler : IDownloadHandler
 {
     private readonly Action<bool, DownloadItem> _downloadCallBackEvent;
 
-    public void OnBeforeDownload(IWebBrowser webBrowser, IBrowser browser,
+    public void OnBeforeDownload(
+        IWebBrowser webBrowser, IBrowser browser,
         DownloadItem item, IBeforeDownloadCallback callback)
     {
-        if (callback.IsDisposed)
-            return;
+        if (callback.IsDisposed) return;
         _downloadCallBackEvent?.Invoke(false, item);
         string path = AskDownloadPath(item);
-        if (path is null)
-            return;
+        if (path is null) return;
         new Download(item, path).Show( );
         item.IsInProgress = true;
     }

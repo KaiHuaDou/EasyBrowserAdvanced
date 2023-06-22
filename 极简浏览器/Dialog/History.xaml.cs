@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using 极简浏览器.Api;
@@ -10,9 +11,16 @@ public partial class History : Window
     public History( )
     {
         InitializeComponent( );
-        HistoryView.ItemsSource = App.History.Content;
-        BookmarkView.ItemsSource = App.Bookmark.Content;
-        CookiesView.ItemsSource = App.Cookies.Content;
+        try
+        {
+            HistoryView.ItemsSource = App.History.Content;
+            BookmarkView.ItemsSource = App.Bookmark.Content;
+            CookiesView.ItemsSource = App.Cookies.Content;
+        }
+        catch (InvalidOperationException)
+        {
+            //TODO: 不影响运行，不清楚错因
+        }
     }
 
     #region History
