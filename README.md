@@ -4,6 +4,11 @@
 ![][Shields Release] ![][Shields Downloads]
 ![][Shields Lines] ![][Shields Commit]
 
+[![Gitmoji][Gitmoji]](https://gitmoji.dev)
+
+| 中文  | [English](./docs/README.en-US.md) |
+| :---: | :-------------------------------: |
+
 极简浏览器用 C# 编写的基于 Chromium 的浏览器。
 
 适用与性能一般的电脑或者需要 Flash 的场景。
@@ -35,11 +40,11 @@
 
 版本详细功能请参见[更新日志](./CHANGELOG.md)
 
-|通道|说明|下一个版本|
-|:-:|:-:|:-:|
-|Stable|相对稳定版本|v3.4.7.2|
-|Beta|新功能测试版本|v3.7.2-beta1|
-|RC|总体完善但细节不足的版本|v3.4.7.2-rc2|
+|  通道  |           说明           |  下一个版本  |
+| :----: | :----------------------: | :----------: |
+| Stable |       相对稳定版本       |   v3.4.7.2   |
+|  Beta  |      新功能测试版本      | v3.7.2-beta1 |
+|   RC   | 总体完善但细节不足的版本 | v3.4.7.2-rc2 |
 
 ## 开发环境
 
@@ -59,3 +64,4 @@
 [Shields Downloads]: https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total
 [Shields Lines]: https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
+[Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
