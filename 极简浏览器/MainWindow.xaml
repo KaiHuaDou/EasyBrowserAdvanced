@@ -19,9 +19,7 @@
                 →
             </Button>
             <Menu DockPanel.Dock="Right" Width="35" Height="35">
-                <MenuItem Header="..."
-                          Width="35" Height="35"
-                          Style="{StaticResource TopMenuItem}">
+                <MenuItem Width="35" Height="35" Style="{StaticResource TopMenuItem}">
                     <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
                     <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
                     <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
@@ -38,15 +36,17 @@
                               Click="DevToolClick" />
                     <MenuItem Header="置顶"
                               Style="{StaticResource WhiteMenu}"
-                              Click="TopmostChecked" IsCheckable="True" />
+                              Click="TopmostChecked" IsCheckable="True"
+                              IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
                     <MenuItem x:Name="singleBox"
                               Header="本窗口打开"
                               Style="{StaticResource WhiteMenu}"
-                              IsCheckable="True" />
-                    <MenuItem x:Name="privateBox"
-                              Header="无痕模式"
+                              IsCheckable="True"
+                              IsChecked="{Binding Args.SingleWindow, Mode=TwoWay}" />
+                    <MenuItem Header="无痕模式"
                               Style="{StaticResource WhiteMenu}"
-                              Click="PrivateModeChecked" IsCheckable="True" />
+                              IsCheckable="True"
+                              IsChecked="{Binding Args.IsPrivate, Mode=TwoWay}" />
                 </MenuItem>
             </Menu>
             <Button x:Name="NewPageButton"

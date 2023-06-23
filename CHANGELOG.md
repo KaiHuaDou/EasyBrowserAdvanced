@@ -12,6 +12,7 @@
 
 ### RC2 (开发中)
 
++ :building_construction: 将窗口参数由全局更改至每个窗口
 + :sparkles: 可选伪装 User-Agent 为新版操作系统
 + :bug: 修复设置空主页或搜索引擎导致无法使用的错误
 + :bug: 修复导致下载失败的错误并改进进度 UI

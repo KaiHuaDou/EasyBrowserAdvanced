@@ -4,7 +4,7 @@ using 极简浏览器.Api;
 namespace 极简浏览器;
 
 /// <summary>
-/// 使用 RoutedEventArgs 的非主要的事件处理程序
+/// 事件处理程序
 /// </summary>
 public partial class MainWindow : Window
 {
@@ -51,12 +51,6 @@ public partial class MainWindow : Window
     private void DevToolClick(object o, RoutedEventArgs e)
         => Instance.ShowDevTools(Id);
 
-    private void PrivateModeChecked(object o, RoutedEventArgs e)
-        => App.Program.Args.IsPrivate = privateBox.IsChecked;
-
     private void TopmostChecked(object o, RoutedEventArgs e)
-    {
-        Topmost = !Topmost;
-        App.Program.Args.IsTopmost = Topmost;
-    }
+        => Topmost = !Topmost;
 }

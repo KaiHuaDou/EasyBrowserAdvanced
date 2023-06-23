@@ -83,7 +83,7 @@ public partial class Download : Window, IDisposable
             }
             catch (IOException ex)
             {
-                Logger.Log(ex, LogType.Debug);
+                Logger.Log(ex, LogType.Warning);
             }
         }
         timer.Enabled = false;

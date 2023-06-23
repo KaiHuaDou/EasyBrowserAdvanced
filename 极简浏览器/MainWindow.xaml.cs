@@ -17,13 +17,15 @@ public partial class MainWindow : Window
 {
     private readonly int Id;
     private bool IsPageOk;
+    public Argument Args { get; set; }
 
     public MainWindow( ) => Close( );
 
-    public MainWindow(int id)
+    public MainWindow(int id, Argument args)
     {
         InitializeComponent( );
         Id = id;
+        Args = args;
     }
 
     private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
@@ -32,7 +34,6 @@ public partial class MainWindow : Window
         {
             try
             {
-
                 IRequestContext requestContext = Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
                 requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
             }
@@ -91,7 +92,7 @@ public partial class MainWindow : Window
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
             CookieMgr.Set(Id);
-            if (!App.Program.Args.IsPrivate)
+            if (!Args.IsPrivate)
             {
                 App.History.Content.Add(
                     new Record

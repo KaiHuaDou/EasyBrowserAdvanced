@@ -32,7 +32,15 @@ public static class Instance
             else
                 Navigate(id, Host[id].UrlTextBox.Text);
         }
-        catch (Exception e) { Logger.Log(e); }
+        catch (InvalidOperationException) { }
+    }
+
+    public static void New(string url = "")
+    {
+        App.Program.StartupUri = url;
+        int id = Host.Count;
+        Host[id] = new MainWindow(id, new Argument());
+        Host[id].Show( );
     }
 
     public static void Init( )
@@ -53,16 +61,6 @@ public static class Instance
         settings.CefCommandLineArgs["ppapi-flash-version"] = "99.9.9.999";
         Cef.Initialize(settings);
         CookieMgr.Get( );
-    }
-
-    public static void New(string url = App.DEFAULT)
-    {
-        App.Program.StartupUri =
-            url == App.DEFAULT || string.IsNullOrWhiteSpace(url) ?
-            App.Setting.Content[0].MainPage : url;
-        int id = Host.Count;
-        Host[id] = new MainWindow(id);
-        Host[id].Show( );
     }
 
     public static void PraseEasy(int id, string url)
