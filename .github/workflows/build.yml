@@ -9,10 +9,6 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration: [Release]
-
     runs-on: windows-latest
 
     steps:
@@ -23,12 +19,10 @@ jobs:
         uses: actions/setup-dotnet@v3
 
       - name: Build Solution
-        run: dotnet build --configuration $env:Configuration
-        env:
-          Configuration: ${{ matrix.configuration }}
+        run: dotnet build --configuration Release
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.configuration }}
-          path: ./极简浏览器/bin/${{ matrix.configuration }}/net462/*
+          name: Application
+          path: ./极简浏览器/bin/Release/net462/*

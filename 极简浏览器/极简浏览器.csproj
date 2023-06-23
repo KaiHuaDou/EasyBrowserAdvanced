@@ -21,17 +21,15 @@
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
         <ApplicationVersion>3.4.7.2</ApplicationVersion>
-        <ApplicationIcon>Icon\favicon.ico</ApplicationIcon>
+        <ApplicationIcon>Icon\Icon.ico</ApplicationIcon>
         <NeutralLanguage>zh-CN</NeutralLanguage>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Properties" />
-        <None Update="Icon\favicon.png">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
+        <None Update="Icon\Icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <Resource Include="Icon\favicon.ico">
+        <Resource Include="Icon\Icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <None Update="Resources\pepflashplayer.dll">

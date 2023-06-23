@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="极简浏览器"
         Width="800" Height="600"
-        Closing="WindowClosing" Icon="/Icon/favicon.ico" KeyDown="ShortcutProcess"
+        Closing="WindowClosing" Icon="/Icon/Icon.ico" KeyDown="ShortcutProcess"
         Loaded="WindowLoaded">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>

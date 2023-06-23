@@ -1,5 +1,7 @@
 @echo off
 del /f /s /q ..\GPUCache
+del /f /s /q ..\Cache
+del /f /s /q ..\Profile
 del /f /s /q ..\log
 del /f /q ..\locales\am.pak
 del /f /q ..\locales\ar.pak
