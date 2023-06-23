@@ -1,41 +1,45 @@
-﻿<Window Width="600"
-        x:Class="极简浏览器.Download"
+﻿<Window x:Class="极简浏览器.Download"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:极简浏览器"
         Title="下载文件"
-        MinWidth="200"
-        MinHeight="205"
+        Width="600" MinWidth="200" MinHeight="205"
         MaxHeight="205"
-        Closing="WindowClosing"
-        SizeChanged="WindowSizeChanged">
+        Closing="WindowClosing" SizeChanged="WindowSizeChanged">
     <StackPanel Margin="10,10,10,10">
         <DockPanel>
             <Label x:Name="FileName" Content="" />
-            <Label x:Name="Speed" Content="0KB/s" DockPanel.Dock="Right"
-                   HorizontalAlignment="Right" />
+            <Label x:Name="Speed"
+                   DockPanel.Dock="Right"
+                   HorizontalAlignment="Right"
+                   Content="0KB/s" />
         </DockPanel>
         <Grid>
             <ProgressBar x:Name="Progress"
                          Background="{x:Null}"
                          BorderBrush="{x:Null}"
-                         Maximum="100"
-                         Value="100">
+                         Value="100"
+                         Maximum="100">
                 <ProgressBar.Foreground>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
                 </ProgressBar.Foreground>
             </ProgressBar>
-            <Label x:Name="Percent" Content="0%"
+            <Label x:Name="Percent"
                    Canvas.Right="0"
                    HorizontalAlignment="Right"
-                   Foreground="White" />
+                   Foreground="White"
+                   Content="0%" />
         </Grid>
         <Label x:Name="FromURL" Content="about:blank" />
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Padding="30,3" Click="OpenFolderClick" Content="打开文件夹" />
-            <Button x:Name="OpenButton" Padding="30,3" Click="OpenClick" Content="打开文件"
+            <Button x:Name="OpenButton"
+                    Padding="30,3"
+                    Click="OpenClick" Content="打开文件"
                     IsEnabled="False" />
-            <Button x:Name="CancelButton" Padding="30,3" Click="CancelClick" Content="取消" />
+            <Button x:Name="CancelButton"
+                    Padding="30,3"
+                    Click="CancelClick" Content="取消" />
         </StackPanel>
     </StackPanel>
 </Window>

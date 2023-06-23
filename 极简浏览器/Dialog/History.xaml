@@ -1,74 +1,78 @@
-﻿<Window Width="700" Height="600"
-        x:Class="极简浏览器.History"
+﻿<Window x:Class="极简浏览器.History"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="历史记录和书签"
-        Closing="WindowClosing"
-        Icon="/极简浏览器;component/favicon/favicon.ico">
+        Width="700" Height="600"
+        Closing="WindowClosing" Icon="/极简浏览器;component/favicon/favicon.ico">
     <TabControl Margin="0,0,0,0" BorderThickness="0">
-        <TabItem Width="200" Header="历史记录">
+        <TabItem Header="历史记录" Width="200">
             <DockPanel>
-                <StackPanel Margin="5,10" DockPanel.Dock="Bottom"
-                            HorizontalAlignment="Center"
+                <StackPanel DockPanel.Dock="Bottom"
+                            Margin="5,10" HorizontalAlignment="Center"
                             Orientation="Horizontal">
-                    <Button Margin="5,0" Padding="20,3" Click="HistoryNew" Content="打开" />
-                    <Button Margin="5,0" Padding="20,3" Click="HistoryAll" Content="全选" />
-                    <Button Margin="5,0" Padding="20,3" Click="HistoryClear" Content="清空" />
-                    <Button Margin="5,0" Padding="20,3" Click="HistoryDelete" Content="删除" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="HistoryNew" Content="打开" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="HistoryAll" Content="全选" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="HistoryClear" Content="清空" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="HistoryDelete" Content="删除" />
                 </StackPanel>
-                <DataGrid x:Name="HistoryView"
-                          AutoGenerateColumns="False"
-                          BorderThickness="0">
+                <DataGrid x:Name="HistoryView" BorderThickness="0" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Check}" Header="选择" />
-                        <DataGridTextColumn Binding="{Binding Title}" Header="标题" />
-                        <DataGridTextColumn Binding="{Binding Url}" Header="地址" />
-                        <DataGridTextColumn Binding="{Binding Time}" Header="访问时间" />
+                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
+                        <DataGridTextColumn Header="标题" Binding="{Binding Title}" />
+                        <DataGridTextColumn Header="地址" Binding="{Binding Url}" />
+                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
         </TabItem>
-        <TabItem Width="200" Header="书签">
+        <TabItem Header="书签" Width="200">
             <DockPanel>
-                <StackPanel Margin="5,10" DockPanel.Dock="Bottom"
-                            HorizontalAlignment="Center"
+                <StackPanel DockPanel.Dock="Bottom"
+                            Margin="5,10" HorizontalAlignment="Center"
                             Orientation="Horizontal">
-                    <Button Margin="5,0" Padding="20,3" Click="BookmarkNew" Content="打开" />
-                    <Button Margin="5,0" Padding="20,3" Click="BookmarkAll" Content="全选" />
-                    <Button Margin="5,0" Padding="20,3" Click="BookmarkClear" Content="清空" />
-                    <Button Margin="5,0" Padding="20,3" Click="BookmarkDelete" Content="删除" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="BookmarkNew" Content="打开" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="BookmarkAll" Content="全选" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="BookmarkClear" Content="清空" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="BookmarkDelete" Content="删除" />
                 </StackPanel>
-                <DataGrid x:Name="BookmarkView"
-                          AutoGenerateColumns="False"
-                          BorderThickness="0">
+                <DataGrid x:Name="BookmarkView" BorderThickness="0" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Check}" Header="选择" />
-                        <DataGridTextColumn Binding="{Binding Title}" Header="标题" />
-                        <DataGridTextColumn Binding="{Binding Url}" Header="地址" />
-                        <DataGridTextColumn Binding="{Binding Time}" Header="访问时间" />
+                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
+                        <DataGridTextColumn Header="标题" Binding="{Binding Title}" />
+                        <DataGridTextColumn Header="地址" Binding="{Binding Url}" />
+                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
         </TabItem>
-        <TabItem Width="200" Header="Cookies">
+        <TabItem Header="Cookies" Width="200">
             <DockPanel>
-                <StackPanel Margin="5,10" DockPanel.Dock="Bottom"
-                            HorizontalAlignment="Center"
+                <StackPanel DockPanel.Dock="Bottom"
+                            Margin="5,10" HorizontalAlignment="Center"
                             Orientation="Horizontal">
-                    <Button Margin="5,0" Padding="20,3" Click="CookiesAll" Content="全选" />
-                    <Button Margin="5,0" Padding="20,3" Click="CookiesClear" Content="清空" />
-                    <Button Margin="5,0" Padding="20,3" Click="CookiesDelete" Content="删除" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="CookiesAll" Content="全选" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="CookiesClear" Content="清空" />
+                    <Button Margin="5,0" Padding="20,3"
+                            Click="CookiesDelete" Content="删除" />
                 </StackPanel>
-                <DataGrid x:Name="CookiesView"
-                          AutoGenerateColumns="False"
-                          BorderThickness="0">
+                <DataGrid x:Name="CookiesView" BorderThickness="0" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Check}" Header="选择" />
-                        <DataGridTextColumn Binding="{Binding Url}" Header="域" />
-                        <DataGridTextColumn Binding="{Binding Value.Name}" Header="名称" />
-                        <DataGridTextColumn Binding="{Binding Value.Value}" Header="内容" />
-                        <DataGridTextColumn Binding="{Binding Value.Creation}" Header="创建日期" />
-                        <DataGridTextColumn Binding="{Binding Value.LastAccess}" Header="最后访问" />
+                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
+                        <DataGridTextColumn Header="域" Binding="{Binding Url}" />
+                        <DataGridTextColumn Header="名称" Binding="{Binding Value.Name}" />
+                        <DataGridTextColumn Header="内容" Binding="{Binding Value.Value}" />
+                        <DataGridTextColumn Header="创建日期" Binding="{Binding Value.Creation}" />
+                        <DataGridTextColumn Header="最后访问" Binding="{Binding Value.LastAccess}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

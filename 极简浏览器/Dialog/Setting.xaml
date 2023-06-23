@@ -2,37 +2,50 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="设置"
-        SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize"
-        Closing="WindowClosing"
-        MinWidth="400">
+        MinWidth="400"
+        Closing="WindowClosing" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />            
-            <RowDefinition />            
-            <RowDefinition />            
-            <RowDefinition />            
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Label Height="34" Margin="0,0,0,5" Content="主页：" />
-        <TextBox x:Name="MainPageBox" Grid.Column="1" Height="35" Margin="0,0,0,5"
+        <TextBox x:Name="MainPageBox"
+                 Grid.Column="1"
+                 Height="35"
+                 Margin="0,0,0,5"
                  TextWrapping="NoWrap" />
-        <Label Grid.Row="1" Height="34" Margin="0,5,0,5" Content="搜索引擎：" />
-        <TextBox x:Name="SearchEngineBox" Grid.Row="1" Grid.Column="1" Height="35" Margin="0,5,0,5"
-                 ToolTip="使用%1替代搜索关键词"
-                 TextWrapping="NoWrap" />
-        <CheckBox x:Name="CheckUaBox" Grid.Row="2" Content="伪装 User-Agent" Grid.ColumnSpan="2" Margin="0,5,0,5"/>
-        <StackPanel Grid.Row="3"
-                    Grid.ColumnSpan="2"
-                    Orientation="Horizontal">
-            <Button x:Name="CacheButton" Margin="0,5,5,5" Padding="30,3" Click="ClearCache" Content="清除缓存" />
-            <Button x:Name="LogButton" Margin="5,5,0,5" Padding="30,3" Click="ClearLog" Content="清除日志" />
+        <Label Grid.Row="1"
+               Height="34"
+               Margin="0,5,0,5"
+               Content="搜索引擎：" />
+        <TextBox x:Name="SearchEngineBox"
+                 Grid.Row="1" Grid.Column="1"
+                 Height="35"
+                 Margin="0,5,0,5"
+                 TextWrapping="NoWrap" ToolTip="使用%1替代搜索关键词" />
+        <CheckBox x:Name="CheckUaBox"
+                  Grid.Row="2" Grid.ColumnSpan="2"
+                  Margin="0,5,0,5"
+                  Content="伪装 User-Agent" />
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button x:Name="CacheButton"
+                    Margin="0,5,5,5" Padding="30,3"
+                    Click="ClearCache" Content="清除缓存" />
+            <Button x:Name="LogButton"
+                    Margin="5,5,0,5" Padding="30,3"
+                    Click="ClearLog" Content="清除日志" />
         </StackPanel>
-        <Button x:Name="OKButton" Grid.Row="4" Grid.Column="1" Margin="0,5,0,0" Padding="30,3" Click="OKClick" Content="确定"
-                HorizontalAlignment="Right" />
+        <Button x:Name="OKButton"
+                Grid.Row="4" Grid.Column="1"
+                Margin="0,5,0,0" Padding="30,3" HorizontalAlignment="Right"
+                Click="OKClick" Content="确定" />
     </Grid>
 </Window>

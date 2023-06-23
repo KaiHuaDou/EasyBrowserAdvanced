@@ -10,10 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		CHANGELOG.md = CHANGELOG.md
-		LICENSE = LICENSE
-		docs\README.en-US.md = docs\README.en-US.md
-		README.md = README.md
 		Settings.XamlStyler = Settings.XamlStyler
 	EndProjectSection
 EndProject
@@ -21,6 +17,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{DD6701C0-3DCD-
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\codeql.yml = .github\workflows\codeql.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{31456189-B7AF-4812-A5E2-219A82969B9A}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
+		docs\README.en-US.md = docs\README.en-US.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -39,6 +43,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DD6701C0-3DCD-46A3-AC85-25D29DEAA58D} = {7B586149-A468-46FC-9EC3-7D08428F07E4}
+		{31456189-B7AF-4812-A5E2-219A82969B9A} = {7B586149-A468-46FC-9EC3-7D08428F07E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E289B48-8FD0-40ED-8347-C0F117C44526}

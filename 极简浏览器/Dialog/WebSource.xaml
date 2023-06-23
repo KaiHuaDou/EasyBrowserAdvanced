@@ -1,18 +1,22 @@
-﻿<Window Width="700" Height="400"
-        x:Class="极简浏览器.WebSource"
+﻿<Window x:Class="极简浏览器.WebSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="网页源代码">
+        Title="网页源代码"
+        Width="700" Height="400">
     <DockPanel Margin="10,10,10,10">
-        <StackPanel Margin="0,0,5,0" DockPanel.Dock="Left"
-                    HorizontalAlignment="Center">
-            <Button x:Name="refreshButton" Margin="5" Padding="30,3" Click="RefreshSource" Content="刷新" />
-            <Button x:Name="formatButton" Margin="5" Padding="30,3" Click="FormatSource" Content="格式化" />
-            <Button x:Name="saveButton" Margin="5" Padding="30,3" Click="SaveSource" Content="保存" />
+        <StackPanel DockPanel.Dock="Left" Margin="0,0,5,0" HorizontalAlignment="Center">
+            <Button x:Name="refreshButton"
+                    Margin="5" Padding="30,3"
+                    Click="RefreshSource" Content="刷新" />
+            <Button x:Name="formatButton"
+                    Margin="5" Padding="30,3"
+                    Click="FormatSource" Content="格式化" />
+            <Button x:Name="saveButton"
+                    Margin="5" Padding="30,3"
+                    Click="SaveSource" Content="保存" />
         </StackPanel>
-        <TextBox x:Name="sourceBox" DockPanel.Dock="Top"
-                 AcceptsReturn="True"
-                 AcceptsTab="True"
-                 TextWrapping="Wrap" />
+        <TextBox x:Name="sourceBox"
+                 DockPanel.Dock="Top"
+                 AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" />
     </DockPanel>
 </Window>
