@@ -39,7 +39,7 @@ public static class Instance
     {
         App.Program.StartupUri = url;
         int id = Host.Count;
-        Host[id] = new MainWindow(id, new Argument());
+        Host[id] = new MainWindow(id, new Argument( ));
         Host[id].Show( );
     }
 

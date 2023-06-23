@@ -6,12 +6,13 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using CefSharp;
+using Microsoft.Shell;
 using 极简浏览器.Api;
 using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
-public partial class App : Application, ISingleInstance
+public partial class App : Application, ISingleInstanceApp
 {
     public static DataStore<Record> History { get; set; } = new(FilePath.History);
     public static DataStore<Record> Bookmark { get; set; } = new(FilePath.BookMark);
@@ -30,6 +31,8 @@ public partial class App : Application, ISingleInstance
         [STAThread]
         public static void Main(string[] args)
         {
+            if (!SingleInstance<App>.InitializeAsFirstInstance("EasyBrowserAdvanced_3_4_7_2_Stable"))
+                return;
             try
             {
                 App app = new( );
@@ -38,6 +41,7 @@ public partial class App : Application, ISingleInstance
                     startupUri = args[0];
                 Instance.Host[0] = new MainWindow(0, new Argument( ));
                 app.Run(Instance.Host[0]);
+                SingleInstance<App>.Cleanup( );
             }
             catch (XamlParseException e)
             {
@@ -87,5 +91,11 @@ public partial class App : Application, ISingleInstance
         Cookies.Save( );
         Setting.Save( );
         Cef.Shutdown( );
+    }
+
+    public bool SignalExternalCommandLineArgs(IList<string> args)
+    {
+        Instance.New(args.Count > 1 ? args[0] : "");
+        return true;
     }
 }

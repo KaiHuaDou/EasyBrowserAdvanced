@@ -84,4 +84,7 @@
             <Version>87.1.132</Version>
         </PackageReference>
     </ItemGroup>
+    <ItemGroup>
+      <Reference Include="System.Runtime.Remoting" />
+    </ItemGroup>
 </Project>
