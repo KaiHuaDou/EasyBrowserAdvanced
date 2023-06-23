@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="历史记录和书签"
         Width="700" Height="600"
-        Closing="WindowClosing" Icon="/极简浏览器;component/favicon/favicon.ico">
+        Closing="WindowClosing">
     <TabControl Margin="0,0,0,0" BorderThickness="0">
         <TabItem Header="历史记录" Width="200">
             <DockPanel>

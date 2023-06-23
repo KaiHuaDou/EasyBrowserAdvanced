@@ -11,7 +11,7 @@
             <Image x:Name="img"
                    Width="70" Height="70"
                    Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                   MouseLeftButtonDown="Circle" Source="/极简浏览器;component/favicon/favicon.ico" />
+                   MouseLeftButtonDown="Circle" Source="/Icon/favicon.ico" />
             <Label Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="28"
                    Content="极简浏览器" />
