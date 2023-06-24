@@ -39,8 +39,7 @@ public partial class App : Application, ISingleInstanceApp
                 app.InitializeComponent( );
                 if (args.Length >= 1)
                     startupUri = args[0];
-                Instance.Host[0] = new MainWindow(0, new Argument( ));
-                app.Run(Instance.Host[0]);
+                app.Run( );
                 SingleInstance<App>.Cleanup( );
             }
             catch (XamlParseException e)

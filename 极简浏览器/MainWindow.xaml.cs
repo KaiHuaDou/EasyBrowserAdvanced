@@ -16,10 +16,15 @@ namespace 极简浏览器;
 public partial class MainWindow : Window
 {
     private readonly int Id;
-    private bool IsPageOk;
     public Argument Args { get; set; }
 
-    public MainWindow( ) => Close( );
+    public MainWindow( )
+    {
+        InitializeComponent( );
+        Id = 0;
+        Args = new Argument( );
+        Instance.Host[0] = this;
+    }
 
     public MainWindow(int id, Argument args)
     {
@@ -34,8 +39,8 @@ public partial class MainWindow : Window
         {
             try
             {
-                IRequestContext requestContext = Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext;
-                requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
+                Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext
+                        .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
             }
             catch (NullReferenceException) { }
             catch (ObjectDisposedException) { }
@@ -59,6 +64,7 @@ public partial class MainWindow : Window
         BrowserGrid.Children.Add(Instance.Core[Id]);
         Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, App.Program.StartupUri));
     }
+
     private void PageCheckUrl(object o, KeyEventArgs e)
     {
         if (e.Key is (Key.Enter or Key.Return) and not Key.ImeProcessed)
@@ -72,8 +78,8 @@ public partial class MainWindow : Window
             Instance.Navigate(Id, UrlTextBox.Text);
         else
             Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + UrlTextBox.Text);
-        IsPageOk = false;
     }
+
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
     {
         loadLabel.Visibility = Visibility.Visible;
@@ -81,29 +87,28 @@ public partial class MainWindow : Window
         if (!Instance.Core[Id].Address.Contains("Error.html?errorCode="))
             UrlTextBox.Text = Instance.Core[Id].Address;
     }
+
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
     {
         void Loaded( )
         {
-            IsPageOk = true;
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
             CookieMgr.Set(Id);
-            if (!Args.IsPrivate)
-            {
-                App.History.Content.Add(
-                    new Record
-                    {
-                        Check = false,
-                        Title = Instance.Core[Id].Title,
-                        Url = Instance.Core[Id].Address,
-                        Time = Utils.LocalTime
-                    }
-                );
-            }
+            if (Args.IsPrivate) return;
+            App.History.Content.Add(
+                new Record
+                {
+                    Check = false,
+                    Title = Instance.Core[Id].Title,
+                    Url = Instance.Core[Id].Address,
+                    Time = Utils.LocalTime
+                }
+            );
         }
         Dispatcher.BeginInvoke(Loaded);
     }
+
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
         => Title = Instance.Core[Id].Title + " - 极简浏览器";
 
@@ -111,23 +116,26 @@ public partial class MainWindow : Window
     {
         void LoadError( )
         {
-            if (IsPageOk || e.ErrorCode.ToString( ) == "Aborted") return;
+            if (!Instance.Core[Id].IsLoading || e.ErrorCode.ToString( ) == "Aborted") return;
             Instance.Navigate(Id,
                 $@"{FilePath.Runtime}\Resources\Error.html?errorCode={e.ErrorCode}&errorText={e.ErrorText}&url={UrlTextBox.Text}");
         }
         Dispatcher.BeginInvoke(LoadError);
     }
+
     private void BrowserZooming(object o, MouseWheelEventArgs e)
     {
         if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
-        if (e.Delta > 0)
-            Instance.Core[Id].ZoomInCommand.Execute(null);
-        else if (e.Delta < 0)
-            Instance.Core[Id].ZoomOutCommand.Execute(null);
+        switch (e.Delta)
+        {
+            case > 0: Instance.Core[Id].ZoomInCommand.Execute(null); break;
+            case < 0: Instance.Core[Id].ZoomOutCommand.Execute(null); break;
+        }
         zoomLabel.Content = Instance.Core[Id].GetBrowserHost( ).GetZoomLevel( ).ToString( ) + "%";
         zoomLabel.Visibility = zoomLabel.Content.ToString( ) == "100%" ? Visibility.Collapsed : Visibility.Visible;
         e.Handled = true;
     }
+
     private void ShortcutProcess(object o, KeyEventArgs e)
     {
         if (e.Key == Key.F12) Instance.Core[Id].ShowDevTools( );
