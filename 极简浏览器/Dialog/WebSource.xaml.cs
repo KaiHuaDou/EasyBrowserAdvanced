@@ -37,7 +37,7 @@ public partial class WebSource : Window
         SaveFileDialog dialog = new( )
         {
             DefaultExt = ".html",
-            FileName = Instance.Title(Id),
+            FileName = Instance.Core[Id].Title,
             AddExtension = true,
             Filter = "HTML 文件|.html"
         };

@@ -32,6 +32,9 @@
         <Resource Include="Icon\Icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <None Update="Resources\Error.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Resources\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -81,8 +84,6 @@
         <PackageReference Include="CefSharp.Wpf">
             <Version>87.1.132</Version>
         </PackageReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Reference Include="System.Runtime.Remoting" />
+        <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

@@ -63,8 +63,6 @@ public partial class MainWindow : Window
     {
         if (e.Key is (Key.Enter or Key.Return) and not Key.ImeProcessed)
             PagePreload(o, new RoutedEventArgs( ));
-        if (Civilized.CheckCivilized(UrlTextBox.Text))
-            Civilized.DeniedMsg( );
     }
     private void PagePreload(object o, RoutedEventArgs e)
     {
@@ -79,14 +77,13 @@ public partial class MainWindow : Window
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
     {
         loadLabel.Visibility = Visibility.Visible;
-        civiLabel.Visibility = Visibility.Collapsed;
         LoadProgress.Visibility = Visibility.Visible;
-        if (!Instance.Address(Id).Contains("Error.html?errorCode="))
-            UrlTextBox.Text = Instance.Address(Id);
+        if (!Instance.Core[Id].Address.Contains("Error.html?errorCode="))
+            UrlTextBox.Text = Instance.Core[Id].Address;
     }
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
     {
-        async void Loaded( )
+        void Loaded( )
         {
             IsPageOk = true;
             LoadProgress.Visibility = Visibility.Collapsed;
@@ -104,13 +101,11 @@ public partial class MainWindow : Window
                     }
                 );
             }
-            if (Civilized.CheckCivilized(await Instance.PageTextAsync(Id)))
-                civiLabel.Visibility = Visibility.Visible;
         }
         Dispatcher.BeginInvoke(Loaded);
     }
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
-        => Title = Instance.Title(Id) + " - 极简浏览器";
+        => Title = Instance.Core[Id].Title + " - 极简浏览器";
 
     private void BrowserLoadError(object o, LoadErrorEventArgs e)
     {

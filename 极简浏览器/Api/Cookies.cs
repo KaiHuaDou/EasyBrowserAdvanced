@@ -22,7 +22,7 @@ public static class CookieMgr
         CookieVisitor visitor = new( );
         visitor.SendCookie += AddCookie;
         ICookieManager cookieManager = Instance.Core[id].GetCookieManager( );
-        address = Instance.Address(id);
+        address = Instance.Core[id].Address;
         cookieManager.VisitAllCookies(visitor);
     }
 

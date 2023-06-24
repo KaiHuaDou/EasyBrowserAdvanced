@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CefSharp;
 using 极简浏览器.Api;
 
 namespace 极简浏览器;
@@ -32,8 +33,8 @@ public partial class MainWindow : Window
             new Record
             {
                 Check = false,
-                Title = Instance.Title(Id),
-                Url = Instance.Address(Id),
+                Title = Instance.Core[Id].Title,
+                Url = Instance.Core[Id].Address,
                 Time = Utils.LocalTime
             }
         );
@@ -49,7 +50,7 @@ public partial class MainWindow : Window
         => new History( ).Show( );
 
     private void DevToolClick(object o, RoutedEventArgs e)
-        => Instance.ShowDevTools(Id);
+        => Instance.Core[Id].ShowDevTools( );
 
     private void TopmostChecked(object o, RoutedEventArgs e)
         => Topmost = !Topmost;

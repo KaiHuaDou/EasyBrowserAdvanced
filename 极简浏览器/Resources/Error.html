@@ -54,6 +54,17 @@
         <button class="info text" onclick="searchCode()">搜索错误代码</button>
     </div>
     <script>
+        let translate =
+        {
+            "AddressUnreachable": "无法访问地址",
+            "ConnectionRefused": "访问被拒绝",
+            "ConnectionTimedOut": "响应时间过长",
+            "FileNotFound": "找不到文件",
+            "InvalidUrl": "无效 URL 地址",
+            "NameNotResolved": "无法解析地址",
+            "TooManyRedirects": "重定向次数过多",
+        };
+
         function searchURL()
         {
             document.location = "https://cn.bing.com/search?q=" + getPara("url");
@@ -78,13 +89,8 @@
 
         function translateError(code)
         {
-            if (code == "InvalidUrl") code = "无效地址";
-            if (code == "ConnectionRefused") code = "访问被拒绝";
-            if (code == "FileNotFound") code = "找不到文件";
-            if (code == "NameNotResolved") code = "无法解析地址";
-            if (code == "AddressUnreachable") code = "无法访问地址";
-            if (code == "ConnectionTimedOut") code = "响应时间过长";
-            return code;
+            try { return translate[code]; }
+            catch { return code; }
         }
         document.title = translateError(getPara("errorCode"));
         document.getElementById("infobig").innerHTML = translateError(getPara("errorCode"));

@@ -14,10 +14,10 @@ namespace 极简浏览器;
 
 public partial class App : Application, ISingleInstanceApp
 {
-    public static DataStore<Record> History { get; set; } = new(FilePath.History);
-    public static DataStore<Record> Bookmark { get; set; } = new(FilePath.BookMark);
-    public static DataStore<Config> Setting { get; set; } = new(FilePath.Setting, true);
-    public static DataStore<CookieData> Cookies { get; set; } = new(FilePath.Cookies);
+    public static DataStore<Record> History { get; set; }
+    public static DataStore<Record> Bookmark { get; set; }
+    public static DataStore<Config> Setting { get; set; }
+    public static DataStore<CookieData> Cookies { get; set; }
 
     public static class Program
     {
@@ -53,7 +53,12 @@ public partial class App : Application, ISingleInstanceApp
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
         RuntimeFix( );
+        History = new(FilePath.History);
+        Bookmark = new(FilePath.BookMark);
+        Setting = new(FilePath.Setting, true);
+        Cookies = new(FilePath.Cookies);
         Instance.Init( );
     }
 

@@ -15,12 +15,9 @@ public static class Instance
     public static Dictionary<int, MainWindow> Host = new( );
     public static Dictionary<int, EasyBrowserCore> Core = new( );
 
-    public static string Address(int id) => Core[id].Address;
-    public static string Title(int id) => Core[id].Title;
     public static void Navigate(int id, string url) => Core[id].Address = url;
     public static void GoBack(int id) { if (Core[id].CanGoBack) Core[id].Back( ); }
     public static void GoForward(int id) { if (Core[id].CanGoForward) Core[id].Forward( ); }
-    public static void ShowDevTools(int id) => Core[id].ShowDevTools( );
     public static void ViewSource(int id) => new WebSource(id).Show( );
 
     public static void Refresh(int id)
@@ -77,9 +74,6 @@ public static class Instance
             default: Navigate(id, "about:blank"); break;
         }
     }
-
-    public static async Task<string> PageTextAsync(int id)
-        => await Core[id].GetMainFrame( ).GetTextAsync( );
 
     public static async Task<string> PageSourceAsync(int id)
         => await Core[id].GetMainFrame( ).GetSourceAsync( );
