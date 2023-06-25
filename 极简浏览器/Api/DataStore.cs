@@ -17,17 +17,16 @@ public class Record
 public class DataStore<T> : IDisposable where T : new()
 {
     public List<T> Content { get; private set; }
-    public FileInfo XmlFile { get; set; }
 
-    public bool InitDefault { get; set; }
-
+    private string XmlFile;
+    private bool InitEmpty;
     private FileStream XmlStream;
 
-    public DataStore(string xmlFile, bool initDefault = false)
+    public DataStore(string xmlFile, bool initEmpty = true)
     {
-        XmlFile = new FileInfo(xmlFile);
-        InitDefault = initDefault;
-        XmlStream = new(XmlFile.FullName, FileMode.OpenOrCreate);
+        XmlFile = new FileInfo(xmlFile).FullName;
+        InitEmpty = initEmpty;
+        XmlStream = new(XmlFile, FileMode.OpenOrCreate);
         Read( );
     }
 
@@ -37,13 +36,13 @@ public class DataStore<T> : IDisposable where T : new()
         try
         {
             Content = reader.ReadContentAs(typeof(List<T>), null) as List<T>;
-            if (Content.Count == 0 && InitDefault)
+            if (Content.Count == 0 && !InitEmpty)
                 Content.Add(new T( ));
         }
         catch
         {
             Content = new List<T>( );
-            if (InitDefault)
+            if (!InitEmpty)
                 Content.Add(new T( ));
         }
     }

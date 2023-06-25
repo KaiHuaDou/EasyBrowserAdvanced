@@ -2,14 +2,12 @@
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
-        <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
         <LangVersion>11.0</LangVersion>
         <StartupObject>极简浏览器.App.Program</StartupObject>
         <AnalysisLevel>latest-recommended</AnalysisLevel>
     </PropertyGroup>
     <PropertyGroup>
-        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
         <NoWin32Manifest>true</NoWin32Manifest>
         <PlatformTarget>x86</PlatformTarget>
         <DebugType>full</DebugType>
@@ -67,7 +65,7 @@
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
         <EmbeddedResource Update="Resources\GuiText.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
+            <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>

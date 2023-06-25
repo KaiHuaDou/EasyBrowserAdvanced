@@ -22,7 +22,7 @@ namespace 极简浏览器.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GuiText {
+    internal class GuiText {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace 极简浏览器.Resources {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("极简浏览器.Resources.GuiText", typeof(GuiText).Assembly);
@@ -51,7 +51,7 @@ namespace 极简浏览器.Resources {
         ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 极简浏览器 的本地化字符串。
         /// </summary>
-        public static string browserName {
+        internal static string browserName {
             get {
                 return ResourceManager.GetString("browserName", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 您已被取消软件使用资格 的本地化字符串。
         /// </summary>
-        public static string civiRefuse {
+        internal static string civiRefuse {
             get {
                 return ResourceManager.GetString("civiRefuse", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 我认为您是不善意的，软件将强行关闭！ 的本地化字符串。
         /// </summary>
-        public static string civiShutdown {
+        internal static string civiShutdown {
             get {
                 return ResourceManager.GetString("civiShutdown", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 网络文明监察局 的本地化字符串。
         /// </summary>
-        public static string civiTitle {
+        internal static string civiTitle {
             get {
                 return ResourceManager.GetString("civiTitle", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 原因: 的本地化字符串。
         /// </summary>
-        public static string exCause {
+        internal static string exCause {
             get {
                 return ResourceManager.GetString("exCause", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 方法引发了此异常。 的本地化字符串。
         /// </summary>
-        public static string exEnd {
+        internal static string exEnd {
             get {
                 return ResourceManager.GetString("exEnd", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 帮助链接: 的本地化字符串。
         /// </summary>
-        public static string exLink {
+        internal static string exLink {
             get {
                 return ResourceManager.GetString("exLink", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 很抱歉，程序发生了未处理的异常， 的本地化字符串。
         /// </summary>
-        public static string exMain {
+        internal static string exMain {
             get {
                 return ResourceManager.GetString("exMain", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace 极简浏览器.Resources {
         /// <summary>
         ///   查找类似 程序集中的 的本地化字符串。
         /// </summary>
-        public static string exPlace {
+        internal static string exPlace {
             get {
                 return ResourceManager.GetString("exPlace", resourceCulture);
             }

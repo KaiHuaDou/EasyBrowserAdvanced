@@ -6,13 +6,13 @@
     <DockPanel Margin="10,10,10,10">
         <Label x:Name="label" DockPanel.Dock="Top" Content="抱歉，程序出现了错误" />
         <Label DockPanel.Dock="Top">
-            <Hyperlink NavigateUri="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue">Github 反馈通道</Hyperlink>
+            <Hyperlink NavigateUri="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue">GitHub 反馈通道</Hyperlink>
         </Label>
         <Button DockPanel.Dock="Bottom"
                 Margin="0,10,0,0" Padding="30,3" HorizontalAlignment="Right"
                 Click="ShutdownClick" Content="确定" />
         <TextBox x:Name="msgBox"
                  Margin="0,10,0,0"
-                 IsReadOnly="True" TextWrapping="Wrap" />
+                 IsReadOnly="True" MaxLength="80" TextWrapping="Wrap" />
     </DockPanel>
 </Window>

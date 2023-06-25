@@ -16,8 +16,8 @@ public partial class App : Application, ISingleInstanceApp
 {
     public static DataStore<Record> History { get; set; }
     public static DataStore<Record> Bookmark { get; set; }
-    public static DataStore<Config> Setting { get; set; }
     public static DataStore<CookieData> Cookies { get; set; }
+    public static DataStore<Config> Setting { get; set; }
 
     public static class Program
     {
@@ -54,10 +54,10 @@ public partial class App : Application, ISingleInstanceApp
         base.OnStartup(e);
 
         RuntimeFix( );
-        History = new(FilePath.History);
         Bookmark = new(FilePath.BookMark);
-        Setting = new(FilePath.Setting, true);
         Cookies = new(FilePath.Cookies);
+        History = new(FilePath.History);
+        Setting = new(FilePath.Setting, false);
         Instance.Init( );
     }
 

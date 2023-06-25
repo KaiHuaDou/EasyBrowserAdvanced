@@ -35,7 +35,6 @@
             color: black;
             background: transparent;
             transition: background 0.1s, color 0.1s;
-            -webkit-transition: background 0.1s, color 0.1s;
         }
 
         button:hover {
@@ -58,24 +57,26 @@
         {
             "AddressUnreachable": "无法访问地址",
             "ConnectionRefused": "访问被拒绝",
+            "ConnectionReset": "连接已重置",
             "ConnectionTimedOut": "响应时间过长",
             "FileNotFound": "找不到文件",
             "InvalidUrl": "无效 URL 地址",
             "NameNotResolved": "无法解析地址",
+            "SslVersionOrCipherMismatch": "SSL 版本不匹配",
             "TooManyRedirects": "重定向次数过多",
         };
 
         function searchURL()
         {
-            document.location = "https://cn.bing.com/search?q=" + getPara("url");
+            document.location = "https://cn.bing.com/search?q=" + getError("url");
         }
 
         function searchCode()
         {
-            document.location = "https://cn.bing.com/search?q=" + getPara("errorText");
+            document.location = "https://cn.bing.com/search?q=" + getError("errorText");
         }
 
-        function getPara(variable)
+        function getError(variable)
         {
             var query = window.location.search.substring(1);
             var vars = query.split("&");
@@ -87,14 +88,14 @@
             return (false);
         }
 
-        function translateError(code)
+        function translateCode(code)
         {
             try { return translate[code]; }
             catch { return code; }
         }
-        document.title = translateError(getPara("errorCode"));
-        document.getElementById("infobig").innerHTML = translateError(getPara("errorCode"));
-        document.getElementById("infotext").innerHTML = getPara("errorText");
+        document.title = translateCode(getError("errorCode"));
+        document.getElementById("infobig").innerHTML = translateCode(getError("errorCode"));
+        document.getElementById("infotext").innerHTML = getError("errorText");
     </script>
 </body>
 
