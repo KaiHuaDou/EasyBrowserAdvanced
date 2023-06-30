@@ -59,6 +59,7 @@
             "ConnectionRefused": "访问被拒绝",
             "ConnectionReset": "连接已重置",
             "ConnectionTimedOut": "响应时间过长",
+            "ConnectionClosed": "连接已关闭",
             "FileNotFound": "找不到文件",
             "InvalidUrl": "无效 URL 地址",
             "NameNotResolved": "无法解析地址",
@@ -90,8 +91,8 @@
 
         function translateCode(code)
         {
-            try { return translate[code]; }
-            catch { return code; }
+            let result = translate[code];
+            return result == undefined ? code : result;
         }
         document.title = translateCode(getError("errorCode"));
         document.getElementById("infobig").innerHTML = translateCode(getError("errorCode"));

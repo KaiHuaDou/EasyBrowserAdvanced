@@ -8,19 +8,19 @@
         <AnalysisLevel>latest-recommended</AnalysisLevel>
     </PropertyGroup>
     <PropertyGroup>
-        <NoWin32Manifest>true</NoWin32Manifest>
-        <PlatformTarget>x86</PlatformTarget>
         <DebugType>full</DebugType>
+        <PlatformTarget>x86</PlatformTarget>
         <WarningLevel>7</WarningLevel>
     </PropertyGroup>
     <PropertyGroup>
-        <Platforms>AnyCPU</Platforms>
+        <ApplicationIcon>Icon\Icon.ico</ApplicationIcon>
+        <ApplicationVersion>3.4.7.2</ApplicationVersion>
+        <NeutralLanguage>zh-CN</NeutralLanguage>
+        <OutputPath>bin\$(Configuration)</OutputPath>
+        <Platforms>x86</Platforms>
         <ProductName>极简浏览器</ProductName>
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
-        <ApplicationVersion>3.4.7.2</ApplicationVersion>
-        <ApplicationIcon>Icon\Icon.ico</ApplicationIcon>
-        <NeutralLanguage>zh-CN</NeutralLanguage>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Properties" />
@@ -70,18 +70,10 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="cef.redist.x64">
-            <Version>87.1.13</Version>
-        </PackageReference>
-        <PackageReference Include="cef.redist.x86">
-            <Version>87.1.13</Version>
-        </PackageReference>
-        <PackageReference Include="CefSharp.Common">
-            <Version>87.1.132</Version>
-        </PackageReference>
-        <PackageReference Include="CefSharp.Wpf">
-            <Version>87.1.132</Version>
-        </PackageReference>
+        <PackageReference Include="cef.redist.x64" Version="87.1.13" />
+        <PackageReference Include="cef.redist.x86" Version="87.1.13" />
+        <PackageReference Include="CefSharp.Common" Version="87.1.132" />
+        <PackageReference Include="CefSharp.Wpf" Version="87.1.132" />
         <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

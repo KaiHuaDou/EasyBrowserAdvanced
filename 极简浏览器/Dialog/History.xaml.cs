@@ -13,9 +13,10 @@ public partial class History : Window
         InitializeComponent( );
         try
         {
+            CookieManager.Get( );
             HistoryView.ItemsSource = App.History.Content;
             BookmarkView.ItemsSource = App.Bookmark.Content;
-            CookiesView.ItemsSource = App.Cookies.Content;
+            CookiesView.ItemsSource = CookieManager.Cookies;
         }
         catch (InvalidOperationException)
         {
@@ -87,36 +88,9 @@ public partial class History : Window
     }
     #endregion
 
-    #region Cookies
-    private void CookiesInit( )
-    {
-        CookiesView.ItemsSource = null;
-        CookiesView.ItemsSource = App.Cookies.Content;
-    }
-
-    private void CookiesAll(object o, RoutedEventArgs e)
-    {
-        App.Cookies.Content.ForEach(item => item.Check = !item.Check);
-        CookiesInit( );
-    }
-
-    private void CookiesDelete(object o, RoutedEventArgs e)
-    {
-        App.Cookies.Content.RemoveAll((item) => item.Check);
-        CookiesInit( );
-    }
-
-    private void CookiesClear(object o, RoutedEventArgs e)
-    {
-        App.Cookies.Content.Clear( );
-        CookiesInit( );
-    }
-    #endregion
-
     private void WindowClosing(object o, CancelEventArgs e)
     {
         App.History.Save( );
         App.Bookmark.Save( );
-        App.Cookies.Save( );
     }
 }

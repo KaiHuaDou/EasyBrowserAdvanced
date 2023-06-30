@@ -9,15 +9,15 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Height" Value="35" />
+            <Setter Property="Margin" Value="4,8" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid Width="35" Height="35">
+                        <Grid>
                             <Border x:Name="_border"
-                                    Background="#FFE6E6E6" Opacity="0"
-                                    CornerRadius="18" />
-                            <Label Content="{TemplateBinding Content}" />
+                                    Background="#EDEEEE" Opacity="0"
+                                    CornerRadius="16" />
+                            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -27,28 +27,46 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Width" Value="35" />
+            <Setter Property="Width" Value="{Binding ActualHeight, ElementName=GoBackButton}" />
         </Style>
         <Style x:Key="WhiteMenu" TargetType="{x:Type MenuItem}">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontFamily" Value="Microsoft YaHei UI" />
+            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Padding" Value="0,5" />
+            <Setter Property="Padding" Value="0,3" />
+        </Style>
+        <Style x:Key="TextboxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="6" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="_border"
+                                Background="#F0F3F4" BorderBrush="#F0F3F4" BorderThickness="3"
+                                CornerRadius="16">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="_border" Property="Background" Value="White" />
+                                <Setter TargetName="_border" Property="BorderBrush" Value="#0075E8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="TopMenuItem" TargetType="{x:Type MenuItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="FontSize" Value="22" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
-                        <Grid Width="35" Height="35" Background="White">
+                        <Grid Background="White">
                             <Border x:Name="_border"
-                                    Background="#FFE6E6E6" Opacity="0"
-                                    CornerRadius="18" />
+                                    Background="#EDEEEE" Opacity="0"
+                                    CornerRadius="16" />
                             <Label x:Name="_txt"
-                                   Margin="0" VerticalAlignment="Center"
-                                   Foreground="Black"
-                                   Content="..." />
+                                   Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="#5E6368"
+                                   Content="···" />
                             <Popup x:Name="SubMenuPopup"
                                    AllowsTransparency="True" Focusable="False"
                                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -66,26 +84,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Width" Value="35" />
-        </Style>
-        <Style x:Key="TextboxStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="_border"
-                                Background="White" BorderBrush="Black" BorderThickness="1.5"
-                                CornerRadius="8">
-                            <ScrollViewer x:Name="PART_ContentHost" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="_border" Property="BorderBrush" Value="Blue" />
-                                <Setter TargetName="_border" Property="BorderThickness" Value="2" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Width" Value="{Binding ActualHeight, ElementName=MainMenu}" />
         </Style>
     </Application.Resources>
 </Application>

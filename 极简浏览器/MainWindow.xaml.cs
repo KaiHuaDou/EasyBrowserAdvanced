@@ -13,16 +13,14 @@ namespace 极简浏览器;
 /// 主窗口的交互代码
 /// 负责：ChromiumWebBrowser 的相关事宜、初始化
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IDisposable
 {
     private readonly int Id;
     public Argument Args { get; set; }
+    private EasyBrowserCore Browser => Instance.Core[Id];
 
-    public MainWindow( )
+    public MainWindow( ) : this(0, new Argument( ))
     {
-        InitializeComponent( );
-        Id = 0;
-        Args = new Argument( );
         Instance.Host[0] = this;
     }
 
@@ -33,36 +31,36 @@ public partial class MainWindow : Window
         Args = args;
     }
 
-    private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
-    {
-        Cef.UIThreadTaskFactory.StartNew(( ) =>
-        {
-            try
-            {
-                Instance.Core[Id].GetBrowser( ).GetHost( ).RequestContext
-                        .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
-            }
-            catch (NullReferenceException) { }
-            catch (ObjectDisposedException) { }
-        });
-    }
-
     private void WindowLoaded(object o, RoutedEventArgs e)
     {
+        TitleRow.Height = new GridLength((int) (TitleRow.ActualHeight + 1));
         Instance.Core[Id] = new EasyBrowserCore(Id)
         {
             Margin = new Thickness(0),
             MenuHandler = new MenuHandler(Id),
-            DownloadHandler = new DownloadHandler( )
         };
-        Instance.Core[Id].AddressChanged += PageLoading;
-        Instance.Core[Id].FrameLoadEnd += PageLoaded;
-        Instance.Core[Id].TitleChanged += BrowserTitleChanged;
-        Instance.Core[Id].IsBrowserInitializedChanged += BrowserLoaded;
-        Instance.Core[Id].LoadError += BrowserLoadError;
+        Browser.AddressChanged += PageLoading;
+        Browser.FrameLoadEnd += PageLoaded;
+        Browser.TitleChanged += BrowserTitleChanged;
+        Browser.IsBrowserInitializedChanged += BrowserLoaded;
+        Browser.LoadError += BrowserLoadError;
         MenuHandler.MainWindow = this;
-        BrowserGrid.Children.Add(Instance.Core[Id]);
+        BrowserGrid.Children.Add(Browser);
         Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, App.Program.StartupUri));
+    }
+
+    private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
+    {
+        try
+        {
+            Cef.UIThreadTaskFactory.StartNew(( ) =>
+            {
+                Browser.GetBrowser( ).GetHost( ).RequestContext
+                        .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
+            });
+        }
+        catch (NullReferenceException) { }
+        catch (ObjectDisposedException) { }
     }
 
     private void PageCheckUrl(object o, KeyEventArgs e)
@@ -70,6 +68,7 @@ public partial class MainWindow : Window
         if (e.Key is (Key.Enter or Key.Return) and not Key.ImeProcessed)
             PagePreload(o, new RoutedEventArgs( ));
     }
+
     private void PagePreload(object o, RoutedEventArgs e)
     {
         if (UrlTextBox.Text.ToUpperInvariant( ).Contains("EASY://"))
@@ -84,8 +83,8 @@ public partial class MainWindow : Window
     {
         loadLabel.Visibility = Visibility.Visible;
         LoadProgress.Visibility = Visibility.Visible;
-        if (!Instance.Core[Id].Address.Contains("Error.html?errorCode="))
-            UrlTextBox.Text = Instance.Core[Id].Address;
+        if (!Browser.Address.Contains("Error.html?errorCode="))
+            UrlTextBox.Text = Browser.Address;
     }
 
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
@@ -94,14 +93,13 @@ public partial class MainWindow : Window
         {
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
-            CookieMgr.Set(Id);
             if (Args.IsPrivate) return;
             App.History.Content.Add(
                 new Record
                 {
                     Check = false,
-                    Title = Instance.Core[Id].Title,
-                    Url = Instance.Core[Id].Address,
+                    Title = Browser.Title,
+                    Url = Browser.Address,
                     Time = Utils.LocalTime
                 }
             );
@@ -110,35 +108,37 @@ public partial class MainWindow : Window
     }
 
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
-        => Title = Instance.Core[Id].Title + " - 极简浏览器";
+        => Title = Browser.Title + " - 极简浏览器";
 
     private void BrowserLoadError(object o, LoadErrorEventArgs e)
     {
         void LoadError( )
         {
-            if (!Instance.Core[Id].IsLoading || e.ErrorCode.ToString( ) == "Aborted") return;
+            if (Browser.IsLoading) return;
+            if (e.ErrorCode.ToString( ) is "Aborted" or "ConnectionClosed") return;
             Instance.Navigate(Id,
                 $@"{FilePath.Runtime}\Resources\Error.html?errorCode={e.ErrorCode}&errorText={e.ErrorText}&url={UrlTextBox.Text}");
         }
         Dispatcher.BeginInvoke(LoadError);
     }
 
-    private void BrowserZooming(object o, MouseWheelEventArgs e)
+    private async void BrowserZoom(object o, MouseWheelEventArgs e)
     {
         if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
         switch (e.Delta)
         {
-            case > 0: Instance.Core[Id].ZoomInCommand.Execute(null); break;
-            case < 0: Instance.Core[Id].ZoomOutCommand.Execute(null); break;
+            case > 0: Browser.ZoomInCommand.Execute(null); break;
+            case < 0: Browser.ZoomOutCommand.Execute(null); break;
         }
-        zoomLabel.Content = Instance.Core[Id].GetBrowserHost( ).GetZoomLevel( ).ToString( ) + "%";
-        zoomLabel.Visibility = zoomLabel.Content.ToString( ) == "100%" ? Visibility.Collapsed : Visibility.Visible;
+        double zoomLevel = Utils.ConvertZoomLevel(await Browser.GetBrowserHost( ).GetZoomLevelAsync( ));
+        zoomLabel.Content = $"{zoomLevel}%";
+        zoomLabel.Visibility = zoomLevel == 100 ? Visibility.Collapsed : Visibility.Visible;
         e.Handled = true;
     }
 
     private void ShortcutProcess(object o, KeyEventArgs e)
     {
-        if (e.Key == Key.F12) Instance.Core[Id].ShowDevTools( );
+        if (e.Key == Key.F12) Browser.ShowDevTools( );
         if (Keyboard.Modifiers != ModifierKeys.Control) return;
         switch (e.Key)
         {
@@ -154,10 +154,15 @@ public partial class MainWindow : Window
     {
         App.History.Save( );
         App.Bookmark.Save( );
-        App.Cookies.Save( );
         App.Setting.Save( );
-        Instance.Core[Id].CloseDevTools( );
-        Instance.Core[Id].GetBrowser( ).CloseBrowser(true);
-        Instance.Core[Id].Dispose( );
+        Browser.CloseDevTools( );
+        Browser.GetBrowser( ).CloseBrowser(true);
+    }
+
+    public void Dispose( )
+    {
+        try { Browser.Dispose( ); }
+        catch (ObjectDisposedException) { }
+        GC.SuppressFinalize(this);
     }
 }

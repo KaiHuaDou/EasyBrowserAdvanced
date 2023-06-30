@@ -2,24 +2,23 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="极简浏览器"
-        Width="800" Height="600"
         Closing="WindowClosing" Icon="/Icon/Icon.ico" KeyDown="ShortcutProcess"
         Loaded="WindowLoaded">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
+            <RowDefinition x:Name="TitleRow" Height="Auto" />
             <RowDefinition Height="3" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel>
+        <DockPanel Margin="4,0">
             <Button x:Name="GoBackButton" Style="{StaticResource RoundButton}" Click="GoBackClick">
                 ←
             </Button>
             <Button x:Name="GoForwardButton" Style="{StaticResource RoundButton}" Click="GoForwardClick">
                 →
             </Button>
-            <Menu DockPanel.Dock="Right" Width="35" Height="35">
-                <MenuItem Width="35" Height="35" Style="{StaticResource TopMenuItem}">
+            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8">
+                <MenuItem Style="{StaticResource TopMenuItem}">
                     <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
                     <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
                     <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
@@ -33,10 +32,10 @@
                     <MenuItem x:Name="DevToolsButton"
                               Header="开发者工具"
                               Style="{StaticResource WhiteMenu}"
-                              Click="DevToolClick" />
+                              Click="DevToolsClick" />
                     <MenuItem Header="置顶"
                               Style="{StaticResource WhiteMenu}"
-                              Click="TopmostChecked" IsCheckable="True"
+                              Click="TopmostClick" IsCheckable="True"
                               IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
                     <MenuItem x:Name="singleBox"
                               Header="本窗口打开"
@@ -60,10 +59,8 @@
                     Style="{StaticResource RoundButton}"
                     Click="RefreshClick" Content="@" />
             <TextBox x:Name="UrlTextBox"
-                     Height="30"
-                     Margin="0,2,0,0" VerticalAlignment="Center"
+                     Margin="4" VerticalAlignment="Center"
                      Style="{StaticResource TextboxStyle}"
-                     FontSize="20"
                      KeyDown="PageCheckUrl" TextWrapping="NoWrap" />
         </DockPanel>
         <ProgressBar x:Name="LoadProgress"
@@ -74,7 +71,7 @@
         <Grid x:Name="BrowserGrid"
               Grid.Row="2"
               Margin="0"
-              PreviewMouseWheel="BrowserZooming" />
+              PreviewMouseWheel="BrowserZoom" />
         <StackPanel Grid.Row="2"
                     Height="33"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom"

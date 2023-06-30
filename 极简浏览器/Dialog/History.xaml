@@ -54,28 +54,20 @@
             </DockPanel>
         </TabItem>
         <TabItem Header="Cookies" Width="200">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Bottom"
-                            Margin="5,10" HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                    <Button Margin="5,0" Padding="20,3"
-                            Click="CookiesAll" Content="全选" />
-                    <Button Margin="5,0" Padding="20,3"
-                            Click="CookiesClear" Content="清空" />
-                    <Button Margin="5,0" Padding="20,3"
-                            Click="CookiesDelete" Content="删除" />
-                </StackPanel>
-                <DataGrid x:Name="CookiesView" BorderThickness="0" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
-                        <DataGridTextColumn Header="域" Binding="{Binding Url}" />
-                        <DataGridTextColumn Header="名称" Binding="{Binding Value.Name}" />
-                        <DataGridTextColumn Header="内容" Binding="{Binding Value.Value}" />
-                        <DataGridTextColumn Header="创建日期" Binding="{Binding Value.Creation}" />
-                        <DataGridTextColumn Header="最后访问" Binding="{Binding Value.LastAccess}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </DockPanel>
+            <DataGrid x:Name="CookiesView"
+                      BorderThickness="0"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="域" Binding="{Binding Domain}" />
+                    <DataGridCheckBoxColumn Header="安全" Binding="{Binding Secure}" />
+                    <DataGridTextColumn Header="名称" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="内容" Binding="{Binding Value}" />
+                    <DataGridTextColumn Header="优先级" Binding="{Binding Priority}" />
+                    <DataGridTextColumn Header="过期时间" Binding="{Binding Expires}" />
+                    <DataGridTextColumn Header="创建时间" Binding="{Binding Creation}" />
+                    <DataGridTextColumn Header="最后访问" Binding="{Binding LastAccess}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </TabItem>
     </TabControl>
 </Window>

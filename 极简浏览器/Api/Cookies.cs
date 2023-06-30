@@ -1,54 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using CefSharp;
 
 namespace 极简浏览器.Api;
 
-public static class CookieMgr
+public static class CookieManager
 {
-    private static string address;
+    public static readonly HashSet<Cookie> Cookies = new( );
+
     public static void Get( )
     {
-        try
-        {
-            using ICookieManager manager = Cef.GetGlobalCookieManager( );
-            foreach (CookieData item in App.Cookies.Content)
-                manager.SetCookieAsync(item.Url, item.Value);
-        }
-        catch (NullReferenceException) { }
-    }
-
-    public static void Set(int id)
-    {
+        Cookies.Clear( );
         CookieVisitor visitor = new( );
-        visitor.SendCookie += AddCookie;
-        ICookieManager cookieManager = Instance.Core[id].GetCookieManager( );
-        address = Instance.Core[id].Address;
+        visitor.SendCookie += GetCookie;
+        ICookieManager cookieManager = Cef.GetGlobalCookieManager( );
         cookieManager.VisitAllCookies(visitor);
     }
 
-    private static void AddCookie(Cookie cookie)
-    {
-        try
-        {
-            foreach (CookieData item in App.Cookies.Content)
-            {
-                if (item.Value.Name == cookie.Name && item.Value.Domain == cookie.Domain)
-                {
-                    App.Cookies.Content.Add(item);
-                    return;
-                }
-            }
-        }
-        catch (NullReferenceException) { }
-        App.Cookies.Content.Add(new CookieData { Url = address, Value = cookie });
-    }
-}
-
-public class CookieData
-{
-    public bool Check { get; set; }
-    public string Url { get; set; }
-    public Cookie Value { get; set; }
+    private static void GetCookie(Cookie cookie)
+        => Cookies.Add(cookie);
 }
 
 public class CookieVisitor : ICookieVisitor

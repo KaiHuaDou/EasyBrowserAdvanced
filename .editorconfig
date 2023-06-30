@@ -10,6 +10,12 @@ tab_width = 4
 
 [*.{cs,vb}]
 
+end_of_line = lf
+insert_final_newline = true
+tab_width = 4
+indent_size = 4
+indent_style = space
+
 # 组织 Using
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
@@ -68,35 +74,35 @@ dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
 
 # 命名规则
 dotnet_naming_rule.interface_should_be_interface.severity = suggestion
-dotnet_naming_rule.interface_should_be_interface.symbols = interface
 dotnet_naming_rule.interface_should_be_interface.style = interface
-dotnet_naming_rule.types_should_be_bigstart.severity = suggestion
-dotnet_naming_rule.types_should_be_bigstart.symbols = types
-dotnet_naming_rule.types_should_be_bigstart.style = bigstart
+dotnet_naming_rule.interface_should_be_interface.symbols = interface
 dotnet_naming_rule.non_field_members_should_be_bigstart.severity = suggestion
-dotnet_naming_rule.non_field_members_should_be_bigstart.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_bigstart.style = bigstart
+dotnet_naming_rule.non_field_members_should_be_bigstart.symbols = non_field_members
+dotnet_naming_rule.types_should_be_bigstart.severity = suggestion
+dotnet_naming_rule.types_should_be_bigstart.style = bigstart
+dotnet_naming_rule.types_should_be_bigstart.symbols = types
 
 # 符号规范
-dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.required_modifiers = 
-dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
-dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.types.required_modifiers = 
-dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
 dotnet_naming_symbols.non_field_members.required_modifiers = 
+dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
+dotnet_naming_symbols.types.required_modifiers = 
 
 # 命名样式
+dotnet_naming_style.bigstart.capitalization = pascal_case
 dotnet_naming_style.bigstart.required_prefix = 
 dotnet_naming_style.bigstart.required_suffix = 
 dotnet_naming_style.bigstart.word_separator = 
-dotnet_naming_style.bigstart.capitalization = pascal_case
+dotnet_naming_style.interface.capitalization = pascal_case
 dotnet_naming_style.interface.required_prefix = I
 dotnet_naming_style.interface.required_suffix = 
 dotnet_naming_style.interface.word_separator = 
-dotnet_naming_style.interface.capitalization = pascal_case
 
 ## C# 首选项
 
@@ -108,14 +114,14 @@ csharp_style_var_for_built_in_types = false:suggestion
 csharp_style_var_when_type_is_apparent = false:suggestion
 
 # Expression-bodied 成员
-csharp_style_expression_bodied_accessors = true:suggestion
+csharp_style_expression_bodied_accessors = when_on_single_line:suggestion
 csharp_style_expression_bodied_constructors = false:suggestion
-csharp_style_expression_bodied_indexers = true:suggestion
-csharp_style_expression_bodied_lambdas = true:suggestion
-csharp_style_expression_bodied_local_functions = true:suggestion
+csharp_style_expression_bodied_indexers = when_on_single_line:suggestion
+csharp_style_expression_bodied_lambdas = when_on_single_line:suggestion
+csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
 csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-csharp_style_expression_bodied_operators = true:suggestion
-csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_operators = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
 
 # 模式匹配首选项
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
@@ -133,18 +139,19 @@ csharp_style_prefer_readonly_struct = true:suggestion
 
 # 代码块首选项
 csharp_prefer_braces = when_multiline:suggestion
-csharp_prefer_simple_using_statement = true:suggestion
-csharp_style_namespace_declarations = file_scoped:suggestion
-csharp_style_prefer_method_group_conversion = true:suggestion
-csharp_style_prefer_top_level_statements = false:suggestion
 csharp_prefer_simple_default_expression = true:suggestion
+csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_deconstructed_variable_declaration = true:suggestion
 csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_namespace_declarations = file_scoped:suggestion
 csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_method_group_conversion = true:suggestion
 csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
+csharp_style_prefer_readonly_struct_member = true:suggestion
+csharp_style_prefer_top_level_statements = false:suggestion
 csharp_style_prefer_tuple_swap = true:suggestion
 csharp_style_prefer_utf8_string_literals = true:suggestion
 csharp_style_throw_expression = true:suggestion
@@ -152,12 +159,6 @@ csharp_style_unused_value_assignment_preference = discard_variable:silent
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # "using" 指令首选项
-csharp_using_directive_placement = outside_namespace:suggestion
-csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = false:suggestion
-csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false:suggestion
-csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:suggestion
-csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false:suggestion
-csharp_style_allow_embedded_statements_on_same_line_experimental = true:silent
 csharp_new_line_before_catch = true
 csharp_new_line_before_else = true
 csharp_new_line_before_finally = true
@@ -165,6 +166,12 @@ csharp_new_line_before_members_in_anonymous_types = false
 csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_before_open_brace = all
 csharp_new_line_between_query_expression_clauses = false
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = false:suggestion
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false:suggestion
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:suggestion
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false:suggestion
+csharp_style_allow_embedded_statements_on_same_line_experimental = true:silent
+csharp_using_directive_placement = outside_namespace:suggestion
 
 # 缩进首选项
 csharp_indent_block_contents = true

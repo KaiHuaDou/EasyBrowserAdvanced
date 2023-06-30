@@ -5,11 +5,14 @@
 
 ## 3.7.2 (规划内)
 
-### Beta 1
-
 ## 3.4.7.2 (开发中)
 
-### RC3w
+### RC3 (开发中)
+
++ :sparkles: 增加 Cookie 显示项目
++ :bug: 修复了关闭打开后立即关闭窗口导致崩溃的错误
++ :bug: 修复缩放崩溃和缩放系数的错误
++ :lipstick: 更改主界面导航栏样式
 
 ### RC2
 
@@ -26,10 +29,10 @@
 + :sparkles: 采用更好的关于窗口
 + :zap: 更新 Visual Studio 以提升编译性能
 + :bug: 修复源代码格式未完成导致崩溃的错误
-+ :fire: 删除 MaterialDesign
++ :fire: 删除 `MaterialXamlDesign`
 + :sparkles: 缩放级别显示
 + :zap: 转换为单进程模式
-+ :sparkles: 通过`Ctrl`快捷键进入窗口的功能
++ :sparkles: 通过<kbd>Ctrl</kbd>快捷键进入窗口的功能
 + :bug: 为配置类启用泛型
 + :sparkles: 储存读取 Cookies 的功能
 + :bug: 修复下载 URL 显示不全的错误
@@ -60,22 +63,22 @@
 + :fire: 删除扩展模块
 + :fire: 删除被开发者工具替代的 `RunJavaScript` 模块
 + :bug: 修正历史遗留错误若干
-+ :arrow_up: 升级到 MaterialDesignColors 2.0.9
-+ :arrow_up: 升级到 MaterialDesignThemes 4.6.1
-+ :arrow_up: 升级到 .NET Framework 4.6.2
++ :arrow_up: 升级到`MaterialDesignColors 2.0.9`
++ :arrow_up: 升级到`MaterialDesignThemes 4.6.1`
++ :arrow_up: 升级到`.NET Framework 4.6.2`
 
 ### Beta2
 
 + :art: 更新应用程序的颜色
-+ :arrow_up: 更新 MaterialDesign 的版本
++ :arrow_up: 更新`MaterialXamlDesign`的版本
 + :bug: 修复对话框字体颜色偏灰的错误
 + :bug: 修复菜单栏颜色字体不正确的错误
 + :bug: 修复书签文件启动崩溃的错误
-+ :lipstick: 应用 MaterialDesign 样式
-+ :bug: 修复下载完成后窗口崩溃的 Bug
++ :lipstick: 应用`MaterialXamlDesign`样式
++ :bug: 修复下载完成后窗口崩溃的错误
 + :sparkles: 网页加载完成后不再显示"加载完成"字样
-+ :bug: 修复无法自动播放 Flash 的 Bug
-+ :bug: 修复加载完成后跳转到错误页面的 Bug
++ :bug: 修复无法自动播放 Flash 的错误
++ :bug: 修复加载完成后跳转到错误页面的错误
 
 ### Beta1
 
@@ -97,11 +100,11 @@
 + :art: 整合`Api/ConfigHelper.cs`之历史记录部分
 + :sparkles: 下载窗口
 + :art: 将部分函数改为属性
-+ :sparkles: 执行 Javascript 窗口
++ :sparkles: 执行 JavaScript 窗口
 + :bug: 解决下载时闪退的错误
 + :bug: 删除设置窗口的空白区域
 
-## V3.3.1.11
+## 3.3.1.11
 
 + :sparkles: 更好的反馈窗口
 + :bug: 权限不足导致的无法启动
@@ -126,7 +129,7 @@
 + :sparkles: 无痕模式(由`@要饭的肥喵`提出建议)
 + :sparkles: 在本窗口打开的功能
 
-## V3.2.1.11
+## 3.2.1.11
 
 + :art: 整合`Api/StandardApi.cs`
 + :sparkles: 格式化网页源代码时支持 CSS
@@ -151,7 +154,7 @@
 + :art: 修复`History.xaml.cs`的函数名不规范
 + :recycle: 修复`FileApi.cs`的代码质量问题
 
-## V3.0.0.0
+## 3.0.0.0
 
 + :bug: 修复写入日志错误
 + :bug: 修复无法删除历史记录和书签的错误
