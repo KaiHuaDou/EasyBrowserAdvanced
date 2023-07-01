@@ -28,5 +28,4 @@ public static class Utils
             _ => 100,
         };
     }
-
 }

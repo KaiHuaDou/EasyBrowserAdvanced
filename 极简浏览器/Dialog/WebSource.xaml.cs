@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
@@ -9,11 +10,17 @@ namespace 极简浏览器;
 public partial class WebSource : Window
 {
     private int Id;
+    private Thread formatter;
 
     public WebSource(int id)
     {
         InitializeComponent( );
         Id = id;
+        formatter = new((source) =>
+        {
+            string result = Formatter.Format((string) source);
+            Dispatcher.Invoke(( ) => sourceBox.Text = result);
+        });
         RefreshSource(null, null);
     }
 
@@ -21,16 +28,7 @@ public partial class WebSource : Window
         => sourceBox.Text = await Instance.PageSourceAsync(Id);
 
     private void FormatSource(object o, RoutedEventArgs e)
-    {
-        new Thread((html) =>
-        {
-            string result = Formatter.FormartHtml((string) html);
-            Dispatcher.Invoke(( ) =>
-            {
-                try { sourceBox.Text = result; } catch { }
-            });
-        }).Start(sourceBox.Text);
-    }
+        => formatter.Start(sourceBox.Text);
 
     private void SaveSource(object o, RoutedEventArgs e)
     {
@@ -44,4 +42,7 @@ public partial class WebSource : Window
         if (dialog.ShowDialog( ) == true)
             File.WriteAllText(dialog.FileName, sourceBox.Text);
     }
+
+    private void WindowClosing(object o, CancelEventArgs e)
+        => formatter.Abort( );
 }

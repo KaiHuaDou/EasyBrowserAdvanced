@@ -78,14 +78,14 @@ public class LifeSpanHandler : ILifeSpanHandler
 
 public class DownloadHandler : IDownloadHandler
 {
-    private readonly Action<bool, DownloadItem> _downloadCallBackEvent;
+    private readonly Action<bool, DownloadItem> downloadCallBackEvent;
 
     public void OnBeforeDownload(
         IWebBrowser chromiumWebBrowser, IBrowser browser,
         DownloadItem downloadItem, IBeforeDownloadCallback callback)
     {
         if (callback.IsDisposed) return;
-        _downloadCallBackEvent?.Invoke(false, downloadItem);
+        downloadCallBackEvent?.Invoke(false, downloadItem);
         string path = AskDownloadPath(downloadItem);
         if (path is null) return;
         new Download(downloadItem, path).Show( );
@@ -95,7 +95,7 @@ public class DownloadHandler : IDownloadHandler
     public void OnDownloadUpdated(
         IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
         IDownloadItemCallback callback)
-        => _downloadCallBackEvent?.Invoke(true, downloadItem);
+        => downloadCallBackEvent?.Invoke(true, downloadItem);
 
     private static string AskDownloadPath(DownloadItem item)
     {
@@ -152,7 +152,6 @@ public class MenuHandler : IContextMenuHandler
         IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame,
         IContextMenuParams parameters, IMenuModel model) => _ = true;
     public bool OnContextMenuCommand(
-        IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame,
-        IContextMenuParams parameters,
+        IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters,
         CefMenuCommand commandId, CefEventFlags eventFlags) => true;
 }
