@@ -16,6 +16,7 @@ namespace 极简浏览器;
 public partial class MainWindow : Window, IDisposable
 {
     private readonly int Id;
+    public bool IsError { get; set; }
     public Argument Args { get; set; }
     private EasyBrowserCore Browser => Instance.Core[Id];
 
@@ -71,20 +72,20 @@ public partial class MainWindow : Window, IDisposable
 
     private void PagePreload(object o, RoutedEventArgs e)
     {
-        if (UrlTextBox.Text.ToUpperInvariant( ).Contains("EASY://"))
-            Instance.PraseEasy(Id, UrlTextBox.Text);
-        else if (Regex.IsMatch(UrlTextBox.Text, @"\.[A-Za-z]{1,4}|(://)|^[A-Za-z]:\\|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,4})?|^about:"))
-            Instance.Navigate(Id, UrlTextBox.Text);
+        IsError = false;
+        if (AddressBox.Text.ToUpperInvariant( ).Contains("EASY://"))
+            Instance.PraseEasy(Id, AddressBox.Text);
+        else if (Regex.IsMatch(AddressBox.Text, Utils.AddressRegex))
+            Instance.Navigate(Id, AddressBox.Text);
         else
-            Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + UrlTextBox.Text);
+            Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + AddressBox.Text);
     }
 
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
     {
         loadLabel.Visibility = Visibility.Visible;
         LoadProgress.Visibility = Visibility.Visible;
-        if (!Browser.Address.Contains("Error.html?errorCode="))
-            UrlTextBox.Text = Browser.Address;
+        if (!IsError) AddressBox.Text = Browser.Address;
     }
 
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
@@ -93,7 +94,7 @@ public partial class MainWindow : Window, IDisposable
         {
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
-            if (Args.IsPrivate) return;
+            if (Args.IsPrivate || IsError) return;
             App.History.Content.Add(
                 new Record
                 {
@@ -108,18 +109,17 @@ public partial class MainWindow : Window, IDisposable
     }
 
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
-        => Title = Browser.Title + " - 极简浏览器";
+        => Title = IsError ? AddressBox.Text : Browser.Title + " - 极简浏览器";
 
     private void BrowserLoadError(object o, LoadErrorEventArgs e)
     {
-        void LoadError( )
+        if (e.ErrorCode.ToString( ) is "Aborted" or "ConnectionClosed") return;
+        Dispatcher.BeginInvoke(( ) =>
         {
             if (Browser.IsLoading) return;
-            if (e.ErrorCode.ToString( ) is "Aborted" or "ConnectionClosed") return;
-            Instance.Navigate(Id,
-                $@"{FilePath.Runtime}\Resources\Error.html?errorCode={e.ErrorCode}&errorText={e.ErrorText}&url={UrlTextBox.Text}");
-        }
-        Dispatcher.BeginInvoke(LoadError);
+            IsError = true;
+            Instance.Navigate(Id, $@"{FilePath.ErrorPage}?code={e.ErrorCode}&text={e.ErrorText}&url={AddressBox.Text}");
+        });
     }
 
     private async void BrowserZoom(object o, MouseWheelEventArgs e)

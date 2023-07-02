@@ -1,10 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <title></title>
+    <meta charset="utf-8" />
     <style>
         div {
             text-align: center;
@@ -55,38 +54,35 @@
     <script>
         let translate =
         {
+            "Aborted": "连接中断",
             "AddressUnreachable": "无法访问地址",
+            "ConnectionClosed": "连接已关闭",
             "ConnectionRefused": "访问被拒绝",
             "ConnectionReset": "连接已重置",
             "ConnectionTimedOut": "响应时间过长",
-            "ConnectionClosed": "连接已关闭",
             "FileNotFound": "找不到文件",
             "InvalidUrl": "无效 URL 地址",
             "NameNotResolved": "无法解析地址",
             "SslVersionOrCipherMismatch": "SSL 版本不匹配",
             "TooManyRedirects": "重定向次数过多",
+            "UnknownUrlScheme": "未知 URL 形式"
         };
 
         function searchURL()
         {
-            document.location = "https://cn.bing.com/search?q=" + getError("url");
+            document.location = "https://cn.bing.com/search?q=" + getParam("url");
         }
 
         function searchCode()
         {
-            document.location = "https://cn.bing.com/search?q=" + getError("errorText");
+            document.location = "https://cn.bing.com/search?q=" + getParam("text");
         }
 
-        function getError(variable)
+        function getParam(key)
         {
-            var query = window.location.search.substring(1);
-            var vars = query.split("&");
-            for (var i = 0; i < vars.length; i++)
-            {
-                var pair = vars[i].split("=");
-                if (pair[0] == variable) return pair[1];
-            }
-            return (false);
+            var reg = new RegExp('[\?\&]' + key + '=([^\&]*)(\&?)', 'i')
+            var r = new URL(window.location).search.match(reg)
+            return r ? r[1] : ''
         }
 
         function translateCode(code)
@@ -94,9 +90,9 @@
             let result = translate[code];
             return result == undefined ? code : result;
         }
-        document.title = translateCode(getError("errorCode"));
-        document.getElementById("infobig").innerHTML = translateCode(getError("errorCode"));
-        document.getElementById("infotext").innerHTML = getError("errorText");
+
+        document.getElementById("infobig").innerHTML = translateCode(getParam("code"));
+        document.getElementById("infotext").innerHTML = getParam("text");
     </script>
 </body>
 

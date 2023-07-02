@@ -30,6 +30,7 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 
 1. [.NET Framework 4.6.2 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net462-offline-installer)
 2. [Visual C++ 2022 Runtime](https://aka.ms/vs/17/release/vc_redist.x64.exe)
+3. [Segoe Fluent Icons Font](https://aka.ms/SegoeFluentIcons)
 
 ## Test Environment
 
@@ -44,7 +45,7 @@ Please refer to [Change Log](./CHANGELOG.md) for version details
 | :-----: | :-------------------------------------------------: | :----------: |
 | Stable  |              relatively stable version              |   v3.4.7.2   |
 |  Beta   |              new feature test version               | v3.7.2-beta1 |
-|   RC    | version that is generally perfect but lacks details | v3.4.7.2-rc2 |
+|   RC    | version that is generally perfect but lacks details | v3.4.7.2-rc3 |
 
 ## Development Environment
 

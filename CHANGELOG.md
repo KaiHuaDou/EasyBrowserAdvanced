@@ -9,6 +9,10 @@
 
 ### RC3 (开发中)
 
++ :lipstick: 更新菜单样式
++ :lipstick: 更新导航栏图标
++ :children_crossing: 增加错误代码中文翻译
++ :children_crossing: 优化网址识别正则表达式
 + :sparkles: 增加 Cookie 显示项目
 + :bug: 修复了关闭打开后立即关闭窗口导致崩溃的错误
 + :bug: 修复缩放崩溃和缩放系数的错误

@@ -17,4 +17,5 @@ public static class FilePath
     public static string BookMark = $@"{Data}\BookMark.xml";
     public static string Setting = $@"{Data}\Setting.xml";
     public static string Cookies = $@"{Data}\Cookies.xml";
+    public static string ErrorPage = $@"{Runtime}\Resources\Error.html";
 }

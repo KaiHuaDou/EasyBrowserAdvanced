@@ -30,6 +30,7 @@
 
 1. [.NET Framework 4.6.2 运行时](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net462-offline-installer)
 2. [Visual C++ 2022 运行时](https://aka.ms/vs/17/release/vc_redist.x64.exe)
+3. [Segoe Fluent Icons 字体](https://aka.ms/SegoeFluentIcons)
 
 ## 测试环境
 
@@ -44,7 +45,7 @@
 | :----: | :----------------------: | :----------: |
 | Stable |       相对稳定版本       |   v3.4.7.2   |
 |  Beta  |      新功能测试版本      | v3.7.2-beta1 |
-|   RC   | 总体完善但细节不足的版本 | v3.4.7.2-rc2 |
+|   RC   | 总体完善但细节不足的版本 | v3.4.7.2-rc3 |
 
 ## 开发环境
 

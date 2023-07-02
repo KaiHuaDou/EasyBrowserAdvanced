@@ -54,19 +54,19 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <Compile Update="Resources\GuiText.Designer.cs">
+        <Compile Update="Resources\Resources.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>GuiText.resx</DependentUpon>
+            <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
         <Compile Update="Resources\Settings.Designer.cs">
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
-        <EmbeddedResource Update="Resources\GuiText.resx">
+        <EmbeddedResource Update="Resources\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

@@ -8,9 +8,10 @@ namespace 极简浏览器.Api;
 /// </summary>
 public static class Utils
 {
+    public static string AddressRegex = @"^([a-z]+://|about:|((2[0-4]\d.)|(25[0-5].)|(1\d{2}.)|(\d{1,2}.))((2[0-5]{2}.)|(1\d{2}.)|(\d{1,2}.){2})((1\d{2})|(2[0-5]{2})|(\d{1,2})))|/$|.\.[A-Za-z\u4e00-\u9fa5]{1,5}$";
     public static string LocalTime => DateTime.Now.ToLocalTime( ).ToString( );
 
-    public static void CreatIfNotExists(string filename)
+    public static void CreateIfNotExists(string filename)
         => new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite).Close( );
 
     public static string ZipStr(string str, int len)

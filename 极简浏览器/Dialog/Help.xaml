@@ -11,14 +11,22 @@
                 <TreeViewItem>
                     <TreeViewItem.Header>
                         <TextBlock Width="370" Margin="0" TextWrapping="Wrap">
-                            对不起，我们也解决不了这个问题，如果您有什么解决方案，可以到 https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3 上反馈
+                            <Run>对不起，我们也解决不了这个问题，如果您有什么解决方案，请</Run>
+                            <Hyperlink NavigateUri="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3">告诉我们</Hyperlink>
                         </TextBlock>
                     </TreeViewItem.Header>
                 </TreeViewItem>
             </TreeViewItem>
-            <TreeViewItem Header="内容显示不全" IsExpanded="True">
-                <TreeViewItem Header="将系统默认字体调小" />
-                <TreeViewItem Header="增大显示器大小" />
+            <TreeViewItem Header="无法显示图标" IsExpanded="True">
+                <TreeViewItem>
+                    <TreeViewItem.Header>
+                        <TextBlock Width="370" Margin="0" TextWrapping="Wrap">
+                            <Run>请</Run>
+                            <Hyperlink NavigateUri="https://aka.ms/SegoeFluentIcons">下载</Hyperlink>
+                            <Run>并安装图标字体</Run>
+                        </TextBlock>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
             </TreeViewItem>
             <TreeViewItem Header="许可条件">
                 <TreeViewItem Header="本软件使用 Apache 2.0 License" />

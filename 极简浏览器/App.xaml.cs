@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using CefSharp;
 using Microsoft.Shell;
 using 极简浏览器.Api;
-using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
@@ -63,24 +61,12 @@ public partial class App : Application, ISingleInstanceApp
     {
         Directory.CreateDirectory(FilePath.Data);
         Directory.CreateDirectory(FilePath.Log);
-        Utils.CreatIfNotExists(FilePath.Log + "\\log.log");
-        Utils.CreatIfNotExists(FilePath.Log + "\\error.log");
-        Utils.CreatIfNotExists(FilePath.Log + "\\debug.log");
-        try
-        {
-            if (File.Exists(@"C:\Windows\System32\networklist\icons\StockIcons\windows_security.bin"))
-            {
-                new Thread(( ) =>
-                {
-                    MessageBox.Show(GuiText.civiRefuse);
-                    Current.Shutdown( );
-                }).Start( );
-            }
-        }
-        catch (Exception) { }
+        Utils.CreateIfNotExists(FilePath.Log + "\\log.log");
+        Utils.CreateIfNotExists(FilePath.Log + "\\error.log");
+        Utils.CreateIfNotExists(FilePath.Log + "\\debug.log");
     }
 
-    private void ExpetionOpen(object o, DispatcherUnhandledExceptionEventArgs e)
+    private void ExceptionOpen(object o, DispatcherUnhandledExceptionEventArgs e)
     {
         Logger.Log(e.Exception, type: LogType.Error);
         new Report(e.Exception.Message).ShowDialog( );

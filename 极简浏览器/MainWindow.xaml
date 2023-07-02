@@ -11,13 +11,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel Margin="4,0">
-            <Button x:Name="GoBackButton" Style="{StaticResource RoundButton}" Click="GoBackClick">
-                ←
-            </Button>
-            <Button x:Name="GoForwardButton" Style="{StaticResource RoundButton}" Click="GoForwardClick">
-                →
-            </Button>
-            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8">
+            <Button x:Name="GoBackButton"
+                    Style="{StaticResource NavButton}"
+                    Click="GoBackClick" Content="&#xE72B;" />
+            <Button x:Name="GoForwardButton"
+                    Style="{StaticResource NavButton}"
+                    Click="GoForwardClick" Content="&#xE72A;" />
+            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8,4,8">
                 <MenuItem Style="{StaticResource TopMenuItem}">
                     <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
                     <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
@@ -50,15 +50,13 @@
             </Menu>
             <Button x:Name="NewPageButton"
                     DockPanel.Dock="Right"
-                    Style="{StaticResource RoundButton}"
-                    Click="NewPageClick">
-                +
-            </Button>
+                    Style="{StaticResource NavButton}"
+                    Click="NewPageClick" Content="&#xE710;" />
             <Button x:Name="RefershButton"
                     DockPanel.Dock="Right"
-                    Style="{StaticResource RoundButton}"
-                    Click="RefreshClick" Content="@" />
-            <TextBox x:Name="UrlTextBox"
+                    Style="{StaticResource NavButton}"
+                    Click="RefreshClick" Content="&#xE72C;" />
+            <TextBox x:Name="AddressBox"
                      Margin="4" VerticalAlignment="Center"
                      Style="{StaticResource TextboxStyle}"
                      KeyDown="PageCheckUrl" TextWrapping="NoWrap" />

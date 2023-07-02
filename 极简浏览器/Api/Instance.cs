@@ -28,10 +28,10 @@ public static class Instance
     {
         try
         {
-            if (Core[id].Address == Host[id].UrlTextBox.Text)
+            if (Core[id].Address == Host[id].AddressBox.Text)
                 Core[id].Reload( );
             else
-                Navigate(id, Host[id].UrlTextBox.Text);
+                Navigate(id, Host[id].AddressBox.Text);
         }
         catch (InvalidOperationException) { }
     }

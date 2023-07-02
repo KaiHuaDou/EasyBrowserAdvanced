@@ -2,13 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:极简浏览器"
-             DispatcherUnhandledException="ExpetionOpen" Exit="AppExit" ShutdownMode="OnLastWindowClose"
+             DispatcherUnhandledException="ExceptionOpen" Exit="AppExit" ShutdownMode="OnLastWindowClose"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="RoundButton" TargetType="Button">
+        <Style x:Key="NavButton" TargetType="Button">
             <Setter Property="Background" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Margin" Value="4,8" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -30,7 +32,8 @@
             <Setter Property="Width" Value="{Binding ActualHeight, ElementName=GoBackButton}" />
         </Style>
         <Style x:Key="WhiteMenu" TargetType="{x:Type MenuItem}">
-            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Padding" Value="0,3" />
         </Style>
@@ -66,14 +69,17 @@
                             <Label x:Name="_txt"
                                    Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Foreground="#5E6368"
-                                   Content="···" />
+                                   FontFamily="Segoe Fluent Icons" FontSize="26"
+                                   Content="&#xE712;" />
                             <Popup x:Name="SubMenuPopup"
                                    AllowsTransparency="True" Focusable="False"
                                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                                    Placement="Left" PopupAnimation="Slide">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                                    <StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                </ScrollViewer>
+                                <Border BorderBrush="#DADCE0" BorderThickness="2">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </ScrollViewer>
+                                </Border>
                             </Popup>
                         </Grid>
                         <ControlTemplate.Triggers>
