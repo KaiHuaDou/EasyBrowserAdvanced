@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:极简浏览器"
         Title="下载文件"
-        Width="600" MinWidth="200" MinHeight="205"
+        Width="600"
+        MinWidth="200"
+        MinHeight="205"
         MaxHeight="205"
-        Closing="WindowClosing" SizeChanged="WindowSizeChanged">
+        Closing="WindowClosing"
+        SizeChanged="WindowSizeChanged">
     <StackPanel Margin="10,10,10,10">
         <DockPanel>
             <Label x:Name="FileName" Content="" />

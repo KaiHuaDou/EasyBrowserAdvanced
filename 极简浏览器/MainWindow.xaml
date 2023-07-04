@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="极简浏览器"
-        Closing="WindowClosing" Icon="/Icon/Icon.ico" KeyDown="ShortcutProcess"
+        Closing="WindowClosing"
+        Icon="/Icon/Icon.ico"
+        KeyDown="ShortcutProcess"
         Loaded="WindowLoaded">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
@@ -29,16 +31,14 @@
                     <MenuItem Header="设置" Style="{StaticResource WhiteMenu}" Click="SettingClick" />
                     <MenuItem Header="帮助" Style="{StaticResource WhiteMenu}" Click="HelpClick" />
                     <MenuItem Header="关于" Style="{StaticResource WhiteMenu}" Click="AboutClick" />
-                    <MenuItem x:Name="DevToolsButton"
-                              Header="开发者工具"
+                    <MenuItem x:Name="DevToolsButton" Header="开发者工具"
                               Style="{StaticResource WhiteMenu}"
                               Click="DevToolsClick" />
                     <MenuItem Header="置顶"
                               Style="{StaticResource WhiteMenu}"
                               Click="TopmostClick" IsCheckable="True"
                               IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
-                    <MenuItem x:Name="singleBox"
-                              Header="本窗口打开"
+                    <MenuItem x:Name="singleBox" Header="本窗口打开"
                               Style="{StaticResource WhiteMenu}"
                               IsCheckable="True"
                               IsChecked="{Binding Args.SingleWindow, Mode=TwoWay}" />

@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="设置"
         MinWidth="400"
-        Closing="WindowClosing" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Closing="WindowClosing"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

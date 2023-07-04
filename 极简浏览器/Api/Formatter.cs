@@ -12,91 +12,102 @@ public static class Formatter
     public static string Format(string code)
     {
         code = HTMLFormatter.Format(code);
-        code = JSCSSFormatter.Format(code);
         return code;
     }
 }
 
 public static class HTMLFormatter
 {
-    public static string Format(string html)
-    {
-        StringBuilder output = new( );
-        string[] arrayString = ToFormatArray(html);
-        arrayString = FormatImp(arrayString);
-        foreach (string ss in arrayString)
-            output.Append(ss + "\n");
-        return output.ToString( );
-    }
-
-    private static string[] ToFormatArray(string inputHtml)
-    {
-        StringBuilder html = new(inputHtml);
-        StringBuilder output = new( );
-        html.Replace("\r\n", "");
-        html.Replace("<", "\n<");
-        html.Replace(">", ">\n");
-
-        string[] tagArray = html.ToString( ).Split('\n');
-        foreach (string s in tagArray)
-        {
-            string text = s.Trim( );
-            if (!string.IsNullOrEmpty(text))
-                output.Append(text + "\n");
-        }
-        tagArray = output.ToString( ).Split('\n');
-        return tagArray;
-    }
-
-    private static string[] FormatImp(string[] tagArray)
-    {
-        int indent = 4;
-        int count = 0;
-        TagType lastTag = TagType.None;
-
-        for (int i = 0; i < tagArray.Length; i++)
-        {
-            if (Regex.IsMatch(tagArray[i], "<[^\\/].+>"))
-            {
-                if (TagType.Begin == lastTag)
-                    count++;
-                tagArray[i] = CreateBlank(indent * count) + tagArray[i];
-                lastTag = TagType.Begin;
-            }
-            else if (Regex.IsMatch(tagArray[i], "<\\/.+>"))
-            {
-                if (lastTag is TagType.Text or TagType.End)
-                    count--;
-                tagArray[i] = CreateBlank(indent * count) + tagArray[i];
-                lastTag = TagType.End;
-            }
-            else
-            {
-                if (lastTag == TagType.Begin)
-                    count++;
-                tagArray[i] = CreateBlank(indent * count) + tagArray[i];
-                lastTag = TagType.Text;
-            }
-        }
-        return tagArray;
-    }
-
-    private static string CreateBlank(int len)
-    {
-        if (len <= 0)
-            return "";
-        StringBuilder output = new( );
-        for (int i = 0; i < len; i++)
-            output.Append(' ');
-        return output.ToString( );
-    }
+    private static int tabSize = 4;
 
     private enum TagType
     {
         Begin,
         Text,
+        Code,
         End,
         None
+    }
+
+    public static string Format(string html)
+    {
+        StringBuilder output = new( );
+        string[] lines = ToLines(html);
+        lines = FormatLines(lines);
+        foreach (string line in lines)
+            output.Append(line + "\n");
+        return output.ToString( );
+    }
+
+    private static string[] ToLines(string input)
+    {
+        StringBuilder html = new(input);
+        html.Replace("\r", "");
+        html.Replace("\n", "");
+        html.Replace("<", "\n<");
+        html.Replace(">", ">\n");
+        string[] lines = html.ToString( ).Split('\n');
+        StringBuilder output = new( );
+        foreach (string line in lines)
+        {
+            string text = line.Trim( );
+            if (!string.IsNullOrEmpty(text))
+                output.Append(text + "\n");
+        }
+        lines = output.ToString( ).Split('\n');
+        return lines;
+    }
+
+    private static string[] FormatLines(string[] lines)
+    {
+        int indent = 0;
+        TagType prevTag = TagType.None;
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (Regex.IsMatch(lines[i], "<(!|meta|link).+>"))
+            {
+                lines[i] = DoIndent(lines[i], indent);
+                continue;
+            }
+            if (Regex.IsMatch(lines[i], "<(script|style).+>"))
+            {
+                if (prevTag is TagType.Begin) indent++;
+                prevTag = TagType.Code;
+            }
+            else if (Regex.IsMatch(lines[i], "<[^\\/].+>"))
+            {
+                if (prevTag is TagType.Begin) indent++;
+                prevTag = TagType.Begin;
+            }
+            else if (Regex.IsMatch(lines[i], "<\\/.+>"))
+            {
+                if (prevTag is not TagType.Begin or TagType.Code)
+                    indent--;
+                prevTag = TagType.End;
+            }
+            else
+            {
+                if (prevTag is not TagType.End or TagType.None)
+                    indent++;
+                if (prevTag == TagType.Code)
+                    lines[i] = JSCSSFormatter.Format(lines[i]);
+                prevTag = TagType.Text;
+            }
+            lines[i] = DoIndent(lines[i], indent);
+        }
+        return lines;
+    }
+
+    private static string DoIndent(string text, int indent)
+    {
+        if (indent <= 0) return text;
+        string space = new StringBuilder( ).Append(' ', indent * tabSize).ToString( );
+        string[] lines = text.Split('\n');
+        string output = "";
+        for (int i = 0; i < lines.Length; i++)
+            output += space + lines[i];
+        return output;
     }
 }
 
@@ -106,16 +117,15 @@ public static class JSCSSFormatter
     {
         string output = "";
         js = Regex.Replace(js, ";", ";\n");
-        js = Regex.Replace(js, "}", "\n } \n");
-        js = Regex.Replace(js, "{", "\n { \n");
-        char[] cc = new char[1] { '\n', };
-        string[] inputArray = js.Split(cc);
+        js = Regex.Replace(js, "}", "\n}\n");
+        js = Regex.Replace(js, "{", "\n{\n");
+        string[] inputArray = js.Split('\n');
         foreach (string code in inputArray)
         {
             if (!string.IsNullOrEmpty(Regex.Replace(code, "\\s*", "")))
                 output += code.Trim( ) + "\n";
         }
-        inputArray = output.Split(cc);
+        inputArray = output.Split('\n');
         output = "";
         inputArray = FormatBracket(inputArray);
         foreach (string code in inputArray)
@@ -135,50 +145,44 @@ public static class JSCSSFormatter
     {
         Place[] place = new Place[input.Length];
         int top = -1;
-        try
+        int j;
+        for (j = 0; j < input.Length; j++)
         {
-            int j;
-            for (j = 0; j < input.Length; j++)
+            if (input[j] == "{")
             {
-                if (input[j] == "{")
-                {
-                    top++;
-                    place[top].data = "{";
-                    place[top].place = j;
-                    break;
-                }
-            }
-            int i = j + 1;
-            while (top >= 0 || i < input.Length)
-            {
-                switch (input[i])
-                {
-                    case "{":
-                        top++;
-                        place[top].data = "{";
-                        place[top].place = i;
-                        i++;
-                        break;
-                    case "}":
-                    {
-                        int place1 = place[top].place;
-                        int place2 = i;
-                        int k;
-                        for (k = place1 + 1; k < place2; k++)
-                        {
-                            input[k] = "    " + input[k];
-                        }
-                        top--;
-                        i++;
-                        break;
-                    }
-                    default:
-                        i++;
-                        break;
-                }
+                top++;
+                place[top].data = "{";
+                place[top].place = j;
+                break;
             }
         }
-        catch { throw; }
+        int i = j + 1;
+        while (top >= 0 || i < input.Length)
+        {
+            switch (input[i])
+            {
+                case "{":
+                    top++;
+                    place[top].data = "{";
+                    place[top].place = i;
+                    i++;
+                    break;
+                case "}":
+                {
+                    int place1 = place[top].place;
+                    int place2 = i;
+                    int k;
+                    for (k = place1 + 1; k < place2; k++)
+                        input[k] = "    " + input[k];
+                    top--;
+                    i++;
+                    break;
+                }
+                default:
+                    i++;
+                    break;
+            }
+        }
         return input;
     }
 }

@@ -10,17 +10,12 @@ namespace 极简浏览器;
 public partial class WebSource : Window
 {
     private int Id;
-    private Thread formatter;
+    private Thread formatter = null;
 
     public WebSource(int id)
     {
         InitializeComponent( );
         Id = id;
-        formatter = new((source) =>
-        {
-            string result = Formatter.Format((string) source);
-            Dispatcher.Invoke(( ) => sourceBox.Text = result);
-        });
         RefreshSource(null, null);
     }
 
@@ -28,7 +23,19 @@ public partial class WebSource : Window
         => sourceBox.Text = await Instance.PageSourceAsync(Id);
 
     private void FormatSource(object o, RoutedEventArgs e)
-        => formatter.Start(sourceBox.Text);
+    {
+        formatter = new((source) =>
+        {
+            string result = Formatter.Format((string) source);
+            Dispatcher.Invoke(( ) =>
+            {
+                sourceBox.Text = result;
+                formatButton.IsEnabled = true;
+            });
+        });
+        formatter.Start(sourceBox.Text);
+        formatButton.IsEnabled = false;
+    }
 
     private void SaveSource(object o, RoutedEventArgs e)
     {
@@ -44,5 +51,5 @@ public partial class WebSource : Window
     }
 
     private void WindowClosing(object o, CancelEventArgs e)
-        => formatter.Abort( );
+        => formatter?.Abort( );
 }

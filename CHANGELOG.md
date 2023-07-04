@@ -9,6 +9,7 @@
 
 ### RC3 (开发中)
 
++ :sparkles: 网页源代码格式化支持 JavaScript 和 CSS
 + :lipstick: 更新菜单样式
 + :lipstick: 更新导航栏图标
 + :children_crossing: 增加错误代码中文翻译
