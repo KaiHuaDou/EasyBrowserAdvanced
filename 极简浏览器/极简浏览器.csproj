@@ -5,9 +5,10 @@
         <UseWPF>true</UseWPF>
         <LangVersion>11.0</LangVersion>
         <StartupObject>极简浏览器.App.Program</StartupObject>
-        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
     <PropertyGroup>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
         <DebugType>full</DebugType>
         <PlatformTarget>x86</PlatformTarget>
         <WarningLevel>7</WarningLevel>

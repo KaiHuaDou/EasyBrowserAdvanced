@@ -63,6 +63,7 @@
             "FileNotFound": "找不到文件",
             "InvalidUrl": "无效 URL 地址",
             "NameNotResolved": "无法解析地址",
+            "SslProtocolError": "SSL 协议错误",
             "SslVersionOrCipherMismatch": "SSL 版本不匹配",
             "TooManyRedirects": "重定向次数过多",
             "UnknownUrlScheme": "未知 URL 形式"
@@ -70,17 +71,17 @@
 
         function searchURL()
         {
-            document.location = "https://cn.bing.com/search?q=" + getParam("url");
+            document.location = `https://cn.bing.com/search?q=${getParam("url")}`;
         }
 
         function searchCode()
         {
-            document.location = "https://cn.bing.com/search?q=" + getParam("text");
+            document.location = `https://cn.bing.com/search?q=${getParam("text")}`;
         }
 
         function getParam(key)
         {
-            var reg = new RegExp('[\?\&]' + key + '=([^\&]*)(\&?)', 'i')
+            var reg = new RegExp(`[\?\&]${key}=([^\&]*)(\&?)`, 'i')
             var r = new URL(window.location).search.match(reg)
             return r ? r[1] : ''
         }

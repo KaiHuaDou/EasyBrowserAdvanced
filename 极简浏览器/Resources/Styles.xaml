@@ -70,7 +70,7 @@
                         <Popup x:Name="SubMenuPopup"
                                AllowsTransparency="True" Focusable="False"
                                IsOpen="{TemplateBinding IsSubmenuOpen}"
-                               Placement="Bottom">
+                               Placement="Left" PopupAnimation="Slide">
                             <Border BorderBrush="#DADCE0" BorderThickness="2">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                                     <StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />

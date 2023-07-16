@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using CefSharp;
 using 极简浏览器.Api;
 using Args = System.Windows.RoutedEventArgs;
@@ -33,5 +34,35 @@ public partial class MainWindow : Window
                 Time = Utils.LocalTime
             }
         );
+    }
+
+    private void ShowSearchBox(object o = null, Args e = null)
+        => SearchPanel.Visibility = Visibility.Visible;
+
+    private void SearchPanelClose(object o, Args e)
+    {
+        SearchPanel.Visibility = Visibility.Collapsed;
+        Browser.StopFinding(true);
+    }
+
+    private void SearchPervious(object o, Args e)
+    {
+        if (string.IsNullOrEmpty(SearchBox.Text))
+            return;
+        Browser.Find(Id, SearchBox.Text, false, false, true);
+    }
+
+    private void SearchNext(object o, Args e)
+    {
+        if (string.IsNullOrEmpty(SearchBox.Text))
+            return;
+        Browser.Find(Id, SearchBox.Text, true, false, true);
+    }
+    private void SearchBoxInput(object o, KeyEventArgs e)
+    {
+        if (string.IsNullOrEmpty(SearchBox.Text))
+            Browser.StopFinding(true);
+        else if (e.Key is not Key.ImeProcessed)
+            SearchNext(o, e);
     }
 }

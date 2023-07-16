@@ -124,7 +124,7 @@ public partial class MainWindow : Window, IDisposable
 
     private async void BrowserZoom(object o, MouseWheelEventArgs e)
     {
-        if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
+        if (Keyboard.Modifiers != ModifierKeys.Control) return;
         switch (e.Delta)
         {
             case > 0: Browser.ZoomInCommand.Execute(null); break;
@@ -136,17 +136,35 @@ public partial class MainWindow : Window, IDisposable
         e.Handled = true;
     }
 
-    private void ShortcutProcess(object o, KeyEventArgs e)
+    private void GoShortcut(object o, KeyEventArgs e)
     {
-        if (e.Key == Key.F12) Browser.ShowDevTools( );
-        if (Keyboard.Modifiers != ModifierKeys.Control) return;
-        switch (e.Key)
+        switch (Keyboard.Modifiers)
         {
-            case Key.H: new History( ).Show( ); break;
-            case Key.I: new Setting( ).Show( ); break;
-            case Key.R: Instance.Refresh(Id); break;
-            case Key.N: Instance.New( ); break;
-            case Key.S: Instance.ViewSource(Id); break;
+            case ModifierKeys.Control:
+                switch (e.Key)
+                {
+                    case Key.F: ShowSearchBox( ); break;
+                    case Key.H: new History( ).Show( ); break;
+                    case Key.I: new Setting( ).Show( ); break;
+                    case Key.R: Instance.Refresh(Id); break;
+                    case Key.N: Instance.New( ); break;
+                    case Key.S: Instance.ViewSource(Id); break;
+                    case Key.F5: Instance.Refresh(Id, true); break;
+                }
+                break;
+            case ModifierKeys.Alt:
+                switch (e.Key)
+                {
+                    case Key.Home: Instance.Navigate(Id, App.Setting.Content[0].MainPage); break;
+                }
+                break;
+            default:
+                switch (e.Key)
+                {
+                    case Key.F12: Browser.ShowDevTools( ); break;
+                    case Key.F5: Instance.Refresh(Id); break;
+                }
+                break;
         }
     }
 

@@ -9,6 +9,8 @@
 
 ### RC3 (开发中)
 
++ :lipstick: 修正主界面样式
++ :sparkles: 添加了网页搜索功能
 + :sparkles: 网页源代码格式化支持 JavaScript 和 CSS
 + :lipstick: 更新菜单样式
 + :lipstick: 更新导航栏图标

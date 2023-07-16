@@ -10,7 +10,7 @@ namespace 极简浏览器;
 public partial class WebSource : Window
 {
     private int Id;
-    private Thread formatter = null;
+    private Thread formatter;
 
     public WebSource(int id)
     {

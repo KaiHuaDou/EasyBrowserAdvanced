@@ -4,26 +4,36 @@
         Title="极简浏览器"
         Closing="WindowClosing"
         Icon="/Icon/Icon.ico"
-        KeyDown="ShortcutProcess"
+        KeyDown="GoShortcut"
         Loaded="WindowLoaded">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto" />
-            <RowDefinition Height="3" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Margin="4,0">
+        <DockPanel Background="White">
+            <DockPanel.Effect>
+                <DropShadowEffect Opacity="0.2" Direction="270" />
+            </DockPanel.Effect>
+            <ProgressBar x:Name="LoadProgress"
+                         DockPanel.Dock="Bottom"
+                         Height="3"
+                         Background="{x:Null}"
+                         Foreground="#005CBC" BorderThickness="0"
+                         IsIndeterminate="True" />
             <Button x:Name="GoBackButton"
+                    Margin="8,8,4,8"
                     Style="{StaticResource NavButton}"
                     Click="GoBackClick" Content="&#xE72B;" />
             <Button x:Name="GoForwardButton"
                     Style="{StaticResource NavButton}"
                     Click="GoForwardClick" Content="&#xE72A;" />
-            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8,4,8">
+            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8,8,8">
                 <MenuItem Style="{StaticResource TopMenuItem}">
                     <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
                     <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
                     <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
+                    <MenuItem Header="查找" Style="{StaticResource WhiteMenu}" Click="ShowSearchBox" />
                     <MenuItem Header="新窗口" Style="{StaticResource WhiteMenu}" Click="NewPageClick" />
                     <MenuItem Header="网页源代码" Style="{StaticResource WhiteMenu}" Click="ViewSourceClick" />
                     <MenuItem Header="设为书签" Style="{StaticResource WhiteMenu}" Click="SetBookMarkClick" />
@@ -31,9 +41,7 @@
                     <MenuItem Header="设置" Style="{StaticResource WhiteMenu}" Click="SettingClick" />
                     <MenuItem Header="帮助" Style="{StaticResource WhiteMenu}" Click="HelpClick" />
                     <MenuItem Header="关于" Style="{StaticResource WhiteMenu}" Click="AboutClick" />
-                    <MenuItem x:Name="DevToolsButton" Header="开发者工具"
-                              Style="{StaticResource WhiteMenu}"
-                              Click="DevToolsClick" />
+                    <MenuItem Header="开发者工具" Style="{StaticResource WhiteMenu}" Click="DevToolsClick" />
                     <MenuItem Header="置顶"
                               Style="{StaticResource WhiteMenu}"
                               Click="TopmostClick" IsCheckable="True"
@@ -61,25 +69,48 @@
                      Style="{StaticResource TextboxStyle}"
                      KeyDown="PageCheckUrl" TextWrapping="NoWrap" />
         </DockPanel>
-        <ProgressBar x:Name="LoadProgress"
-                     Grid.Row="1"
-                     Background="{x:Null}"
-                     Foreground="#FF007ACC" BorderThickness="0"
-                     IsIndeterminate="True" />
         <Grid x:Name="BrowserGrid"
-              Grid.Row="2"
+              Grid.Row="1"
               Margin="0"
               PreviewMouseWheel="BrowserZoom" />
-        <StackPanel Grid.Row="2"
-                    Height="33"
-                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                    Background="#F1F3F4"
-                    Orientation="Horizontal">
-            <StackPanel.Effect>
+        <Border x:Name="SearchPanel"
+                Grid.Row="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Background="White"
+                CornerRadius="0,0,0,20" Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.2" Direction="225" />
+            </Border.Effect>
+            <StackPanel>
+                <TextBox x:Name="SearchBox"
+                         MaxWidth="300"
+                         Margin="5,5,5,0"
+                         Style="{StaticResource TextboxStyle}"
+                         KeyUp="SearchBoxInput" />
+                <StackPanel Margin="4,0,4,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Padding="5,0"
+                            Style="{StaticResource NavButton}"
+                            Click="SearchPervious" Content="&#xE76B;" />
+                    <Button Padding="5,0"
+                            Style="{StaticResource NavButton}"
+                            Click="SearchNext" Content="&#xE76C;" />
+                    <Button Padding="5,0"
+                            Style="{StaticResource NavButton}"
+                            Click="SearchPanelClose" Content="&#xE711;" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Background="#F1F3F4"
+                CornerRadius="0,10,0,0">
+            <Border.Effect>
                 <DropShadowEffect Opacity="0.2" Direction="45" />
-            </StackPanel.Effect>
-            <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
-            <Label x:Name="loadLabel" Content="正在加载中……" />
-        </StackPanel>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
+                <Label x:Name="loadLabel" Content="加载中" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

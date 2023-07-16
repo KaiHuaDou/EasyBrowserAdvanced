@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using CefSharp;
@@ -24,12 +25,12 @@ public static class Instance
     public static void GoForward(int id) { if (Core[id].CanGoForward) Core[id].Forward( ); }
     public static void ViewSource(int id) => new WebSource(id).Show( );
 
-    public static void Refresh(int id)
+    public static void Refresh(int id, bool force = false)
     {
         try
         {
             if (Core[id].Address == Host[id].AddressBox.Text)
-                Core[id].Reload( );
+                Core[id].Reload(force);
             else
                 Navigate(id, Host[id].AddressBox.Text);
         }
@@ -59,10 +60,9 @@ public static class Instance
             Locale = CultureInfo.CurrentCulture.Name,
             LogSeverity = LogSeverity.Disable,
             CachePath = $@"{FilePath.Runtime}\Cache",
-            UserDataPath = $@"{FilePath.Runtime}\Profile"
+            UserDataPath = $@"{FilePath.Runtime}\Profile",
+            UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : Config.UANormal
         };
-        if (App.Setting.Content[0].CheatUA)
-            settings.UserAgent = Config.UaCheated;
         settings.CefCommandLineArgs["enable-media-stream"] = "1";
         settings.CefCommandLineArgs["enable-system-flash"] = "1";
         settings.CefCommandLineArgs["ppapi-flash-path"] = "Resources/pepflashplayer.dll";
