@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
@@ -74,7 +74,7 @@
         <PackageReference Include="cef.redist.x64" Version="87.1.13" />
         <PackageReference Include="cef.redist.x86" Version="87.1.13" />
         <PackageReference Include="CefSharp.Common" Version="87.1.132" />
-        <PackageReference Include="CefSharp.Wpf" Version="87.1.132" />
+        <PackageReference Include="CefSharp.Wpf" Version="98.1.210" />
         <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>
