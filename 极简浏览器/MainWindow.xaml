@@ -1,17 +1,24 @@
 ﻿<Window x:Class="极简浏览器.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:external="clr-namespace:极简浏览器.External"
         Title="极简浏览器"
+        Style="{StaticResource ModernWindow}"
+        Background="#AAFFFFFF"
+        external:WindowBlur.IsEnabled="True"
         Closing="WindowClosing"
         Icon="/Icon/Icon.ico"
         KeyDown="GoShortcut"
         Loaded="WindowLoaded">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0 64 0 0" NonClientFrameEdges="Left,Bottom,Right" />
+    </WindowChrome.WindowChrome>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Background="White">
+        <DockPanel Background="Transparent">
             <DockPanel.Effect>
                 <DropShadowEffect Opacity="0.2" Direction="270" />
             </DockPanel.Effect>
@@ -28,34 +35,10 @@
             <Button x:Name="GoForwardButton"
                     Style="{StaticResource NavButton}"
                     Click="GoForwardClick" Content="&#xE72A;" />
-            <Menu x:Name="MainMenu" DockPanel.Dock="Right" Margin="4,8,8,8">
-                <MenuItem Style="{StaticResource TopMenuItem}">
-                    <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
-                    <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
-                    <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
-                    <MenuItem Header="查找" Style="{StaticResource WhiteMenu}" Click="ShowSearchBox" />
-                    <MenuItem Header="新窗口" Style="{StaticResource WhiteMenu}" Click="NewPageClick" />
-                    <MenuItem Header="网页源代码" Style="{StaticResource WhiteMenu}" Click="ViewSourceClick" />
-                    <MenuItem Header="设为书签" Style="{StaticResource WhiteMenu}" Click="SetBookMarkClick" />
-                    <MenuItem Header="历史记录/书签" Style="{StaticResource WhiteMenu}" Click="HistoryClick" />
-                    <MenuItem Header="设置" Style="{StaticResource WhiteMenu}" Click="SettingClick" />
-                    <MenuItem Header="帮助" Style="{StaticResource WhiteMenu}" Click="HelpClick" />
-                    <MenuItem Header="关于" Style="{StaticResource WhiteMenu}" Click="AboutClick" />
-                    <MenuItem Header="开发者工具" Style="{StaticResource WhiteMenu}" Click="DevToolsClick" />
-                    <MenuItem Header="置顶"
-                              Style="{StaticResource WhiteMenu}"
-                              Click="TopmostClick" IsCheckable="True"
-                              IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
-                    <MenuItem x:Name="singleBox" Header="本窗口打开"
-                              Style="{StaticResource WhiteMenu}"
-                              IsCheckable="True"
-                              IsChecked="{Binding Args.SingleWindow, Mode=TwoWay}" />
-                    <MenuItem Header="无痕模式"
-                              Style="{StaticResource WhiteMenu}"
-                              IsCheckable="True"
-                              IsChecked="{Binding Args.IsPrivate, Mode=TwoWay}" />
-                </MenuItem>
-            </Menu>
+            <Button x:Name="SubmenuButton"
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource NavButton}"
+                    Click="SubmenuClick" Content="&#xE712;" />
             <Button x:Name="NewPageButton"
                     DockPanel.Dock="Right"
                     Style="{StaticResource NavButton}"
@@ -69,6 +52,41 @@
                      Style="{StaticResource TextboxStyle}"
                      KeyDown="PageCheckUrl" TextWrapping="NoWrap" />
         </DockPanel>
+        <Popup x:Name="SubmenuPopup"
+               AllowsTransparency="True" Focusable="False" Placement="Left"
+               PlacementTarget="{Binding ElementName=SubmenuButton}"
+               PopupAnimation="Slide" StaysOpen="False">
+            <Border BorderBrush="#DADCE0" BorderThickness="2">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Background="White" KeyboardNavigation.DirectionalNavigation="Cycle">
+                        <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
+                        <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
+                        <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
+                        <MenuItem Header="查找" Style="{StaticResource WhiteMenu}" Click="ShowSearchBox" />
+                        <MenuItem Header="新窗口" Style="{StaticResource WhiteMenu}" Click="NewPageClick" />
+                        <MenuItem Header="网页源代码" Style="{StaticResource WhiteMenu}" Click="ViewSourceClick" />
+                        <MenuItem Header="设为书签" Style="{StaticResource WhiteMenu}" Click="SetBookMarkClick" />
+                        <MenuItem Header="历史记录/书签" Style="{StaticResource WhiteMenu}" Click="HistoryClick" />
+                        <MenuItem Header="设置" Style="{StaticResource WhiteMenu}" Click="SettingClick" />
+                        <MenuItem Header="帮助" Style="{StaticResource WhiteMenu}" Click="HelpClick" />
+                        <MenuItem Header="关于" Style="{StaticResource WhiteMenu}" Click="AboutClick" />
+                        <MenuItem Header="开发者工具" Style="{StaticResource WhiteMenu}" Click="DevToolsClick" />
+                        <MenuItem Header="置顶"
+                                  Style="{StaticResource WhiteMenu}"
+                                  Click="TopmostClick" IsCheckable="True"
+                                  IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
+                        <MenuItem x:Name="singleBox" Header="本窗口打开"
+                                  Style="{StaticResource WhiteMenu}"
+                                  IsCheckable="True"
+                                  IsChecked="{Binding Args.SingleWindow, Mode=TwoWay}" />
+                        <MenuItem Header="无痕模式"
+                                  Style="{StaticResource WhiteMenu}"
+                                  IsCheckable="True"
+                                  IsChecked="{Binding Args.IsPrivate, Mode=TwoWay}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Popup>
         <Grid x:Name="BrowserGrid"
               Grid.Row="1"
               Margin="0"

@@ -6,7 +6,7 @@ namespace 极简浏览器.Api;
 /// <summary>
 /// 格式化网页源代码
 /// </summary>
-/// 
+///
 public static class Formatter
 {
     public static string Format(string code)
@@ -65,7 +65,7 @@ public static class HTMLFormatter
 
         for (int i = 0; i < lines.Length; i++)
         {
-            if (Regex.IsMatch(lines[i], "<(!|meta|link).+>"))
+            if (Regex.IsMatch(lines[i], "<(!|meta|link|br).+>"))
             {
                 lines[i] = DoIndent(lines[i], indent);
                 continue;

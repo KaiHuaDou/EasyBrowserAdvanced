@@ -36,6 +36,9 @@ public partial class MainWindow : Window
         );
     }
 
+    private void SubmenuClick(object sender, Args e)
+        => SubmenuPopup.IsOpen = !SubmenuPopup.IsOpen;
+
     private void ShowSearchBox(object o = null, Args e = null)
         => SearchPanel.Visibility = Visibility.Visible;
 

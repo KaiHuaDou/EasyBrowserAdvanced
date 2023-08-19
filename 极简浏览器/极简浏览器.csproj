@@ -37,13 +37,7 @@
         <None Update="Resources\pepflashplayer.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Tools\rm.exe">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Tools\CleanData.bat">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Tools\ClearBadRecord.bat">
+        <None Update="Tools\Reset.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="极简浏览器.VisualElementsManifest.xml">

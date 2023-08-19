@@ -18,10 +18,7 @@ public partial class History : Window
             BookmarkView.ItemsSource = App.Bookmark.Content;
             CookiesView.ItemsSource = CookieManager.Cookies;
         }
-        catch (InvalidOperationException)
-        {
-            //TODO: 不影响运行，不清楚错因
-        }
+        catch (InvalidOperationException) { }
     }
 
     #region History
