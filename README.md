@@ -1,5 +1,7 @@
 # 极简浏览器
 
+** 本分支为无 Flash 版本，采用高版本 Chromium 内核**
+
 ![][Shields CI] ![][Shields License]
 ![][Shields Release] ![][Shields Downloads]
 ![][Shields Lines] ![][Shields Commit]
@@ -11,7 +13,7 @@
 
 极简浏览器用 C# 编写的基于 Chromium 的浏览器。
 
-适用与性能一般的电脑或者需要 Flash 的场景。
+适用与性能一般的电脑。
 
 建议访问更新更快的 [GitHub 仓库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)。
 
@@ -23,8 +25,7 @@
 2. 界面干净，无广告，无插件
 3. 便携版，无需安装，数据与应用程序储存在同样位置
 4. 启动速度快
-5. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
-6. 开源代码，全部源代码都在 GitHub 和 Azure DevOps 上公开。
+5. 开源代码，全部源代码都在 GitHub 和 Azure DevOps 上公开。
 
 ## 运行依赖
 
@@ -34,7 +35,6 @@
 
 ## 测试环境
 
-+ 可以使用浏览器进入[测试页](https://pinyin.sogou.com/help.php?list=8)测试 Flash 的可用性
 + 可以使用浏览器进入[测试页](http://cachefly.cachefly.net/10mb.test)测试下载功能
 
 ## 版本说明

@@ -1,5 +1,7 @@
 # EasyBrowser
 
+** This branch is no-flash version，using the higher version core of  Chromium**
+
 ![][Shields CI] ![][Shields License]
 ![][Shields Release] ![][Shields Downloads]
 ![][Shields Lines] ![][Shields Commit]
@@ -11,7 +13,7 @@
 
 EasyBrowser Chromium-based browser written in C#.
 
-Applicable to computers with average performance or scenes that require Flash.
+Applicable to computers with average performance.
 
 It is recommended to visit the updated and faster [GitHub repository](https://github.com/KaiHuaDou/EasyBrowserAdvanced).
 
@@ -23,8 +25,7 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 2. Clean interface, no ads, no plug-ins
 3. Portable version, no installation required, data and applications are stored in the same location
 4. Fast startup
-5. Support Flash, you can run Flash without installing any Flash plug-ins
-6. Open source code, all source code is public on GitHub and Azure DevOps.
+5. Open source code, all source code is public on GitHub and Azure DevOps.
 
 ## Running dependencies
 
@@ -34,7 +35,6 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 
 ## Test Environment
 
-+ You can use a browser to enter the [test page](https://pinyin.sogou.com/help.php?list=8) to test the usability of Flash
 + You can use a browser to enter the [test page](http://cachefly.cachefly.net/10mb.test) to test the download function
 
 ## Release Notes

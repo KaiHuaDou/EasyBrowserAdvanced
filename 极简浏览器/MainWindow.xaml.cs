@@ -52,16 +52,6 @@ public partial class MainWindow : Window, IDisposable
 
     private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
     {
-        try
-        {
-            Cef.UIThreadTaskFactory.StartNew(( ) =>
-            {
-                Browser.GetBrowser( ).GetHost( ).RequestContext
-                        .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
-            });
-        }
-        catch (NullReferenceException) { }
-        catch (ObjectDisposedException) { }
     }
 
     private void PageCheckUrl(object o, KeyEventArgs e)

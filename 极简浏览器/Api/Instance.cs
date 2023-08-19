@@ -63,9 +63,6 @@ public static class Instance
             UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : Config.UANormal
         };
         settings.CefCommandLineArgs["enable-media-stream"] = "1";
-        settings.CefCommandLineArgs["enable-system-flash"] = "1";
-        settings.CefCommandLineArgs["ppapi-flash-path"] = "Resources/pepflashplayer.dll";
-        settings.CefCommandLineArgs["ppapi-flash-version"] = "99.9.9.999";
         Cef.Initialize(settings);
     }
 
