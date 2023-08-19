@@ -65,10 +65,10 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="cef.redist.x64" Version="98.1.21" />
-        <PackageReference Include="cef.redist.x86" Version="98.1.21" />
-        <PackageReference Include="CefSharp.Common" Version="98.1.210" />
-        <PackageReference Include="CefSharp.Wpf" Version="98.1.210" />
+        <PackageReference Include="cef.redist.x64" Version="115.3.13" />
+        <PackageReference Include="cef.redist.x86" Version="115.3.13" />
+        <PackageReference Include="CefSharp.Common" Version="115.3.130" />
+        <PackageReference Include="CefSharp.Wpf" Version="115.3.130" />
         <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

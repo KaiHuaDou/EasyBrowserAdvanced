@@ -1,6 +1,6 @@
 # 极简浏览器
 
-** 本分支为无 Flash 版本，采用高版本 Chromium 内核**
+**本分支为无 Flash 版本，采用高版本 Chromium 内核**
 
 ![][Shields CI] ![][Shields License]
 ![][Shields Release] ![][Shields Downloads]

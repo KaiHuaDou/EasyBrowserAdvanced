@@ -106,6 +106,12 @@ public class DownloadHandler : IDownloadHandler
         };
         return sfd.ShowDialog( ) == true ? sfd.FileName : null;
     }
+
+    public bool CanDownload(
+        IWebBrowser chromiumWebBrowser,
+        IBrowser browser, string url,
+        string requestMethod)
+        => true;
 }
 
 public class MenuHandler : IContextMenuHandler

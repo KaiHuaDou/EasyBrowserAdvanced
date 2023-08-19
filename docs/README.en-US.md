@@ -1,6 +1,6 @@
 # EasyBrowser
 
-** This branch is no-flash version，using the higher version core of  Chromium**
+**This branch is no-flash version，using the higher version core of  Chromium**
 
 ![][Shields CI] ![][Shields License]
 ![][Shields Release] ![][Shields Downloads]

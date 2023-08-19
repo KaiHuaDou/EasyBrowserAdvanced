@@ -53,16 +53,20 @@ public static class Instance
 
     public static void Init( )
     {
-        Cef.EnableHighDPISupport( );
         CefSettings settings = new( )
         {
             Locale = CultureInfo.CurrentCulture.Name,
             LogSeverity = LogSeverity.Disable,
-            CachePath = $@"{FilePath.Runtime}\Cache",
-            UserDataPath = $@"{FilePath.Runtime}\Profile",
+            RootCachePath = $@"{FilePath.Runtime}\Cache",
+            /// <summary>
+            /// Not support by CEF, see https://github.com/cefsharp/CefSharp/issues/3894
+            /// </summary>
+            //UserDataPath = $@"{FilePath.Runtime}\Profile",
             UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : Config.UANormal
         };
         settings.CefCommandLineArgs["enable-media-stream"] = "1";
+        settings.CefCommandLineArgs["data-path"] = $@"{FilePath.Runtime}\Profile";
+        settings.CefCommandLineArgs["webengine-user-data-dir"] = $@"{FilePath.Runtime}\Profile";
         Cef.Initialize(settings);
     }
 
