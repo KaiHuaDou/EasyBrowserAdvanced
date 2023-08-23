@@ -9,15 +9,16 @@
 
 ### RC3 (开发中)
 
++ :bug: 修正下载功能的错误
 + :lipstick: 修正主界面样式
-+ :sparkles: 添加了网页搜索功能
++ :sparkles: 添加网页搜索功能
 + :sparkles: 网页源代码格式化支持 JavaScript 和 CSS
 + :lipstick: 更新菜单样式
 + :lipstick: 更新导航栏图标
 + :children_crossing: 增加错误代码中文翻译
 + :children_crossing: 优化网址识别正则表达式
 + :sparkles: 增加 Cookie 显示项目
-+ :bug: 修复了关闭打开后立即关闭窗口导致崩溃的错误
++ :bug: 修复关闭打开后立即关闭窗口导致崩溃的错误
 + :bug: 修复缩放崩溃和缩放系数的错误
 + :lipstick: 更改主界面导航栏样式
 
@@ -99,8 +100,8 @@
 + :page_facing_up: 添加 LICENSE 文件 (MIT)
 + :lipstick: 更改地址栏的样式
 + :sparkles: 支持以`easy://`开头的地址
-+ :rotating_light: 根据规则集修复了安全问题
-+ :rotating_light: 根据规则集修复了语法错误
++ :rotating_light: 根据规则集修复安全问题
++ :rotating_light: 根据规则集修复语法错误
 + :bento: 清理垃圾和清除足迹的脚本
 + :bento: 修改主界面的四个图标
 + :art: 整合`Api/ConfigHelper.cs`之书签部分

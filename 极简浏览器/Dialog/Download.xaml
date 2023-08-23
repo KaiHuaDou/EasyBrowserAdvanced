@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:极简浏览器"
         Title="下载文件"
-        Width="600"
         MinWidth="200"
-        MinHeight="205"
-        MaxHeight="205"
         Closing="WindowClosing"
-        SizeChanged="WindowSizeChanged">
-    <StackPanel Margin="10,10,10,10">
+        SizeChanged="WindowSizeChanged"
+        SizeToContent="Height">
+    <StackPanel Margin="10">
         <DockPanel>
             <Label x:Name="FileName" Content="" />
             <Label x:Name="Speed"
@@ -18,30 +16,23 @@
                    Content="0KB/s" />
         </DockPanel>
         <Grid>
-            <ProgressBar x:Name="Progress"
-                         Background="{x:Null}"
-                         BorderBrush="{x:Null}"
-                         Value="100"
-                         Maximum="100">
-                <ProgressBar.Foreground>
-                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
-                </ProgressBar.Foreground>
-            </ProgressBar>
+            <ProgressBar x:Name="Progress" Value="100" Maximum="100" />
             <Label x:Name="Percent"
                    Canvas.Right="0"
                    HorizontalAlignment="Right"
-                   Foreground="White"
+                   Foreground="Black"
                    Content="0%" />
         </Grid>
         <Label x:Name="FromURL" Content="about:blank" />
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Padding="30,3" Click="OpenFolderClick" Content="打开文件夹" />
+            <Button Margin="0,0,5,0" Padding="30,3"
+                    Click="OpenFolderClick" Content="打开文件夹" />
             <Button x:Name="OpenButton"
-                    Padding="30,3"
+                    Margin="5,0,5,0" Padding="30,3"
                     Click="OpenClick" Content="打开文件"
                     IsEnabled="False" />
             <Button x:Name="CancelButton"
-                    Padding="30,3"
+                    Margin="5,0,0,0" Padding="30,3"
                     Click="CancelClick" Content="取消" />
         </StackPanel>
     </StackPanel>

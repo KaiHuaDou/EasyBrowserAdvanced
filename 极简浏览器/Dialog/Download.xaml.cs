@@ -17,19 +17,21 @@ namespace 极简浏览器;
 /// </summary>
 public partial class Download : Window, IDisposable
 {
-    private static DownloadItem task = new( );
     private readonly string filePath;
+    private static DownloadItem task = new( );
     private WebRequest request;
     private WebResponse response;
-    private byte[] buf = new byte[short.MaxValue];
+
     private Thread thread;
     private Stream webStream;
     private FileStream fileStream;
+    private byte[] buf = new byte[short.MaxValue];
     private long totalSize, size, lastSize;
     private double totalSec;
-    private delegate void UpdateValue(long value);
     private bool finished;
+
     private System.Timers.Timer timer = new(500);
+    private delegate void UpdateValue(long value);
 
     public Download(DownloadItem item, string path)
     {
@@ -90,7 +92,11 @@ public partial class Download : Window, IDisposable
         finished = true;
         fileStream.Close( );
         webStream.Close( );
-        Dispatcher.Invoke(( ) => OpenButton.IsEnabled = true);
+        Dispatcher.Invoke(( ) =>
+        {
+            OpenButton.IsEnabled = true;
+            CancelButton.Content = "关闭";
+        });
     }
 
     private void UpdateUI(long value)
@@ -114,8 +120,15 @@ public partial class Download : Window, IDisposable
 
     private void CancelClick(object o, RoutedEventArgs e)
     {
-        CancelTask( );
-        CancelButton.IsEnabled = false;
+        if (finished)
+        {
+            Close( );
+        }
+        else
+        {
+            CancelTask( );
+            CancelButton.IsEnabled = false;
+        }
     }
 
     private void WindowClosing(object o, CancelEventArgs e)

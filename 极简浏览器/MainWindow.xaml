@@ -74,15 +74,15 @@
                         <MenuItem Header="置顶"
                                   Style="{StaticResource WhiteMenu}"
                                   Click="TopmostClick" IsCheckable="True"
-                                  IsChecked="{Binding Args.Topmost, Mode=TwoWay}" />
+                                  IsChecked="{Binding Args.Topmost, Mode=OneWayToSource}" />
                         <MenuItem x:Name="singleBox" Header="本窗口打开"
                                   Style="{StaticResource WhiteMenu}"
                                   IsCheckable="True"
-                                  IsChecked="{Binding Args.SingleWindow, Mode=TwoWay}" />
+                                  IsChecked="{Binding Args.SingleWindow, Mode=OneWayToSource}" />
                         <MenuItem Header="无痕模式"
                                   Style="{StaticResource WhiteMenu}"
                                   IsCheckable="True"
-                                  IsChecked="{Binding Args.IsPrivate, Mode=TwoWay}" />
+                                  IsChecked="{Binding Args.IsPrivate, Mode=OneWayToSource}" />
                     </StackPanel>
                 </ScrollViewer>
             </Border>

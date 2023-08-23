@@ -90,7 +90,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
     {
-        void Loaded( )
+        Dispatcher.BeginInvoke(( ) =>
         {
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
@@ -104,12 +104,14 @@ public partial class MainWindow : Window, IDisposable
                     Time = Utils.LocalTime
                 }
             );
-        }
-        Dispatcher.BeginInvoke(Loaded);
+        });
     }
 
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
-        => Title = IsError ? AddressBox.Text : Browser.Title + " - 极简浏览器";
+    {
+        if (!IsError)
+            Title = Browser.Title + " - 极简浏览器";
+    }
 
     private void BrowserLoadError(object o, LoadErrorEventArgs e)
     {

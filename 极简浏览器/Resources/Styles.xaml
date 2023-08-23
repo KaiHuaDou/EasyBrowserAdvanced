@@ -7,7 +7,7 @@
                     <Border Padding="0,30,0,0">
                         <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
                             <Border Height="30"
-                                    Margin="0,-30,180,0" VerticalAlignment="Top"
+                                    Margin="0,-30,171,0" VerticalAlignment="Top"
                                     Background="{TemplateBinding Background}">
                                 <TextBlock Margin="16,0" VerticalAlignment="Center"
                                            Foreground="Black"
@@ -46,30 +46,6 @@
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center"
                                Style="{StaticResource FluentIcon}"
                                Content="{TemplateBinding Content}" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="_border" Property="Opacity" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Width" Value="{Binding ActualHeight, ElementName=GoBackButton}" />
-    </Style>
-    <Style x:Key="NavToggle" TargetType="ToggleButton">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Margin" Value="4,8" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Grid>
-                        <Border x:Name="_border"
-                                Background="#EDEEEE" Opacity="0"
-                                CornerRadius="16" />
-                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
