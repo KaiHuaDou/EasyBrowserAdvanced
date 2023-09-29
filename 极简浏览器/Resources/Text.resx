@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UITheme.Aero.NormalColor" xml:space="preserve">
+    <value>Default theme for Windows Vista/7</value>
+  </data>
+  <data name="UITheme.Aero2.NormalColor" xml:space="preserve">
+    <value>Default theme for Windows 8/8.1/10</value>
+  </data>
+  <data name="UITheme.Classic" xml:space="preserve">
+    <value>Default theme for Windows 9x series</value>
+  </data>
+  <data name="UITheme.Luna.Homestead" xml:space="preserve">
+    <value>Olive theme for Windows XP</value>
+  </data>
+  <data name="UITheme.Luna.Metallic" xml:space="preserve">
+    <value>Silver theme for Windows XP</value>
+  </data>
+  <data name="UITheme.Luna.NormalColor" xml:space="preserve">
+    <value>Default blue theme for Windows XP</value>
+  </data>
+  <data name="UITheme.Royale.NormalColor" xml:space="preserve">
+    <value>Media Center theme for Windows XP</value>
+  </data>
 </root>

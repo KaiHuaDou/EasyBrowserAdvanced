@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWPF>true</UseWPF>
         <LangVersion>11.0</LangVersion>
@@ -49,26 +49,23 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <Compile Update="Resources\Resources.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
         <Compile Update="Resources\Settings.Designer.cs">
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
-        <EmbeddedResource Update="Resources\Resources.resx">
+        <Compile Update="Resources\Text.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Text.resx</DependentUpon>
+        </Compile>
+        <EmbeddedResource Update="Resources\Text.resx">
             <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+            <LastGenOutput>Text.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="CefSharp.Wpf" Version="87.1.132" />
-        <PackageReference Include="CefSharp.Common" Version="87.1.132" />
-        <PackageReference Include="cef.redist.x86" Version="87.1.13" />
-        <PackageReference Include="cef.redist.x64" Version="87.1.13" />
-        <Reference Include="System.Runtime.Remoting" />
+        <PackageReference Include="CefSharp.Wpf.NETCore" Version="87.1.132" />
+        <PackageReference Include="SingleInstanceCore" Version="2.2.2" />
     </ItemGroup>
 </Project>

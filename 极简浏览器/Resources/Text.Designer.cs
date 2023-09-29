@@ -22,14 +22,14 @@ namespace 极简浏览器.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Text {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Text() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace 极简浏览器.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("极简浏览器.Resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("极简浏览器.Resources.Text", typeof(Text).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,69 @@ namespace 极简浏览器.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default theme for Windows Vista/7 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Aero_NormalColor {
+            get {
+                return ResourceManager.GetString("UITheme.Aero.NormalColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default theme for Windows 8/8.1/10 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Aero2_NormalColor {
+            get {
+                return ResourceManager.GetString("UITheme.Aero2.NormalColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default theme for Windows 9x series 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Classic {
+            get {
+                return ResourceManager.GetString("UITheme.Classic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Olive theme for Windows XP 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Luna_Homestead {
+            get {
+                return ResourceManager.GetString("UITheme.Luna.Homestead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Silver theme for Windows XP 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Luna_Metallic {
+            get {
+                return ResourceManager.GetString("UITheme.Luna.Metallic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default blue theme for Windows XP 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Luna_NormalColor {
+            get {
+                return ResourceManager.GetString("UITheme.Luna.NormalColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Media Center theme for Windows XP 的本地化字符串。
+        /// </summary>
+        internal static string UITheme_Royale_NormalColor {
+            get {
+                return ResourceManager.GetString("UITheme.Royale.NormalColor", resourceCulture);
             }
         }
     }

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using CefSharp;
-using Microsoft.Shell;
+using SingleInstanceCore;
 using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
-public partial class App : Application, ISingleInstanceApp
+public partial class App : Application, ISingleInstance
 {
     public static DataStore<Record> History { get; set; }
     public static DataStore<Record> Bookmark { get; set; }
@@ -28,8 +27,6 @@ public partial class App : Application, ISingleInstanceApp
         [STAThread]
         public static void Main(string[] args)
         {
-            if (!SingleInstance<App>.InitializeAsFirstInstance("EasyBrowserAdvanced_3_4_7_2_Stable"))
-                return;
             try
             {
                 App app = new( );
@@ -37,7 +34,6 @@ public partial class App : Application, ISingleInstanceApp
                 if (args.Length >= 1)
                     startupUri = args[0];
                 app.Run( );
-                SingleInstance<App>.Cleanup( );
             }
             catch (XamlParseException e)
             {
@@ -46,8 +42,14 @@ public partial class App : Application, ISingleInstanceApp
         }
     }
 
+    public void OnInstanceInvoked(string[] args) 
+        => Instance.New(args.Length > 1 ? args[0] : "");
+
     protected override void OnStartup(StartupEventArgs e)
     {
+        if (!this.InitializeAsFirstInstance("EasyBrowserAdvanced_3_4_7_2_Stable"))
+            Current.Shutdown( );
+
         base.OnStartup(e);
 
         RuntimeFix( );
@@ -78,11 +80,6 @@ public partial class App : Application, ISingleInstanceApp
         Bookmark.Save( );
         Setting.Save( );
         Cef.Shutdown( );
-    }
-
-    public bool SignalExternalCommandLineArgs(IList<string> args)
-    {
-        Instance.New(args.Count > 1 ? args[0] : "");
-        return true;
+        SingleInstance.Cleanup( );
     }
 }

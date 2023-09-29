@@ -9,6 +9,7 @@
 
 ### RC3 (开发中)
 
++ :arrow_up: 迁移到 .NET 6
 + :bug: 修正下载功能的错误
 + :lipstick: 修正主界面样式
 + :sparkles: 添加网页搜索功能

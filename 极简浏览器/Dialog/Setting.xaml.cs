@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using 极简浏览器.Api;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
@@ -44,4 +46,13 @@ public partial class Setting : Window
 
     private void WindowClosing(object o, CancelEventArgs e)
         => App.Setting.Save( );
+
+    private void UIThemeBoxSelectionChanged(object o, SelectionChangedEventArgs e)
+    {
+        if (UIThemeText is null) return;
+        UIThemeText.Content = Text.ResourceManager.GetString($"UITheme.{UIThemeBox.SelectedValue}");
+    }
+
+    private void WindowLoaded(object o, RoutedEventArgs e)
+        => UIThemeBoxSelectionChanged(null, null);
 }
