@@ -49,6 +49,7 @@ public partial class App : Application, ISingleInstanceApp
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        RuntimeFix( );
 
         Bookmark = new(FilePath.BookMark);
         History = new(FilePath.History);
@@ -69,13 +70,12 @@ public partial class App : Application, ISingleInstanceApp
             })
         });
 
-        RuntimeFix( );
         Instance.Init( );
     }
 
     private static void RuntimeFix( )
     {
-        Directory.CreateDirectory(FilePath.Data);
+        Directory.CreateDirectory(FilePath.Profile);
         Directory.CreateDirectory(FilePath.Log);
         Utils.CreateIfNotExists(FilePath.Log + "\\log.log");
         Utils.CreateIfNotExists(FilePath.Log + "\\error.log");

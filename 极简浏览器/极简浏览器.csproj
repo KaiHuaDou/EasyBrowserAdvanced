@@ -23,6 +23,14 @@
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
     </PropertyGroup>
+    <Target Name="CopyCef" BeforeTargets="PrepareForBuild">
+        <ItemGroup>
+            <CefLibrary Include="lib\**"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(CefLibrary)"
+              DestinationFiles="$(OutputPath)\%(RecursiveDir)%(Filename)%(Extension)"
+              SkipUnchangedFiles="True"/>
+    </Target>
     <ItemGroup>
         <Folder Include="Properties" />
         <None Update="Icon\Icon.png">
@@ -50,9 +58,9 @@
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
         <Compile Update="Resources\GuiText.Designer.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>GuiText.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>GuiText.resx</DependentUpon>
         </Compile>
         <Compile Update="Resources\Settings.Designer.cs">
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -63,8 +71,8 @@
             <Generator></Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\GuiText.resx">
-          <Generator>ResXFileCodeGenerator</Generator>
-          <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

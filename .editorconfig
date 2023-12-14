@@ -103,6 +103,7 @@ dotnet_naming_style.interface.capitalization = pascal_case
 dotnet_naming_style.interface.required_prefix = I
 dotnet_naming_style.interface.required_suffix = 
 dotnet_naming_style.interface.word_separator = 
+dotnet_diagnostic.CA1862.severity = none
 
 ## C# 首选项
 
