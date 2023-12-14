@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using 极简浏览器.Api;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
@@ -13,6 +14,7 @@ public partial class Setting : Window
         MainPageBox.Text = App.Setting.Content[0].MainPage;
         SearchEngineBox.Text = App.Setting.Content[0].SearchEngine;
         CheckUaBox.IsChecked = App.Setting.Content[0].CheatUA;
+        UIThemeBox.SelectedIndex = (int) App.Setting.Content[0].UITheme;
     }
 
     private void OKClick(object o, RoutedEventArgs e)
@@ -23,8 +25,10 @@ public partial class Setting : Window
         {
             MainPage = MainPageBox.Text,
             SearchEngine = SearchEngineBox.Text,
-            CheatUA = (bool) CheckUaBox.IsChecked
+            CheatUA = (bool) CheckUaBox.IsChecked,
+            UITheme = (UIThemes) UIThemeBox.SelectedIndex
         });
+        App.Setting.Save( );
         Close( );
     }
 
@@ -42,6 +46,12 @@ public partial class Setting : Window
         { try { File.Delete(file); } catch { } }
     }
 
-    private void WindowClosing(object o, CancelEventArgs e)
-        => App.Setting.Save( );
+    private void UIThemeBoxSelectionChanged(object o, SelectionChangedEventArgs e)
+    {
+        if (UIThemeText is null || UIThemeBox is null) return;
+        UIThemeText.Content = GuiText.ResourceManager.GetString($"UITheme.{UIThemeBox.SelectedValue}");
+    }
+
+    private void WindowLoaded(object o, RoutedEventArgs e)
+        => UIThemeBoxSelectionChanged(null, null);
 }

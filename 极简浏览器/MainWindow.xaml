@@ -15,19 +15,13 @@
     </WindowChrome.WindowChrome>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="TitleRow" Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel Background="Transparent">
             <DockPanel.Effect>
                 <DropShadowEffect Opacity="0.2" Direction="270" />
             </DockPanel.Effect>
-            <ProgressBar x:Name="LoadProgress"
-                         DockPanel.Dock="Bottom"
-                         Height="3"
-                         Background="{x:Null}"
-                         Foreground="#005CBC" BorderThickness="0"
-                         IsIndeterminate="True" />
             <Button x:Name="GoBackButton"
                     Margin="8,8,4,8"
                     Style="{StaticResource NavButton}"
@@ -59,30 +53,25 @@
             <Border BorderBrush="#DADCE0" BorderThickness="2">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel Background="White" KeyboardNavigation.DirectionalNavigation="Cycle">
-                        <MenuItem Header="后退" Style="{StaticResource WhiteMenu}" Click="GoForwardClick" />
-                        <MenuItem Header="前进" Style="{StaticResource WhiteMenu}" Click="GoBackClick" />
-                        <MenuItem Header="刷新" Style="{StaticResource WhiteMenu}" Click="RefreshClick" />
-                        <MenuItem Header="查找" Style="{StaticResource WhiteMenu}" Click="ShowSearchBox" />
-                        <MenuItem Header="新窗口" Style="{StaticResource WhiteMenu}" Click="NewPageClick" />
-                        <MenuItem Header="网页源代码" Style="{StaticResource WhiteMenu}" Click="ViewSourceClick" />
-                        <MenuItem Header="设为书签" Style="{StaticResource WhiteMenu}" Click="SetBookMarkClick" />
-                        <MenuItem Header="历史记录/书签" Style="{StaticResource WhiteMenu}" Click="HistoryClick" />
-                        <MenuItem Header="设置" Style="{StaticResource WhiteMenu}" Click="SettingClick" />
-                        <MenuItem Header="帮助" Style="{StaticResource WhiteMenu}" Click="HelpClick" />
-                        <MenuItem Header="关于" Style="{StaticResource WhiteMenu}" Click="AboutClick" />
-                        <MenuItem Header="开发者工具" Style="{StaticResource WhiteMenu}" Click="DevToolsClick" />
+                        <MenuItem Header="后退" Click="GoForwardClick" />
+                        <MenuItem Header="前进" Click="GoBackClick" />
+                        <MenuItem Header="刷新" Click="RefreshClick" />
+                        <MenuItem Header="查找" Click="ShowSearchBox" />
+                        <MenuItem Header="新窗口" Click="NewPageClick" />
+                        <MenuItem Header="网页源代码" Click="ViewSourceClick" />
+                        <MenuItem Header="设为书签" Click="SetBookMarkClick" />
+                        <MenuItem Header="历史记录/书签" Click="HistoryClick" />
+                        <MenuItem Header="设置" Click="SettingClick" />
+                        <MenuItem Header="帮助" Click="HelpClick" />
+                        <MenuItem Header="关于" Click="AboutClick" />
+                        <MenuItem Header="开发者工具" Click="DevToolsClick" />
                         <MenuItem Header="置顶"
-                                  Style="{StaticResource WhiteMenu}"
                                   Click="TopmostClick" IsCheckable="True"
                                   IsChecked="{Binding Args.Topmost, Mode=OneWayToSource}" />
                         <MenuItem x:Name="singleBox" Header="本窗口打开"
-                                  Style="{StaticResource WhiteMenu}"
                                   IsCheckable="True"
                                   IsChecked="{Binding Args.SingleWindow, Mode=OneWayToSource}" />
-                        <MenuItem Header="无痕模式"
-                                  Style="{StaticResource WhiteMenu}"
-                                  IsCheckable="True"
-                                  IsChecked="{Binding Args.IsPrivate, Mode=OneWayToSource}" />
+                        <MenuItem Header="无痕模式" IsCheckable="True" IsChecked="{Binding Args.IsPrivate, Mode=OneWayToSource}" />
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -125,10 +114,16 @@
             <Border.Effect>
                 <DropShadowEffect Opacity="0.2" Direction="45" />
             </Border.Effect>
-            <StackPanel Orientation="Horizontal">
-                <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
-                <Label x:Name="loadLabel" Content="加载中" />
-            </StackPanel>
+            <Grid>
+                <ProgressBar x:Name="LoadProgress"
+                             Background="{x:Null}"
+                             Foreground="#B2005CBC" BorderThickness="0"
+                             IsIndeterminate="True" />
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="zoomLabel" Content="100%" Visibility="Collapsed" />
+                    <Label x:Name="loadLabel" Content="加载中" />
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>

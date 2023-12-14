@@ -49,7 +49,7 @@ public class DataStore<T> : IDisposable where T : new()
 
     public void Save( )
     {
-        XmlStream.Seek(0, SeekOrigin.Begin);
+        XmlStream.SetLength(0);
         XmlSerializer serializer = new(typeof(List<T>));
         serializer.Serialize(XmlStream, Content);
     }

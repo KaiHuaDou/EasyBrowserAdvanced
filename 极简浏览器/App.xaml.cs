@@ -50,10 +50,26 @@ public partial class App : Application, ISingleInstanceApp
     {
         base.OnStartup(e);
 
-        RuntimeFix( );
         Bookmark = new(FilePath.BookMark);
         History = new(FilePath.History);
         Setting = new(FilePath.Setting, false);
+
+        Resources.MergedDictionaries.Add(new ResourceDictionary( )
+        {
+            Source = new Uri(Setting.Content[0].UITheme switch
+            {
+                UIThemes.Classic => "pack://application:,,,/PresentationFramework.Classic,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Classic.xaml",
+                UIThemes.LunaNormalColor => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.NormalColor.xaml",
+                UIThemes.LunaHomestead => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Homestead.xaml",
+                UIThemes.LunaMetallic => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Metallic.xaml",
+                UIThemes.RoyaleNormalColor => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Royale.NormalColor.xaml",
+                UIThemes.AeroNormalColor => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
+                UIThemes.Aero2NormalColor => "pack://application:,,,/PresentationFramework.Aero2,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero2.NormalColor.xaml",
+                _ => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
+            })
+        });
+
+        RuntimeFix( );
         Instance.Init( );
     }
 

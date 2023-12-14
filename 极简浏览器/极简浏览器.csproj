@@ -49,26 +49,26 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <Compile Update="Resources\Resources.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources.resx</DependentUpon>
+        <Compile Update="Resources\GuiText.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>GuiText.resx</DependentUpon>
         </Compile>
         <Compile Update="Resources\Settings.Designer.cs">
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
-        <EmbeddedResource Update="Resources\Resources.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        <EmbeddedResource Update="Resources\GuiText.en-US.resx">
+            <Generator></Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\GuiText.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="CefSharp.Wpf" Version="87.1.132" />
-        <PackageReference Include="CefSharp.Common" Version="87.1.132" />
-        <PackageReference Include="cef.redist.x86" Version="87.1.13" />
-        <PackageReference Include="cef.redist.x64" Version="87.1.13" />
         <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

@@ -77,9 +77,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="WhiteMenu" TargetType="{x:Type MenuItem}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Padding" Value="0,3" />
-    </Style>
 </ResourceDictionary>

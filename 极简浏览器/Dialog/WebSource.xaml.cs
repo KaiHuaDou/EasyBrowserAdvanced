@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -7,10 +8,10 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
-public partial class WebSource : Window
+public partial class WebSource : Window, IDisposable
 {
     private int Id;
-    private Thread formatter;
+    private CancellationTokenSource cancellation = new( );
 
     public WebSource(int id)
     {
@@ -22,19 +23,12 @@ public partial class WebSource : Window
     private async void RefreshSource(object o, RoutedEventArgs e)
         => sourceBox.Text = await Instance.PageSourceAsync(Id);
 
-    private void FormatSource(object o, RoutedEventArgs e)
+    private async void FormatSource(object o, RoutedEventArgs e)
     {
-        formatter = new((source) =>
-        {
-            string result = Formatter.Format((string) source);
-            Dispatcher.Invoke(( ) =>
-            {
-                sourceBox.Text = result;
-                formatButton.IsEnabled = true;
-            });
-        });
-        formatter.Start(sourceBox.Text);
         formatButton.IsEnabled = false;
+        string result = await Formatter.FormatAsync(sourceBox.Text, cancellation.Token);
+        sourceBox.Text = result;
+        formatButton.IsEnabled = true;
     }
 
     private void SaveSource(object o, RoutedEventArgs e)
@@ -51,5 +45,11 @@ public partial class WebSource : Window
     }
 
     private void WindowClosing(object o, CancelEventArgs e)
-        => formatter?.Abort( );
+        => cancellation.Cancel( );
+
+    public void Dispose( )
+    {
+        cancellation.Dispose( );
+        GC.SuppressFinalize(this);
+    }
 }

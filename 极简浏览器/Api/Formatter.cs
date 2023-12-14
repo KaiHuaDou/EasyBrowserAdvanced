@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace 极简浏览器.Api;
 
@@ -9,9 +11,9 @@ namespace 极简浏览器.Api;
 ///
 public static class Formatter
 {
-    public static string Format(string code)
+    public static async Task<string> FormatAsync(string code, CancellationToken token)
     {
-        code = HTMLFormatter.Format(code);
+        code = await Task.Run(( ) => HTMLFormatter.Format(code), token);
         return code;
     }
 }
@@ -79,6 +81,10 @@ public static class HTMLFormatter
             {
                 if (prevTag is TagType.Begin) indent++;
                 prevTag = TagType.Begin;
+            }
+            else if (Regex.IsMatch(lines[i], "<\\/(script|style|meta|link|br)>"))
+            {
+                prevTag = TagType.End;
             }
             else if (Regex.IsMatch(lines[i], "<\\/.+>"))
             {

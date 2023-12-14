@@ -34,7 +34,6 @@ public partial class MainWindow : Window, IDisposable
 
     private void WindowLoaded(object o, RoutedEventArgs e)
     {
-        TitleRow.Height = new GridLength((int) (TitleRow.ActualHeight + 1));
         Instance.Core[Id] = new EasyBrowserCore(Id)
         {
             Margin = new Thickness(0),
