@@ -57,7 +57,7 @@
 2. .NET Framework 4.6.2 或更高版本的 SDK
 3. .NET Framework 4.6.2 目标包 (`Target Pack`)
 
-使用 `dotnet build` 以自主构建
+使用 `dotnet build` 以自主构建，构建支持视频的版本需要下载[Cef H.264 库]，解压后放置在源代码根目录下。
 
 [Shields CI]: https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml
 [Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
@@ -66,3 +66,4 @@
 [Shields Lines]: https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
 [Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
+[Cef H.264 库]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/releases/download/v3.4.7.2-h264test/cef-h264-library.zip

@@ -57,7 +57,7 @@ Please refer to [Change Log](./CHANGELOG.md) for version details
 2. .NET Framework 4.6.2 or later SDK
 3. .NET Framework 4.6.2 Target Pack
 
-Use `dotnet build` to build autonomously
+Use `dotnet build` to build independently. To build a version that supports video, you need to download [Cef H.264 Library], unzip it and place it in the source code root directory.
 
 [Shields CI]: https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml
 [Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
@@ -66,3 +66,4 @@ Use `dotnet build` to build autonomously
 [Shields Lines]: https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
 [Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
+[Cef H.264 Library]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/releases/download/v3.4.7.2-h264test/cef-h264-library.zip
