@@ -14,7 +14,7 @@ public partial class Setting : Window
         MainPageBox.Text = App.Setting.Content[0].MainPage;
         SearchEngineBox.Text = App.Setting.Content[0].SearchEngine;
         CheckUaBox.IsChecked = App.Setting.Content[0].CheatUA;
-        UIThemeBox.SelectedIndex = (int) App.Setting.Content[0].UITheme;
+        UIThemeBox.SelectedIndex = App.Setting.Content[0].UITheme;
     }
 
     private void OKClick(object o, RoutedEventArgs e)
@@ -26,7 +26,8 @@ public partial class Setting : Window
             MainPage = MainPageBox.Text,
             SearchEngine = SearchEngineBox.Text,
             CheatUA = (bool) CheckUaBox.IsChecked,
-            UITheme = (UIThemes) UIThemeBox.SelectedIndex
+            DisableGPU = (bool) DisableGpuBox.IsChecked,
+            UITheme = UIThemeBox.SelectedIndex
         });
         App.Setting.Save( );
         Close( );

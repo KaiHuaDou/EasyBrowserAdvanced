@@ -8,16 +8,6 @@
         <TreeView Margin="10"
                   Background="White" BorderThickness="0"
                   FocusVisualStyle="{x:Null}">
-            <TreeViewItem Header="无法播放视频" IsExpanded="True">
-                <TreeViewItem>
-                    <TreeViewItem.Header>
-                        <TextBlock Width="370" Margin="0" TextWrapping="Wrap">
-                            <Run>对不起，我们也解决不了这个问题，如果您有什么解决方案，请</Run>
-                            <Hyperlink NavigateUri="https://github.com/KaiHuaDou/EasyBrowserAdvanced/issue/3">告诉我们</Hyperlink>
-                        </TextBlock>
-                    </TreeViewItem.Header>
-                </TreeViewItem>
-            </TreeViewItem>
             <TreeViewItem Header="无法显示图标" IsExpanded="True">
                 <TreeViewItem>
                     <TreeViewItem.Header>

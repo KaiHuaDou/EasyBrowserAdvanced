@@ -1,8 +1,8 @@
 # 极简浏览器
 
-![][Shields CI] ![][Shields License]
-![][Shields Release] ![][Shields Downloads]
-![][Shields Lines] ![][Shields Commit]
+![][Shields License] ![][Shields Release] ![][Shields Downloads] ![][Shields Commit] ![][Shields CI]
+
+![][Shields CSharp] ![][Shields .NET] ![][Shields OS] ![][Shields IDE] ![][Shields Chromium]
 
 [![Gitmoji][Gitmoji]](https://gitmoji.dev)
 
@@ -63,7 +63,11 @@
 [Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
 [Shields Release]: https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced
 [Shields Downloads]: https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total
-[Shields Lines]: https://img.shields.io/tokei/lines/github/kaihuadou/easybrowseradvanced
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
+[Shields CSharp]: https://img.shields.io/badge/11.0-version?logo=csharp&label=C%23&color=%23512BD4
+[Shields .NET]: https://img.shields.io/badge/>=4.6.2-version?logo=dotnet&label=.NET%20Framework&color=%23512BD4
+[Shields OS]: https://img.shields.io/badge/>=Windows%207%20SP1-version?logo=windows&label=OS&color=%230078D4
+[Shields IDE]: https://img.shields.io/badge/2022-version?logo=visual%20studio&label=Visual%20Studio&color=%235C2D91
+[Shields Chromium]: https://img.shields.io/badge/87.1.132-version?logo=googlechrome&label=Chromium&color=%234285F4%logoColor=white
 [Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
 [Cef H.264 库]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/releases/download/v3.4.7.2-h264test/cef-h264-library.zip

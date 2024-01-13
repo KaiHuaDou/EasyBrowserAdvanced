@@ -18,24 +18,26 @@ public class DataStore<T> : IDisposable where T : new()
 {
     public List<T> Content { get; private set; }
 
-    private string XmlFile;
+    private string File;
     private bool InitEmpty;
-    private FileStream XmlStream;
+    private FileStream Stream;
+    private XmlReader Reader;
 
     public DataStore(string xmlFile, bool initEmpty = true)
     {
-        XmlFile = new FileInfo(xmlFile).FullName;
+        File = new FileInfo(xmlFile).FullName;
         InitEmpty = initEmpty;
-        XmlStream = new(XmlFile, FileMode.OpenOrCreate);
+        Stream = new(File, FileMode.OpenOrCreate);
+        Reader = XmlReader.Create(Stream);
         Read( );
     }
 
     public void Read( )
     {
-        XmlReader reader = XmlReader.Create(XmlStream);
+        XmlSerializer serializer = new(typeof(List<T>));
         try
         {
-            Content = reader.ReadContentAs(typeof(List<T>), null) as List<T>;
+            Content = serializer.Deserialize(Reader) as List<T>;
             if (Content.Count == 0 && !InitEmpty)
                 Content.Add(new T( ));
         }
@@ -49,14 +51,15 @@ public class DataStore<T> : IDisposable where T : new()
 
     public void Save( )
     {
-        XmlStream.SetLength(0);
+        Stream.SetLength(0);
         XmlSerializer serializer = new(typeof(List<T>));
-        serializer.Serialize(XmlStream, Content);
+        serializer.Serialize(Stream, Content);
     }
 
     public void Dispose( )
     {
-        XmlStream.Dispose( );
+        Reader.Dispose( );
+        Stream.Dispose( );
         GC.SuppressFinalize(this);
     }
 }

@@ -11,7 +11,7 @@ namespace 极简浏览器;
 
 /// <summary>
 /// 主窗口的交互代码
-/// 负责：ChromiumWebBrowser 的相关事宜、初始化
+/// 负责：ChromiumWebBrowser 相关、初始化
 /// </summary>
 public partial class MainWindow : Window, IDisposable
 {

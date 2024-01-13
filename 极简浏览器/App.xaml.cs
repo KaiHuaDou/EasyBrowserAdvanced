@@ -59,13 +59,13 @@ public partial class App : Application, ISingleInstanceApp
         {
             Source = new Uri(Setting.Content[0].UITheme switch
             {
-                UIThemes.Classic => "pack://application:,,,/PresentationFramework.Classic,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Classic.xaml",
-                UIThemes.LunaNormalColor => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.NormalColor.xaml",
-                UIThemes.LunaHomestead => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Homestead.xaml",
-                UIThemes.LunaMetallic => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Metallic.xaml",
-                UIThemes.RoyaleNormalColor => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Royale.NormalColor.xaml",
-                UIThemes.AeroNormalColor => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
-                UIThemes.Aero2NormalColor => "pack://application:,,,/PresentationFramework.Aero2,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero2.NormalColor.xaml",
+                0 => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
+                1 => "pack://application:,,,/PresentationFramework.Aero2,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero2.NormalColor.xaml",
+                2 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.NormalColor.xaml",
+                3 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Homestead.xaml",
+                4 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Metallic.xaml",
+                5 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Royale.NormalColor.xaml",
+                6 => "pack://application:,,,/PresentationFramework.Classic,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Classic.xaml",
                 _ => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
             })
         });
@@ -98,7 +98,7 @@ public partial class App : Application, ISingleInstanceApp
 
     public bool SignalExternalCommandLineArgs(IList<string> args)
     {
-        Instance.New(args.Count > 1 ? args[0] : "");
+        Instance.New(args.Count > 1 ? args[1] : "");
         return true;
     }
 }

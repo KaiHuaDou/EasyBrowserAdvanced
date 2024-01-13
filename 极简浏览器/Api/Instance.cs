@@ -62,11 +62,12 @@ public static class Instance
             UserDataPath = $@"{FilePath.Runtime}\Profile",
             UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : Config.UANormal
         };
-        settings.CefCommandLineArgs["enable-media-stream"] = "1";
+        settings.CefCommandLineArgs["disable-gpu"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
+        settings.CefCommandLineArgs["disable-gpu-compositing"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
         settings.CefCommandLineArgs["enable-system-flash"] = "1";
         settings.CefCommandLineArgs["ppapi-flash-path"] = "Resources/pepflashplayer.dll";
         settings.CefCommandLineArgs["ppapi-flash-version"] = "99.9.9.999";
-        Cef.Initialize(settings);
+        Cef.Initialize(settings, true);
     }
 
     public static void PraseEasy(int id, string url)
@@ -90,10 +91,10 @@ public static class Instance
     public static MenuItem[] ContextMenu(int Id)
         => new MenuItem[]
         {
-            new MenuItem { Header = "前进", Command = new CustomCommand(( ) => GoForward(Id)) },
-            new MenuItem { Header = "后退", Command = new CustomCommand(( ) => GoBack(Id)) },
-            new MenuItem { Header = "刷新", Command = new CustomCommand(( ) => Refresh(Id)) },
-            new MenuItem { Header = "新窗口", Command = new CustomCommand(( ) => New( )) },
-            new MenuItem { Header = "网页源代码", Command = new CustomCommand(( ) => ViewSource(Id)) },
+            new( ) { Header = "前进", Command = new CustomCommand(( ) => GoForward(Id)) },
+            new( ) { Header = "后退", Command = new CustomCommand(( ) => GoBack(Id)) },
+            new( ) { Header = "刷新", Command = new CustomCommand(( ) => Refresh(Id)) },
+            new( ) { Header = "新窗口", Command = new CustomCommand(( ) => New( )) },
+            new( ) { Header = "网页源代码", Command = new CustomCommand(( ) => ViewSource(Id)) },
         };
 }

@@ -110,7 +110,10 @@ public partial class Download : Window, IDisposable
         => Process.Start(filePath);
 
     private void OpenFolderClick(object o, RoutedEventArgs e)
-        => Process.Start(Directory.GetParent(filePath).FullName);
+    {
+        try { Process.Start(Directory.GetParent(filePath).FullName); }
+        catch(FileNotFoundException) {}
+    }
 
     private void CancelTask( )
     {

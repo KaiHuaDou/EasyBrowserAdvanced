@@ -21,6 +21,9 @@ public partial class MainWindow : Window
     private void RefreshClick(object o, Args e) => Instance.Refresh(Id);
     private void SettingClick(object o, Args e) => new Setting( ).Show( );
     private void TopmostClick(object o, Args e) => Topmost = !Topmost;
+    private void MuteClick(object o, Args e)
+        => _ = 0;
+
     private void ViewSourceClick(object o, Args e) => Instance.ViewSource(Id);
 
     private void SetBookMarkClick(object o, Args e)

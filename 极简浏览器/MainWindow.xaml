@@ -31,6 +31,7 @@
                     Click="GoForwardClick" Content="&#xE72A;" />
             <Button x:Name="SubmenuButton"
                     DockPanel.Dock="Right"
+                    Margin="4,8,8,8"
                     Style="{StaticResource NavButton}"
                     Click="SubmenuClick" Content="&#xE712;" />
             <Button x:Name="NewPageButton"
