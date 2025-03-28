@@ -25,7 +25,7 @@ public partial class Download : Window, IDisposable
     private Thread thread;
     private Stream webStream;
     private FileStream fileStream;
-    private byte[] buf = new byte[short.MaxValue];
+    private readonly byte[] buf = new byte[short.MaxValue];
     private long totalSize, size, lastSize;
     private double totalSec;
     private bool finished;
@@ -85,7 +85,7 @@ public partial class Download : Window, IDisposable
             }
             catch (IOException ex)
             {
-                Logger.Log(ex, LogType.Warning);
+                Logger.Write(ex, LogType.Warn);
             }
         }
         timer.Enabled = false;
@@ -112,7 +112,7 @@ public partial class Download : Window, IDisposable
     private void OpenFolderClick(object o, RoutedEventArgs e)
     {
         try { Process.Start(Directory.GetParent(filePath).FullName); }
-        catch(FileNotFoundException) {}
+        catch (FileNotFoundException) { }
     }
 
     private void CancelTask( )

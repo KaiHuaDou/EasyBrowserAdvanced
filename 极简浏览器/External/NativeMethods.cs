@@ -32,9 +32,8 @@ internal sealed class NativeMethods
 
     internal enum WindowCompositionAttribute
     {
-        // ...
         WCA_ACCENT_POLICY = 19,
-        // ...
+        WCA_EXCLUDED_FROM_DDA = 24
     }
 
     [DllImport("user32.dll")]

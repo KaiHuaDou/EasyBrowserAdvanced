@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -56,7 +55,7 @@ public partial class MainWindow : Window, IDisposable
             Cef.UIThreadTaskFactory.StartNew(( ) =>
             {
                 Browser.GetBrowser( ).GetHost( ).RequestContext
-                        .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
+                       .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
             });
         }
         catch (NullReferenceException) { }
@@ -74,7 +73,7 @@ public partial class MainWindow : Window, IDisposable
         IsError = false;
         if (AddressBox.Text.ToUpperInvariant( ).Contains("EASY://"))
             Instance.PraseEasy(Id, AddressBox.Text);
-        else if (Regex.IsMatch(AddressBox.Text, Utils.AddressRegex))
+        else if (Utils.AddressRegex.IsMatch(AddressBox.Text))
             Instance.Navigate(Id, AddressBox.Text);
         else
             Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + AddressBox.Text);

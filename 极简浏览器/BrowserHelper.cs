@@ -32,16 +32,10 @@ public class EasyBrowserCore : ChromiumWebBrowser
     }
 }
 
-public class NewWindowEventArgs : EventArgs
+public class NewWindowEventArgs(IWindowInfo windowInfo, string url) : EventArgs
 {
-    public IWindowInfo WindowInfo { get; set; }
-    public string Url { get; set; }
-
-    public NewWindowEventArgs(IWindowInfo windowInfo, string url)
-    {
-        WindowInfo = windowInfo;
-        Url = url;
-    }
+    public IWindowInfo WindowInfo { get; set; } = windowInfo;
+    public string Url { get; set; } = url;
 }
 
 public class LifeSpanHandler : ILifeSpanHandler
@@ -108,12 +102,9 @@ public class DownloadHandler : IDownloadHandler
     }
 }
 
-public class MenuHandler : IContextMenuHandler
+public class MenuHandler(int id) : IContextMenuHandler
 {
-    public MenuHandler(int id) => Id = id;
-
     public static Window MainWindow { get; set; }
-    private readonly int Id;
 
     void IContextMenuHandler.OnContextMenuDismissed(
         IWebBrowser webBrowser,
@@ -135,7 +126,7 @@ public class MenuHandler : IContextMenuHandler
             ContextMenu menu = new( )
             {
                 IsOpen = true,
-                ItemsSource = Instance.ContextMenu(Id)
+                ItemsSource = Instance.ContextMenu(id)
             };
             void handler(object o, RoutedEventArgs e)
             {

@@ -41,7 +41,7 @@ public partial class App : Application, ISingleInstanceApp
             }
             catch (XamlParseException e)
             {
-                Logger.Log(e, type: LogType.Error);
+                Logger.Write(e, logType: LogType.Error);
             }
         }
     }
@@ -77,22 +77,22 @@ public partial class App : Application, ISingleInstanceApp
     {
         Directory.CreateDirectory(FilePath.Profile);
         Directory.CreateDirectory(FilePath.Log);
-        Utils.CreateIfNotExists(FilePath.Log + "\\log.log");
+        Utils.CreateIfNotExists(FilePath.Log + "\\info.log");
         Utils.CreateIfNotExists(FilePath.Log + "\\error.log");
-        Utils.CreateIfNotExists(FilePath.Log + "\\debug.log");
+        Utils.CreateIfNotExists(FilePath.Log + "\\warn.log");
     }
 
     private void ExceptionOpen(object o, DispatcherUnhandledExceptionEventArgs e)
     {
-        Logger.Log(e.Exception, type: LogType.Error);
-        new Report(e.Exception.Message).ShowDialog( );
+        Logger.Write(e.Exception, LogType.Error);
+        new Report(e.Exception).ShowDialog( );
     }
 
     private void AppExit(object o, ExitEventArgs e)
     {
-        History.Save( );
-        Bookmark.Save( );
         Setting.Save( );
+        Bookmark.Save( );
+        History.Save( );
         Cef.Shutdown( );
     }
 

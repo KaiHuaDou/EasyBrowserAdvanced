@@ -16,8 +16,8 @@ namespace 极简浏览器.Api;
 /// </summary>
 public static class Instance
 {
-    public static Dictionary<int, MainWindow> Host = new( );
-    public static Dictionary<int, EasyBrowserCore> Core = new( );
+    public static Dictionary<int, MainWindow> Host = [];
+    public static Dictionary<int, EasyBrowserCore> Core = [];
 
     public static void Navigate(int id, string url) => Core[id].Address = url;
     public static void GoBack(int id) { if (Core[id].CanGoBack) Core[id].Back( ); }
@@ -60,8 +60,8 @@ public static class Instance
             LogSeverity = LogSeverity.Disable,
             CachePath = $@"{FilePath.Runtime}\Cache",
             UserDataPath = $@"{FilePath.Runtime}\Profile",
-            UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : Config.UANormal
         };
+        settings.UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : $"{settings.UserAgent} Easy/3.4.7.2";
         settings.CefCommandLineArgs["disable-gpu"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
         settings.CefCommandLineArgs["disable-gpu-compositing"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
         settings.CefCommandLineArgs["enable-system-flash"] = "1";
@@ -89,12 +89,13 @@ public static class Instance
         => await Core[id].GetMainFrame( ).GetSourceAsync( );
 
     public static MenuItem[] ContextMenu(int Id)
-        => new MenuItem[]
-        {
+    {
+        return [
             new( ) { Header = "前进", Command = new CustomCommand(( ) => GoForward(Id)) },
             new( ) { Header = "后退", Command = new CustomCommand(( ) => GoBack(Id)) },
             new( ) { Header = "刷新", Command = new CustomCommand(( ) => Refresh(Id)) },
             new( ) { Header = "新窗口", Command = new CustomCommand(( ) => New( )) },
             new( ) { Header = "网页源代码", Command = new CustomCommand(( ) => ViewSource(Id)) },
-        };
+        ];
+    }
 }

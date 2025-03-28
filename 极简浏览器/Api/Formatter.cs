@@ -1,7 +1,5 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace 极简浏览器.Api;
 
@@ -9,15 +7,6 @@ namespace 极简浏览器.Api;
 /// 格式化网页源代码
 /// </summary>
 ///
-public static class Formatter
-{
-    public static async Task<string> FormatAsync(string code, CancellationToken token)
-    {
-        code = await Task.Run(( ) => HTMLFormatter.Format(code), token);
-        return code;
-    }
-}
-
 public static class HTMLFormatter
 {
     private static int tabSize = 4;
@@ -163,7 +152,7 @@ public static class JSCSSFormatter
             }
         }
         int i = j + 1;
-        while (top >= 0 || i < input.Length)
+        while (top >= 0 && i < input.Length)
         {
             switch (input[i])
             {

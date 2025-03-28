@@ -6,7 +6,7 @@ namespace 极简浏览器.Api;
 
 public static class CookieManager
 {
-    public static readonly HashSet<Cookie> Cookies = new( );
+    public static readonly HashSet<Cookie> Cookies = [];
 
     public static void Get( )
     {

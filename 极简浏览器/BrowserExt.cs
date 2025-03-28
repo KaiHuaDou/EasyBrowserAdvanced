@@ -64,6 +64,7 @@ public partial class MainWindow : Window
             return;
         Browser.Find(Id, SearchBox.Text, true, false, true);
     }
+
     private void SearchBoxInput(object o, KeyEventArgs e)
     {
         if (string.IsNullOrEmpty(SearchBox.Text))

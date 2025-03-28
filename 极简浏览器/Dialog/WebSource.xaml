@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="网页源代码"
         Width="700"
-        Height="400"
-        Closing="WindowClosing">
+        Height="400">
     <DockPanel Margin="10,10,10,10">
         <StackPanel DockPanel.Dock="Left" Margin="0,0,5,0" HorizontalAlignment="Center">
             <Button x:Name="refreshButton"

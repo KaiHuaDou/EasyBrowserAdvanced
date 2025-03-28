@@ -1,13 +1,15 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
 public partial class Report : Window
 {
-    public Report(string message)
+    public Report(Exception ex)
     {
         InitializeComponent( );
-        msgBox.Text = message;
+        messageBox.Text += Logger.GenLog(ex);
     }
 
     private void ShutdownClick(object o, RoutedEventArgs e)

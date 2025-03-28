@@ -3,21 +3,13 @@ using System.Windows.Input;
 
 namespace 极简浏览器.External;
 
-public class CustomCommand : ICommand
+public class CustomCommand(Action executeMethod) : ICommand
 {
-    public event EventHandler CanExecuteChanged = delegate { };
-    private readonly Action TargetExecuteMethod;
-    private readonly Func<bool> TargetCanExecuteMethod;
+    public event EventHandler CanExecuteChanged;
 
-    public CustomCommand(Action executeMethod)
-        => TargetExecuteMethod = executeMethod;
+    public bool CanExecute(object parameter) => true;
 
-    bool ICommand.CanExecute(object o)
-        => TargetCanExecuteMethod != null && TargetCanExecuteMethod( );
+    public void RaiseCanExecuteChanged( ) { }
 
-    public void RaiseCanExecuteChanged( )
-        => CanExecuteChanged(this, EventArgs.Empty);
-
-    void ICommand.Execute(object o)
-        => TargetExecuteMethod?.Invoke( );
+    public void Execute(object parameter) => executeMethod?.Invoke( );
 }

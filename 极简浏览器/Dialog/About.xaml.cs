@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using 极简浏览器.Api;
 using 极简浏览器.Resources;
 
 namespace 极简浏览器;
@@ -31,5 +32,5 @@ public partial class About : Window
     }
 
     private void SetVersion(object o, RoutedEventArgs e)
-        => verLabel.Content = $"{Settings.Default.Attach} {Settings.Default.Version} {Settings.Default.Type}";
+        => verLabel.Content = Config.VERSION;
 }

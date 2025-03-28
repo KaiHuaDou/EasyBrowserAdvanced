@@ -15,18 +15,18 @@ namespace Microsoft.Shell
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Runtime.Remoting;
     using System.Runtime.Remoting.Channels;
     using System.Runtime.Remoting.Channels.Ipc;
     using System.Runtime.Serialization.Formatters;
+    using System.Security;
     using System.Threading;
     using System.Windows;
     using System.Windows.Threading;
     using System.Xml.Serialization;
-    using System.Security;
-    using System.Runtime.InteropServices;
-    using System.ComponentModel;
 
     internal enum WM
     {
@@ -171,7 +171,7 @@ namespace Microsoft.Shell
                 argv = _CommandLineToArgvW(cmdLine, out numArgs);
                 if (argv == IntPtr.Zero)
                 {
-                    throw new Win32Exception();
+                    throw new Win32Exception( );
                 }
                 var result = new string[numArgs];
 
@@ -299,11 +299,11 @@ namespace Microsoft.Shell
         /// <summary>
         /// Cleans up single-instance code, clearing shared resources, mutexes, etc.
         /// </summary>
-        public static void Cleanup()
+        public static void Cleanup( )
         {
             if (singleInstanceMutex != null)
             {
-                singleInstanceMutex.Close();
+                singleInstanceMutex.Close( );
                 singleInstanceMutex = null;
             }
 
@@ -328,7 +328,7 @@ namespace Microsoft.Shell
             if (AppDomain.CurrentDomain.ActivationContext == null)
             {
                 // The application was not clickonce deployed, get args from standard API's
-                args = Environment.GetCommandLineArgs();
+                args = Environment.GetCommandLineArgs( );
             }
             else
             {
@@ -347,7 +347,7 @@ namespace Microsoft.Shell
                     {
                         using (TextReader reader = new StreamReader(cmdLinePath, System.Text.Encoding.Unicode))
                         {
-                            args = NativeMethods.CommandLineToArgvW(reader.ReadToEnd());
+                            args = NativeMethods.CommandLineToArgvW(reader.ReadToEnd( ));
                         }
 
                         File.Delete(cmdLinePath);
@@ -372,9 +372,9 @@ namespace Microsoft.Shell
         /// <param name="channelName">Application's IPC channel name.</param>
         private static void CreateRemoteService(string channelName)
         {
-            BinaryServerFormatterSinkProvider serverProvider = new BinaryServerFormatterSinkProvider();
+            BinaryServerFormatterSinkProvider serverProvider = new BinaryServerFormatterSinkProvider( );
             serverProvider.TypeFilterLevel = TypeFilterLevel.Full;
-            IDictionary props = new Dictionary<string, string>();
+            IDictionary props = new Dictionary<string, string>( );
 
             props["name"] = channelName;
             props["portName"] = channelName;
@@ -387,7 +387,7 @@ namespace Microsoft.Shell
             ChannelServices.RegisterChannel(channel, true);
 
             // Expose the remote service with the REMOTE_SERVICE_NAME
-            IPCRemoteService remoteService = new IPCRemoteService();
+            IPCRemoteService remoteService = new IPCRemoteService( );
             RemotingServices.Marshal(remoteService, RemoteServiceName);
         }
 
@@ -402,13 +402,13 @@ namespace Microsoft.Shell
         /// </param>
         private static void SignalFirstInstance(string channelName, IList<string> args)
         {
-            IpcClientChannel secondInstanceChannel = new IpcClientChannel();
+            IpcClientChannel secondInstanceChannel = new IpcClientChannel( );
             ChannelServices.RegisterChannel(secondInstanceChannel, true);
 
             string remotingServiceUrl = IpcProtocol + channelName + "/" + RemoteServiceName;
 
             // Obtain a reference to the remoting service exposed by the server i.e the first instance of the application
-            IPCRemoteService firstInstanceRemoteServiceReference = (IPCRemoteService)RemotingServices.Connect(typeof(IPCRemoteService), remotingServiceUrl);
+            IPCRemoteService firstInstanceRemoteServiceReference = (IPCRemoteService) RemotingServices.Connect(typeof(IPCRemoteService), remotingServiceUrl);
 
             // Check that the remote service exists, in some cases the first instance may not yet have created one, in which case
             // the second instance should just exit
@@ -453,7 +453,7 @@ namespace Microsoft.Shell
                 return;
             }
 
-            ((TApplication)Application.Current).SignalExternalCommandLineArgs(args);
+            ((TApplication) Application.Current).SignalExternalCommandLineArgs(args);
         }
 
         #endregion
@@ -485,7 +485,7 @@ namespace Microsoft.Shell
             /// to ensure that lease never expires.
             /// </summary>
             /// <returns>Always null.</returns>
-            public override object InitializeLifetimeService()
+            public override object InitializeLifetimeService( )
             {
                 return null;
             }

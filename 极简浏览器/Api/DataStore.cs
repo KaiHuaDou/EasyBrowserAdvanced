@@ -18,10 +18,10 @@ public class DataStore<T> : IDisposable where T : new()
 {
     public List<T> Content { get; private set; }
 
-    private string File;
-    private bool InitEmpty;
-    private FileStream Stream;
-    private XmlReader Reader;
+    private readonly string File;
+    private readonly bool InitEmpty;
+    private readonly FileStream Stream;
+    private readonly XmlReader Reader;
 
     public DataStore(string xmlFile, bool initEmpty = true)
     {
@@ -43,7 +43,7 @@ public class DataStore<T> : IDisposable where T : new()
         }
         catch
         {
-            Content = new List<T>( );
+            Content = [];
             if (!InitEmpty)
                 Content.Add(new T( ));
         }

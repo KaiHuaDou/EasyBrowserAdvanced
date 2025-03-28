@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace 极简浏览器.Api;
 
@@ -8,7 +9,7 @@ namespace 极简浏览器.Api;
 /// </summary>
 public static class Utils
 {
-    public static string AddressRegex = @"/$|.\.[A-Za-z\u4e00-\u9fa5]{1,5}($|/)|^[a-z]{2,6}://|^about:|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d{1,5})?";
+    public static Regex AddressRegex = new(@"^[a-z]+://|^about:|/$|.\.[A-Za-z一-龟]{1,5}($|/)|^\d+\.\d+\.\d+\.\d+(:\d+)?$|^\[[0-9a-fA-F:]+\]$", RegexOptions.IgnoreCase);
 
     public static string LocalTime => DateTime.Now.ToLocalTime( ).ToString( );
 

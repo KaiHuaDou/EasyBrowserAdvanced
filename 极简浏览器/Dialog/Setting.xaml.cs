@@ -19,7 +19,6 @@ public partial class Setting : Window
 
     private void OKClick(object o, RoutedEventArgs e)
     {
-
         App.Setting.Content.Clear( );
         App.Setting.Content.Add(new Config
         {

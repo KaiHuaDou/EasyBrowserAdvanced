@@ -6,24 +6,31 @@ namespace 极简浏览器.Api;
 
 public enum LogType
 {
-    Debug,
-    Warning,
+    Info,
+    Warn,
     Error
 }
 
 public static class Logger
 {
-    public static void Log(Exception ex, LogType type = LogType.Debug)
+    public static string GenLog(Exception ex)
+    {
+        string log = "";
+        log += $"{ex.Message}\n{ex.Source}\n{ex.TargetSite}\n{ex.StackTrace}\n\n";
+        if (ex.InnerException is not null)
+            log += GenLog(ex.InnerException);
+        return log;
+    }
+
+    public static void Write(Exception ex, LogType logType = LogType.Info)
     {
         try
         {
-            File.AppendAllText(
-                $@"{FilePath.Log}\{type}.log",
-                $"\n\n{ex.Message}\n{ex.Source}\n{ex.TargetSite}\n{ex.HelpLink}\n{ex.StackTrace}");
+            File.AppendAllText($@"{FilePath.Log}\{logType}.log", GenLog(ex));
         }
         catch (NullReferenceException)
         {
-            if (type == LogType.Error)
+            if (logType == LogType.Error)
                 Application.Current.Shutdown( );
         }
     }

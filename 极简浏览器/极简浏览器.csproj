@@ -3,7 +3,7 @@
         <TargetFramework>net462</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWPF>true</UseWPF>
-        <LangVersion>11.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <StartupObject>极简浏览器.App.Program</StartupObject>
         <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
@@ -25,11 +25,9 @@
     </PropertyGroup>
     <Target Name="CopyCef" BeforeTargets="PrepareForBuild">
         <ItemGroup>
-            <CefLibrary Include="lib\**"/>
+            <CefLibrary Include="lib\**" />
         </ItemGroup>
-        <Copy SourceFiles="@(CefLibrary)"
-              DestinationFiles="$(OutputPath)\%(RecursiveDir)%(Filename)%(Extension)"
-              SkipUnchangedFiles="True"/>
+        <Copy SourceFiles="@(CefLibrary)" DestinationFiles="$(OutputPath)\%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="True" />
     </Target>
     <ItemGroup>
         <Folder Include="Properties" />
@@ -53,19 +51,10 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <None Update="Resources\Settings.settings">
-            <Generator>SettingsSingleFileGenerator</Generator>
-            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-        </None>
         <Compile Update="Resources\GuiText.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>GuiText.resx</DependentUpon>
-        </Compile>
-        <Compile Update="Resources\Settings.Designer.cs">
-            <DesignTimeSharedInput>True</DesignTimeSharedInput>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
         <EmbeddedResource Update="Resources\GuiText.en-US.resx">
             <Generator></Generator>
