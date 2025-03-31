@@ -21,7 +21,6 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 2. Clean interface, no ads, no plug-ins
 3. Portable version, no installation required, data and applications are stored in the same location
 4. Fast startup
-5. Support Flash, you can run Flash without installing any Flash plug-ins
 
 ## Running dependencies
 
@@ -31,7 +30,6 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 
 ## Test Environment
 
-+ You can use a browser to enter the [test page](https://pinyin.sogou.com/help.php?list=8) to test the usability of Flash
 + You can use a browser to enter the [test page](https://speed.cloudflare.com/__down?during=download&bytes=104857600) to test the download function
 
 ## Release Notes

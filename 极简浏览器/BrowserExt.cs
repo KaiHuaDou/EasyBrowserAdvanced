@@ -55,14 +55,14 @@ public partial class MainWindow : Window
     {
         if (string.IsNullOrEmpty(SearchBox.Text))
             return;
-        Browser.Find(Id, SearchBox.Text, false, false, true);
+        Browser.Find(SearchBox.Text, false, false, true);
     }
 
     private void SearchNext(object o, Args e)
     {
         if (string.IsNullOrEmpty(SearchBox.Text))
             return;
-        Browser.Find(Id, SearchBox.Text, true, false, true);
+        Browser.Find(SearchBox.Text, true, false, true);
     }
 
     private void SearchBoxInput(object o, KeyEventArgs e)

@@ -23,12 +23,6 @@
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
     </PropertyGroup>
-    <Target Name="CopyCef" BeforeTargets="PrepareForBuild">
-        <ItemGroup>
-            <CefLibrary Include="lib\**" />
-        </ItemGroup>
-        <Copy SourceFiles="@(CefLibrary)" DestinationFiles="$(OutputPath)\%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="True" />
-    </Target>
     <ItemGroup>
         <Folder Include="Properties" />
         <None Update="Icon\Icon.png">
@@ -65,7 +59,7 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="CefSharp.Wpf" Version="87.1.132" />
+        <PackageReference Include="CefSharp.Wpf" Version="134.3.60" />
         <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

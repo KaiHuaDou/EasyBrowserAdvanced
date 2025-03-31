@@ -53,20 +53,18 @@ public static class Instance
 
     public static void Init( )
     {
-        Cef.EnableHighDPISupport( );
         CefSettings settings = new( )
         {
             Locale = CultureInfo.CurrentCulture.Name,
             LogSeverity = LogSeverity.Disable,
             CachePath = $@"{FilePath.Runtime}\Cache",
-            UserDataPath = $@"{FilePath.Runtime}\Profile",
         };
-        settings.UserAgent = App.Setting.Content[0].CheatUA ? Config.UACheated : $"{settings.UserAgent} Easy/3.4.7.2";
+        if (App.Setting.Content[0].CheatUA)
+            settings.UserAgent = Config.UACheated;
+        else
+            settings.UserAgentProduct = $"Easy/{Config.VERSION}";
         settings.CefCommandLineArgs["disable-gpu"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
         settings.CefCommandLineArgs["disable-gpu-compositing"] = App.Setting.Content[0].DisableGPU ? "1" : "0";
-        settings.CefCommandLineArgs["enable-system-flash"] = "1";
-        settings.CefCommandLineArgs["ppapi-flash-path"] = "Resources/pepflashplayer.dll";
-        settings.CefCommandLineArgs["ppapi-flash-version"] = "99.9.9.999";
         Cef.Initialize(settings, true);
     }
 

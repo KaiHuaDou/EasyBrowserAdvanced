@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using CefSharp;
@@ -74,16 +75,21 @@ public class DownloadHandler : IDownloadHandler
 {
     private readonly Action<bool, DownloadItem> downloadCallBackEvent;
 
-    public void OnBeforeDownload(
-        IWebBrowser chromiumWebBrowser, IBrowser browser,
-        DownloadItem downloadItem, IBeforeDownloadCallback callback)
+    public bool OnBeforeDownload(
+        IWebBrowser chromiumWebBrowser,
+        IBrowser browser,
+        DownloadItem downloadItem,
+        IBeforeDownloadCallback callback)
     {
-        if (callback.IsDisposed) return;
+        if (callback.IsDisposed)
+            return false;
         downloadCallBackEvent?.Invoke(false, downloadItem);
         string path = AskDownloadPath(downloadItem);
-        if (path is null) return;
+        if (path is null)
+            return false;
         new Download(downloadItem, path).Show( );
         downloadItem.IsInProgress = true;
+        return true;
     }
 
     public void OnDownloadUpdated(
@@ -96,10 +102,19 @@ public class DownloadHandler : IDownloadHandler
         SaveFileDialog sfd = new( )
         {
             FileName = item.SuggestedFileName,
+            AddExtension = true,
+            DefaultExt = item.SuggestedFileName.Split('.').Last( ),
             Title = "下载文件 - 极简浏览器",
         };
         return sfd.ShowDialog( ) == true ? sfd.FileName : null;
     }
+
+    public bool CanDownload(
+        IWebBrowser chromiumWebBrowser,
+        IBrowser browser,
+        string url,
+        string requestMethod)
+        => true;
 }
 
 public class MenuHandler(int id) : IContextMenuHandler
