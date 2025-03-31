@@ -16,7 +16,7 @@ public partial class MainWindow : Window
     private void GoBackClick(object o, Args e) => Instance.GoBack(Id);
     private void GoForwardClick(object o, Args e) => Instance.GoForward(Id);
     private void HelpClick(object o, Args e) => new Help( ).Show( );
-    private void HistoryClick(object o, Args e) => new History( ).Show( );
+    private void HistoryClick(object o, Args e) => new Records( ).Show( );
     private void NewPageClick(object o, Args e) => Instance.New( );
     private void RefreshClick(object o, Args e) => Instance.Refresh(Id);
     private void SettingClick(object o, Args e) => new Setting( ).Show( );

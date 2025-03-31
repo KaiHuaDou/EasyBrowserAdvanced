@@ -76,8 +76,8 @@ public static class Instance
         {
             case "about": new About( ).Show( ); break;
             case "help": new Help( ).Show( ); break;
-            case "history": new History( ).Show( ); break;
-            case "bookmark": new History( ).Show( ); break;
+            case "history": new Records( ).Show( ); break;
+            case "bookmark": new Records( ).Show( ); break;
             case "setting": new Setting( ).Show( ); break;
             case "websource": ViewSource(id); break;
             case "newtab": New( ); break;

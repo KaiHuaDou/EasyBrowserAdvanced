@@ -9,18 +9,21 @@
         SizeToContent="Height">
     <StackPanel Margin="10">
         <DockPanel>
-            <Label x:Name="FileName" Content="" />
+            <Label x:Name="FileName" Content="File.Extension" />
             <Label x:Name="Speed"
                    DockPanel.Dock="Right"
                    HorizontalAlignment="Right"
                    Content="0KB/s" />
+            <Label x:Name="RunTime"
+                   DockPanel.Dock="Right"
+                   HorizontalAlignment="Right"
+                   Content="0s/0s" />
         </DockPanel>
         <Grid>
             <ProgressBar x:Name="Progress" Value="100" Maximum="100" />
             <Label x:Name="Percent"
                    Canvas.Right="0"
                    HorizontalAlignment="Right"
-                   Foreground="Black"
                    Content="0%" />
         </Grid>
         <Label x:Name="FromURL" Content="about:blank" />
@@ -31,6 +34,9 @@
                     Margin="5,0,5,0" Padding="30,3"
                     Click="OpenClick" Content="打开文件"
                     IsEnabled="False" />
+            <Button x:Name="PauseResumeButton"
+                    Margin="5,0,5,0" Padding="30,3"
+                    Click="PauseClick" Content="暂停" />
             <Button x:Name="CancelButton"
                     Margin="5,0,0,0" Padding="30,3"
                     Click="CancelClick" Content="取消" />

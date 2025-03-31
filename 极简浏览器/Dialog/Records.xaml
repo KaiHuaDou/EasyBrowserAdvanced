@@ -1,4 +1,4 @@
-﻿<Window x:Class="极简浏览器.History"
+﻿<Window x:Class="极简浏览器.Records"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="历史记录和书签"
@@ -22,10 +22,10 @@
                 </StackPanel>
                 <DataGrid x:Name="HistoryView" BorderThickness="0" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
-                        <DataGridTextColumn Header="标题" Binding="{Binding Title}" />
-                        <DataGridTextColumn Header="地址" Binding="{Binding Url}" />
-                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time}" />
+                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="标题" Binding="{Binding Title, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="地址" Binding="{Binding Url, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time, Mode=TwoWay}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
@@ -46,10 +46,10 @@
                 </StackPanel>
                 <DataGrid x:Name="BookmarkView" BorderThickness="0" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check}" />
-                        <DataGridTextColumn Header="标题" Binding="{Binding Title}" />
-                        <DataGridTextColumn Header="地址" Binding="{Binding Url}" />
-                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time}" />
+                        <DataGridCheckBoxColumn Header="选择" Binding="{Binding Check, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="标题" Binding="{Binding Title, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="地址" Binding="{Binding Url, Mode=TwoWay}" />
+                        <DataGridTextColumn Header="访问时间" Binding="{Binding Time, Mode=TwoWay}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

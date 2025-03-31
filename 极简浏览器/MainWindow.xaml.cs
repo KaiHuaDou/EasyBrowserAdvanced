@@ -144,7 +144,7 @@ public partial class MainWindow : Window, IDisposable
                 switch (e.Key)
                 {
                     case Key.F: ShowSearchBox( ); break;
-                    case Key.H: new History( ).Show( ); break;
+                    case Key.H: new Records( ).Show( ); break;
                     case Key.I: new Setting( ).Show( ); break;
                     case Key.R: Instance.Refresh(Id); break;
                     case Key.N: Instance.New( ); break;

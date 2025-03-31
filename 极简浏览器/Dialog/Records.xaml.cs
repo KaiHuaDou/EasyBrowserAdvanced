@@ -6,9 +6,9 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
-public partial class History : Window
+public partial class Records : Window
 {
-    public History( )
+    public Records( )
     {
         InitializeComponent( );
         try
@@ -36,7 +36,7 @@ public partial class History : Window
 
     private void HistoryDelete(object o, RoutedEventArgs e)
     {
-        App.History.Content.RemoveAll((item) => item.Check);
+        App.History.Content.RemoveAll(item => item.Check);
         HistoryInit( );
     }
 
@@ -68,7 +68,7 @@ public partial class History : Window
 
     private void BookmarkDelete(object o, RoutedEventArgs e)
     {
-        App.Bookmark.Content.RemoveAll((item) => item.Check);
+        App.Bookmark.Content.RemoveAll(item => item.Check);
         BookmarkInit( );
     }
 

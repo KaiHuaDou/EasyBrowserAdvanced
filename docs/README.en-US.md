@@ -1,10 +1,8 @@
-# EasyBrowser
+﻿# EasyBrowser
 
 ![][Shields License] ![][Shields Release] ![][Shields Downloads] ![][Shields Commit] ![][Shields CI]
 
 ![][Shields CSharp] ![][Shields .NET] ![][Shields OS] ![][Shields IDE] ![][Shields Chromium]
-
-[![Gitmoji][Gitmoji]](https://gitmoji.dev)
 
 | [中文](../README.md) | English |
 | :------------------: | :-----: |
@@ -24,7 +22,6 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 3. Portable version, no installation required, data and applications are stored in the same location
 4. Fast startup
 5. Support Flash, you can run Flash without installing any Flash plug-ins
-6. Open source code, all source code is public on GitHub and Azure DevOps.
 
 ## Running dependencies
 
@@ -35,7 +32,7 @@ It is recommended to visit the updated and faster [GitHub repository](https://gi
 ## Test Environment
 
 + You can use a browser to enter the [test page](https://pinyin.sogou.com/help.php?list=8) to test the usability of Flash
-+ You can use a browser to enter the [test page](http://cachefly.cachefly.net/10mb.test) to test the download function
++ You can use a browser to enter the [test page](https://speed.cloudflare.com/__down?during=download&bytes=104857600) to test the download function
 
 ## Release Notes
 

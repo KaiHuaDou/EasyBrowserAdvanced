@@ -29,6 +29,9 @@
             <Button x:Name="GoForwardButton"
                     Style="{StaticResource NavButton}"
                     Click="GoForwardClick" Content="&#xE72A;" />
+            <Button x:Name="RefershButton"
+                    Style="{StaticResource NavButton}"
+                    Click="RefreshClick" Content="&#xE72C;" />
             <Button x:Name="SubmenuButton"
                     DockPanel.Dock="Right"
                     Margin="4,8,8,8"
@@ -38,10 +41,6 @@
                     DockPanel.Dock="Right"
                     Style="{StaticResource NavButton}"
                     Click="NewPageClick" Content="&#xE710;" />
-            <Button x:Name="RefershButton"
-                    DockPanel.Dock="Right"
-                    Style="{StaticResource NavButton}"
-                    Click="RefreshClick" Content="&#xE72C;" />
             <TextBox x:Name="AddressBox"
                      Margin="4" VerticalAlignment="Center"
                      Style="{StaticResource TextboxStyle}"
@@ -117,6 +116,7 @@
             </Border.Effect>
             <Grid>
                 <ProgressBar x:Name="LoadProgress"
+                             Margin="0,0,5,0"
                              Background="{x:Null}"
                              Foreground="#B2005CBC" BorderThickness="0"
                              IsIndeterminate="True" />

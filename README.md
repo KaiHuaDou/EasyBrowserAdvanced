@@ -1,10 +1,8 @@
-# 极简浏览器
+﻿# 极简浏览器
 
 ![][Shields License] ![][Shields Release] ![][Shields Downloads] ![][Shields Commit] ![][Shields CI]
 
 ![][Shields CSharp] ![][Shields .NET] ![][Shields OS] ![][Shields IDE] ![][Shields Chromium]
-
-[![Gitmoji][Gitmoji]](https://gitmoji.dev)
 
 | 中文  | [English](./docs/README.en-US.md) |
 | :---: | :-------------------------------: |
@@ -24,7 +22,6 @@
 3. 便携版，无需安装，数据与应用程序储存在同样位置
 4. 启动速度快
 5. 支持 Flash，可以在不安装任何 Flash 插件的情况下运行 Flash
-6. 开源代码，全部源代码都在 GitHub 和 Azure DevOps 上公开。
 
 ## 运行依赖
 
@@ -35,7 +32,7 @@
 ## 测试环境
 
 + 可以使用浏览器进入[测试页](https://pinyin.sogou.com/help.php?list=8)测试 Flash 的可用性
-+ 可以使用浏览器进入[测试页](http://cachefly.cachefly.net/10mb.test)测试下载功能
++ 可以使用浏览器进入[测试页](https://speed.cloudflare.com/__down?during=download&bytes=104857600)测试下载功能
 
 ## 版本说明
 
