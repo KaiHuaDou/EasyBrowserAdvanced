@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWPF>true</UseWPF>
         <LangVersion>latest</LangVersion>
@@ -10,21 +10,23 @@
     <PropertyGroup>
         <AnalysisLevel>latest-recommended</AnalysisLevel>
         <DebugType>full</DebugType>
-        <PlatformTarget>x86</PlatformTarget>
-        <WarningLevel>7</WarningLevel>
+        <WarningLevel>8</WarningLevel>
+        <PlatformTarget>x64</PlatformTarget>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationIcon>Icon\Icon.ico</ApplicationIcon>
         <ApplicationVersion>3.4.7.2</ApplicationVersion>
         <NeutralLanguage>zh-CN</NeutralLanguage>
         <OutputPath>bin\$(Configuration)</OutputPath>
-        <Platforms>x86</Platforms>
         <ProductName>极简浏览器</ProductName>
         <PublisherName>KaiHuaDou</PublisherName>
         <SuiteName>极简浏览器</SuiteName>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Properties" />
+        <PackageReference Include="CefSharp.Wpf.NETCore" Version="134.3.90" />
+        <PackageReference Include="SingleInstanceCore" Version="2.2.2" />
         <None Update="Icon\Icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -57,9 +59,5 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="CefSharp.Wpf" Version="134.3.60" />
-        <Reference Include="System.Runtime.Remoting" />
     </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using System.Windows.Input;
 using CefSharp;
 using 极简浏览器.Api;
 using Args = System.Windows.RoutedEventArgs;
+using System.Dynamic;
 
 namespace 极简浏览器;
 

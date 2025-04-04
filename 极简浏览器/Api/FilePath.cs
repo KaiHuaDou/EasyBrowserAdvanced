@@ -1,12 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.IO;
 
 namespace 极简浏览器.Api;
 
 public static class FilePath
 {
-    public static string App = Path.GetFullPath(Process.GetCurrentProcess( ).MainModule.FileName);
-    public static string Runtime = Path.GetDirectoryName(Process.GetCurrentProcess( ).MainModule.FileName);
+    public static string App = Path.GetFullPath(Environment.ProcessPath);
+    public static string Runtime = Path.GetDirectoryName(Environment.ProcessPath);
 
     public static string Profile = $@"{Runtime}\Profile";
     public static string Log = $@"{Runtime}\Log";

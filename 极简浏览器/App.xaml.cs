@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using CefSharp;
-using Microsoft.Shell;
+using SingleInstanceCore;
 using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
-public partial class App : Application, ISingleInstanceApp
+public partial class App : Application, ISingleInstance
 {
     public static DataStore<Record> History { get; set; }
     public static DataStore<Record> Bookmark { get; set; }
@@ -28,8 +27,6 @@ public partial class App : Application, ISingleInstanceApp
         [STAThread]
         public static void Main(string[] args)
         {
-            if (!SingleInstance<App>.InitializeAsFirstInstance("EasyBrowserAdvanced_3_4_7_2_Stable"))
-                return;
             try
             {
                 App app = new( );
@@ -37,7 +34,7 @@ public partial class App : Application, ISingleInstanceApp
                 if (args.Length >= 1)
                     startupUri = args[0];
                 app.Run( );
-                SingleInstance<App>.Cleanup( );
+                SingleInstance.Cleanup( );
             }
             catch (XamlParseException e)
             {
@@ -48,6 +45,9 @@ public partial class App : Application, ISingleInstanceApp
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        if (!this.InitializeAsFirstInstance("EasyBrowserAdvanced_3_4_7_2_Stable"))
+            Current.Shutdown( );
+
         base.OnStartup(e);
         RuntimeFix( );
 
@@ -55,20 +55,20 @@ public partial class App : Application, ISingleInstanceApp
         History = new(FilePath.History);
         Setting = new(FilePath.Setting, false);
 
-        Resources.MergedDictionaries.Add(new ResourceDictionary( )
-        {
-            Source = new Uri(Setting.Content[0].UITheme switch
-            {
-                0 => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
-                1 => "pack://application:,,,/PresentationFramework.Aero2,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero2.NormalColor.xaml",
-                2 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.NormalColor.xaml",
-                3 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Homestead.xaml",
-                4 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Metallic.xaml",
-                5 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Royale.NormalColor.xaml",
-                6 => "pack://application:,,,/PresentationFramework.Classic,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Classic.xaml",
-                _ => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
-            })
-        });
+        //Resources.MergedDictionaries.Add(new ResourceDictionary( )
+        //{
+        //    Source = new Uri(Setting.Content[0].UITheme switch
+        //    {
+        //        0 => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
+        //        1 => "pack://application:,,,/PresentationFramework.Aero2,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero2.NormalColor.xaml",
+        //        2 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.NormalColor.xaml",
+        //        3 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Homestead.xaml",
+        //        4 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Luna.Metallic.xaml",
+        //        5 => "pack://application:,,,/PresentationFramework.Luna,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Royale.NormalColor.xaml",
+        //        6 => "pack://application:,,,/PresentationFramework.Classic,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Classic.xaml",
+        //        _ => "pack://application:,,,/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml",
+        //    })
+        //});
 
         Instance.Init( );
     }
@@ -96,9 +96,6 @@ public partial class App : Application, ISingleInstanceApp
         Cef.Shutdown( );
     }
 
-    public bool SignalExternalCommandLineArgs(IList<string> args)
-    {
-        Instance.New(args.Count > 1 ? args[1] : "");
-        return true;
-    }
+    public void OnInstanceInvoked(string[] args)
+        => Instance.New(args.Length > 1 ? args[1] : "");
 }

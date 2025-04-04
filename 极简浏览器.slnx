@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/解决方案项/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Settings.XamlStyler" />
+  </Folder>
+  <Folder Name="/解决方案项/CI/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/codeql.yml" />
+  </Folder>
+  <Folder Name="/解决方案项/Documents/">
+    <File Path="CHANGELOG.md" />
+    <File Path="docs/README.en-US.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="极简浏览器/极简浏览器.csproj">
+  </Project>
+  <Properties Name="ExtensibilityGlobals" Scope="PostLoad">
+    <Property Name="RESX_NeutralResourcesLanguage" Value="zh-CN" />
+  </Properties>
+</Solution>

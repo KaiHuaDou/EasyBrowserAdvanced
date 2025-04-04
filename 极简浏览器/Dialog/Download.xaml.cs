@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using CefSharp;
@@ -18,10 +19,9 @@ public partial class Download : Window, IDisposable
 {
     private readonly string filePath;
     private static DownloadItem task = new( );
-    private WebRequest request;
-    private WebResponse response;
+    private HttpClient httpClient;
+    private HttpResponseMessage response;
 
-    private Thread thread;
     private Stream webStream;
     private FileStream fileStream;
     private readonly byte[] buf = new byte[short.MaxValue];
@@ -31,7 +31,7 @@ public partial class Download : Window, IDisposable
 
     private Stopwatch stopwatch = new( );
     private delegate void UpdateValue(ulong value);
-    private CancellationTokenSource cancelToken = new( );
+    private CancellationTokenSource cancelSource = new( );
 
     public Download(DownloadItem item, string path)
     {
@@ -39,46 +39,42 @@ public partial class Download : Window, IDisposable
         task = item;
         filePath = path;
         FileName.Content = task.SuggestedFileName;
+        httpClient = new HttpClient( );
         DownloadInit( );
     }
 
-    public void DownloadInit( )
+    public async void DownloadInit( )
     {
         try
         {
-            request = WebRequest.Create(task.Url);
-            response = request.GetResponse( );
-            totalSize = (ulong) response.ContentLength;
+            response = await httpClient.GetAsync(task.Url, HttpCompletionOption.ResponseHeadersRead, cancelSource.Token);
+            response.EnsureSuccessStatusCode( );
+            totalSize = (ulong) response.Content.Headers.ContentLength.GetValueOrDefault( );
             fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
             stopwatch.Start( );
-            thread = new Thread(DownloadFile);
-            thread.Start( );
+            await Task.Run(DownloadFile, cancelSource.Token);
         }
-        catch (WebException e)
+        catch (HttpRequestException e)
         {
-            MessageBox.Show("无法下载\n" + e.Status.ToString( ));
+            MessageBox.Show("无法下载\n" + e.Message);
             Close( );
         }
     }
 
-    public void DownloadFile( )
+    public async Task DownloadFile( )
     {
-        webStream = response.GetResponseStream( );
-        for (int i = 0; (i = webStream.Read(buf, 0, buf.Length)) > 0;)
+        webStream = await response.Content.ReadAsStreamAsync(cancelSource.Token);
+        for (int i = 0; (i = await webStream.ReadAsync(buf, cancelSource.Token)) > 0;)
         {
             try
             {
                 size += (ulong) i;
                 Dispatcher.Invoke(new UpdateValue(UpdateUI), size);
-                fileStream.Write(buf, 0, i);
+                await fileStream.WriteAsync(buf.AsMemory(0, i), cancelSource.Token);
             }
             catch (IOException ex)
             {
                 Logger.Write(ex, LogType.Warn);
-            }
-            while (cancelToken.Token.IsCancellationRequested)
-            {
-                Thread.Sleep(100);
             }
         }
         finished = true;
@@ -102,10 +98,11 @@ public partial class Download : Window, IDisposable
         if (timePassed == 0 || sizePassed == 0) return;
         double speed = sizePassed / timePassed;
         ulong timeRemain = (ulong) ((totalSize - nowSize) / speed);
+
         Speed.Content = Math.Round(speed / 1024.0) + "KB/s";
-        string hourPassed = timePassed / 3600 > 0 ? $"{timePassed / 3600}h" : "";
-        string minPassed = timePassed % 3600 / 60 > 0 ? $"{timePassed % 3600 / 60}m" : "";
-        string secPassed = timePassed % 60 > 0 ? $"{timePassed % 60}s" : "";
+        string hourPassed = NowTime / 3600 > 0 ? $"{NowTime / 3600}h" : "";
+        string minPassed = NowTime % 3600 / 60 > 0 ? $"{NowTime % 3600 / 60}m" : "";
+        string secPassed = NowTime % 60 > 0 ? $"{NowTime % 60}s" : "";
         string hourRemain = timeRemain / 3600 > 0 ? $"{timeRemain / 3600}h" : "";
         string minRemain = timeRemain % 3600 / 60 > 0 ? $"{timeRemain % 3600 / 60}m" : "";
         string secRemain = timeRemain % 60 > 0 ? $"{timeRemain % 60}s" : "";
@@ -124,10 +121,9 @@ public partial class Download : Window, IDisposable
         catch (FileNotFoundException) { }
     }
 
-
     private void CancelTask( )
     {
-        thread.Abort( );
+        cancelSource.Cancel( );
         File.Delete(filePath);
     }
 
@@ -136,12 +132,12 @@ public partial class Download : Window, IDisposable
         if (PauseResumeButton.Content.ToString( ) == "暂停")
         {
             PauseResumeButton.Content = "继续";
-            cancelToken.Cancel( );
+            cancelSource.Cancel( );
         }
         else
         {
             PauseResumeButton.Content = "暂停";
-            cancelToken = new CancellationTokenSource( );
+            cancelSource = new CancellationTokenSource( );
         }
     }
 
@@ -160,7 +156,8 @@ public partial class Download : Window, IDisposable
 
     private void WindowClosing(object o, CancelEventArgs e)
     {
-        if (!finished) CancelTask( );
+        if (!finished)
+            CancelTask( );
     }
 
     private void WindowSizeChanged(object o, SizeChangedEventArgs e)
@@ -171,6 +168,8 @@ public partial class Download : Window, IDisposable
         fileStream.Dispose( );
         webStream.Dispose( );
         response.Dispose( );
+        cancelSource.Dispose( );
+        httpClient.Dispose( );
         GC.SuppressFinalize(this);
     }
 }

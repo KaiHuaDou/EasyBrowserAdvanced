@@ -8,6 +8,12 @@ using 极简浏览器.Api;
 
 namespace 极简浏览器;
 
+public enum BrowserState
+{
+    Browsing,
+    Error
+}
+
 /// <summary>
 /// 主窗口的交互代码
 /// 负责：ChromiumWebBrowser 相关、初始化
@@ -15,9 +21,9 @@ namespace 极简浏览器;
 public partial class MainWindow : Window, IDisposable
 {
     private readonly int Id;
-    public bool IsError { get; set; }
-    public Argument Args { get; set; }
+    private BrowserState State;
     private EasyBrowserCore Browser => Instance.Core[Id];
+    public Argument Args { get; set; }
 
     public MainWindow( ) : this(0, new Argument( ))
     {
@@ -27,6 +33,7 @@ public partial class MainWindow : Window, IDisposable
     public MainWindow(int id, Argument args)
     {
         InitializeComponent( );
+        DataContext = this;
         Id = id;
         Args = args;
     }
@@ -70,7 +77,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void PagePreload(object o, RoutedEventArgs e)
     {
-        IsError = false;
+        State = BrowserState.Browsing;
         if (AddressBox.Text.ToUpperInvariant( ).Contains("EASY://"))
             Instance.PraseEasy(Id, AddressBox.Text);
         else if (Utils.AddressRegex.IsMatch(AddressBox.Text))
@@ -83,7 +90,8 @@ public partial class MainWindow : Window, IDisposable
     {
         loadLabel.Visibility = Visibility.Visible;
         LoadProgress.Visibility = Visibility.Visible;
-        if (!IsError) AddressBox.Text = Browser.Address;
+        if (State == BrowserState.Browsing) 
+            AddressBox.Text = Browser.Address;
     }
 
     private void PageLoaded(object o, FrameLoadEndEventArgs e)
@@ -92,7 +100,7 @@ public partial class MainWindow : Window, IDisposable
         {
             LoadProgress.Visibility = Visibility.Collapsed;
             loadLabel.Visibility = Visibility.Collapsed;
-            if (Args.IsPrivate || IsError) return;
+            if (Args.IsPrivate || State != BrowserState.Browsing) return;
             App.History.Content.Add(
                 new Record
                 {
@@ -107,7 +115,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void BrowserTitleChanged(object o, DependencyPropertyChangedEventArgs e)
     {
-        if (!IsError)
+        if (State == BrowserState.Browsing)
             Title = Browser.Title + " - 极简浏览器";
     }
 
@@ -117,7 +125,7 @@ public partial class MainWindow : Window, IDisposable
         Dispatcher.BeginInvoke(( ) =>
         {
             if (Browser.IsLoading) return;
-            IsError = true;
+            State = BrowserState.Error;
             Instance.Navigate(Id, $@"{FilePath.ErrorPage}?code={e.ErrorCode}&text={e.ErrorText}&url={AddressBox.Text}");
         });
     }
