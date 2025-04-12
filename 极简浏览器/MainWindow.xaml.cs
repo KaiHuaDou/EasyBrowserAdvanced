@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
+using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
@@ -43,14 +44,11 @@ public partial class MainWindow : Window, IDisposable
         Instance.Core[Id] = new EasyBrowserCore(Id)
         {
             Margin = new Thickness(0),
-            MenuHandler = new MenuHandler(Id),
         };
         Browser.AddressChanged += PageLoading;
         Browser.FrameLoadEnd += PageLoaded;
         Browser.TitleChanged += BrowserTitleChanged;
         Browser.IsBrowserInitializedChanged += BrowserLoaded;
-        Browser.LoadError += BrowserLoadError;
-        MenuHandler.MainWindow = this;
         BrowserGrid.Children.Add(Browser);
         Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, App.Program.StartupUri));
     }
@@ -83,14 +81,14 @@ public partial class MainWindow : Window, IDisposable
         else if (Utils.AddressRegex.IsMatch(AddressBox.Text))
             Instance.Navigate(Id, AddressBox.Text);
         else
-            Instance.Navigate(Id, App.Setting.Content[0].SearchEngine + AddressBox.Text);
+            Instance.Navigate(Id, App.Setting.Content[0].SearchEngine.Replace("%1", AddressBox.Text));
     }
 
     private void PageLoading(object o, DependencyPropertyChangedEventArgs e)
     {
-        loadLabel.Visibility = Visibility.Visible;
+        LoadLabel.Visibility = Visibility.Visible;
         LoadProgress.Visibility = Visibility.Visible;
-        if (State == BrowserState.Browsing) 
+        if (State == BrowserState.Browsing)
             AddressBox.Text = Browser.Address;
     }
 
@@ -99,7 +97,7 @@ public partial class MainWindow : Window, IDisposable
         Dispatcher.BeginInvoke(( ) =>
         {
             LoadProgress.Visibility = Visibility.Collapsed;
-            loadLabel.Visibility = Visibility.Collapsed;
+            LoadLabel.Visibility = Visibility.Collapsed;
             if (Args.IsPrivate || State != BrowserState.Browsing) return;
             App.History.Content.Add(
                 new Record
@@ -117,17 +115,6 @@ public partial class MainWindow : Window, IDisposable
     {
         if (State == BrowserState.Browsing)
             Title = Browser.Title + " - 极简浏览器";
-    }
-
-    private void BrowserLoadError(object o, LoadErrorEventArgs e)
-    {
-        if (e.ErrorCode.ToString( ) is "Aborted" or "ConnectionClosed") return;
-        Dispatcher.BeginInvoke(( ) =>
-        {
-            if (Browser.IsLoading) return;
-            State = BrowserState.Error;
-            Instance.Navigate(Id, $@"{FilePath.ErrorPage}?code={e.ErrorCode}&text={e.ErrorText}&url={AddressBox.Text}");
-        });
     }
 
     private async void BrowserZoom(object o, MouseWheelEventArgs e)

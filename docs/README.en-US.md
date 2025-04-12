@@ -7,62 +7,48 @@
 | [中文](../README.md) | English |
 | :------------------: | :-----: |
 
-EasyBrowser Chromium-based browser written in C#.
+**Simple, fast, and clean.**
 
-Applicable to computers with average performance or scenes that require Flash.
+Minimalist Browser is a Chromium-like browser based on WPF.
 
-It is recommended to visit the updated and faster [GitHub repository](https://github.com/KaiHuaDou/EasyBrowserAdvanced).
+## Runtime dependencies
 
-> Special thanks to StrollStars for suggestions for improving runtime dependencies
+1. [.NET 6.0 Desktop Runtime](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.36-windows-x64-installer)
 
-## Features
-
-1. Small in size, only 29% of Chrome and 63% of Firefox.
-2. Clean interface, no ads, no plug-ins
-3. Portable version, no installation required, data and applications are stored in the same location
-4. Fast startup
-
-## Running dependencies
-
-1. [.NET Framework 4.6.2 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net462-offline-installer)
 2. [Visual C++ 2022 Runtime](https://aka.ms/vs/17/release/vc_redist.x64.exe)
-3. [Segoe Fluent Icons Font](https://aka.ms/SegoeFluentIcons)
 
-## Test Environment
+3. [Segoe Fluent Icons font](https://aka.ms/SegoeFluentIcons)
 
-+ You can use a browser to enter the [test page](https://speed.cloudflare.com/__down?during=download&bytes=104857600) to test the download function
+## Test environment
 
-## Release Notes
++ You can use a browser to enter the [test page](https://speed.cloudflare.com/__down?during=download&bytes=104857600) to test the download function.
 
-Please refer to [Change Log](./CHANGELOG.md) for version details
+## Version description
 
-| Channel |                     Description                     | Next Release |
-| :-----: | :-------------------------------------------------: | :----------: |
-| Stable  |              relatively stable version              |   v3.4.7.2   |
-|  Beta   |              new feature test version               | v3.7.2-beta1 |
-|   RC    | version that is generally perfect but lacks details | v3.4.7.2-rc3 |
+For detailed version features, please refer to the [changelog](./CHANGELOG.md).
+
+| Channel | Next version |
+| :----: | :---------: |
+| Stable | v3.4.7.2 |
+| Beta | v3.7.2-beta1 |
+| RC | v3.4.7.2-rc3 |
 
 ## Development Environment
 
-1. Visual Studio 2022 (Community is ok, 64-bit)
-     + .NET desktop development
-         + NuGet targets and build tasks
-         + MSBuild
+1. Visual Studio 2022 (Community is fine, 64-bit)
+    + .NET Desktop Development
 
-2. .NET Framework 4.6.2 or later SDK
-3. .NET Framework 4.6.2 Target Pack
+## Acknowledgements
 
-Use `dotnet build` to build independently. To build a version that supports video, you need to download [Cef H.264 Library], unzip it and place it in the source code root directory.
++ StrollStars
 
-[Shields CI]: https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml
+[Shields CI]: <https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml>
 [Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
 [Shields Release]: https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced
 [Shields Downloads]: https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
-[Shields CSharp]: https://img.shields.io/badge/11.0-version?logo=csharp&label=C%23&color=%23512BD4
-[Shields .NET]: https://img.shields.io/badge/>=4.6.2-version?logo=dotnet&label=.NET%20Framework&color=%23512BD4
+[Shields CSharp]: https://img.shields.io/badge/13.0-version?logo=csharp&label=C%23&color=%23512BD4
+[Shields .NET]: https://img.shields.io/badge/>=6.0-version?logo=dotnet&label=.NET&color=%23512BD4
 [Shields OS]: https://img.shields.io/badge/>=Windows%207%20SP1-version?logo=windows&label=OS&color=%230078D4
 [Shields IDE]: https://img.shields.io/badge/2022-version?logo=visual%20studio&label=Visual%20Studio&color=%235C2D91
-[Shields Chromium]: https://img.shields.io/badge/87.1.132-version?logo=googlechrome&label=Chromium&color=%234285F4%logoColor=white
-[Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
-[Cef H.264 Library]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/releases/download/v3.4.7.2-h264test/cef-h264-library.zip
+[Shields Chromium]: https://img.shields.io/badge/134.3.90-version?logo=googlechrome&label=Chromium&color=%234285F4%logoColor=white

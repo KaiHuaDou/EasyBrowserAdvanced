@@ -7,62 +7,46 @@
 | 中文  | [English](./docs/README.en-US.md) |
 | :---: | :-------------------------------: |
 
-极简浏览器用 C# 编写的基于 Chromium 的浏览器。
+**简单、迅速、干净。**
 
-适用与性能一般的电脑或者需要 Flash 的场景。
-
-建议访问更新更快的 [GitHub 仓库](https://github.com/KaiHuaDou/EasyBrowserAdvanced)。
-
-> 特别鸣谢 StrollStars 对运行依赖的改进建议
-
-## 特点
-
-1. 体积小巧，仅有 Chrome 的 29%，Firefox 的 63%。
-2. 界面干净，无广告，无插件
-3. 便携版，无需安装，数据与应用程序储存在同样位置
-4. 启动速度快
+极简浏览器基于 WPF 的类 Chromium 的浏览器。
 
 ## 运行依赖
 
-1. [.NET Framework 4.6.2 运行时](https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net462-offline-installer)
+1. [.NET 6.0 桌面运行时](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.36-windows-x64-installer)
 2. [Visual C++ 2022 运行时](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 3. [Segoe Fluent Icons 字体](https://aka.ms/SegoeFluentIcons)
 
 ## 测试环境
 
-+ 可以使用浏览器进入[测试页](https://speed.cloudflare.com/__down?during=download&bytes=104857600)测试下载功能
++ 可以使用浏览器进入[测试页](https://speed.cloudflare.com/__down?during=download&bytes=104857600)测试下载功能。
 
 ## 版本说明
 
-版本详细功能请参见[更新日志](./CHANGELOG.md)
+版本详细功能请参见[更新日志](./CHANGELOG.md)。
 
-|  通道  |           说明           |  下一个版本  |
-| :----: | :----------------------: | :----------: |
-| Stable |       相对稳定版本       |   v3.4.7.2   |
-|  Beta  |      新功能测试版本      | v3.7.2-beta1 |
-|   RC   | 总体完善但细节不足的版本 | v3.4.7.2-rc3 |
+|  通道  |  下一个版本  |
+| :----: | :----------: |
+| Stable |   v3.4.7.2   |
+|  Beta  | v3.7.2-beta1 |
+|   RC   | v3.4.7.2-rc3 |
 
 ## 开发环境
 
-1. Visual Studio 2022 (Community 即可, 64-bit)
+1. Visual Studio 2022 (Community 即可，64-bit)
     + .NET 桌面开发
-        + NuGet 目标和生成任务
-        + MSBuild
 
-2. .NET Framework 4.6.2 或更高版本的 SDK
-3. .NET Framework 4.6.2 目标包 (`Target Pack`)
+## 致谢
 
-使用 `dotnet build` 以自主构建，构建支持视频的版本需要下载[Cef H.264 库]，解压后放置在源代码根目录下。
++ StrollStars
 
 [Shields CI]: https://img.shields.io/github/actions/workflow/status/kaihuadou/easybrowseradvanced/build.yml
 [Shields License]: https://img.shields.io/github/license/kaihuadou/easybrowseradvanced
 [Shields Release]: https://img.shields.io/github/v/release/kaihuadou/easybrowseradvanced
 [Shields Downloads]: https://img.shields.io/github/downloads/kaihuadou/easybrowseradvanced/total
 [Shields Commit]: https://img.shields.io/github/commit-activity/y/kaihuadou/easybrowseradvanced
-[Shields CSharp]: https://img.shields.io/badge/11.0-version?logo=csharp&label=C%23&color=%23512BD4
-[Shields .NET]: https://img.shields.io/badge/>=4.6.2-version?logo=dotnet&label=.NET%20Framework&color=%23512BD4
+[Shields CSharp]: https://img.shields.io/badge/13.0-version?logo=csharp&label=C%23&color=%23512BD4
+[Shields .NET]: https://img.shields.io/badge/>=6.0-version?logo=dotnet&label=.NET&color=%23512BD4
 [Shields OS]: https://img.shields.io/badge/>=Windows%207%20SP1-version?logo=windows&label=OS&color=%230078D4
 [Shields IDE]: https://img.shields.io/badge/2022-version?logo=visual%20studio&label=Visual%20Studio&color=%235C2D91
-[Shields Chromium]: https://img.shields.io/badge/87.1.132-version?logo=googlechrome&label=Chromium&color=%234285F4%logoColor=white
-[Gitmoji]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg
-[Cef H.264 库]: https://github.com/KaiHuaDou/EasyBrowserAdvanced/releases/download/v3.4.7.2-h264test/cef-h264-library.zip
+[Shields Chromium]: https://img.shields.io/badge/134.3.90-version?logo=googlechrome&label=Chromium&color=%234285F4%logoColor=white

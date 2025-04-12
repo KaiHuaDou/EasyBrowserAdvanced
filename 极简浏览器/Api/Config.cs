@@ -15,7 +15,7 @@ public class Config
 
     // 静态对象
     public const string mainPageDefault = "about:blank";
-    public const string searchEngineDefault = "https://cn.bing.com/search?q=";
+    public const string searchEngineDefault = "https://cn.bing.com/search?q=%1";
     public const string UACheated = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Easy/3.4.7.2 Chrome/123.0.0.0 Safari/537.36\n";
 
     // 实例对象

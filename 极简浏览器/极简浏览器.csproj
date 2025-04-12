@@ -25,7 +25,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Properties" />
-        <PackageReference Include="CefSharp.Wpf.NETCore" Version="134.3.90" />
+        <PackageReference Include="CefSharp.Wpf.NETCore" Version="135.0.170" />
         <PackageReference Include="SingleInstanceCore" Version="2.2.2" />
         <None Update="Icon\Icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -33,12 +33,6 @@
         <Resource Include="Icon\Icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <None Update="Resources\Error.html">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Resources\pepflashplayer.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
         <None Update="Tools\Reset.bat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -52,12 +46,21 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>GuiText.resx</DependentUpon>
         </Compile>
+        <Compile Update="Resources\ErrorCode.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>ErrorCode.resx</DependentUpon>
+        </Compile>
         <EmbeddedResource Update="Resources\GuiText.en-US.resx">
             <Generator></Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\GuiText.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>GuiText.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\ErrorCode.resx">
+          <Generator>PublicResXFileCodeGenerator</Generator>
+          <LastGenOutput>ErrorCode.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 </Project>

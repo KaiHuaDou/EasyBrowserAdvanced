@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
 using CefSharp;
 using CefSharp.Wpf;
 using Microsoft.Win32;
@@ -11,7 +9,6 @@ namespace 极简浏览器;
 
 /// <summary>
 /// 浏览器辅助代码
-/// 涉及：生命周期、右键菜单、新窗口、下载等
 /// </summary>
 
 public class EasyBrowserCore : ChromiumWebBrowser
@@ -39,18 +36,9 @@ public class NewWindowEventArgs(IWindowInfo windowInfo, string url) : EventArgs
     public string Url { get; set; } = url;
 }
 
-public class LifeSpanHandler : ILifeSpanHandler
+public class LifeSpanHandler : CefSharp.Handler.LifeSpanHandler
 {
-    public LifeSpanHandler( ) { }
-
-    public bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser)
-        => !(browser.IsDisposed || browser.IsPopup);
-
-    public void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
-
-    public void OnBeforeClose(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
-
-    public bool OnBeforePopup(
+    protected override bool OnBeforePopup(
         IWebBrowser chromiumWebBrowser,
         IBrowser browser,
         IFrame frame,
@@ -64,8 +52,8 @@ public class LifeSpanHandler : ILifeSpanHandler
         ref bool noJavascriptAccess,
         out IWebBrowser newBrowser)
     {
-        EasyBrowserCore _core = (EasyBrowserCore) chromiumWebBrowser;
-        _core.Dispatcher.Invoke(( ) => _core.OnNewWindow(new NewWindowEventArgs(windowInfo, targetUrl)));
+        EasyBrowserCore core = (EasyBrowserCore) chromiumWebBrowser;
+        core.Dispatcher.Invoke(( ) => core.OnNewWindow(new NewWindowEventArgs(windowInfo, targetUrl)));
         newBrowser = null;
         return true;
     }
@@ -115,49 +103,4 @@ public class DownloadHandler : IDownloadHandler
         string url,
         string requestMethod)
         => true;
-}
-
-public class MenuHandler(int id) : IContextMenuHandler
-{
-    public static Window MainWindow { get; set; }
-
-    void IContextMenuHandler.OnContextMenuDismissed(
-        IWebBrowser webBrowser,
-        IBrowser browser,
-        IFrame frame)
-    {
-        ChromiumWebBrowser core = (ChromiumWebBrowser) webBrowser;
-        core.Dispatcher.Invoke(( ) => core.ContextMenu = null);
-    }
-
-    bool IContextMenuHandler.RunContextMenu(
-        IWebBrowser webBrowser, IBrowser browser, IFrame frame,
-        IContextMenuParams parameters, IMenuModel model,
-        IRunContextMenuCallback callback)
-    {
-        ChromiumWebBrowser _core = (ChromiumWebBrowser) webBrowser;
-        _core.Dispatcher.Invoke(( ) =>
-        {
-            ContextMenu menu = new( )
-            {
-                IsOpen = true,
-                ItemsSource = Instance.ContextMenu(id)
-            };
-            void handler(object o, RoutedEventArgs e)
-            {
-                menu.Closed -= handler;
-                if (!callback.IsDisposed) callback.Cancel( );
-            }
-            menu.Closed += handler;
-            _core.ContextMenu = menu;
-        });
-        return true;
-    }
-
-    public void OnBeforeContextMenu(
-        IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame,
-        IContextMenuParams parameters, IMenuModel model) => _ = true;
-    public bool OnContextMenuCommand(
-        IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters,
-        CefMenuCommand commandId, CefEventFlags eventFlags) => true;
 }
