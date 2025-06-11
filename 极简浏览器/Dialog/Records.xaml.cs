@@ -51,7 +51,7 @@ public partial class Records : Window
         foreach (Record item in App.History.Content.Where(item => item.Check))
             Instance.New(item.Url);
     }
-    #endregion
+    #endregion History
 
     #region Bookmark
     private void BookmarkInit( )
@@ -83,7 +83,7 @@ public partial class Records : Window
         foreach (Record item in App.Bookmark.Content.Where(item => item.Check))
             Instance.New(item.Url);
     }
-    #endregion
+    #endregion Bookmark
 
     private void WindowClosing(object o, CancelEventArgs e)
     {

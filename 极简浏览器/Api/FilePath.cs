@@ -11,7 +11,6 @@ public static class FilePath
     public static string Profile = $@"{Runtime}\Profile";
     public static string Log = $@"{Runtime}\Log";
     public static string Cache = $@"{Runtime}\Cache";
-    public static string GPUCache = $@"{Runtime}\GPUCache";
 
     public static string History = $@"{Profile}\History.xml";
     public static string BookMark = $@"{Profile}\BookMark.xml";

@@ -10,7 +10,6 @@ namespace 极简浏览器;
 /// <summary>
 /// 浏览器辅助代码
 /// </summary>
-
 public class EasyBrowserCore : ChromiumWebBrowser
 {
     private readonly int Id;

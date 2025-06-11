@@ -123,4 +123,3 @@ public class WindowBlur
         Marshal.FreeHGlobal(accentPtr);
     }
 }
-

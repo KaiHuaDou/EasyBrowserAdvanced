@@ -19,7 +19,7 @@ public static class Utils
     public static string ZipStr(string str, int len)
     {
         return str.Length <= len ? str
-            : string.Concat(str.AsSpan(0, len - 6), "…", str.AsSpan(str.Length - 6));
+            : $"{str.AsSpan(0, len - 6)}…{str.AsSpan(str.Length - 6)}";
     }
 
     public static double ConvertZoomLevel(double zoomLevel)

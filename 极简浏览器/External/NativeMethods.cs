@@ -6,11 +6,11 @@ internal sealed class NativeMethods
 {
     internal enum AccentState
     {
-        ACCENT_DISABLED,
-        ACCENT_ENABLE_GRADIENT,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT,
-        ACCENT_ENABLE_BLURBEHIND,
-        ACCENT_INVALID_STATE,
+        ACCENT_DISABLED = 0,
+        ACCENT_ENABLE_GRADIENT = 1,
+        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+        ACCENT_ENABLE_BLURBEHIND = 3,
+        ACCENT_INVALID_STATE = 4,
     }
 
     [StructLayout(LayoutKind.Sequential)]

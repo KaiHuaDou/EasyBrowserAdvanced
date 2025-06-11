@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using CefSharp;
 using CefSharp.DevTools;
 using CefSharp.DevTools.Page;
 using CefSharp.Wpf;
-using 极简浏览器.External;
 
 namespace 极简浏览器.Api;
 
@@ -74,7 +72,7 @@ public static class Instance
         {
             case "about": new About( ).Show( ); break;
             case "help": new Help( ).Show( ); break;
-            case "history": new Records( ).Show( ); break;
+            case "history":
             case "bookmark": new Records( ).Show( ); break;
             case "setting": new Setting( ).Show( ); break;
             case "websource": ViewSource(id); break;
@@ -85,15 +83,4 @@ public static class Instance
 
     public static async Task<string> PageSourceAsync(int id)
         => await Core[id].GetMainFrame( ).GetSourceAsync( );
-
-    public static MenuItem[] ContextMenu(int Id)
-    {
-        return [
-            new( ) { Header = "前进", Command = new CustomCommand(( ) => GoForward(Id)) },
-            new( ) { Header = "后退", Command = new CustomCommand(( ) => GoBack(Id)) },
-            new( ) { Header = "刷新", Command = new CustomCommand(( ) => Refresh(Id)) },
-            new( ) { Header = "新窗口", Command = new CustomCommand(( ) => New( )) },
-            new( ) { Header = "网页源代码", Command = new CustomCommand(( ) => ViewSource(Id)) },
-        ];
-    }
 }

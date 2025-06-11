@@ -6,9 +6,9 @@ namespace 极简浏览器.Api;
 
 public enum LogType
 {
-    Info,
-    Warn,
-    Error
+    Info = 0,
+    Warn = 1,
+    Error = 2
 }
 
 public static class Logger

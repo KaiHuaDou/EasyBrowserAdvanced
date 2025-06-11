@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using 极简浏览器.Api;
-using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
@@ -19,8 +18,7 @@ public partial class About : Window
 
     private void Circle(object o, MouseButtonEventArgs e)
     {
-        RotateTransform rotate = new( );
-        img.RenderTransform = rotate;
+        img.RenderTransform = (RotateTransform) new( );
         img.RenderTransformOrigin = new Point(0.5, 0.5);
         Storyboard story = new( );
         DoubleAnimation ani = new(0, 360, new Duration(TimeSpan.FromSeconds(0.5)));

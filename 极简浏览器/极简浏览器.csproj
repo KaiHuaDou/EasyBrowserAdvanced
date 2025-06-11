@@ -25,7 +25,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Properties" />
-        <PackageReference Include="CefSharp.Wpf.NETCore" Version="135.0.170" />
+        <PackageReference Include="CefSharp.Wpf.NETCore" Version="137.0.100" />
         <PackageReference Include="SingleInstanceCore" Version="2.2.2" />
         <None Update="Icon\Icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

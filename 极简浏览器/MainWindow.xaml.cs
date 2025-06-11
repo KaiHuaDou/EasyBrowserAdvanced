@@ -5,14 +5,13 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using CefSharp;
 using 极简浏览器.Api;
-using 极简浏览器.Resources;
 
 namespace 极简浏览器;
 
 public enum BrowserState
 {
-    Browsing,
-    Error
+    Browsing = 0,
+    Error = 1
 }
 
 /// <summary>
@@ -48,25 +47,9 @@ public partial class MainWindow : Window, IDisposable
         Browser.AddressChanged += PageLoading;
         Browser.FrameLoadEnd += PageLoaded;
         Browser.TitleChanged += BrowserTitleChanged;
-        Browser.IsBrowserInitializedChanged += BrowserLoaded;
         BrowserGrid.Children.Add(Browser);
         Dispatcher.BeginInvoke(( ) => Instance.Navigate(Id, App.Program.StartupUri));
     }
-
-    private void BrowserLoaded(object o, DependencyPropertyChangedEventArgs e)
-    {
-        try
-        {
-            Cef.UIThreadTaskFactory.StartNew(( ) =>
-            {
-                Browser.GetBrowser( ).GetHost( ).RequestContext
-                       .SetPreference("profile.default_content_setting_values.plugins", 1, out string error);
-            });
-        }
-        catch (NullReferenceException) { }
-        catch (ObjectDisposedException) { }
-    }
-
     private void PageCheckUrl(object o, KeyEventArgs e)
     {
         if (e.Key is (Key.Enter or Key.Return) and not Key.ImeProcessed)
@@ -76,7 +59,7 @@ public partial class MainWindow : Window, IDisposable
     private void PagePreload(object o, RoutedEventArgs e)
     {
         State = BrowserState.Browsing;
-        if (AddressBox.Text.ToUpperInvariant( ).Contains("EASY://"))
+        if (AddressBox.Text.Contains("EASY://", StringComparison.InvariantCultureIgnoreCase))
             Instance.PraseEasy(Id, AddressBox.Text);
         else if (Utils.AddressRegex.IsMatch(AddressBox.Text))
             Instance.Navigate(Id, AddressBox.Text);

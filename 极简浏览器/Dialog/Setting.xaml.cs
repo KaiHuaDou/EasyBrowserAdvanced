@@ -32,14 +32,6 @@ public partial class Setting : Window
         Close( );
     }
 
-    private void ClearCache(object o, RoutedEventArgs e)
-    {
-        foreach (string file in Directory.GetFiles(FilePath.Cache))
-        { try { File.Delete(file); } catch { } }
-        foreach (string file in Directory.GetFiles(FilePath.GPUCache))
-        { try { File.Delete(file); } catch { } }
-    }
-
     private void ClearLog(object o, RoutedEventArgs e)
     {
         foreach (string file in Directory.GetFiles(FilePath.Log))

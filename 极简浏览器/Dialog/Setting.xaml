@@ -58,14 +58,10 @@
                   Grid.Row="4" Grid.ColumnSpan="2"
                   Margin="0,5,0,5"
                   Content="禁用 GPU 加速" />
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button x:Name="CacheButton"
-                    Margin="0,5,5,5" Padding="30,3"
-                    Click="ClearCache" Content="清除缓存" />
-            <Button x:Name="LogButton"
-                    Margin="5,5,0,5" Padding="30,3"
-                    Click="ClearLog" Content="清除日志" />
-        </StackPanel>
+        <Button x:Name="LogButton"
+                Grid.Row="5"
+                Margin="0,5,0,5" Padding="30,3"
+                Click="ClearLog" Content="清除日志" />
         <Button x:Name="OKButton"
                 Grid.Row="6" Grid.Column="1"
                 Margin="0,5,0,0" Padding="30,3" HorizontalAlignment="Right"

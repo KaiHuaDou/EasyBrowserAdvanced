@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
 using 极简浏览器.Api;
@@ -9,29 +8,26 @@ namespace 极简浏览器;
 public partial class WebSource : Window
 {
     private int Id;
+    private bool isLoading;
 
     public WebSource(int id)
     {
         InitializeComponent( );
         Id = id;
-        RefreshSource(null, null);
     }
 
-    private async void RefreshSource(object o, RoutedEventArgs e)
-        => sourceBox.Text = await Instance.PageSourceAsync(Id);
+    private void RefreshSource(object o, RoutedEventArgs e)
+        => LoadSource( );
+    private void WindowLoaded(object o, RoutedEventArgs e)
+        => LoadSource( );
 
-    private void FormatSource(object o, RoutedEventArgs e)
+    private async void LoadSource( )
     {
-        formatButton.IsEnabled = false;
-        new Thread(new ParameterizedThreadStart((object text) =>
-        {
-            string result = HTMLFormatter.Format(text.ToString( ));
-            Dispatcher.Invoke(( ) =>
-            {
-                sourceBox.Text = result;
-                formatButton.IsEnabled = true;
-            });
-        })).Start(sourceBox.Text);
+        if (isLoading)
+            return;
+        isLoading = true;
+        sourceBox.Text = await Instance.PageSourceAsync(Id);
+        isLoading = false;
     }
 
     private void SaveSource(object o, RoutedEventArgs e)
